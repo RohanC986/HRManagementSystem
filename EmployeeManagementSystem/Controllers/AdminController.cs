@@ -18,6 +18,7 @@ namespace EmployeeManagementSystem.Controllers
     [Route("controller")]
     public class AdminController : Controller
     {
+        private  AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
 
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
@@ -39,13 +40,15 @@ namespace EmployeeManagementSystem.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("getAllEmployees", dict);
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
             AdminViewModel adminViewModel = new AdminViewModel();
             adminViewModel.allEmployees  = cs.DataTabletoEmployeeModel(EmpTable);
             ViewData["allEmployees"]=adminViewModel.allEmployees;
-            
-            
-            
+
+            EmpAllOver = adminViewModel;
+
+
+
 
             return View(ViewData);
         }
