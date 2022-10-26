@@ -32,11 +32,11 @@
                     <span class="glyphicon glyphicon-home"></span>
                     Home
                 </a>
-                <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                <a href="@Url.Action("AddNewEmp()" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                     <span class="fa fa-solid fa-user"></span>
                     AddNewEmployee
                 </a>
-                <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                <a href="@Url.Action("GetAllEmployees" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                     <span class="fa fa-solid fa-users"></span>
                     Employees
                 </a>
@@ -121,10 +121,10 @@
             *@
             @Html.DropDownList("Gender", new List<SelectListItem>
                       {
-                          new SelectListItem { Text = "Select Gender", Value = "1", Selected=true},
-                          new SelectListItem { Text = "Male", Value = "2"},
+                          new SelectListItem { Text = "Select Gender", Value = "Gender", Selected=true},
+                          new SelectListItem { Text = "Male", Value = "Male"},
 
-                          new SelectListItem { Text = "Female", Value = "3"},
+                          new SelectListItem { Text = "Female", Value = "Female"},
                        }, htmlAttributes: new { @class = "text-center Role-Down " })
 
             @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
@@ -137,15 +137,15 @@
             @*@Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Bloodgroup " } })*@
             @Html.DropDownList("BloodGroup", new List<SelectListItem>
                       {
-                          new SelectListItem { Text = "Select Blood Group", Value = "1", Selected=true},
-                          new SelectListItem { Text = "A+", Value = "2"},
-                          new SelectListItem { Text = "A-", Value = "3"},
-                          new SelectListItem { Text = "B+", Value = "4"},
-                          new SelectListItem { Text = "B-", Value = "5"},
-                          new SelectListItem { Text = "AB+",Value = "6"},
-                          new SelectListItem { Text = "AB-",Value = "7"},
-                          new SelectListItem { Text = "O+", Value = "8"},
-                          new SelectListItem { Text = "O-", Value = "9"}
+                          new SelectListItem { Text = "Select Blood Group", Value = "Not Selected", Selected=true},
+                          new SelectListItem { Text = "A+", Value = "A+"},
+                          new SelectListItem { Text = "A-", Value = "A-"},
+                          new SelectListItem { Text = "B+", Value = "B+"},
+                          new SelectListItem { Text = "B-", Value = "B-"},
+                          new SelectListItem { Text = "AB+",Value = "AB+"},
+                          new SelectListItem { Text = "AB-",Value = "AB-"},
+                          new SelectListItem { Text = "O+", Value = "O+"},
+                          new SelectListItem { Text = "O-", Value = "O-"}
                        }, htmlAttributes: new { @class = "text-center Role-Down " })
             @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
         </div>
@@ -232,35 +232,35 @@
             @*            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder="Enter Your State " } })
             *@            @Html.DropDownList("State", new List<SelectListItem>
                   {
-                  new SelectListItem { Text = "Select State", Value = "1", Selected=true},
-                  new SelectListItem { Text = "Andhra Pradesh", Value = "2"},
-                  new SelectListItem { Text = "Arunachal Pradesh", Value = "3"},
-                  new SelectListItem { Text = "Assam", Value = "4"},
-                  new SelectListItem { Text = "Bihar", Value = "5"},
-                  new SelectListItem { Text = "Chhattisgarh", Value = "6"},
-                  new SelectListItem { Text = "Goa", Value = "7"},
-                  new SelectListItem { Text = "Gujarat", Value = "8"},
-                  new SelectListItem { Text = "Haryana", Value = "9"},
-                  new SelectListItem { Text = "Himachal Pradesh", Value = "10"},
-                  new SelectListItem { Text = "Jharkhand", Value = "11"},
-                  new SelectListItem { Text = "Karnataka", Value = "12"},
-                  new SelectListItem { Text = "Kerala", Value = "13"},
-                  new SelectListItem { Text = "Madhya Pradesh", Value = "14"},
-                  new SelectListItem { Text = "Maharashtra", Value = "15"},
-                  new SelectListItem { Text = "Manipur", Value = "16"},
-                  new SelectListItem { Text = "Meghalaya", Value = "17"},
-                  new SelectListItem { Text = "Mizoram", Value = "18"},
-                  new SelectListItem { Text = "Nagaland", Value = "19"},
-                  new SelectListItem { Text = "Odisha", Value = "20"},
-                  new SelectListItem { Text = "Punjab", Value = "21"},
-                  new SelectListItem { Text = "Rajasthan", Value = "22"},
-                  new SelectListItem { Text = "Sikkim", Value = "23"},
-                  new SelectListItem { Text = "Tamil Nadu", Value = "24"},
-                  new SelectListItem { Text = "Telangana", Value = "25"},
-                  new SelectListItem { Text = "Tripura", Value = "26"},
-                  new SelectListItem { Text = "Uttar Pradesh", Value = "27"},
-                  new SelectListItem { Text = "Uttarakhand", Value = "28"},
-                  new SelectListItem { Text = "West Bengal", Value = "29"},
+                  new SelectListItem { Text = "Select State", Value = "Not Slected", Selected=true},
+                  new SelectListItem { Text = "Andhra Pradesh", Value = "Andhra Pradesh"},
+                  new SelectListItem { Text = "Arunachal Pradesh", Value = "Arunachal Pradesh"},
+                  new SelectListItem { Text = "Assam", Value = "Assam"},
+                  new SelectListItem { Text = "Bihar", Value = "Bihar"},
+                  new SelectListItem { Text = "Chhattisgarh", Value = "Chhattisgarh"},
+                  new SelectListItem { Text = "Goa", Value = "Goa"},
+                  new SelectListItem { Text = "Gujarat", Value = "Gujarat"},
+                  new SelectListItem { Text = "Haryana", Value = "Haryana"},
+                  new SelectListItem { Text = "Himachal Pradesh", Value = "Himachal Pradesh"},
+                  new SelectListItem { Text = "Jharkhand", Value = "Jharkhand"},
+                  new SelectListItem { Text = "Karnataka", Value = "Karnataka"},
+                  new SelectListItem { Text = "Kerala", Value = "Kerala"},
+                  new SelectListItem { Text = "Madhya Pradesh", Value = "Madhya Pradesh"},
+                  new SelectListItem { Text = "Maharashtra", Value = "Maharashtra"},
+                  new SelectListItem { Text = "Manipur", Value = "Manipur"},
+                  new SelectListItem { Text = "Meghalaya", Value = "Meghalaya"},
+                  new SelectListItem { Text = "Mizoram", Value = "Mizoram"},
+                  new SelectListItem { Text = "Nagaland", Value = "Nagaland"},
+                  new SelectListItem { Text = "Odisha", Value = "Odisha"},
+                  new SelectListItem { Text = "Punjab", Value = "Punjab"},
+                  new SelectListItem { Text = "Rajasthan", Value = "Rajasthan"},
+                  new SelectListItem { Text = "Sikkim", Value = "Sikkim"},
+                  new SelectListItem { Text = "Tamil Nadu", Value = "Tamil Nadu"},
+                  new SelectListItem { Text = "Telangana", Value = "Telangana"},
+                  new SelectListItem { Text = "Tripura", Value = "Tripura"},
+                  new SelectListItem { Text = "Uttar Pradesh", Value = "Uttar Pradesh"},
+                  new SelectListItem { Text = "Uttarakhand", Value = "Uttarakhand"},
+                  new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
 
                   }, htmlAttributes: new { @class = "text-center Role-Down " })
 
@@ -281,13 +281,13 @@
             @* @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role" } })
                 @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
             *@
-            @Html.DropDownList("Gender", new List<SelectListItem>
+            @Html.DropDownList("Role", new List<SelectListItem>
             {
 
-               new SelectListItem { Text = "Select Role", Value = "1", Selected=true},
-               new SelectListItem { Text = "Admin", Value = "2"},
-               new SelectListItem { Text = "Team Lead", Value = "3"},
-               new SelectListItem { Text = "Employee", Value = "4"},
+               new SelectListItem { Text = "Select Role", Value = "Not Selected", Selected=true},
+               new SelectListItem { Text = "Admin", Value = "Admin"},
+               new SelectListItem { Text = "Team Lead", Value = "Team Lead"},
+               new SelectListItem { Text = "Employee", Value = "Employee"},
             }, htmlAttributes: new { @class = "text-center Role-Down " })
             @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
         </div>
@@ -302,9 +302,10 @@
             *@
             @Html.DropDownList("Experienced", new List<SelectListItem>
             {
-                new SelectListItem { Text = "Select Option", Value = "1", Selected=true},
-                new SelectListItem { Text = "Yes", Value = "2"},
-                new SelectListItem { Text = "No", Value = "3"},
+                new SelectListItem { Text = "Select Option", Selected=true},
+                new SelectListItem { Text = "No", Value = "false"},
+                new SelectListItem { Text = "Yes", Value ="true" },
+
              }, htmlAttributes: new { @class = "text-center Role-Down " })
             @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
         </div>
