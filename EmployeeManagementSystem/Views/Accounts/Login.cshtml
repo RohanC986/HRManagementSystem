@@ -3,42 +3,69 @@
 
 @{
     ViewBag.Title = "Login";
+    Layout = null;
 }
+@* login navbar*@
+<head>
+    <title>@ViewBag.Title Employee Management Portal</title>
+    <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
 
-<h2>Login</h2>
+</head>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+
+<nav class="navbar navbar-expand-lg navbar-light  ">
+    <div class="container-fluid login-logo">
+        <a href="#" class="navbar-brand ">
+            <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
+        </a>
+
+    </div>
+</nav>
+@*login navbar*@
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+       
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="wrapper mx-auto ">
+        <h3 class="Form-Header ">Login</h3>
+        <hr class="login-header" />
+        <form class="p-3 mt-3  align-items-center">
+            <div class="form-field d-flex align-items-center me-2 ">
+                <span><i class="fa fa-lg fa-solid fa-user "></i></span>
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = " text-center control-label col-md-4 h4" })
+
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control rounded-0", id = "userName", placeholder = "Enter name here", minlength = "6", maxlength = "12" } })
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
             </div>
-        </div>
+            <div class="form-field d-flex align-items-center me-2">
+                <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
+                @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
 
-        <div class="form-group">
-            @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-2", })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control",@autocomplete = "off" ,@type="password"} })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", minlength = "6", maxlength = "12", @autocomplete = "off", @type = "password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
-        </div>
+            <button class="btn  login-btn">Login</button>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
+
+        </form>
+        <div class="text-center fs-6">
+            <a href="#">Forget password?</a>
         </div>
+        <h1>@ViewData["out"]</h1>
+
     </div>
-    <h1>@Session["EmpId"]</h1>
-}
+    <h1>@ViewData["out"]</h1>
 
-<div>
-    @Html.ActionLink("Click here to Signup", "Signup")
-</div>
+
+
+
+}

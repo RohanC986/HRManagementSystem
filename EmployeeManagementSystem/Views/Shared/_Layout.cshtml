@@ -1,48 +1,120 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <title>@ViewBag.Title Employee Management Portal</title>
+    <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Employee Portal", "Index", "Employees", new { area = "" }, new { @class = "navbar-brand" })
+    @*    <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand ">
+                            <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
+                        </a>
+                        @Html.ActionLink("Employee Portal", "Index", "Employees", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("Get Employee List", "Index", "Employees")</li>
+                                <li>@Html.ActionLink("Add Employee", "Create", "Employees")</li>
+                                <li><a>Hello - @User.Identity.Name</a></li>
+                                <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        <span class="glyphicon glyphicon-home"></span>
+                          Home
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">
+                        <span class="glyphicon glyphicon-search"></span>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                <a href="@Url.Action("About", "Home")">
+                    About
+                </a>
+                </li>
+                <li>
+                <a href="@Url.Action("Search", "Home")">
+                    Search
+                </a>
+                </li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Get Employee List", "Index", "Employees")</li>
-                        <li>@Html.ActionLink("Add Employee", "Create", "Employees")</li>
-                        <li><a>Hello - @User.Identity.Name</a></li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
-                    }
-                </ul>
+    *@
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand ">
+                <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarCollapse">
+                <div class="navbar-nav mx-lg-4 mx-sm-auto">
+                    <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Home
+                    </a>
+                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Profile
+                    </a>
+                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        Leave Request
+                    </a>
+                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                        <span class="glyphicon glyphicon-file"></span>
+                        Performance
+                    </a>
+                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Logout
+                    </a>
+
+                </div>
+
             </div>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+       @* <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        </footer>*@
     </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

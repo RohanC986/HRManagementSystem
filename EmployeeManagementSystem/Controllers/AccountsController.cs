@@ -78,8 +78,11 @@ namespace EmployeeManagementSystem.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session.Clear();
             return RedirectToAction("Login");
         }
+
+
 
 
 

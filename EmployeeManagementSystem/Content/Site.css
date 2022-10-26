@@ -1,30 +1,162 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+
+body {
+    margin-top: 0;
+    background: #ecf0f3;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+
+
+/*login nav*/
+.navbar > .login-logo {
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: flex-start;
+}
+/*Login nav*/
+
+
+
+/*title*/
+
+/*title*/
+/********************************Navbar Operations Start **************************************************************/
+.navbar {
+    background-color: darkblue;
+    margin-bottom: 0px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.navbar-brand {
+    margin-top: 0;
+    padding-top: 8px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.navbar-nav {
+    font-size: 1.68rem;
+    font-family: Arial;
 }
 
-.navbar-inverse .navbar-toggle:hover,
-.navbar-inverse .navbar-toggle:focus {
-    background-color: #777;
-    border-color: #fff
+.navbar-nav-right {
+    float: right;
 }
+
+.navbar-nav {
+    float: right;
+}
+
+
+
+
+/********************************Navbar Operations End**************************************************************/
+
+
+
+/*Login Form start*/
+
+.wrapper {
+    max-width: 400px;
+    min-height: 300px;
+    margin: 80px auto;
+    padding: 40px 25px 30px 25px;
+    border-radius: 5px;
+    border: 3px solid black;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+}
+
+.wrapper .form-field {
+        padding-left: 0;
+        margin-bottom: 20px;
+        border-radius: 20px;
+}
+
+.wrapper .form-field .fas {
+            color: #555;
+}
+
+.login-header {
+    border: 2px solid green;
+}
+
+.login-btn {
+    margin-left: 5.5rem;
+}
+
+.wrapper .btn {
+    box-shadow: none;
+    height: 40px;
+    width: 65%;
+    background-color: #345bbd;
+    color: #fff;
+    border-radius: 25px;
+    /*    box-shadow: 3px 3px 3px #b1b1b1,-3px -3px 3px #fff;
+*/ letter-spacing: 1.3px;
+}
+
+.wrapper .btn:hover {
+   background-color: #039BE5;
+}
+
+.wrapper a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #000000;
+}
+
+.form-icon {
+    padding-right: 5px;
+}
+
+.Form-Header {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#login-text {
+    font-size: 55px;
+}
+/*Login Form End*/
+
+
+
+
+
+/*Employee form*/
+#emp-form-box {
+    border: 2px solid black;
+}
+
+#Emp-form-back-list {
+    background-color: lavender;
+    padding: 1%;
+    text-align: center;
+    font-size: 15px;
+}
+
+    #Emp-form-back-list a {
+        color: red;
+    }
+
+#emp-create-btn {
+    padding: 6px;
+}
+
+.Role-Down {
+    padding: 2% 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.addEmp{
+    text-align:center;
+    margin-top:1%;
+    font-size:2.7rem;
+    font-weight:bold
+}
+
+#addemphr {
+    border: 2px solid green;
+    width: 80%;
+    margin-left: 15%;
+}
+/*Employee form*/
