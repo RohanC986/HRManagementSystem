@@ -12,12 +12,15 @@ namespace EmployeeManagementSystem
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Employee", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "Accounts", action = "Login", id = UrlParameter.Optional }
             );
         }
+
     }
+
+
 }

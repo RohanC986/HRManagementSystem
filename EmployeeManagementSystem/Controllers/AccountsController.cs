@@ -65,10 +65,10 @@ namespace EmployeeManagementSystem.Controllers
             }
             else
             {
-                RedirectToAction("LeaveRequest","Employee");
+                RedirectToAction("GetAllTeamEmps", "TeamLead");
             }
            
-            return RedirectToAction("LeaveRequest", "Employee");
+            return RedirectToAction("GetAllTeamEmps", "TeamLead");
 
 
         }

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "LeaveSummary";
+
+
+    var data = (IEnumerable<EmployeeManagementSystem.Models.Leave>)ViewData["getleaves"];
+}
+
+<h2>LeaveSummary</h2>
+<table border=" ">
+    <tbody>
+        <tr>
+            <th>
+                Leaves Accured
+            </th>
+
+            <th>
+                Previous Balance
+            </th>
+
+            <th>
+                SatSun Working
+            </th>
+
+            <th>
+                Balance Leaves
+            </th>
+
+            <th>
+                Total Available
+            </th>
+
+            <th>
+                Leaves Taken
+            </th>
+
+            <th>
+                Cumalative Leaves
+            </th>
+
+            <th>
+                Balance EOM
+            </th>
+
+            <th>
+                Leave Without Pay
+            </th>
+        </tr>
+
+        @{
+            foreach (var item in data)
+            {
+
+                <tr>
+
+
+
+                    <td> @item.LeavesAccrued </td>
+                    <td> @item.PreviousBalance</td>
+                    <td> @item.SatSunWorking</td>
+                    <td> @item.BalanceLeaves</td>
+                    <td> @item.TotalAvailable</td>
+                    <td> @item.LeavesTaken</td>
+                    <td> @item.CumilativeLeaves</td>
+                    <td> @item.BalanceEOM</td>
+                    <td> @item.LeaveWithoutPay</td>
+                    
+                    
+
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+

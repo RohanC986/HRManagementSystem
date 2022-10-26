@@ -36,11 +36,10 @@ namespace EmployeeManagementSystem.Controllers
        
 
         [Route("[controller]/getallemployees")]
-        public ViewResult GetAllEmployees()
+        public ViewResult GetAllEmployeesDetails()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
-
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees" ,dict );
             AdminViewModel adminViewModel = new AdminViewModel();
             adminViewModel.allEmployees  = cs.DataTabletoEmployeeModel(EmpTable);
             ViewData["allEmployees"]=adminViewModel.allEmployees;
@@ -79,16 +78,56 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Experienced",model.Experienced},
                 { "@YearsOfExprience",model.YearsOfExprience},
             };
-            object check = dal.ExecuteNonQuery("AddNewEmp", dict);
+            object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
             Console.WriteLine(check);
             if (check == null)
             {
                 ViewBag.Message = "Invalid credentials";
             }
-            
-
             return View();
         }
+
+        //public ActionResult UpdateEmpDetails(int EmployeeId)
+        //{
+        //    Employee model = new Employee(); 
+        //    if (EmployeeId > null)
+        //    {
+        //        Dictionary<string, object> dict = new Dictionary<string, object>() {
+        //        //{ "@EmployeeId",model.EmployeeId},
+        //        { "@EmployeeCode",model.EmployeeCode},
+        //        { "@FirstName",model.FirstName},
+        //        { "@MiddleName",model.MiddleName},
+        //        { "@LastName",model.LastName},
+        //        { "@Email",model.Email},
+        //        { "@DOB",model.DOB},
+        //        { "@DOJ",model.DOJ},
+        //        { "@BloodGroup",model.BloodGroup},
+        //        { "@Gender",model.Gender},
+        //        { "@PersonalContact",model.PersonalContact},
+        //        { "@EmergencyContact",model.EmergencyContact},
+        //        { "@AadharCardNo",model.AadharCardNo},
+        //        { "@PancardNo",model.PancardNo},
+        //        { "@Address",model.Address},
+        //        { "@City",model.City},
+        //        { "@State",model.State},
+        //        { "@Pincode",model.Pincode},
+        //        { "@Role",model.Role},
+        //        { "@Designation",model.Designation},
+        //        { "@Experienced",model.Experienced},
+        //        { "@YearsOfExprience",model.YearsOfExprience},
+        //    };
+        //        object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+
+
+
+
+
+
+        //    }
+
+
+
+        //}
 
     }
 }
