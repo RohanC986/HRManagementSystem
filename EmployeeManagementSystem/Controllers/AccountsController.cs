@@ -56,7 +56,7 @@ namespace EmployeeManagementSystem.Controllers
                  ModelState.AddModelError("", "invalid Username or Password");
                  return View();
              }*/
-             object  output = dal.ExecuteScalar("checkCredentials",dict);
+             object  output = dal.ExecuteScalar("uspcheckCredentials",dict);
             Session["EmpId"] = output;
               Console.WriteLine(output);
             if(output==null)
