@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "GetAllTeamEmps";
+    var data = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
+
+}
+
+<h2>GetAllTeamEmps</h2>
+<table border=" ">
+    <tbody>
+        <tr>
+            <th>
+                EmployeeId
+            </th>
+
+            <th>
+                 Name
+            </th>
+
+            <th>
+                Email
+            </th>
+
+            <th>
+               Designation
+            </th>
+
+            <th>
+                Project Name
+            </th>
+
+            <th>
+                Status
+            </th>
+
+            
+        </tr>
+
+        @{
+            foreach (var item in data)
+            {
+
+                <tr>
+
+
+
+                    <td> @item.EmployeeId </td>
+                    <td> @item.FirstName @item.LastName</td>
+                    <td> @item.Email</td>
+                    <td> @item.Designation</td>
+                    <td> @item.ProjectName</td>
+                    
+
+
+
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
+
+

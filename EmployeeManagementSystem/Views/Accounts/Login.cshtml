@@ -43,14 +43,14 @@
                 <span><i class="fa fa-lg fa-solid fa-user "></i></span>
                 @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = " text-center control-label col-md-4 h4" })
 
-                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control rounded-0", id = "userName", placeholder = "Enter name here", minlength = "6", maxlength = "12" } })
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control rounded-0", id = "userName", placeholder = "Enter name here"} })
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
             </div>
             <div class="form-field d-flex align-items-center me-2">
                 <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
                 @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
 
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", minlength = "6", maxlength = "12", @autocomplete = "off", @type = "password" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", @autocomplete = "off", @type = "password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
             <button class="btn  login-btn">Login</button>
