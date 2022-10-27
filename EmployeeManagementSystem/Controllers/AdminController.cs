@@ -22,6 +22,7 @@ namespace EmployeeManagementSystem.Controllers
         DataAccessService dal = new DataAccessService();
 
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
+        DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
 
 
         public AdminController()
@@ -43,12 +44,7 @@ namespace EmployeeManagementSystem.Controllers
             AdminViewModel adminViewModel = new AdminViewModel();
             adminViewModel.allEmployees  = cs.DataTabletoEmployeeModel(EmpTable);
             ViewData["allEmployees"]=adminViewModel.allEmployees;
-
             EmpAllOver = adminViewModel;
-
-
-
-
             return View(ViewData);
         }
 
@@ -69,7 +65,11 @@ namespace EmployeeManagementSystem.Controllers
                 { "@EmergencyContact",model.EmergencyContact},
                 { "@AadharCardNo",model.AadharCardNo},
                 { "@PancardNo",model.PancardNo},
+<<<<<<< Updated upstream
                 { "@PassportNo",model.PassportNo},
+=======
+                {"@PassportNo",model.PassportNo},
+>>>>>>> Stashed changes
                 { "@Address",model.Address},
                 { "@City",model.City},
                 { "@State",model.State},
@@ -77,7 +77,11 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Role",model.Role},
                 { "@Designation",model.Designation},
                 { "@Experienced",model.Experienced},
+<<<<<<< Updated upstream
                 {"@PreviousCompanyName",model.PreviousCompanyName },
+=======
+                {"@PreviousCompanyName",model.PreviousCompanyName},
+>>>>>>> Stashed changes
                 { "@YearsOfExprience",model.YearsOfExprience},
             };
             object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
@@ -119,17 +123,18 @@ namespace EmployeeManagementSystem.Controllers
         //        { "@YearsOfExprience",model.YearsOfExprience},
         //    };
         //        object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
-
-
-
-
-
-
         //    }
-
-
-
         //}
+
+        public ActionResult Department()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable Department = dal.ExecuteDataSet<DataTable>("uspgetTeamEmps", dict);
+            DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
+            departmentsViewModel.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department);
+            ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;         
+            return View(ViewData);
+        }
 
     }
 }

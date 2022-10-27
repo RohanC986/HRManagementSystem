@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Department";
+    var data = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
+}
+
+<h2>Department</h2>
+<table border=" ">
+    <tbody>
+        <tr>
+            <th>
+               Name
+            </th>
+
+            <th>
+               Project Name
+            </th>
+
+            <th>
+               Total Members
+            </th>
+
+            <th>
+                EmployeesOnLeave
+            </th>
+
+            
+        </tr>
+
+        @{
+            foreach (var item in data)
+            {
+
+                <tr>
+
+
+
+                    <td> @item.FirstName @item.LastName </td>
+                    <td> @item.ProjectName</td>
+                    <td> @item.TotalMembers</td>
+
+                   
+
+
+
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>

@@ -22,19 +22,10 @@ namespace EmployeeManagementSystem.DataAccessLayer
 
         public DataTable ExecuteDataSet<T>(string storedProcedure, Dictionary<string, object> parameters)
         {
-
-
-
             SqlDataReader myReader;
             DataTable table = new DataTable();
-            
-           
-
-            
-
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
-
                     SqlCommand myCommand = new SqlCommand(storedProcedure);
                     myCommand.Connection = connection;
                     myCommand.CommandTimeout = 30;
@@ -101,9 +92,6 @@ namespace EmployeeManagementSystem.DataAccessLayer
                     /*Instead of the below command we have passed the stored procedure while creating SqlCommand object*/
                     /*  myCommand.CommandText = storedProcedure;*/
                     myCommand.CommandType = CommandType.StoredProcedure;
-
-
-
                     foreach (var param in parameters)
                     {
                         var parameter = new SqlParameter
