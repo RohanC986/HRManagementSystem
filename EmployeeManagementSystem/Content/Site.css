@@ -147,17 +147,20 @@ body {
     width: 100%;
 }
 
-.addEmp {
+.addEmp,
+.TeamEmpData,
+.LeaveSummaryHeading,
+.LeaveRequestHeading {
     text-align: center;
     margin-top: 1%;
     font-size: 2.7rem;
     font-weight: bold
 }
 
-#addemphr {
+#addemphr, #leaverequesthr {
     border: 2px solid green;
     width: 80%;
-    margin-left: 15%;
+    margin-left: 10%;
 }
 /*Employee form*/
 
@@ -200,3 +203,52 @@ table.EmpTableDet td {
 
 
 /*Emp Table*/
+
+
+/*Team lead data*/
+#teamdepemphr {
+    border: 2px solid green;
+    width: 80%;
+    margin-left: 10%;
+}
+/*Team lead data*/
+
+/*Leave pages*/
+#leavetable {
+    width: 35%;
+    padding: 10px;
+    margin: auto;
+    border: 2px solid black;
+}
+.leaveTab {
+    /* width: 70%;
+    text-align: center;
+    margin: auto;*/
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #fff;
+}
+.leaveTableRow {
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+.leaveTableHeading {
+    margin-right: auto;
+}
+
+table.leaveTab  th {
+    padding: 12px;
+    font-size: large;
+}
+
+table.leaveTab td {
+    padding: 12px;
+    font-size: large;
+}
+#leaveRequestDiv{
+    width:50%;
+    margin:50px auto auto auto;
+    border:2px solid green;
+}
+/*Leave pages*/
