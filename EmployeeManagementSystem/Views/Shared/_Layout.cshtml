@@ -90,21 +90,24 @@
                         <span class="glyphicon glyphicon-user"></span>
                         Profile
                     </a>
-                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon glyphicon-list-alt"></span>
+                    <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon  glyphicon-open-file"></span>
                         Leave Request
+                    </a>
+                    <a href="@Url.Action("LeaveSummary" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        Leave Summary
                     </a>
                     <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
                         <span class="glyphicon glyphicon-file"></span>
                         Performance
                     </a>
-                    <a href="@Url.Action("Logout" , "Accounts")"  class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                    <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Logout
                     </a>
 
                 </div>
-
             </div>
         </div>
     </nav>

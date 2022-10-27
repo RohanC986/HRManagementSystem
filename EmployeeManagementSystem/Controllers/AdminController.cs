@@ -69,6 +69,7 @@ namespace EmployeeManagementSystem.Controllers
                 { "@EmergencyContact",model.EmergencyContact},
                 { "@AadharCardNo",model.AadharCardNo},
                 { "@PancardNo",model.PancardNo},
+                { "@PassportNo",model.PassportNo},
                 { "@Address",model.Address},
                 { "@City",model.City},
                 { "@State",model.State},
@@ -76,6 +77,7 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Role",model.Role},
                 { "@Designation",model.Designation},
                 { "@Experienced",model.Experienced},
+                {"@PreviousCompanyName",model.PreviousCompanyName },
                 { "@YearsOfExprience",model.YearsOfExprience},
             };
             object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);

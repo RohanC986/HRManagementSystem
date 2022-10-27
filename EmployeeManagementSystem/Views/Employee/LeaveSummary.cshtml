@@ -6,71 +6,62 @@
     var data = (IEnumerable<EmployeeManagementSystem.Models.Leave>)ViewData["getleaves"];
 }
 
-<h2>LeaveSummary</h2>
-<table border=" ">
-    <tbody>
-        <tr>
-            <th>
-                Leaves Accured
-            </th>
-
-            <th>
-                Previous Balance
-            </th>
-
-            <th>
-                SatSun Working
-            </th>
-
-            <th>
-                Balance Leaves
-            </th>
-
-            <th>
-                Total Available
-            </th>
-
-            <th>
-                Leaves Taken
-            </th>
-
-            <th>
-                Cumalative Leaves
-            </th>
-
-            <th>
-                Balance EOM
-            </th>
-
-            <th>
-                Leave Without Pay
-            </th>
-        </tr>
-
+<h2 class="LeaveSummaryHeading">Leave Summary</h2>
+<hr id="teamdepemphr" />
+<div id="leavetable">
+    <table class="leaveTab">
         @{
             foreach (var item in data)
             {
-
-                <tr>
-
-
-
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading">Leave Accured</th>
                     <td> @item.LeavesAccrued </td>
-                    <td> @item.PreviousBalance</td>
-                    <td> @item.SatSunWorking</td>
-                    <td> @item.BalanceLeaves</td>
-                    <td> @item.TotalAvailable</td>
-                    <td> @item.LeavesTaken</td>
-                    <td> @item.CumilativeLeaves</td>
-                    <td> @item.BalanceEOM</td>
-                    <td> @item.LeaveWithoutPay</td>
-                    
-                    
+                </tr>
 
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading">Previous Balance</th>
+                    <td> @item.PreviousBalance</td>
+                </tr>
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading">SatSun Working</th>
+                    <td> @item.SatSunWorking</td>
+
+                </tr>
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading"> Balance Leaves</th>
+                    <td> @item.BalanceLeaves</td>
+                </tr>
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading">Total Available</th>
+                    <td> @item.TotalAvailable</td>
+                </tr >
+                <tr class="leaveTableRow">
+                    <th class="leaveTableHeading">Total Available</th>
+                    <td > @item.TotalAvailable</td>
+
+                </tr>
+                <tr class="leaveTableRow">
+                    <th>Leaves Taken</th>
+                    <td> @item.LeavesTaken</td>
+
+                </tr>
+                <tr class="leaveTableRow">
+                    <th>Cumilative Leaves</th>
+                    <td> @item.CumilativeLeaves</td>
+                </tr>
+                <tr class="leaveTableRow">
+                    <th>Balance EOM</th>
+                    <td>@item.BalanceEOM</td>
+
+                </tr>
+                <tr class="leaveTableRow">
+                    <th>Leave Without Pay</th>
+                    <td> @item.LeaveWithoutPay</td>
                 </tr>
 
             }
         }
-    </tbody>
-</table>
+
+    </table>
+</div>
 

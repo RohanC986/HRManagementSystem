@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "LeaveRequest";
-    Layout = null;
-}
+@*    Layout = null;
+*@}
 <head>
     <title>@ViewBag.Title Employee Management Portal</title>
     <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
@@ -15,49 +15,14 @@
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 
-<nav class="navbar navbar-expand-lg navbar-light ">
-    <div class="container-fluid">
-        <a href="#" class="navbar-brand ">
-            <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarCollapse">
-            <div class="navbar-nav mx-lg-4 mx-sm-auto">
-                <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Home
-                </a>
-                <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                    <span class="glyphicon glyphicon-user"></span>
-                    Profile
-                </a>
-                <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                    <span class="glyphicon glyphicon-list-alt"></span>
-                    Leave Request
-                </a>
-                <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                    <span class="glyphicon glyphicon-file"></span>
-                    Performance
-                </a>
-                <a href="@Url.Action("Logout" , "Accounts")"  class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    Logout
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>LeaveRequest</h4>
-        <hr />
+    <div class="form-horizontal" id="leaveRequestDiv">
+        <h4 class="LeaveRequestHeading">LeaveRequest</h4>
+        <hr id="leaverequesthr" />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
                 @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -67,9 +32,9 @@
                 </div>
             </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsHalfday, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group ">
+            @Html.LabelFor(model => model.IsHalfday, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.IsHalfday)
                     @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger" })
@@ -78,55 +43,51 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control " } })
                 @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LengthOfLeave, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div  class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
