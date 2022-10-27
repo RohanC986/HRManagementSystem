@@ -89,7 +89,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ViewResult GetEmpDetails(EmployeeViewModel obj)
+        public ViewResult GetUserDetails(EmployeeViewModel obj)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -98,16 +98,10 @@ namespace EmployeeManagementSystem.Controllers
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
             EmployeeViewModel employee = new EmployeeViewModel();
             employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-            ViewData["allEmployees"] = employee.employees;
-           
-
-
-
-
-
-
+            ViewData["userdetails"] = employee.employees;
             return View(ViewData);
         }
+
 
 
 
