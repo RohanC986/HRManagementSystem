@@ -345,13 +345,11 @@
     <Content Include="Views\Admin\AddNewEmp.cshtml" />
     <Content Include="Views\Employee\LeaveSummary.cshtml" />
     <Content Include="Views\Employee\GetEmpDetails.cshtml" />
-
     <Content Include="Views\Employee\GetEmpDetails.cshtml" />
     <Content Include="Views\TeamLead\GetAllTeamEmps.cshtml" />
-
     <Content Include="Views\TeamLead\GetAllTeamEmps.cshtml" />
     <Content Include="Views\Admin\Department.cshtml" />
-
+    <Content Include="Views\Admin\EditEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

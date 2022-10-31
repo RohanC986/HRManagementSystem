@@ -122,6 +122,54 @@ namespace EmployeeManagementSystem.Controllers
         //    }
         //}
 
+
+       public ActionResult EditEmp(Employee model)
+        {
+            return View(model);
+        }
+
+        public void UpdateEmpDetails(Employee model)
+        {
+
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+                { "@EmployeeId",model.EmployeeId},
+                { "@EmployeeCode",model.EmployeeCode},
+                { "@FirstName",model.FirstName},
+                { "@MiddleName",model.MiddleName},
+                { "@LastName",model.LastName},
+                { "@Email",model.Email},
+                { "@DOB",model.DOB},
+                { "@DOJ",model.DOJ},
+                { "@BloodGroup",model.BloodGroup},
+                { "@Gender",model.Gender},
+                { "@PersonalContact",model.PersonalContact},
+                { "@EmergencyContact",model.EmergencyContact},
+                { "@AadharCardNo",model.AadharCardNo},
+                { "@PassportNo",model.PassportNo},
+                { "@PancardNo",model.PancardNo},
+                { "@Address",model.Address},
+                { "@City",model.City},
+                { "@State",model.State},
+                { "@Pincode",model.Pincode},
+                { "@Role",model.Role},
+                { "@Designation",model.Designation},
+                { "@Experienced",model.Experienced},
+                { "@YearsOfExprience",model.YearsOfExprience},
+                { "@PreviousCompanyName",model.PreviousCompanyName}
+            };
+            object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+
+
+
+
+
+
+
+
+
+
+        }
+
         public ActionResult Department()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();

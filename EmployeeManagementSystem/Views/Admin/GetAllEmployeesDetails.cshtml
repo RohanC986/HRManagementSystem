@@ -97,7 +97,7 @@
                 </th>
 
                 <th>
-                    More
+                   Options
                 </th>
 
             </tr>
@@ -122,7 +122,7 @@
                         <td>@item.City</td>
                         <td>
                              <span>
-                                 <button onclick="location.href='@Url.Action("AddNewEmp", "Admin")'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
+                                 <button onclick="location.href='@Url.Action("EditEmp", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
                                  <button id="emp-create-btn" class="btn-success" type="button">Status</button>
                             </span>
                         </td>
