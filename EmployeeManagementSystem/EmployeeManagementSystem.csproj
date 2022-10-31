@@ -271,6 +271,7 @@
     <Compile Include="ConversionService\DTableToEmployeeModel.cs" />
     <Compile Include="ConversionService\DTableToLeaveModel.cs" />
     <Compile Include="ConversionService\DTableToTeamEmpModel.cs" />
+    <Compile Include="ConversionService\DTableToTeamLeaveRequestModel.cs" />
     <Compile Include="DataAccessLayer\DataAccessService.cs" />
     <Compile Include="DataAccessLayer\IDataAccessService.cs" />
     <Compile Include="DBContext\EMSContext.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="ViewModels\DepartmentListViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
+    <Compile Include="ViewModels\GetTeamLeaveRequestViewModel.cs" />
     <Compile Include="ViewModels\LeaveViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\TeamEmpDetailsViewModel.cs" />
@@ -350,6 +352,7 @@
     <Content Include="Views\TeamLead\GetAllTeamEmps.cshtml" />
     <Content Include="Views\Admin\Department.cshtml" />
     <Content Include="Views\Admin\EditEmp.cshtml" />
+    <Content Include="Views\TeamLead\GetTeamLeaveRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
