@@ -314,7 +314,7 @@
     <div class="form-group col-md-6">
         @Html.LabelFor(model => model.YearsOfExprience, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
-            @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Years Of Experience " } })
+            @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Years Of Experience " ,min="0"} })
             @Html.ValidationMessageFor(model => model.YearsOfExprience, "", new { @class = "text-danger" })
         </div>
     </div>

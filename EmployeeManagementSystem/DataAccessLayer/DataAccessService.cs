@@ -106,7 +106,7 @@ namespace EmployeeManagementSystem.DataAccessLayer
 
 
                     connection.Open();
-                    count = myCommand.ExecuteNonQuery();
+                        count = myCommand.ExecuteNonQuery();
 
 
                 }

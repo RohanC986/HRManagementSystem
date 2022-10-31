@@ -181,6 +181,38 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
+        public ActionResult AddProject()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+            ViewData["AllEmpIdName"] = EmpIdname;
+
+            return View();
+        }
+
+        public void  SaveProject(Project model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@ProjectName",model.ProjectName },
+                {"ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
+            };
+            dal.ExecuteNonQuery("uspSaveProject", dict);
+            
+
+        }
+
+        public ActionResult AddProjectMemebers()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+            ViewData["AllEmpIdName"] = EmpIdname;
+
+            return View();
+        }
+
 
     }
 }
