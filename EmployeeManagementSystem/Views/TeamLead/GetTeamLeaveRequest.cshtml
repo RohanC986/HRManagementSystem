@@ -4,77 +4,91 @@
     ViewBag.Title = "GetTeamLeaveRequest";
 
 }
-<h2>GetTeamLeaveRequest</h2>
-<div id="main">
-    <table class="EmpTableDet">
-        <thead>
-            <tr>
-                <th>
-                    LeaveId
-                </th>
-                <th>
-                    Name
-                </th>
+@if (((Session["role"]).ToString()) == "Team Lead")
+{
+    <h2>GetTeamLeaveRequest</h2>
+    <div id="main">
+        <table class="EmpTableDet">
+            <thead>
+                <tr>
+                    <th>
+                        LeaveId
+                    </th>
+                    <th>
+                        Name
+                    </th>
 
-                <th>
-                    Is Half Day?
-                </th>
+                    <th>
+                        Is Half Day?
+                    </th>
 
-                <th>
-                    LeaveType
-                </th>
+                    <th>
+                        LeaveType
+                    </th>
 
-                <th>
-                    Reason
-                </th>
+                    <th>
+                        Reason
+                    </th>
 
-                <th>
-                    LengthOfLeave
-                </th>
+                    <th>
+                        LengthOfLeave
+                    </th>
 
-                <th>
-                    StartDate
-                </th>
-                <th>
-                    EndDate
-                </th>
-                <th>
-                    Status
-                </th>
-                
-
-
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var item in Model.getTeamLeaveRequestViewModels)
-                {
-
-                        <tr>
-                           <td> @item.LeaveRequestId</td>
-                            <td> @item.FirstName @item.LastName</td>
-                            <td> @item.isHalfDay</td>
-                            <td> @item.LeaveType</td>
-                            <td> @item.Reason</td>
-                            <td> @item.LengthOfLeave</td>
-                            <td> @item.StartDate</td>
-                            <td> @item.EndDate</td>
-                            <td> @item.Status</td>
-                            <td>
-                                <input type="Button" value="Accept" onclick="window.location.href='@Url.Action("LeaveAccept","TeamLead",item)'" style=" font-size:" 1.2em" />
-                            </td>
-                            <td>
-                                <input type="Button" value="Reject" onclick="window.location.href='@Url.Action("LeaveReject","TeamLead",item)'" style=" font-size:" 1.2em" />
-                            </td>
-                           
+                    <th>
+                        StartDate
+                    </th>
+                    <th>
+                        EndDate
+                    </th>
+                    <th>
+                        Status
+                    </th>
 
 
-                        </tr>
 
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.getTeamLeaveRequestViewModels)
+                    {
+                        if (item.Status == "Pending")
+                        {
+                            <tr>
+                                <td> @item.LeaveRequestId</td>
+                                <td> @item.FirstName @item.LastName</td>
+                                <td> @item.isHalfDay</td>
+                                <td> @item.LeaveType</td>
+                                <td> @item.Reason</td>
+                                <td> @item.LengthOfLeave</td>
+                                <td> @item.StartDate</td>
+                                <td> @item.EndDate</td>
+                                <td> @item.Status</td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <td>
+                                        <input type="Button" value="Accept" onclick="window.location.href='@Url.Action("LeaveAccept","TeamLead",item)'" style=" font-size:" 1.2em" />
+                                    </td>
+                                    <td>
+                                        <input type="Button" value="Reject" onclick="window.location.href='@Url.Action("LeaveReject","TeamLead",item)'" style=" font-size:" 1.2em" />
+                                    </td>
+                                }
+
+
+
+
+                            </tr>
+
+                        }
+
+
+
+                    }
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+
+}
+
 

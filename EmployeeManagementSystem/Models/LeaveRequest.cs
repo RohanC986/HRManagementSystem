@@ -15,6 +15,6 @@ namespace EmployeeManagementSystem.Models
         public int LengthOfLeave { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public string Status { get; set; }
     }
 }

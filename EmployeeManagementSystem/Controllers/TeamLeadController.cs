@@ -59,7 +59,6 @@ namespace EmployeeManagementSystem.Controllers
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@LeaveRequestId",leaveRequest.LeaveRequestId},
-                { "@Status","Pending"}
             };
             dal.ExecuteScalar("uspAcceptLeave", dict);
 
@@ -71,7 +70,7 @@ namespace EmployeeManagementSystem.Controllers
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@LeaveRequestId",leaveRequest.LeaveRequestId},
-                { "@Status","Pending"}
+                
             };
             dal.ExecuteScalar("uspRejectLeave", dict);
 

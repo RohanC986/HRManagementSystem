@@ -1,17 +1,14 @@
-﻿using EmployeeManagementSystem.Models;
-using System;
-using EmployeeManagementSystem.DBContext;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.ServiceProcess;
+﻿using EmployeeManagementSystem.ConversionService;
 using EmployeeManagementSystem.DataAccessLayer;
-using System.Data;
+using EmployeeManagementSystem.DBContext;
+using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
-using EmployeeManagementSystem.ConversionService;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -31,20 +28,11 @@ namespace EmployeeManagementSystem.Controllers
         private LeaveViewModel LeaveView;
         DTableToLeaveModel lm = new DTableToLeaveModel();
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
+        DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
 
 
 
-        // GET: Employee
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult AddEmployee()
-        {
-
-            return RedirectToAction("Added Successfulyy");
-        }
+       
         public ActionResult LeaveRequest(LeaveRequest model)
         {
 
@@ -56,7 +44,7 @@ namespace EmployeeManagementSystem.Controllers
                 { "@LengthOfLeave",model.LengthOfLeave},
                 { "@StartDate",model.StartDate},
                 { "@EndDate",model.EndDate},
-                { "@Status",model.Status}
+                { "@Status","Pending"}
 
 
             };
@@ -70,7 +58,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 ViewData["Leave"] = "Leave Requested Succefully";
             }
-            return View();  
+            return View();
         }
         public ViewResult LeaveSummary(Leave obj)
         {
@@ -78,8 +66,8 @@ namespace EmployeeManagementSystem.Controllers
             {
                 { "@EmployeeId",Session["EmpId"]},
             };
-           
-           
+
+
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveSummary", dict);
             LeaveViewModel leaveViewModel = new LeaveViewModel();
             leaveViewModel.getleaves = lm.DataTabletoLeaveModel(EmpTable);
@@ -89,7 +77,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ViewResult GetUserDetails(EmployeeViewModel obj)
+        public ActionResult GetUserDetails(Leave obj)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -99,6 +87,21 @@ namespace EmployeeManagementSystem.Controllers
             EmployeeViewModel employee = new EmployeeViewModel();
             employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
             ViewData["userdetails"] = employee.employees;
+            return View(ViewData);
+        }
+
+
+
+        public ViewResult GetLeaveRequest(LeaveRequest obj)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@EmployeeId",Session["EmpId"]}
+            };
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveRequest", dict);
+            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(EmpTable);
+            ViewData["getleaverequest"] = leaveRequest.leaveRequests;
             return View(ViewData);
         }
 

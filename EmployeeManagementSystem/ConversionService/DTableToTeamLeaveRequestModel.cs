@@ -13,19 +13,20 @@ namespace EmployeeManagementSystem.ConversionService
         {
             List<GetTeamLeaveRequestViewModel> getTeamLeaveRequestViewModels = new List<GetTeamLeaveRequestViewModel>();
             getTeamLeaveRequestViewModels = (from DataRow dr in dt.Rows
-                                select new GetTeamLeaveRequestViewModel
-                                {
-                                    FirstName = dr["FirstName"].ToString(),
-                                    LastName = dr["LastName"].ToString(),
-                                    isHalfDay = Convert.ToBoolean(dr["isHalfDay"]),
-                                    LeaveType = dr["LeaveType"].ToString(),
-                                    Reason = dr["Reason"].ToString(),
-                                    LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
-                                    StartDate = dr["StartDate"].ToString(),
-                                    EndDate = dr["EndDate"].ToString(),
-                                    Status = dr["Status"].ToString(),
-                              
-                                }
+                                             select new GetTeamLeaveRequestViewModel
+                                             {
+                                                 LeaveRequestId = Convert.ToInt32(dr["LeaveRequestId"]),
+                                                 FirstName = dr["FirstName"].ToString(),
+                                                 LastName = dr["LastName"].ToString(),
+                                                 isHalfDay = Convert.ToBoolean(dr["isHalfDay"]),
+                                                 LeaveType = dr["LeaveType"].ToString(),
+                                                 Reason = dr["Reason"].ToString(),
+                                                 LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
+                                                 StartDate = dr["StartDate"].ToString(),
+                                                 EndDate = dr["EndDate"].ToString(),
+                                                 Status = dr["Status"].ToString(),
+
+                                             }
 
                 ).ToList();
             return getTeamLeaveRequestViewModels;

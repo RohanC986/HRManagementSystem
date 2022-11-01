@@ -5,108 +5,111 @@
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
 
 }
+@if (((Session["role"]).ToString()) == "Team Lead")
+{
+    <head>
 
-<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title Employee Management Portal</title>
+        <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title Employee Management Portal</title>
-    <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-</head>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
 
 
-<nav class="navbar navbar-expand-lg navbar-light ">
-    <div class="container-fluid">
-        <a href="#" class="navbar-brand ">
-            <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarCollapse">
-            <div class="navbar-nav mx-lg-4 mx-sm-auto">
-                <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
-                    <span class="glyphicon glyphicon-home"></span>
-                    Home
-                </a>
-                <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                    <span class="fa fa-solid fa-user"></span>
-                    AddNewEmployee
-                </a>
-                <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                    <span class="fa fa-solid fa-users"></span>
-                    Employees
-                </a>
-                <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                    <span class="fa fa-solid fa-tv"></span>
-                    Department
-                </a>
-                <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    Logout
-                </a>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand ">
+                <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarCollapse">
+                <div class="navbar-nav mx-lg-4 mx-sm-auto">
+                    <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Home
+                    </a>
+                    <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="fa fa-solid fa-user"></span>
+                        AddNewEmployee
+                    </a>
+                    <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="fa fa-solid fa-users"></span>
+                        Employees
+                    </a>
+                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <span class="fa fa-solid fa-tv"></span>
+                        Department
+                    </a>
+                    <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                        Logout
+                    </a>
+
+                </div>
 
             </div>
-
         </div>
-    </div>
-</nav>
+    </nav>
 
 
-<h2 class="TeamEmpData">GetAllTeamEmps</h2>
-<hr id="teamdepemphr" />
-<div id="main">
-    <table class="EmpTableDet">
-        <thead>
-            <tr>
-                <th>
-                    EmployeeId
-                </th>
+    <h2 class="TeamEmpData">GetAllTeamEmps</h2>
+    <hr id="teamdepemphr" />
+    <div id="main">
+        <table class="EmpTableDet">
+            <thead>
+                <tr>
+                    <th>
+                        EmployeeId
+                    </th>
 
-                <th>
-                    Name
-                </th>
+                    <th>
+                        Name
+                    </th>
 
-                <th>
-                    Email
-                </th>
+                    <th>
+                        Email
+                    </th>
 
-                <th>
-                    Designation
-                </th>
+                    <th>
+                        Designation
+                    </th>
 
-                <th>
-                    Project Name
-                </th>
+                    <th>
+                        Project Name
+                    </th>
 
-                <th>
-                    Status
-                </th>
+                    <th>
+                        Status
+                    </th>
 
 
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var item in data)
-                {
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
 
-                    <tr>
-                        <td> @item.EmployeeId </td>
-                        <td> @item.FirstName @item.LastName</td>
-                        <td> @item.Email</td>
-                        <td> @item.Designation</td>
-                        <td> @item.ProjectName</td>
-                    </tr>
+                        <tr>
+                            <td> @item.EmployeeId </td>
+                            <td> @item.FirstName @item.LastName</td>
+                            <td> @item.Email</td>
+                            <td> @item.Designation</td>
+                            <td> @item.ProjectName</td>
+                        </tr>
 
+                    }
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+}
+

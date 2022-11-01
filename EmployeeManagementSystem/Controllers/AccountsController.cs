@@ -39,37 +39,58 @@ namespace EmployeeManagementSystem.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
-
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            try
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
                 { "@Username",model.Username},
                 { "@Password",model.Password}
-            };
-            /* using (EMSContext context = new EMSContext())
-             {
-                 bool IsValidUser = context.Login.Any(user => user.Username.ToLower() ==
-                      model.Username.ToLower() && user.Password == model.Password);
-                 if (IsValidUser)
+                };
+                /* using (EMSContext context = new EMSContext())
                  {
-                     FormsAuthentication.SetAuthCookie(model.Username, false);
-                     return RedirectToAction("About", "Home");
-                 }
-                 ModelState.AddModelError("", "invalid Username or Password");
-                 return View();
-             }*/
-             object  output = dal.ExecuteScalar("uspcheckCredentials",dict);
-            Session["EmpId"] = output;
-              Console.WriteLine(output);
-            if(output==null)
+                     bool IsValidUser = context.Login.Any(user => user.Username.ToLower() ==
+                          model.Username.ToLower() && user.Password == model.Password);
+                     if (IsValidUser)
+                     {
+                         FormsAuthentication.SetAuthCookie(model.Username, false);
+                         return RedirectToAction("About", "Home");
+                     }
+                     ModelState.AddModelError("", "invalid Username or Password");
+                     return View();
+                 }*/
+                object output = dal.ExecuteScalar("uspcheckCredentials", dict);
+                Session["EmpId"] = output;
+                Dictionary<string, object> DictRole = new Dictionary<string, object>() {
+                { "@EmployeeId",output}
+                };
+               
+                object role = dal.ExecuteScalar("getUserRole", DictRole);
+                Session["role"] = role;
+                ViewData["role"] = role;
+
+                Console.WriteLine(output);
+                if (output == null)
+                {
+                    ViewBag.Message = "Invalid credentials";
+                }
+                else
+                {
+                    return RedirectToAction("GetAllTeamEmps", "TeamLead");
+                }
+
+                return View();
+
+
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
             {
                 ViewBag.Message = "Invalid credentials";
+                RedirectToAction("Login","Accounts");
             }
-            else
-            {
-                RedirectToAction("GetAllTeamEmps", "TeamLead");
-            }
-           
-            return RedirectToAction("GetAllTeamEmps", "TeamLead");
-
+            
 
         }
 

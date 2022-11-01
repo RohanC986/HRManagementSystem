@@ -213,6 +213,22 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+        public ActionResult AddLogin()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            {
+
+            }
+
+            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+            ViewData["AllEmpIdName"] = EmpIdname;
+
+            return View();
+        }
+
+
+
+
 
     }
 }
