@@ -20,7 +20,8 @@ namespace EmployeeManagementSystem.Controllers
     {
         private  AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
-
+        DTableToEmployeeIdNameViewModel dtEIN = new DTableToEmployeeIdNameViewModel();
+        DTableToProjectModel dtP = new DTableToProjectModel();
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
         DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
 
@@ -203,12 +204,20 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult AddProjectMemebers()
+        public ActionResult AddProjectMembers()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-            ViewData["AllEmpIdName"] = EmpIdname;
+            EmployeeIdNameViewModel empIdnameViewModel = new EmployeeIdNameViewModel();
+            empIdnameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+
+            DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
+            Project projectsList = new Project();
+            projectsList.ProjectList=dtP.DataTableToProjectModel(ProjectsList);
+            /*ViewData["AllEmpIdName"] = EmpIdname;*/
+            ViewData["EmpIdNameList"] = empIdnameViewModel;
+            ViewData["ProjectsList"]=projectsList;
 
             return View();
         }

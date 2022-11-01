@@ -10,5 +10,7 @@ namespace EmployeeManagementSystem.Models
         public int ProjectId { get; set; }
         public int ProjectHeadEmployeeId { get; set; }
         public string ProjectName { get; set; }
+
+        public List<Project> ProjectList { get; set; }
     }
 }
