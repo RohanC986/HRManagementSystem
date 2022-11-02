@@ -87,7 +87,21 @@ namespace EmployeeManagementSystem.Controllers
             EmployeeViewModel employee = new EmployeeViewModel();
             employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
             ViewData["userdetails"] = employee.employees;
-            return View(ViewData);
+            return View();
+        }
+
+        public ActionResult GetUserOwnDetails()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@EmployeeId",Session["EmpId"]}
+            };
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+            EmployeeViewModel employee = new EmployeeViewModel();
+            employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
+            Employee employeeowndetail = new Employee();
+            employeeowndetail = employee.employees[0];
+            return View(employeeowndetail);
         }
 
 

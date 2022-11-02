@@ -237,6 +237,19 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
+        public void SaveProjectMember(ProjectMembers model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@EmployeeId",model.EmployeeId },
+                {"@ProjectId",model.ProjectId }
+                
+            };
+            dal.ExecuteNonQuery("uspSaveProjectMember", dict);
+
+
+        }
+
 
 
 

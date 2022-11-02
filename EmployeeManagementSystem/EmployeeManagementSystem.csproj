@@ -357,11 +357,9 @@
     <Content Include="Views\Admin\EditEmp.cshtml" />
     <Content Include="Views\TeamLead\GetTeamLeaveRequest.cshtml" />
     <Content Include="Views\Admin\AddProject.cshtml" />
-
     <Content Include="Views\Employee\GetLeaveRequest.cshtml" />
-
     <Content Include="Views\Admin\AddProjectMembers.cshtml" />
-
+    <Content Include="Views\Employee\GetUserOwnDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,7 +2,23 @@
 @{
     ViewBag.Title = "Add Project Members";
     Layout = null;
-    var emp = (IEnumerable<EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel>)ViewData["EmpIdNameList"];
+    var emp = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["EmpIdNameList"];
+    var proj = (EmployeeManagementSystem.Models.Project)ViewData["ProjectsList"];
+
+
+
+    var EmployeeOptions = new List<SelectListItem>();
+    foreach (var tagging in emp.EmployeeIdNameList)
+    {
+        EmployeeOptions.Add(new SelectListItem() { Text = tagging.FirstName , Value = tagging.EmployeeId.ToString() });
+    }
+
+
+    var ProjectOptions = new List<SelectListItem>();
+    foreach (var tagging in proj.ProjectList)
+    {
+        ProjectOptions.Add(new SelectListItem() { Text = tagging.ProjectName, Value = tagging.ProjectId.ToString() });
+    }
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -58,10 +74,11 @@
         </div>
     </div>
 </nav>
-@using (Html.BeginForm("SaveProject", "Admin", Model))
+@using (Html.BeginForm("SaveProjectMember", "Admin", Model))
 {
     @Html.AntiForgeryToken()
 
+<<<<<<< Updated upstream
     <div class="form-horizontal mx-auto align-center  ">
         <h4 class="addEmp">Employee Details</h4>
         <hr id="addemphr" />
@@ -82,9 +99,39 @@
 
                 @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
             </div>
+=======
+<div class="form-horizontal mx-auto align-center  ">
+    <h4 class="addEmp">Employee Details</h4>
+    <hr id="addemphr" />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
+            *@
+            @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        @Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
+            *@
+            @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, new { @class = "form-control" })
+
+            @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+>>>>>>> Stashed changes
         </div>
 
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 
 
 
