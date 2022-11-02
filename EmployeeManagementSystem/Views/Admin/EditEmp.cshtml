@@ -11,7 +11,6 @@
 
 @if (((Session["role"]).ToString()) == "Admin")
 {
-    <h2>EditEmp</h2>
     <head>
 
         <meta charset="utf-8" />
@@ -31,7 +30,6 @@
     using (Html.BeginForm("UpdateEmpDetails", "Admin", Model))
     {
         @Html.AntiForgeryToken()
-        <a href="~/Views/Admin/EditEmp.cshtml">~/Views/Admin/EditEmp.cshtml</a>
         <div class="form-horizontal mx-auto align-center  ">
             <h4 class="addEmp">Employee Details</h4>
             <hr id="addemphr" />
@@ -97,7 +95,6 @@
                     *@
                     @Html.DropDownList("Gender", new List<SelectListItem>
                               {
-                                  new SelectListItem { Text = "Select Gender", Value = "Gender", Selected=true},
                                   new SelectListItem { Text = "Male", Value = "Male"},
 
                                   new SelectListItem { Text = "Female", Value = "Female"},
@@ -113,7 +110,6 @@
                     @*@Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Bloodgroup " } })*@
                     @Html.DropDownList("BloodGroup", new List<SelectListItem>
                               {
-                                  new SelectListItem { Text = "Select Blood Group", Value = "Not Selected", Selected=true},
                                   new SelectListItem { Text = "A+", Value = "A+"},
                                   new SelectListItem { Text = "A-", Value = "A-"},
                                   new SelectListItem { Text = "B+", Value = "B+"},
@@ -201,56 +197,56 @@
                 </div>
             </div>
 
-
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @*            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder="Enter Your State " } })
-                    *@            @Html.DropDownList("State", new List<SelectListItem>
-{
-new SelectListItem { Text = "Select State", Value = "Not Slected", Selected=true},
-new SelectListItem { Text = "Andhra Pradesh", Value = "Andhra Pradesh"},
-new SelectListItem { Text = "Arunachal Pradesh", Value = "Arunachal Pradesh"},
-new SelectListItem { Text = "Assam", Value = "Assam"},
-new SelectListItem { Text = "Bihar", Value = "Bihar"},
-new SelectListItem { Text = "Chhattisgarh", Value = "Chhattisgarh"},
-new SelectListItem { Text = "Goa", Value = "Goa"},
-new SelectListItem { Text = "Gujarat", Value = "Gujarat"},
-new SelectListItem { Text = "Haryana", Value = "Haryana"},
-new SelectListItem { Text = "Himachal Pradesh", Value = "Himachal Pradesh"},
-new SelectListItem { Text = "Jharkhand", Value = "Jharkhand"},
-new SelectListItem { Text = "Karnataka", Value = "Karnataka"},
-new SelectListItem { Text = "Kerala", Value = "Kerala"},
-new SelectListItem { Text = "Madhya Pradesh", Value = "Madhya Pradesh"},
-new SelectListItem { Text = "Maharashtra", Value = "Maharashtra"},
-new SelectListItem { Text = "Manipur", Value = "Manipur"},
-new SelectListItem { Text = "Meghalaya", Value = "Meghalaya"},
-new SelectListItem { Text = "Mizoram", Value = "Mizoram"},
-new SelectListItem { Text = "Nagaland", Value = "Nagaland"},
-new SelectListItem { Text = "Odisha", Value = "Odisha"},
-new SelectListItem { Text = "Punjab", Value = "Punjab"},
-new SelectListItem { Text = "Rajasthan", Value = "Rajasthan"},
-new SelectListItem { Text = "Sikkim", Value = "Sikkim"},
-new SelectListItem { Text = "Tamil Nadu", Value = "Tamil Nadu"},
-new SelectListItem { Text = "Telangana", Value = "Telangana"},
-new SelectListItem { Text = "Tripura", Value = "Tripura"},
-new SelectListItem { Text = "Uttar Pradesh", Value = "Uttar Pradesh"},
-new SelectListItem { Text = "Uttarakhand", Value = "Uttarakhand"},
-new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
-
-}, htmlAttributes: new { @class = "text-center Role-Down " })
-
-                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group col-md-6">
+             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.Designation, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Designation" } })
                     @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @*            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder="Enter Your State " } })
+                    *@            @Html.DropDownList("State", new List<SelectListItem>
+                            {
+                            new SelectListItem { Text = "Andhra Pradesh", Value = "Andhra Pradesh"},
+                            new SelectListItem { Text = "Arunachal Pradesh", Value = "Arunachal Pradesh"},
+                            new SelectListItem { Text = "Assam", Value = "Assam"},
+                            new SelectListItem { Text = "Bihar", Value = "Bihar"},
+                            new SelectListItem { Text = "Chhattisgarh", Value = "Chhattisgarh"},
+                            new SelectListItem { Text = "Goa", Value = "Goa"},
+                            new SelectListItem { Text = "Gujarat", Value = "Gujarat"},
+                            new SelectListItem { Text = "Haryana", Value = "Haryana"},
+                            new SelectListItem { Text = "Himachal Pradesh", Value = "Himachal Pradesh"},
+                            new SelectListItem { Text = "Jharkhand", Value = "Jharkhand"},
+                            new SelectListItem { Text = "Karnataka", Value = "Karnataka"},
+                            new SelectListItem { Text = "Kerala", Value = "Kerala"},
+                            new SelectListItem { Text = "Madhya Pradesh", Value = "Madhya Pradesh"},
+                            new SelectListItem { Text = "Maharashtra", Value = "Maharashtra"},
+                            new SelectListItem { Text = "Manipur", Value = "Manipur"},
+                            new SelectListItem { Text = "Meghalaya", Value = "Meghalaya"},
+                            new SelectListItem { Text = "Mizoram", Value = "Mizoram"},
+                            new SelectListItem { Text = "Nagaland", Value = "Nagaland"},
+                            new SelectListItem { Text = "Odisha", Value = "Odisha"},
+                            new SelectListItem { Text = "Punjab", Value = "Punjab"},
+                            new SelectListItem { Text = "Rajasthan", Value = "Rajasthan"},
+                            new SelectListItem { Text = "Sikkim", Value = "Sikkim"},
+                            new SelectListItem { Text = "Tamil Nadu", Value = "Tamil Nadu"},
+                            new SelectListItem { Text = "Telangana", Value = "Telangana"},
+                            new SelectListItem { Text = "Tripura", Value = "Tripura"},
+                            new SelectListItem { Text = "Uttar Pradesh", Value = "Uttar Pradesh"},
+                            new SelectListItem { Text = "Uttarakhand", Value = "Uttarakhand"},
+                            new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
+
+                            }, htmlAttributes: new { @class = "text-center Role-Down " })
+
+                            @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+           
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8  ">
@@ -260,7 +256,6 @@ new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
                     @Html.DropDownList("Role", new List<SelectListItem>
                     {
 
-                       new SelectListItem { Text = "Select Role", Value = "Not Selected", Selected=true},
                        new SelectListItem { Text = "Admin", Value = "Admin"},
                        new SelectListItem { Text = "Team Lead", Value = "Team Lead"},
                        new SelectListItem { Text = "Employee", Value = "Employee"},
@@ -278,7 +273,6 @@ new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
                     *@
                     @Html.DropDownList("Experienced", new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Select Option", Selected=true},
                         new SelectListItem { Text = "No", Value = "false"},
                         new SelectListItem { Text = "Yes", Value ="true" },
 

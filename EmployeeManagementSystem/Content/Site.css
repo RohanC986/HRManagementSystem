@@ -64,15 +64,15 @@ body {
     box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
 }
 
-.wrapper .form-field {
+    .wrapper .form-field {
         padding-left: 0;
         margin-bottom: 20px;
         border-radius: 20px;
-}
+    }
 
-.wrapper .form-field .fas {
+        .wrapper .form-field .fas {
             color: #555;
-        }        
+        }
 
 .login-header {
     border: 2px solid green;
@@ -133,9 +133,9 @@ body {
     font-size: 15px;
 }
 
-    #Emp-form-back-list a {
+#Emp-form-back-list a {
         color: red;
-    }
+}
 
 #emp-create-btn {
     padding: 6px;
@@ -150,7 +150,8 @@ body {
 .addEmp,
 .TeamEmpData,
 .LeaveSummaryHeading,
-.LeaveRequestHeading {
+.LeaveRequestHeading,
+.DepartHeading {
     text-align: center;
     margin-top: 1%;
     font-size: 2.7rem;
@@ -170,36 +171,33 @@ body {
     width: 85%;
     padding: 10px;
     margin: auto;
-    border:2px solid black;
+    /*    border:2px solid black;
+*/
 }
 
 table.EmpTableDet {
     margin: auto;
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #fff; 
-
+    border: 1px solid #fff;
 }
 
-table.EmpTableDet thead th {
-    padding: 12px;
-    background-color: lightblue;
-    font-size: large;
-    text-align:center;
-}
+    table.EmpTableDet thead th {
+        padding: 12px;
+        background-color: lightblue;
+        font-size: large;
+        text-align: center;
+    }
 
-table.EmpTableDet th, table.EmpTableDet td {
-    padding: 3px;
+    table.EmpTableDet th, table.EmpTableDet td {
+        padding: 3px;
+    }
 
-    
-}
-
-table.EmpTableDet td {
-    text-align: center;
-    font-size:1.85rem;
-    padding-bottom:15px;
-
-}
+    table.EmpTableDet td {
+        text-align: center;
+        font-size: 1.85rem;
+        padding-bottom: 15px;
+    }
 
 
 /*Emp Table*/
@@ -220,6 +218,7 @@ table.EmpTableDet td {
     margin: auto;
     border: 2px solid black;
 }
+
 .leaveTab {
     /* width: 70%;
     text-align: center;
@@ -229,15 +228,17 @@ table.EmpTableDet td {
     border-collapse: collapse;
     border: 1px solid #fff;
 }
+
 .leaveTableRow {
     padding-bottom: 15px;
     border-bottom: 1px solid black;
 }
+
 .leaveTableHeading {
     margin-right: auto;
 }
 
-table.leaveTab  th {
+table.leaveTab th {
     padding: 12px;
     font-size: large;
 }
@@ -246,9 +247,89 @@ table.leaveTab td {
     padding: 12px;
     font-size: large;
 }
-#leaveRequestDiv{
-    width:50%;
-    margin:50px auto auto auto;
-    border:2px solid green;
+
+#leaveRequestDiv {
+    width: 50%;
+    margin: 50px auto auto auto;
+    border: 2px solid black;
 }
 /*Leave pages*/
+
+
+/*Department*/
+#DepatDiv {
+    width: 60%;
+    padding: 10px;
+    margin: auto;
+    border: 2px solid black;
+}
+
+.DepartTab {
+    width: 90%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.DepartTab thead th {
+        padding: 8px;
+        background-color: lightblue;
+        font-size: large;
+        text-align: center;
+}
+
+
+table.DepartTab td {
+    text-align: center;
+    padding: 12px;
+    font-size: large;
+}
+
+
+
+
+/*Department*/
+
+
+
+
+/*Team Lead*/
+#TeamDiv {
+    width: 100%;
+}
+
+.TeamLeaveTab {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #fff;
+}
+
+
+/*Team lead*/
+
+
+/*Add Login*/
+.login-form {
+    border-radius: 0px;
+}
+
+#add-emp-login-div {
+    border: 1px solid black;
+    width: 40%;
+    margin-top: 2px;
+    font-size: 15px;
+
+}
+
+#addemplogin-btn {
+    padding: 6px 10px;
+    margin: 2px 45% 5px 45%;
+    text-align: center;
+    font-size:large;
+}
+
+#addloginpr {
+    border: 2px solid green;
+    width: 60%;
+    margin-left: 20%;
+}

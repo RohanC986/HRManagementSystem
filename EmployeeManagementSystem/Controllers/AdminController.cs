@@ -224,15 +224,23 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult AddLogin()
+        public ActionResult AddLogin(Login model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@EmployeeId",model.EmployeeId},
+                { "@Username",model.Username},
+                { "@Password",model.Password},
+                { "@LastLogin",model.LastLogin},
+                
+
+            };
+            object check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
+            Console.WriteLine(check);
+            if (check == null)
             {
-
+                ViewBag.Message = "Invalid credentials";
             }
-
-            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-            ViewData["AllEmpIdName"] = EmpIdname;
 
             return View();
         }

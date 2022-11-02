@@ -8,51 +8,56 @@
 }
 @if (((Session["role"]).ToString()) == "Admin")
 {
-    <h2>Department</h2>
-    <table border=" ">
-        <tbody>
-            <tr>
-                <th>
-                    Name
-                </th>
+    <h2 class="DepartHeading">Teams</h2>
+    <hr id="addemphr" />
 
-                <th>
-                    Project Name
-                </th>
+    <div id="DepatDiv">
+        <table class="DepartTab">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
 
-                <th>
-                    Total Members
-                </th>
+                    <th>
+                        Project Name
+                    </th>
 
-                <th>
-                    EmployeesOnLeave
-                </th>
+                    <th>
+                        Total Members
+                    </th>
 
-
-            </tr>
-
-            @{
-                foreach (var item in data)
-                {
-
-                    <tr>
+                    @*<th>
+                        EmployeesOnLeave
+                    </th>*@
 
 
+                </tr>
+                <thead>
+                <tbody>
+                    @{
+                        foreach (var item in data)
+                        {
 
-                        <td> @item.FirstName @item.LastName </td>
-                        <td> @item.ProjectName</td>
-                        <td> @item.TotalMembers</td>
+                            <tr>
 
 
 
+                                <td> @item.FirstName @item.LastName </td>
+                                <td> @item.ProjectName</td>
+                                <td> @item.TotalMembers</td>
 
 
-                    </tr>
 
-                }
-            }
-        </tbody>
-    </table>
+
+
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+        </table>
+    </div>
 
 }
 else

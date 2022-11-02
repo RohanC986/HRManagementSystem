@@ -9,7 +9,8 @@
 }
 @if (((Session["role"]).ToString()) == "Team Lead")
 {
-    <h2>GetTeamLeaveRequest</h2>
+    <h2 class="addEmp">GetTeamLeaveRequest</h2>
+    <hr id="addemphr" />
     <div id="main">
         <table class="EmpTableDet">
             <thead>
@@ -57,30 +58,31 @@
                     {
                         if (item.Status == "Pending")
                         {
-                            <tr>
-                                <td> @item.LeaveRequestId</td>
-                                <td> @item.FirstName @item.LastName</td>
-                                <td> @item.isHalfDay</td>
-                                <td> @item.LeaveType</td>
-                                <td> @item.Reason</td>
-                                <td> @item.LengthOfLeave</td>
-                                <td> @item.StartDate</td>
-                                <td> @item.EndDate</td>
-                                <td> @item.Status</td>
-                                @if (item.Status == "Pending")
-                                {
-                                    <td>
-                                        <input type="Button" value="Accept" onclick="window.location.href='@Url.Action("LeaveAccept","TeamLead",item)'" style=" font-size:" 1.2em" />
-                                    </td>
-                                    <td>
-                                        <input type="Button" value="Reject" onclick="window.location.href='@Url.Action("LeaveReject","TeamLead",item)'" style=" font-size:" 1.2em" />
-                                    </td>
-                                }
+                                <tr>
+                                    <td> @item.LeaveRequestId</td>
+                                    <td> @item.FirstName @item.LastName</td>
+                                    <td> @item.isHalfDay</td>
+                                    <td> @item.LeaveType</td>
+                                    <td> @item.Reason</td>
+                                    <td> @item.LengthOfLeave</td>
+                                    <td> @item.StartDate</td>
+                                    <td> @item.EndDate</td>
+                                    <td> @item.Status</td>
+                                    @if (item.Status == "Pending")
+                                    {
+                                        <td>
+                                            <span>
+                                                <input value="Accept" onclick="window.location.href='@Url.Action("LeaveAccept","TeamLead",item)'" id="emp-create-btn" class="btn-success" type="button" />
+                                                <input value="Reject" onclick="window.location.href='@Url.Action("LeaveReject","TeamLead",item)'" id="emp-create-btn" class="btn-danger" type="button" />
+                                            </span>
+                                        </td>
+
+                                    }
 
 
 
 
-                            </tr>
+                                </tr>
 
                         }
 
