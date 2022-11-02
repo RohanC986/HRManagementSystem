@@ -54,18 +54,20 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public void LeaveAccept(GetTeamLeaveRequestViewModel leaveRequest)
+        public ActionResult LeaveAccept(GetTeamLeaveRequestViewModel leaveRequest)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@LeaveRequestId",leaveRequest.LeaveRequestId},
             };
             dal.ExecuteScalar("uspAcceptLeave", dict);
+            
+            return RedirectToAction("GetTeamLeaveRequest");
 
 
         }
 
-        public void LeaveReject(GetTeamLeaveRequestViewModel leaveRequest)
+        public ActionResult LeaveReject(GetTeamLeaveRequestViewModel leaveRequest)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -73,6 +75,7 @@ namespace EmployeeManagementSystem.Controllers
                 
             };
             dal.ExecuteScalar("uspRejectLeave", dict);
+            return RedirectToAction("GetTeamLeaveRequest");
 
 
         }

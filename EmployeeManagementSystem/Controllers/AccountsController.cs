@@ -70,11 +70,25 @@ namespace EmployeeManagementSystem.Controllers
                 Console.WriteLine(output);
                 if (output == null)
                 {
-                    ViewBag.Message = "Invalid credentials";
+                    ViewData["Error"] = " User Not Found";
                 }
                 else
                 {
-                    return RedirectToAction("GetAllTeamEmps", "TeamLead");
+                    if ((role).ToString() == "Employee")
+                    {
+                        return RedirectToAction("GetLeaveRequest", "Employee");
+                    }
+                    else if ((role).ToString() == "Admin")
+                    {
+                        return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                    }
+                    else if ((role).ToString() == "Team Lead")
+                    {
+                        return RedirectToAction("GetAllTeamEmps", "TeamLead");
+                    }
+                    
+
+
                 }
 
                 return View();
@@ -83,14 +97,11 @@ namespace EmployeeManagementSystem.Controllers
             }
             catch(Exception e)
             {
-                throw new Exception(e.Message);
-            }
-            finally
-            {
-                ViewBag.Message = "Invalid credentials";
-                RedirectToAction("Login","Accounts");
-            }
-            
+                 Session["LoginError"] = "User Not Found";
+                 //return RedirectToAction("login");
+            }   
+
+            return RedirectToAction("login");   
 
         }
 

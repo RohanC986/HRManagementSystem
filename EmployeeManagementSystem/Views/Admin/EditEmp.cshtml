@@ -5,6 +5,9 @@
     //var data = (EmployeeManagementSystem.Models.Employee)ViewData["model"];
 
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 @if (((Session["role"]).ToString()) == "Admin")
 {
@@ -316,6 +319,11 @@ new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
     }
 
 }
+else
+{
+    <td> You are not Authorized </td>
+}
+
 
 
 

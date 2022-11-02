@@ -3,6 +3,9 @@
     ViewBag.Title = "Department";
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @if (((Session["role"]).ToString()) == "Admin")
 {
     <h2>Department</h2>
@@ -52,4 +55,9 @@
     </table>
 
 }
+else
+{
+    <td> You are not Authorized </td>
+}
+
 

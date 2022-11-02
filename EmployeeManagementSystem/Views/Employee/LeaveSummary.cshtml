@@ -5,6 +5,9 @@
 
     var data = (IEnumerable<EmployeeManagementSystem.Models.Leave>)ViewData["getleaves"];
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h2 class="LeaveSummaryHeading">Leave Summary</h2>
 <hr id="teamdepemphr" />
@@ -34,10 +37,10 @@
                 <tr class="leaveTableRow">
                     <th class="leaveTableHeading">Total Available</th>
                     <td> @item.TotalAvailable</td>
-                </tr >
+                </tr>
                 <tr class="leaveTableRow">
                     <th class="leaveTableHeading">Total Available</th>
-                    <td > @item.TotalAvailable</td>
+                    <td> @item.TotalAvailable</td>
 
                 </tr>
                 <tr class="leaveTableRow">

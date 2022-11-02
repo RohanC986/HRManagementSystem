@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "LeaveRequest";
-@*    Layout = null;
-*@}
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <head>
     <title>@ViewBag.Title Employee Management Portal</title>
     <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
@@ -50,7 +52,7 @@
             </div>
         </div>
 
-        
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })
@@ -85,7 +87,7 @@
         </div>
 
         <div class="form-group">
-            <div  class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>

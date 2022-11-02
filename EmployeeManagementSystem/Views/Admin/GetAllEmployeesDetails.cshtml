@@ -6,6 +6,9 @@
 
     var data = (IEnumerable<EmployeeManagementSystem.Models.Employee>)ViewData["allEmployees"];
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @if (((Session["role"]).ToString()) == "Admin")
 {
     <head>
@@ -23,7 +26,7 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
 
-    <nav class="navbar navbar-expand-lg navbar-light ">
+    @*<nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
             <a href="#" class="navbar-brand ">
                 <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
@@ -58,7 +61,7 @@
 
             </div>
         </div>
-    </nav>
+    </nav>*@
 
 
     <h2 class="addEmp">GetAllEmployees</h2>
@@ -138,4 +141,9 @@
 
     </div>
 }
+else
+{
+    <td> You are not Authorized </td>
+}
+
 

@@ -4,6 +4,9 @@
     ViewBag.Title = "GetTeamLeaveRequest";
 
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @if (((Session["role"]).ToString()) == "Team Lead")
 {
     <h2>GetTeamLeaveRequest</h2>
@@ -90,5 +93,10 @@
     </div>
 
 }
+else
+{
+    <td> You are not Authorized </td>
+}
+
 
 

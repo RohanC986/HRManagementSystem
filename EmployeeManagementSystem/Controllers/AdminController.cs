@@ -87,7 +87,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 ViewBag.Message = "Invalid credentials";
             }
-            return View();
+            return RedirectToAction("GetAllEmployeesDetails");   
         }
 
         //public ActionResult UpdateEmpDetails(int EmployeeId)
@@ -129,9 +129,9 @@ namespace EmployeeManagementSystem.Controllers
             return View(model);
         }
 
-        public void UpdateEmpDetails(Employee model)
+        public ActionResult UpdateEmpDetails(Employee model)
         {
-
+            
             Dictionary<string, object> dict = new Dictionary<string, object>() {
                 { "@EmployeeId",model.EmployeeId},
                 { "@EmployeeCode",model.EmployeeCode},
@@ -157,8 +157,10 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Experienced",model.Experienced},
                 { "@YearsOfExprience",model.YearsOfExprience},
                 { "@PreviousCompanyName",model.PreviousCompanyName}
-            };
+            }; 
             object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+            return RedirectToAction("GetAllEmployeesDetails");
+
 
 
 

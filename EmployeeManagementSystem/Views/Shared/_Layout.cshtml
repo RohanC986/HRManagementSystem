@@ -82,30 +82,77 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarCollapse">
                 <div class="navbar-nav mx-lg-4 mx-sm-auto">
-                    <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon glyphicon-home"></span>
-                        Home
-                    </a>
-                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon glyphicon-user"></span>
-                        Profile
-                    </a>
-                    <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon  glyphicon-open-file"></span>
-                        Leave Request
-                    </a>
-                    <a href="@Url.Action("LeaveSummary" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon glyphicon-list-alt"></span>
-                        Leave Summary
-                    </a>
-                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                        <span class="glyphicon glyphicon-file"></span>
-                        Performance
-                    </a>
+                    @*<a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
+            <span class="glyphicon glyphicon-home"></span>
+            Home
+        </a>*@
+                    @*<a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+            <span class="glyphicon glyphicon-user"></span>
+            Profile
+        </a>*@
+                    @if (((Session["role"]).ToString()) == "Employee")
+                    {
+                        <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-open-file"></span>
+                            Get Leave Request
+                        </a>
+                        <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-open-file"></span>
+                            Leave Request
+                        </a>
+                        <a href="@Url.Action("LeaveSummary" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-open-file"></span>
+                            Leave Summary
+                        </a>
+                    }
+                    @if (((Session["role"]).ToString()) == "Admin")
+                    {
+                        <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            AddNewEmp
+                        </a>
+                        <a href="@Url.Action("AddProject" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            AddProject
+                        </a>
+                        <a href="@Url.Action("AddProjectMembers" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            AddProjectMembers
+                        </a>
+                        <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Department
+                        </a>
+                        @*<a href="@Url.Action("EditEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Department
+                        </a>*@
+                        <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            GetAllEmployeesDetails
+                        </a>
+
+                    }
+                    @if (((Session["role"]).ToString()) == "Team Lead")
+                    {
+                        <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Get All Team Emps
+                        </a>
+                        <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Get Team Leave Requests
+                        </a>
+                    }
+
+
+
+
                     <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Logout
                     </a>
+
 
                 </div>
             </div>

@@ -4,6 +4,9 @@
     var data = (IEnumerable<EmployeeManagementSystem.Models.LeaveRequest>)ViewData["getleaverequest"];
 
 }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 
 
@@ -15,7 +18,7 @@
                 <th>
                     LeaveId
                 </th>
-               
+
 
                 <th>
                     Is Half Day?
@@ -54,7 +57,7 @@
 
                     <tr>
                         <td> @item.LeaveRequestId</td>
-                        
+
                         <td> @item.IsHalfday</td>
                         <td> @item.LeaveType</td>
                         <td> @item.Reason</td>
@@ -62,7 +65,7 @@
                         <td> @item.StartDate</td>
                         <td> @item.EndDate</td>
                         <td> @item.Status</td>
-                     
+
 
 
 
