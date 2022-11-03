@@ -1,7 +1,7 @@
 ﻿@model EmployeeManagementSystem.Models.Employee
 @{
     ViewBag.Title = "Home Page";
-    Layout = null;
+   
     
 
 }
@@ -21,42 +21,7 @@
         @Scripts.Render("~/bundles/modernizr")
     </head>
 
-    <nav class="navbar navbar-expand-lg navbar-light ">
-        <div class="container-fluid">
-            <a href="#" class="navbar-brand ">
-                <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
-            </a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarCollapse">
-                <div class="navbar-nav mx-lg-4 mx-sm-auto">
-                    <a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
-                        <span class="glyphicon glyphicon-home"></span>
-                        Home
-                    </a>
-                    <a href="@Url.Action("AddNewEmp()" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="fa fa-solid fa-user"></span>
-                        AddNewEmployee
-                    </a>
-                    <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="fa fa-solid fa-users"></span>
-                        Employees
-                    </a>
-                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                        <span class="fa fa-solid fa-tv"></span>
-                        Department
-                    </a>
-                    <a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                        <span class="glyphicon glyphicon-log-out"></span>
-                        Logout
-                    </a>
-
-                </div>
-
-            </div>
-        </div>
-    </nav>
+    
     @using (Html.BeginForm("AddEmployee()", "Admin"))
     {
         @Html.AntiForgeryToken()

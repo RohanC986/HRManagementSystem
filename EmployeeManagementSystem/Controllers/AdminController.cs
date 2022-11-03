@@ -1,29 +1,31 @@
-﻿using EmployeeManagementSystem.DBContext;
+﻿using EmployeeManagementSystem.ConversionService;
+using EmployeeManagementSystem.DataAccessLayer;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
-using EmployeeManagementSystem.DataAccessLayer;
-using EmployeeManagementSystem.ConversionService;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Web.Mvc;
+using Chunk = iTextSharp.text.Chunk;
+using Font = iTextSharp.text.Font;
+using Rectangle = iTextSharp.text.Rectangle;
 
 namespace EmployeeManagementSystem.Controllers
 {
     [Route("controller")]
     public class AdminController : Controller
     {
-        private  AdminViewModel EmpAllOver;
+        private AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
         DTableToEmployeeIdNameViewModel dtEIN = new DTableToEmployeeIdNameViewModel();
         DTableToProjectModel dtP = new DTableToProjectModel();
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
         DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
+        DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
+        DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
 
 
         public AdminController()
@@ -35,16 +37,16 @@ namespace EmployeeManagementSystem.Controllers
         {
             return View();
         }*/
-       
+
 
         [Route("[controller]/getallemployees")]
         public ViewResult GetAllEmployeesDetails()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees" ,dict );
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
             AdminViewModel adminViewModel = new AdminViewModel();
-            adminViewModel.allEmployees  = cs.DataTabletoEmployeeModel(EmpTable);
-            ViewData["allEmployees"]=adminViewModel.allEmployees;
+            adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
+            ViewData["allEmployees"] = adminViewModel.allEmployees;
             EmpAllOver = adminViewModel;
             return View(ViewData);
         }
@@ -87,7 +89,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 ViewBag.Message = "Invalid credentials";
             }
-            return RedirectToAction("GetAllEmployeesDetails");   
+            return View();
         }
 
         //public ActionResult UpdateEmpDetails(int EmployeeId)
@@ -124,14 +126,14 @@ namespace EmployeeManagementSystem.Controllers
         //}
 
 
-       public ActionResult EditEmp(Employee model)
+        public ActionResult EditEmp(Employee model)
         {
             return View(model);
         }
 
         public ActionResult UpdateEmpDetails(Employee model)
         {
-            
+
             Dictionary<string, object> dict = new Dictionary<string, object>() {
                 { "@EmployeeId",model.EmployeeId},
                 { "@EmployeeCode",model.EmployeeCode},
@@ -157,20 +159,9 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Experienced",model.Experienced},
                 { "@YearsOfExprience",model.YearsOfExprience},
                 { "@PreviousCompanyName",model.PreviousCompanyName}
-            }; 
+            };
             object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
             return RedirectToAction("GetAllEmployeesDetails");
-
-
-
-
-
-
-
-
-
-
-
         }
 
         public ActionResult Department()
@@ -179,7 +170,7 @@ namespace EmployeeManagementSystem.Controllers
             DataTable Department = dal.ExecuteDataSet<DataTable>("uspgetTeamEmps", dict);
             DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
             departmentsViewModel.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department);
-            ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;         
+            ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;
             return View(ViewData);
         }
 
@@ -194,7 +185,7 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
-        public void  SaveProject(Project model)
+        public void SaveProject(Project model)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -202,7 +193,7 @@ namespace EmployeeManagementSystem.Controllers
                 {"ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
             };
             dal.ExecuteNonQuery("uspSaveProject", dict);
-            
+
 
         }
 
@@ -216,10 +207,10 @@ namespace EmployeeManagementSystem.Controllers
 
             DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
             Project projectsList = new Project();
-            projectsList.ProjectList=dtP.DataTableToProjectModel(ProjectsList);
+            projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
             /*ViewData["AllEmpIdName"] = EmpIdname;*/
             ViewData["EmpIdNameList"] = empIdnameViewModel;
-            ViewData["ProjectsList"]=projectsList;
+            ViewData["ProjectsList"] = projectsList;
 
             return View();
         }
@@ -232,7 +223,7 @@ namespace EmployeeManagementSystem.Controllers
                 { "@Username",model.Username},
                 { "@Password",model.Password},
                 { "@LastLogin",model.LastLogin},
-                
+
 
             };
             object check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
@@ -251,12 +242,167 @@ namespace EmployeeManagementSystem.Controllers
             {
                 {"@EmployeeId",model.EmployeeId },
                 {"@ProjectId",model.ProjectId }
-                
+
             };
             dal.ExecuteNonQuery("uspSaveProjectMember", dict);
+        }
+
+        public ActionResult AddDesignation()
+        {
+
+            return View();
+
+        }
+        public ActionResult SaveDesignation(Designation designation)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@DesignationName",designation.DesignationName}
+            };
+            object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
+            return RedirectToAction("GetAllDesignation");
+
+        }
+
+
+
+        public ActionResult GetAllDesignation()
+        {
+
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+            Designation designation1 = new Designation();
+            designation1.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(datatable);
+            ViewData["designation"] = designation1.DesignationsList;
+            return View(ViewData);
+
+        }
+
+        public ActionResult EditDesignation(Designation model)
+        {
+            return View(model);
+        }
+
+        public ActionResult UpdateDesignation(Designation model)
+        {
+
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@DesignationId",model.DesignationId},
+                { "@DesignationName",model.DesignationName}
+            };
+            object check = dal.ExecuteNonQuery("uspUpdateDesignation", dict);
+            if (check != null)
+            {
+                ViewData["success"] = "success";
+
+            }
+            return RedirectToAction("GetAllDesignation");
+        }
+
+        public ActionResult DeleteDesignation(Designation model)
+        {
+
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@DesignationId",model.DesignationId},
+            };
+            object check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
+            return RedirectToAction("GetAllDesignation");
+        }
+
+        public ActionResult Report(Employee model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@EmployeeId",model.EmployeeId},
+            };
+            DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
+            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+            ExportToPdf(datatable,model.EmployeeId);
+            return View(ViewData);
 
 
         }
+        public void ExportToPdf(DataTable myDataTable,int model)
+        {
+            DataTable dt = myDataTable;
+            Document pdfDoc = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
+            Font font13 = FontFactory.GetFont("ARIAL", 6);
+            Font font18 = FontFactory.GetFont("ARIAL", 8);
+            try
+            {
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, System.Web.HttpContext.Current.Response.OutputStream);
+                pdfDoc.Open();
+
+                if (dt.Rows.Count > 0)
+                {
+                    PdfPTable PdfTable = new PdfPTable(1);
+                    PdfTable.TotalWidth = 200f;
+                    PdfTable.LockedWidth = true;
+
+                    PdfPCell PdfPCell = new PdfPCell(new Phrase(new Chunk("Employee Details", font18)));
+                    PdfPCell.Border = Rectangle.NO_BORDER;
+                    PdfTable.AddCell(PdfPCell);
+                    DrawLine(writer, 25f, pdfDoc.Top - 30f, pdfDoc.PageSize.Width - 25f, pdfDoc.Top - 30f, new BaseColor(System.Drawing.Color.Red));
+                    pdfDoc.Add(PdfTable);
+
+                    PdfTable = new PdfPTable(dt.Columns.Count);
+                    PdfTable.SpacingBefore = 20f;
+                    for (int columns = 0; columns <= dt.Columns.Count - 1; columns++)
+                    {
+                        PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Columns[columns].ColumnName, font18)));
+                        PdfTable.AddCell(PdfPCell);
+                    }
+
+                    for (int rows = 0; rows <= dt.Rows.Count - 1; rows++)
+                    {
+                        for (int column = 0; column <= dt.Columns.Count - 1; column++)
+                        {
+                            PdfPCell = new PdfPCell(new Phrase(new Chunk(dt.Rows[rows][column].ToString(), font13)));
+                            PdfTable.AddCell(PdfPCell);
+                        }
+                    }
+                    pdfDoc.Add(PdfTable);
+                }
+                pdfDoc.Close();
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment; filename=Report" +model+ DateTime.Now.Date.ToString() + ".pdf");
+                System.Web.HttpContext.Current.Response.Write(pdfDoc);
+                Response.Flush();
+                Response.End();
+            }
+            catch (DocumentException de)
+            {
+            }
+            // System.Web.HttpContext.Current.Response.Write(de.Message)
+            catch (IOException ioEx)
+            {
+            }
+            // System.Web.HttpContext.Current.Response.Write(ioEx.Message)
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private static void DrawLine(PdfWriter writer, float x1, float y1, float x2, float y2, BaseColor color)
+        {
+            PdfContentByte contentByte = writer.DirectContent;
+            contentByte.SetColorStroke(color);
+            contentByte.MoveTo(x1, y1);
+            contentByte.LineTo(x2, y2);
+            contentByte.Stroke();
+        }
+
+
+
+
+
+
+
+
 
 
 

@@ -60,7 +60,7 @@
             </div>
         </div>
     </nav>*@
-    using (Html.BeginForm("AddEmployee()", "Admin", Model))
+    using (Html.BeginForm("AddNewEmp", "Admin", Model))
     {
         @Html.AntiForgeryToken()
 
@@ -341,7 +341,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
-                    @Html.ActionLink("Back to List", "Index")
+                    @Html.ActionLink("Back", "GetAllEmployeesDetails","Admin")
                 </div>
 
             </div>

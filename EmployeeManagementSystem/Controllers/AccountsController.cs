@@ -1,21 +1,15 @@
-﻿using EmployeeManagementSystem.DBContext;
-using EmployeeManagementSystem.Models;
+﻿using EmployeeManagementSystem.DataAccessLayer;
 using EmployeeManagementSystem.ViewModels;
-using EmployeeManagementSystem.DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
 namespace EmployeeManagementSystem.Controllers
 {
     [Route("[controller]")]
-   
+
 
     public class AccountsController : Controller
     {
@@ -25,10 +19,10 @@ namespace EmployeeManagementSystem.Controllers
 
         public AccountsController()
         {
-             constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
         }
 
-       
+
         // GET: Accounts
         public ActionResult Login()
         {
@@ -58,11 +52,15 @@ namespace EmployeeManagementSystem.Controllers
                      return View();
                  }*/
                 object output = dal.ExecuteScalar("uspcheckCredentials", dict);
+                if (output == null)
+                {
+                    return RedirectToAction("login");
+                }
                 Session["EmpId"] = output;
                 Dictionary<string, object> DictRole = new Dictionary<string, object>() {
                 { "@EmployeeId",output}
                 };
-               
+
                 object role = dal.ExecuteScalar("getUserRole", DictRole);
                 Session["role"] = role;
                 ViewData["role"] = role;
@@ -70,13 +68,13 @@ namespace EmployeeManagementSystem.Controllers
                 Console.WriteLine(output);
                 if (output == null)
                 {
-                    ViewData["Error"] = " User Not Found";
+                    return RedirectToAction("login");
                 }
                 else
                 {
                     if ((role).ToString() == "Employee")
                     {
-                        return RedirectToAction("GetLeaveRequest", "Employee");
+                        return RedirectToAction("GetUserOwnDetails", "Employee");
                     }
                     else if ((role).ToString() == "Admin")
                     {
@@ -86,7 +84,7 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         return RedirectToAction("GetAllTeamEmps", "TeamLead");
                     }
-                    
+
 
 
                 }
@@ -95,17 +93,17 @@ namespace EmployeeManagementSystem.Controllers
 
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                 Session["LoginError"] = "User Not Found";
-                 //return RedirectToAction("login");
-            }   
+                Session["LoginError"] = "User Not Found";
+                //return RedirectToAction("login");
+            }
 
-            return RedirectToAction("login");   
+            return RedirectToAction("login");
 
-        }
+            }
 
-        
+
 
         public ActionResult Logout()
         {
@@ -113,6 +111,8 @@ namespace EmployeeManagementSystem.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
+
+
 
 
 

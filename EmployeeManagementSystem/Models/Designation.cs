@@ -9,6 +9,7 @@ namespace EmployeeManagementSystem.Models
     {
         public int DesignationId { get; set; }
         public string DesignationName { get; set; }
+        public List<Designation> DesignationsList { get; set; }
 
     }
 }

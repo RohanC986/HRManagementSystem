@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "GetAllDesignation";
+    var data = (IEnumerable<EmployeeManagementSystem.Models.Designation>)ViewData["designation"];
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (((Session["role"]).ToString()) == "Admin")
+{
+    <h2 class="DepartHeading">Designation</h2>
+    <hr id="addemphr" />
+
+    <div id="DepatDiv">
+        <table class="DepartTab">
+            <thead>
+
+                <tr>
+                    <th>
+                        Designation Id
+                    </th>
+
+                    <th>
+                        Designation Name
+                    </th>
+                    <th>
+                        <button onclick="location.href='@Url.Action("AddDesignation", "Admin")'" id="emp-create-btn" class="btn-primary" type="button"> Add </button>
+
+                    </th>
+                </tr>
+            <thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
+
+                        <tr>
+
+
+
+                            <td> @item.DesignationId  </td>
+                            <td> @item.DesignationName</td>
+                            <td>
+                                <span>
+                                    <button onclick="location.href='@Url.Action("EditDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
+                                    <button onclick="location.href='@Url.Action("DeleteDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Delete</button>
+                                </span>
+                            </td>
+      
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <td> You are not Authorized </td>
+}
+
+
+

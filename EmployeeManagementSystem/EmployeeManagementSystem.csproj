@@ -52,11 +52,17 @@
     <Reference Include="Azure.Identity, Version=1.6.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Identity.1.6.0\lib\netstandard2.0\Azure.Identity.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
@@ -267,6 +273,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamLeadController.cs" />
+    <Compile Include="ConversionService\DTableToDesignationModel.cs" />
     <Compile Include="ConversionService\DTableToProjectModel.cs" />
     <Compile Include="ConversionService\DTableToEmployeeIdNameViewModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
@@ -359,10 +366,12 @@
     <Content Include="Views\Admin\AddProject.cshtml" />
     <Content Include="Views\Employee\GetLeaveRequest.cshtml" />
     <Content Include="Views\Admin\AddProjectMembers.cshtml" />
-
     <Content Include="Views\Employee\GetUserOwnDetails.cshtml" />
-
     <Content Include="Views\Admin\AddLogin.cshtml" />
+    <Content Include="Views\Admin\AddDesignation.cshtml" />
+    <Content Include="Views\Admin\GetAllDesignation.cshtml" />
+    <Content Include="Views\Admin\EditDesignation.cshtml" />
+    <Content Include="Views\Admin\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
