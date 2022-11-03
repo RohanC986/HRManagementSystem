@@ -264,6 +264,24 @@ namespace EmployeeManagementSystem.Controllers
             dal.ExecuteNonQuery("uspSaveProjectMember", dict);
         }
 
+        public ActionResult DisableEmp(Employee model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@EmployeeId",model.EmployeeId},
+
+            };
+            object check = dal.ExecuteNonQuery("uspDisableEmp", dict);
+            Console.WriteLine(check);
+            if (check == null)
+            {
+                ViewBag.Message = "Invalid credentials";
+            }
+
+            return RedirectToAction("GetAllEmployeesDetails", "Admin");
+        }
+
+
         public ActionResult AddDesignation()
         {
 

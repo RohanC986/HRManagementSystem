@@ -3,9 +3,7 @@
     ViewBag.Title = "GetAllDesignation";
     var data = (IEnumerable<EmployeeManagementSystem.Models.Designation>)ViewData["designation"];
 }
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @if (((Session["role"]).ToString()) == "Admin")
 {
     <h2 class="DepartHeading">Designation</h2>

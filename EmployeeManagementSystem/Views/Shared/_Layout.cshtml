@@ -16,62 +16,9 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @*    <div class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a href="#" class="navbar-brand ">
-                            <img class="IMG" src="~/Images/Wbiz_logo.png" height="30" alt="CoolBrand">
-                        </a>
-                        @Html.ActionLink("Employee Portal", "Index", "Employees", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
+  
 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li>@Html.ActionLink("Get Employee List", "Index", "Employees")</li>
-                                <li>@Html.ActionLink("Add Employee", "Create", "Employees")</li>
-                                <li><a>Hello - @User.Identity.Name</a></li>
-                                <li>@Html.ActionLink("Logout", "Logout", "Accounts")</li>
-                            }
-                            else
-                            {
-                                <li>@Html.ActionLink("Login", "Login", "Accounts")</li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-            <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="@Url.Action("Index", "Home")">
-                        <span class="glyphicon glyphicon-home"></span>
-                          Home
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Contact", "Home")">
-                        <span class="glyphicon glyphicon-search"></span>
-                        Contact
-                    </a>
-                </li>
-                <li>
-                <a href="@Url.Action("About", "Home")">
-                    About
-                </a>
-                </li>
-                <li>
-                <a href="@Url.Action("Search", "Home")">
-                    Search
-                </a>
-                </li>
-            </ul>
-            @Html.Partial("_LoginPartial")
-        </div>
-
-    *@
+    
     <nav class="navbar navbar-expand-lg navbar-light ">
         <div class="container-fluid">
             <a href="#" class="navbar-brand ">
@@ -92,6 +39,10 @@
         </a>*@
                     @if (((Session["role"]).ToString()) == "Employee")
                     {
+                        <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-user"></span>
+                            Profile
+                        </a>
                         <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="glyphicon  glyphicon-open-file"></span>
                             Get Leave Request
@@ -101,46 +52,52 @@
                             Leave Request
                         </a>
                         <a href="@Url.Action("LeaveSummary" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-open-file"></span>
+                            <span class="glyphicon  glyphicon-list-alt"></span>
                             Leave Summary
                         </a>
                     }
                     @if (((Session["role"]).ToString()) == "Admin")
                     {
-                        <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            AddNewEmp
-                        </a>
-                        <a href="@Url.Action("AddProject" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            AddProject
-                        </a>
-                        <a href="@Url.Action("AddProjectMembers" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            AddProjectMembers
-                        </a>
-                        <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            Department
-                        </a>
-                        @*<a href="@Url.Action("EditEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
-                            Department
-                        </a>*@
                         <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
+                            <span class="fa fa-solid fa-users"></span>
                             GetAllEmployeesDetails
                         </a>
 
+
+                        <a href="@Url.Action("AddLogin" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="fa fa-solid fa-plus"></span>
+                            Add Login
+                        </a>
+                        <a href="@Url.Action("AddProject" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="fa fa-solid fa-file-chart-pie"></span>
+                            AddProject
+                        </a>
+                        <a href="@Url.Action("AddProjectMembers" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="fa fa-solid fa-user-plus"></span>
+                            AddProjectMembers
+                        </a>
+                        <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="fa fa-solid fa-tv"></span>
+                            Department
+                        </a>
+                        @*<a href="@Url.Action("EditEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+            <span class="glyphicon glyphicon-log-out"></span>
+             Department
+            </a>*@
+
+                        <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                            <span class="fa fa-solid fa-user"></span>
+                            Add Employee
+                        </a>
                     }
                     @if (((Session["role"]).ToString()) == "Team Lead")
                     {
                         <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
+                            <span class="fa fa-solid fa-users"></span>
                             Get All Team Emps
                         </a>
                         <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="glyphicon glyphicon-log-out"></span>
+                            <span class="fa fa-solid fa-file-plus"></span>
                             Get Team Leave Requests
                         </a>
                     }

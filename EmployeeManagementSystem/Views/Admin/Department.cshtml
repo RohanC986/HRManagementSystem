@@ -3,9 +3,7 @@
     ViewBag.Title = "Department";
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
 }
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @if (((Session["role"]).ToString()) == "Admin")
 {
     <h2 class="DepartHeading">Teams</h2>
