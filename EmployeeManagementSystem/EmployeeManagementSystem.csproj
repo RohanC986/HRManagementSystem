@@ -273,7 +273,11 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamLeadController.cs" />
+
     <Compile Include="ConversionService\DTableToDesignationModel.cs" />
+
+    <Compile Include="ConversionService\DTableToRolesModel.cs" />
+
     <Compile Include="ConversionService\DTableToProjectModel.cs" />
     <Compile Include="ConversionService\DTableToEmployeeIdNameViewModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
@@ -367,11 +371,16 @@
     <Content Include="Views\Employee\GetLeaveRequest.cshtml" />
     <Content Include="Views\Admin\AddProjectMembers.cshtml" />
     <Content Include="Views\Employee\GetUserOwnDetails.cshtml" />
+
     <Content Include="Views\Admin\AddLogin.cshtml" />
     <Content Include="Views\Admin\AddDesignation.cshtml" />
     <Content Include="Views\Admin\GetAllDesignation.cshtml" />
     <Content Include="Views\Admin\EditDesignation.cshtml" />
     <Content Include="Views\Admin\Report.cshtml" />
+
+    <Content Include="Views\Admin\AddRole.cshtml" />
+    <Content Include="Views\Admin\RoleView.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

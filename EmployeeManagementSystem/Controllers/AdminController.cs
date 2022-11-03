@@ -27,6 +27,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
 
+        public List<Role> RolesList { get; private set; }
 
         public AdminController()
         {
@@ -51,7 +52,18 @@ namespace EmployeeManagementSystem.Controllers
             return View(ViewData);
         }
 
-        public ActionResult AddNewEmp(Employee model)
+        public ViewResult AddNewEmp()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+            Role roleOptions= new Role();
+            roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
+            ViewData["roleOptions"] = roleOptions;
+
+            return View();
+        }
+
+        public ActionResult SaveNewEmp(Employee model)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>() {
                 //{ "@EmployeeId",model.EmployeeId},
@@ -128,6 +140,11 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult EditEmp(Employee model)
         {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+            Role roleOptions = new Role();
+            roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
+            ViewData["roleOptions"] = roleOptions;
             return View(model);
         }
 
@@ -190,7 +207,7 @@ namespace EmployeeManagementSystem.Controllers
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 {"@ProjectName",model.ProjectName },
-                {"ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
+                {"@ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
             };
             dal.ExecuteNonQuery("uspSaveProject", dict);
 
@@ -324,6 +341,46 @@ namespace EmployeeManagementSystem.Controllers
             ExportToPdf(datatable,model.EmployeeId);
             return View(ViewData);
 
+
+        }
+
+        public ViewResult RoleView()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable dt=dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+            Role role =  new Role();    
+            role.RolesList= dtRole.DataTableToRolesModel(dt);
+
+
+
+            return View(role);
+        }
+
+        public ViewResult AddRole()
+        {
+
+            return View();
+        }
+        public ActionResult SaveRole(Role model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@RoleName", model.RoleName}
+            };
+            dal.ExecuteNonQuery("uspSaveRole", dict);
+
+            return RedirectToAction("RoleView", "Admin");
+
+        }
+        public ActionResult DeleteRole(Role model)
+            {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@RoleName", model.RoleName}
+            };
+            dal.ExecuteNonQuery("uspDeleteRole", dict);
+
+            return RedirectToAction("RoleView", "Admin");
 
         }
         public void ExportToPdf(DataTable myDataTable,int model)

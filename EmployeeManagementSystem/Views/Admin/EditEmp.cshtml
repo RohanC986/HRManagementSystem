@@ -4,6 +4,15 @@
     ViewBag.Title = "EditEmp";
     //var data = (EmployeeManagementSystem.Models.Employee)ViewData["model"];
 
+    var role = (EmployeeManagementSystem.Models.Role)ViewData["roleOptions"];
+
+    var roleOptions = new List<SelectListItem>();
+    foreach (var item in role.RolesList)
+    {
+        roleOptions.Add(new SelectListItem() { Text = item.RoleName, Value = item.RoleName.ToString() });
+    }
+
+
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -250,9 +259,7 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8  ">
-                    @* @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role" } })
-                        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-                    *@
+    
                     @Html.DropDownList("Role", new List<SelectListItem>
                     {
 
@@ -260,6 +267,7 @@
                        new SelectListItem { Text = "Team Lead", Value = "Team Lead"},
                        new SelectListItem { Text = "Employee", Value = "Employee"},
                     }, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.DropDownListFor(model => model.Role, roleOptions, htmlAttributes: new { @class = "text-center Role-Down " })
                     @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -294,6 +302,17 @@
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Previous Company Name " } })
                     @Html.ValidationMessageFor(model => model.PreviousCompanyName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8  ">
+                    @* @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role" } })
+                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                    *@
+                    @Html.DropDownListFor(model => model.Role, roleOptions, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
                 </div>
             </div>
 

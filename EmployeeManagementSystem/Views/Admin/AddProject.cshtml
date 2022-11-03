@@ -2,6 +2,15 @@
 @{
     ViewBag.Title = "Add Project";
     Layout = null;
+    var emp = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["EmpIdNameList"];
+
+
+    var empOptions = new List<SelectListItem>();
+
+    foreach(var item in emp.EmployeeIdNameList)
+    {
+        empOptions.Add(new SelectListItem() { Text =item.FirstName,Value=item.EmployeeId.ToString()});
+}
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -78,7 +87,7 @@
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.ProjectHeadEmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.ProjectHeadEmployeeId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Project Head" } })
+                @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ProjectHeadEmployeeId, "", new { @class = "text-danger" })
             </div>
         </div>
