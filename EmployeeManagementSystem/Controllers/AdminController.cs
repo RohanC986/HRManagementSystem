@@ -26,6 +26,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
         DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
+        DTableToRolesModel dtRole  = new DTableToRolesModel();
 
         public List<Role> RolesList { get; private set; }
 
@@ -232,7 +233,21 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult AddLogin(Login model)
+        public ActionResult AddLogin()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
+
+            Employee EmpDR = new Employee();
+
+            EmpDR.EmployeeList= cs.DataTabletoEmployeeModel(EmpDt);
+
+            ViewData["EmpCodeOption"]= EmpDR;
+
+            return View();
+        }
+        public ActionResult SaveLogin(Login model)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>() {
 
@@ -250,7 +265,8 @@ namespace EmployeeManagementSystem.Controllers
                 ViewBag.Message = "Invalid credentials";
             }
 
-            return View();
+            return RedirectToAction("GetAllEmployeesDetails");
+            
         }
 
         public void SaveProjectMember(ProjectMembers model)

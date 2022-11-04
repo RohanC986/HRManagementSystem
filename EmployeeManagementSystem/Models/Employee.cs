@@ -32,6 +32,8 @@ namespace EmployeeManagementSystem.Models
         public bool Experienced { get; set; }
         public string PreviousCompanyName { get; set; }
         public int YearsOfExprience { get; set; }
-        
+
+        public List<Employee> EmployeeList { get; set; }
+
     }
 }

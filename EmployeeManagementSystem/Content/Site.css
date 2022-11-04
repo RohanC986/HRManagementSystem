@@ -119,6 +119,38 @@ body {
 
 
 
+/*Get All Employees Details*/
+#GetAllEmpDetails {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #fff;
+}
+
+#GetAllEmpDetails thead th {
+        background-color: lightblue;
+        font-size: medium;
+        text-align: center;
+}
+
+#GetAllEmpDetails th, #GetAllEmpDetails td {
+        padding: 3px;
+}
+
+#GetAllEmpDetails td {
+        text-align: center;
+        font-size: 1.7rem;
+        padding-bottom: 15px;
+}
+
+
+/*Emp Table*/
+
+
+
+/*Get All Employees Details*/
+
+
 
 
 /*Employee form*/
@@ -182,27 +214,27 @@ table.EmpTableDet {
     border: 1px solid #fff;
 }
 
-    table.EmpTableDet thead th {
+table.EmpTableDet thead th {
         padding: 12px;
         background-color: lightblue;
         font-size: large;
         text-align: center;
-    }
+}
 
-    table.EmpTableDet th, table.EmpTableDet td {
+table.EmpTableDet th, table.EmpTableDet td {
         padding: 3px;
-    }
+}
 
-    table.EmpTableDet td {
+table.EmpTableDet td {
         text-align: center;
         font-size: 1.85rem;
         padding-bottom: 15px;
-    }
+}
 
-
+#LeaveBtn{
+    margin-left:35%;
+}
 /*Emp Table*/
-
-
 /*Team lead data*/
 #teamdepemphr {
     border: 2px solid green;
