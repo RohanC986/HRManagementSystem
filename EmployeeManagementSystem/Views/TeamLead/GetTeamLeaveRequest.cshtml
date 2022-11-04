@@ -70,8 +70,8 @@
                                     {
                                         <td>
                                             <span>
-                                                <input value="Accept" onclick="window.location.href='@Url.Action("LeaveAccept","TeamLead",item)'" id="emp-create-btn" class="btn-success" type="button" />
-                                                <input value="Reject" onclick="window.location.href='@Url.Action("LeaveReject","TeamLead",item)'" id="emp-create-btn" class="btn-danger" type="button" />
+                                                <input value="Accept" onclick=" (confirm('Do you want to Accept Leave?')) ? window.location.href = '@Url.Action("LeaveAccept","TeamLead",item)' : null" id="emp-create-btn" class="btn-success" type="button" />
+                                                <input value="Reject" onclick=" (confirm('Do you want to Reject Leave?')) ?window.location.href='@Url.Action("LeaveReject","TeamLead",item)': null " id="emp-create-btn" class="btn-danger" type="button" />
                                             </span>
                                         </td>
 

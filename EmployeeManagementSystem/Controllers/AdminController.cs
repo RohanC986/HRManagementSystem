@@ -26,7 +26,8 @@ namespace EmployeeManagementSystem.Controllers
         DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
         DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
-        DTableToRolesModel dtRole  = new DTableToRolesModel();
+        DTableToRolesModel dtRole = new DTableToRolesModel();
+
 
         public List<Role> RolesList { get; private set; }
 
@@ -57,9 +58,14 @@ namespace EmployeeManagementSystem.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-            Role roleOptions= new Role();
+            Role roleOptions = new Role();
             roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
             ViewData["roleOptions"] = roleOptions;
+
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+            Designation designation = new Designation();
+            designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+            ViewData["designationOptions"] = designation;
 
             return View();
         }
@@ -140,12 +146,18 @@ namespace EmployeeManagementSystem.Controllers
 
 
         public ActionResult EditEmp(Employee model)
-        {
+      {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
             Role roleOptions = new Role();
             roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
             ViewData["roleOptions"] = roleOptions;
+
+
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+            Designation designation = new Designation();
+            designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+            ViewData["designationOptions"]=designation;
             return View(model);
         }
 
@@ -372,7 +384,7 @@ namespace EmployeeManagementSystem.Controllers
             LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
             leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
             ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-            ExportToPdf(datatable,model.EmployeeId);
+            ExportToPdf(datatable, model.EmployeeId);
             return View(ViewData);
 
 
@@ -381,12 +393,9 @@ namespace EmployeeManagementSystem.Controllers
         public ViewResult RoleView()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable dt=dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-            Role role =  new Role();    
-            role.RolesList= dtRole.DataTableToRolesModel(dt);
-
-
-
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+            Role role = new Role();
+            role.RolesList = dtRole.DataTableToRolesModel(dt);
             return View(role);
         }
 
@@ -407,7 +416,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
         public ActionResult DeleteRole(Role model)
-            {
+        {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 {"@RoleName", model.RoleName}
@@ -417,7 +426,7 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("RoleView", "Admin");
 
         }
-        public void ExportToPdf(DataTable myDataTable,int model)
+        public void ExportToPdf(DataTable myDataTable, int model)
         {
             DataTable dt = myDataTable;
             Document pdfDoc = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
@@ -460,7 +469,7 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 pdfDoc.Close();
                 Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment; filename=Report" +model+ DateTime.Now.Date.ToString() + ".pdf");
+                Response.AddHeader("content-disposition", "attachment; filename=Report" + model + DateTime.Now.Date.ToString() + ".pdf");
                 System.Web.HttpContext.Current.Response.Write(pdfDoc);
                 Response.Flush();
                 Response.End();

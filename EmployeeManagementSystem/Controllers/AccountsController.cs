@@ -54,8 +54,10 @@ namespace EmployeeManagementSystem.Controllers
                 object output = dal.ExecuteScalar("uspcheckCredentials", dict);
                 if (output == null)
                 {
+                    ViewBag.Loign = "User Not Found";
                     return RedirectToAction("login");
                 }
+                ViewBag.Loign = "Logged In Successfully";
                 Session["EmpId"] = output;
                 Dictionary<string, object> DictRole = new Dictionary<string, object>() {
                 { "@EmployeeId",output}

@@ -11,8 +11,9 @@
     <link rel="icon" href="~/Images/wond-log.png" type="image/icon type" id="title-logo">
 
 </head>
-
-
+@*@{
+        Layout = "~/Views/Shared/_Notification.cshtml\">~/Views/Shared/_Notification.cshtml";
+    }*@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 @Styles.Render("~/Content/css")
@@ -32,49 +33,59 @@
 
 @using (Html.BeginForm())
 {
+    if (ViewBag.Loign != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("Error");
+            };
+        </script>
+
+    }
     @Html.AntiForgeryToken()
-       
 
-<div class="wrapper mx-auto ">
-    <h3 class="Form-Header ">Login</h3>
-    <hr class="login-header" />
-    <form class="p-3 mt-3  align-items-center">
-        <div class="form-field d-flex align-items-center me-2 ">
-            <span><i class="fa fa-lg fa-solid fa-user "></i></span>
-            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = " text-center control-label col-md-4 h4" })
 
-            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control rounded-0", id = "userName", placeholder = "Enter name here" } })
+    <div class="wrapper mx-auto ">
+        <h3 class="Form-Header ">Login</h3>
+        <hr class="login-header" />
+        <form class="p-3 mt-3  align-items-center">
+            <div class="form-field d-flex align-items-center me-2 ">
+                <span><i class="fa fa-lg fa-solid fa-user "></i></span>
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = " text-center control-label col-md-4 h4" })
 
-            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control rounded-0", id = "userName", placeholder = "Enter name here", required = "required" } })
+
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-field d-flex align-items-center me-2">
+                <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
+                @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
+
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here",  required = "required",@autocomplete = "off", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <button class="btn  login-btn">Login</button>
+            <div>
+                @if (ViewData["Error"] != null)
+                {
+                    <div>
+
+                    </div>
+
+
+                }
+            </div>
+
+
+        </form>
+        <div class="text-center fs-6">
+            <a href="#">Forget password?</a>
         </div>
-        <div class="form-field d-flex align-items-center me-2">
-            <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
-            @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
 
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", @autocomplete = "off", @type = "password" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-        <button class="btn  login-btn">Login</button>
-        <div>
-            @if (ViewData["Error"] != null)
-            {
-                <div>
-                    
-                </div>
+        <h1>@ViewData["out"]</h1>
 
-
-            }
-        </div>
-
-
-    </form>
-    <div class="text-center fs-6">
-        <a href="#">Forget password?</a>
     </div>
-
-    <h1>@ViewData["out"]</h1>
-
-</div>
     <h1>@ViewData["out"]</h1>
 
 

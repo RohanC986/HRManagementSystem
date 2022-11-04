@@ -273,11 +273,8 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamLeadController.cs" />
-
     <Compile Include="ConversionService\DTableToDesignationModel.cs" />
-
     <Compile Include="ConversionService\DTableToRolesModel.cs" />
-
     <Compile Include="ConversionService\DTableToProjectModel.cs" />
     <Compile Include="ConversionService\DTableToEmployeeIdNameViewModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
@@ -324,6 +321,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -332,6 +331,8 @@
     <Content Include="Images\wond-log.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -343,6 +344,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\toastrImp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -371,16 +375,14 @@
     <Content Include="Views\Employee\GetLeaveRequest.cshtml" />
     <Content Include="Views\Admin\AddProjectMembers.cshtml" />
     <Content Include="Views\Employee\GetUserOwnDetails.cshtml" />
-
     <Content Include="Views\Admin\AddLogin.cshtml" />
     <Content Include="Views\Admin\AddDesignation.cshtml" />
     <Content Include="Views\Admin\GetAllDesignation.cshtml" />
     <Content Include="Views\Admin\EditDesignation.cshtml" />
     <Content Include="Views\Admin\Report.cshtml" />
-
     <Content Include="Views\Admin\AddRole.cshtml" />
     <Content Include="Views\Admin\RoleView.cshtml" />
-
+    <Content Include="Views\Shared\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
