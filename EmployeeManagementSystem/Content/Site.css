@@ -387,6 +387,14 @@ table.DepartTab td {
     
 }
 
+.GetAllEmpDet-btn {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.95rem;
+    margin-bottom: 2%;
+}
+
+
 .dept-btn-sec, .GetAllEmpDet-btn-sec {
     background-color: #dee2e6;
     color: black;
