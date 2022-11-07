@@ -60,44 +60,15 @@ namespace EmployeeManagementSystem.Controllers
 
         public ViewResult AddNewEmp(Employee model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                 { "@EmployeeCode",model.EmployeeCode},
-                { "@FirstName",model.FirstName},
-                { "@MiddleName",model.MiddleName},
-                { "@LastName",model.LastName},
-                { "@Email",model.Email},
-                { "@DOB",model.DOB},
-                { "@DOJ",model.DOJ},
-                { "@BloodGroup",model.BloodGroup},
-                { "@Gender",model.Gender},
-                { "@PersonalContact",model.PersonalContact},
-                { "@EmergencyContact",model.EmergencyContact},
-                { "@AadharCardNo",model.AadharCardNo},
-                { "@PancardNo",model.PancardNo},
-
-                {"@PassportNo",model.PassportNo},
-
-                { "@Address",model.Address},
-                { "@City",model.City},
-                { "@State",model.State},
-                { "@Pincode",model.Pincode},
-                { "@Role",model.Role},
-                { "@Designation",model.Designation},
-                { "@Experienced",model.Experienced},
-
-                {"@PreviousCompanyName",model.PreviousCompanyName },
-
-                { "@YearsOfExprience",model.YearsOfExprience},
-            };
-            object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
-            Dictionary<string, object> dict1 = new Dictionary<string, object>();
-            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles"/*, dict*/, dict1);
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            
+            
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
             Role roleOptions = new Role();
             roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
             ViewData["roleOptions"] = roleOptions;
 
-            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict1);
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict);
             Designation designation = new Designation();
             designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
             ViewData["designationOptions"] = designation;
@@ -143,7 +114,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 ViewBag.Message = "Invalid credentials";
             }
-            return View();
+            return RedirectToAction("AddLogin");
         }
 
         //public ActionResult UpdateEmpDetails(int EmployeeId)
@@ -246,13 +217,17 @@ namespace EmployeeManagementSystem.Controllers
 
             DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
             EmployeeIdNameViewModel employeeIdNameViewModel = new EmployeeIdNameViewModel();
+
             employeeIdNameViewModel.EmployeeIdNameList = dtEmpIdName.DataTableToEmployeeIdNameViewModel(EmpIdname);
+
+            employeeIdNameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+
             ViewData["AllEmpIdName"] = employeeIdNameViewModel;
 
             return View();
         }
 
-        public void SaveProject(Project model)
+        public ActionResult SaveProject(Project model)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -261,7 +236,7 @@ namespace EmployeeManagementSystem.Controllers
             };
             dal.ExecuteNonQuery("uspSaveProject", dict);
 
-
+            return RedirectToAction("AddProjectMembers", "Admin");
         }
 
         public ActionResult AddProjectMembers()
