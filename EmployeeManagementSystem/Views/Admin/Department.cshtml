@@ -6,10 +6,31 @@
 
 @if (((Session["role"]).ToString()) == "Admin")
 {
+
+
     <h2 class="DepartHeading">Teams</h2>
     <hr id="addemphr" />
 
+    <div class="dept-btn">
+
+        <div class="dept-btn-sec ">
+            <a href="@Url.Action("AddProject" , "Admin")"  tabindex="-1">
+                <span class="fa fa-solid fa-file-chart-pie"></span>
+                Add Project
+            </a>
+        </div>
+        <div class="dept-btn-sec">
+            <a href="@Url.Action("AddProjectMembers" , "Admin")"  tabindex="-1">
+                <span class="fa fa-solid fa-user-plus"></span>
+                Add Project Members
+            </a>
+        </div>
+    </div>
+
+
     <div id="DepatDiv">
+
+        
         <table class="DepartTab">
             <thead>
                 <tr>
@@ -26,34 +47,34 @@
                     </th>
 
                     @*<th>
-                        EmployeesOnLeave
-                    </th>*@
+                            EmployeesOnLeave
+                        </th>*@
 
 
                 </tr>
-                <thead>
-                <tbody>
-                    @{
-                        foreach (var item in data)
-                        {
+            <thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
 
-                            <tr>
-
-
-
-                                <td> @item.FirstName @item.LastName </td>
-                                <td> @item.ProjectName</td>
-                                <td> @item.TotalMembers</td>
+                        <tr>
 
 
 
+                            <td> @item.FirstName @item.LastName </td>
+                            <td> @item.ProjectName</td>
+                            <td> @item.TotalMembers</td>
 
 
-                            </tr>
 
-                        }
+
+
+                        </tr>
+
                     }
-                </tbody>
+                }
+            </tbody>
         </table>
     </div>
 

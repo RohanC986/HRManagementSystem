@@ -31,14 +31,7 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarCollapse">
                 <div class="navbar-nav mx-lg-4 mx-sm-auto">
-                    @*<a href="" class="nav-item nav-link active text-light mx-lg-4 mx-sm-auto">
-            <span class="glyphicon glyphicon-home"></span>
-            Home
-        </a>*@
-                    @*<a href="#" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-            <span class="glyphicon glyphicon-user"></span>
-            Profile
-        </a>*@
+                  
                     @if (((Session["role"]).ToString()) == "Employee")
                     {
                         <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
@@ -62,36 +55,18 @@
                     {
                         <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
                             <span class="fa fa-solid fa-users"></span>
-                            GetAllEmployeesDetails
+                            Employees
                         </a>
 
 
-                      @*  <a href="@Url.Action("AddLogin" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="fa fa-solid fa-plus"></span>
-                            Add Login
-                        </a>*@
-
-                        <a href="@Url.Action("AddProject" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="fa fa-solid fa-file-chart-pie"></span>
-                            AddProject
-                        </a>
-                        <a href="@Url.Action("AddProjectMembers" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="fa fa-solid fa-user-plus"></span>
-                            AddProjectMembers
-                        </a>
+                     
                         <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
                             <span class="fa fa-solid fa-tv"></span>
-                            Department
+                            Projects
                         </a>
-                        @*<a href="@Url.Action("EditEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-            <span class="glyphicon glyphicon-log-out"></span>
-             Department
-            </a>*@
+                       
 
-                        <a href="@Url.Action("AddNewEmp" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
-                            <span class="fa fa-solid fa-user"></span>
-                            Add Employee
-                        </a>
+                       
                     }
                     @if (((Session["role"]).ToString()) == "Team Lead")
                     {

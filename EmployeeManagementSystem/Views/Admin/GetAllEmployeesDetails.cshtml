@@ -4,80 +4,88 @@
 
 
 
-   
+
 
     var data = (IEnumerable<EmployeeManagementSystem.Models.Employee>)ViewData["allEmployees"];
 }
 
 @if (((Session["role"]).ToString()) == "Admin")
 {
-    
 
-    <h2 class="addEmp">GetAllEmployees</h2>
+
+    <h2 class="addEmp">Employees Details</h2>
     <hr id="addemphr" />
-   
-        <table id="GetAllEmpDetails">
-            <thead>
-                <tr>
-                    <th class="col-md-3">
-                        Name
-                    </th>
-                   
+    <div class="dept-btn">
+        <div  class="GetAllEmpDet-btn-sec">
+            <a href="@Url.Action("AddNewEmp" , "Admin")" class="" tabindex="-1">
+                <span class="fa fa-solid fa-user"></span>
+                Add Employee
+            </a>
+        </div>
+    </div>
 
-                    <th class="col-md-2">
-                        Email
-                    </th>
-
-                   
-                    <th class="col-md-1">
-                        Role
-                    </th>
-                    <th class="col-md-2">
-                        Designation
-                    </th>
-
-                    <th class="col-md-3">
-                        Options
-                    </th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-                @{
-                    foreach (var item in data)
-                    {
-
-                        <tr>
+    <table id="GetAllEmpDetails">
+        <thead>
+            <tr>
+                <th class="col-md-3">
+                    Name
+                </th>
 
 
+                <th class="col-md-2">
+                    Email
+                </th>
 
-                            <td class="col-md-3"> @item.FirstName @item.MiddleName @item.LastName</td>
-                            <td class="col-md-2"> @item.Email</td>
-                            <td class="col-md-1">@item.Role</td>
-                            <td class="col-md-2"> @item.Designation</td>
-                            <td class="col-md-3">
-                                <span>
-                                    @*<button onclick="(confirm('do you w')) ? location.href = '  @Url.Action("EditEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-primary" type="button">Edit</button>*@
-                                    @*<button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Report</button>*@
-                                    <button onclick="location.href='@Url.Action("EditEmp", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
-                                    @*<button onclick="location.href='@Url.Action("DisableEmp", "Admin",item)'" id="emp-create-btn" class="btn-danger" type="button">Disable</button>*@
-                                    <button onclick="(confirm('do you want to Disable?')) ? location.href = '  @Url.Action("DisableEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button">Disable</button>
 
-                                    <button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-success" type="button">Report</button>
+                <th class="col-md-1">
+                    Role
+                </th>
+                <th class="col-md-2">
+                    Designation
+                </th>
 
-                                </span>
-                            </td>
+                <th class="col-md-3">
+                    Options
+                </th>
 
-                        </tr>
+            </tr>
+        </thead>
+        <tbody>
 
-                    }
+            @{
+                foreach (var item in data)
+                {
+
+                    <tr>
+
+
+
+                        <td class="col-md-3"> @item.FirstName @item.MiddleName @item.LastName</td>
+                        <td class="col-md-2"> @item.Email</td>
+                        <td class="col-md-1">@item.Role</td>
+                        <td class="col-md-2"> @item.Designation</td>
+                        <td class="col-md-3">
+                            <span>
+                                @*<button onclick="(confirm('do you w')) ? location.href = '  @Url.Action("EditEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-primary" type="button">Edit</button>*@
+                                @*<button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Report</button>*@
+                                <button onclick="location.href='@Url.Action("EditEmp", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
+                                @*<button onclick="location.href='@Url.Action("DisableEmp", "Admin",item)'" id="emp-create-btn" class="btn-danger" type="button">Disable</button>*@
+                                <button onclick="(confirm('do you want to Disable?')) ? location.href = '  @Url.Action("DisableEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button">Disable</button>
+
+                                <button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-success" type="button">Report</button>
+
+                            </span>
+                        </td>
+
+                    </tr>
+
                 }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
 
 
-   
+
 }
 else
 {

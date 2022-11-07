@@ -32,7 +32,7 @@ using(Html.BeginForm("SaveProjectMember", "Admin", Model))
 
 
 <div class="form-horizontal mx-auto align-center  ">
-    <h4 class="addEmp">Employee Details</h4>
+    <h4 class="addEmp">Add Project Members</h4>
     <hr id="addemphr" />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -64,7 +64,7 @@ using(Html.BeginForm("SaveProjectMember", "Admin", Model))
         </div>
 
         <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back", "GetAllEmployeesDetails", "Admin")
         </div>
 
     </div>

@@ -43,6 +43,12 @@ body {
 
 .navbar-nav {
     float: right;
+
+}
+
+
+.navbar-nav a{
+   text-decoration:none;
 }
 
 
@@ -61,7 +67,7 @@ body {
     padding: 40px 25px 30px 25px;
     border-radius: 5px;
     border: 3px solid black;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+    box-shadow: 13px 13px 20px #cbced1;
 }
 
     .wrapper .form-field {
@@ -365,3 +371,41 @@ table.DepartTab td {
     width: 60%;
     margin-left: 20%;
 }
+
+
+
+/*Add Login*/
+
+
+
+/*Deprtment-button*/
+.dept-btn {
+    display: flex;
+    justify-content: space-evenly;
+    font-size:1.95rem;
+    margin-bottom:2%;
+    
+}
+
+.dept-btn-sec, .GetAllEmpDet-btn-sec {
+    background-color: #dee2e6;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+.dept-btn-sec span {
+    
+    padding: 5px;
+   
+}
+
+.dept-btn-sec a, .GetAllEmpDet-btn-sec a {
+        text-decoration: none;
+}
+
+.dept-btn-sec a:hover  , .GetAllEmpDet-btn-sec a:hover  {
+   color:red; 
+   text-decoration:none;
+
+}
+/*Department-button*/

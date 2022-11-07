@@ -293,7 +293,7 @@ namespace EmployeeManagementSystem.Controllers
             
         }
 
-        public void SaveProjectMember(ProjectMembers model)
+        public ActionResult SaveProjectMember(ProjectMembers model)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
@@ -302,6 +302,8 @@ namespace EmployeeManagementSystem.Controllers
 
             };
             dal.ExecuteNonQuery("uspSaveProjectMember", dict);
+
+            return RedirectToAction("Department");
         }
 
         public ActionResult DisableEmp(Employee model)
