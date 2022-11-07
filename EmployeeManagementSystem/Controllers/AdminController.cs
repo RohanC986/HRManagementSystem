@@ -54,15 +54,48 @@ namespace EmployeeManagementSystem.Controllers
             return View(ViewData);
         }
 
-        public ViewResult AddNewEmp()
+       
+
+        public ViewResult AddNewEmp(Employee model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                 { "@EmployeeCode",model.EmployeeCode},
+                { "@FirstName",model.FirstName},
+                { "@MiddleName",model.MiddleName},
+                { "@LastName",model.LastName},
+                { "@Email",model.Email},
+                { "@DOB",model.DOB},
+                { "@DOJ",model.DOJ},
+                { "@BloodGroup",model.BloodGroup},
+                { "@Gender",model.Gender},
+                { "@PersonalContact",model.PersonalContact},
+                { "@EmergencyContact",model.EmergencyContact},
+                { "@AadharCardNo",model.AadharCardNo},
+                { "@PancardNo",model.PancardNo},
+
+                {"@PassportNo",model.PassportNo},
+
+                { "@Address",model.Address},
+                { "@City",model.City},
+                { "@State",model.State},
+                { "@Pincode",model.Pincode},
+                { "@Role",model.Role},
+                { "@Designation",model.Designation},
+                { "@Experienced",model.Experienced},
+
+                {"@PreviousCompanyName",model.PreviousCompanyName },
+
+                { "@YearsOfExprience",model.YearsOfExprience},
+            };
+            object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
+            Dictionary<string, object> dict1 = new Dictionary<string, object>();
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles"/*, dict*/, dict1);
             Role roleOptions = new Role();
             roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
             ViewData["roleOptions"] = roleOptions;
 
-            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict1);
             Designation designation = new Designation();
             designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
             ViewData["designationOptions"] = designation;
@@ -385,7 +418,7 @@ namespace EmployeeManagementSystem.Controllers
             leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
             ViewData["leaveRequest"] = leaveRequest.leaveRequests;
             ExportToPdf(datatable, model.EmployeeId);
-            return View(ViewData);
+            return View();
 
 
         }
