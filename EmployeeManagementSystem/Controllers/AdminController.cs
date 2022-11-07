@@ -28,6 +28,8 @@ namespace EmployeeManagementSystem.Controllers
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
         DTableToRolesModel dtRole = new DTableToRolesModel();
 
+        DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
+
 
         public List<Role> RolesList { get; private set; }
 
@@ -239,11 +241,13 @@ namespace EmployeeManagementSystem.Controllers
 
 
         public ActionResult AddProject()
-        {
+            {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
             DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-            ViewData["AllEmpIdName"] = EmpIdname;
+            EmployeeIdNameViewModel employeeIdNameViewModel = new EmployeeIdNameViewModel();
+            employeeIdNameViewModel.EmployeeIdNameList = dtEmpIdName.DataTableToEmployeeIdNameViewModel(EmpIdname);
+            ViewData["AllEmpIdName"] = employeeIdNameViewModel;
 
             return View();
         }

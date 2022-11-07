@@ -26,7 +26,7 @@
 {
    
     
-@using (Html.BeginForm("SaveProjectMember", "Admin", Model))
+@(Html.BeginForm("SaveProjectMember", "Admin", Model))
  {
     @Html.AntiForgeryToken()
 
@@ -41,7 +41,7 @@
         <div class="col-md-8">
             @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
             *@
-            @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, htmlAttributes: new { @class = "text-center Role-Down " })
 
             @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
         </div>
@@ -51,7 +51,7 @@
         <div class="col-md-8">
             @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
             *@
-            @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "text-center Role-Down " })
 
             @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 
