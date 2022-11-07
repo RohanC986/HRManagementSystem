@@ -60,15 +60,18 @@ namespace EmployeeManagementSystem.Controllers
 
         public ViewResult AddNewEmp(Employee model)
         {
+
             Dictionary<string, object> dict = new Dictionary<string, object>();
             
             
             DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+
             Role roleOptions = new Role();
             roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
             ViewData["roleOptions"] = roleOptions;
 
-            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict);
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+
             Designation designation = new Designation();
             designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
             ViewData["designationOptions"] = designation;
@@ -114,7 +117,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 ViewBag.Message = "Invalid credentials";
             }
+
             return RedirectToAction("AddLogin");
+
         }
 
         //public ActionResult UpdateEmpDetails(int EmployeeId)
@@ -261,7 +266,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
+            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
 
             Employee EmpDR = new Employee();
 
