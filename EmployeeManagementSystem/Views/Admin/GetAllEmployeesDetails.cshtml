@@ -60,19 +60,19 @@
 
 
 
-                        <td class="col-md-3"> @item.FirstName @item.MiddleName @item.LastName</td>
-                        <td class="col-md-2"> @item.Email</td>
-                        <td class="col-md-1">@item.Role</td>
-                        <td class="col-md-2"> @item.Designation</td>
-                        <td class="col-md-3">
-                            <span>
-                                @*<button onclick="(confirm('do you w')) ? location.href = '  @Url.Action("EditEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-primary" type="button">Edit</button>*@
-                                @*<button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Report</button>*@
-                                <button onclick="location.href='@Url.Action("EditEmp", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
-                                @*<button onclick="location.href='@Url.Action("DisableEmp", "Admin",item)'" id="emp-create-btn" class="btn-danger" type="button">Disable</button>*@
-                                <button onclick="(confirm('do you want to Disable?')) ? location.href = '  @Url.Action("DisableEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button">Disable</button>
-
-                                <button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-success" type="button">Report</button>
+                            <td class="col-md-3"> @item.FirstName @item.MiddleName @item.LastName</td>
+                            <td class="col-md-2"> @item.Email</td>
+                            <td class="col-md-1">@item.Role</td>
+                            <td class="col-md-2"> @item.Designation</td>
+                            <td class="col-md-3">
+                                <span>
+                                    @*<button onclick="(confirm('do you w')) ? location.href = '  @Url.Action("EditEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-primary" type="button">Edit</button>*@
+                                    @*<button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Report</button>*@
+                                    <button onclick="location.href='@Url.Action("EditEmp", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
+                                    @*<button onclick="location.href='@Url.Action("DisableEmp", "Admin",item)'" id="emp-create-btn" class="btn-danger" type="button">Disable</button>*@
+                                    <button onclick="(confirm('do you want to Disable?')) ? location.href = '  @Url.Action("DisableEmp", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button">Disable</button>
+                                        
+                                    <button onclick="location.href='@Url.Action("Report", "Admin",item)'" id="emp-create-btn" class="btn-success" type="button">Report</button>
 
                             </span>
                         </td>

@@ -52,25 +52,28 @@
 
 
                 </tr>
-            <thead>
-            <tbody>
-                @{
-                    foreach (var item in data)
-                    {
+                <thead>
+                <tbody>
+                    @{
+                            foreach (var item in data)
+                        {
 
-                        <tr>
-
-
-
-                            <td> @item.FirstName @item.LastName </td>
-                            <td> @item.ProjectName</td>
-                            <td> @item.TotalMembers</td>
+                                        <tr>
 
 
+                                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" @*id="emp-create-btn"*@ @*class="btn-primary" type="button"*@> @item.FirstName @item.LastName</td>
+
+                                            @*<td> @item.FirstName @item.LastName </td>*@
+                                        <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" @*id="emp-create-btn"*@ @*class="btn-primary" type="button"*@>  @item.ProjectName</td>
+
+                                            @*<td> @item.ProjectName</td>*@
+                                            <td> @item.TotalMembers</td>
 
 
 
-                        </tr>
+
+
+                                        </tr>
 
                     }
                 }

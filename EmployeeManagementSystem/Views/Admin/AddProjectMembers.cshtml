@@ -26,7 +26,7 @@
 {
    
     
-using(Html.BeginForm("SaveProjectMember", "Admin", Model))
+using (Html.BeginForm("SaveProjectMember", "Admin", Model))
  {
     @Html.AntiForgeryToken()
 
@@ -63,9 +63,9 @@ using(Html.BeginForm("SaveProjectMember", "Admin", Model))
             <input id="emp-create-btn" type="submit" value="Create" class="btn-primary btn-default " />
         </div>
 
-        <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
-            @Html.ActionLink("Back", "GetAllEmployeesDetails", "Admin")
-        </div>
+                    <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
+                        @Html.ActionLink("Back", "Department","Admin")
+                    </div>
 
     </div>
 

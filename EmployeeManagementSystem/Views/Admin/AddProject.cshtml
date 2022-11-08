@@ -1,7 +1,6 @@
 ﻿@model EmployeeManagementSystem.Models.Project
 @{
     ViewBag.Title = "Add Project";
-
    
     var emp = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["AllEmpIdName"];
 
@@ -50,7 +49,9 @@
             </div>
 
             <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
-                @Html.ActionLink("Back", "GetAllEmployeesDetails", "Admin")
+               
+                    @Html.ActionLink("Back", "GetAllEmployeesDetails", "Admin")
+                
             </div>
 
         </div>

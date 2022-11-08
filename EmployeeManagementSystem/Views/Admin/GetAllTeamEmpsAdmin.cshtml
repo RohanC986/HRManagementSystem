@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "GetAllTeamEmpsAdmin";
+
+    var data = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
+
+}
+
+@if (((Session["role"]).ToString()) == "Admin")
+{
+
+
+
+
+
+    <h2 class="TeamEmpData">GetAllTeamEmps</h2>
+    <hr id="teamdepemphr" />
+    <div id="main">
+        <table class="EmpTableDet">
+            <thead>
+                <tr>
+                    <th>
+                        EmployeeId
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Designation
+                    </th>
+
+                    <th>
+                        Project Name
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
+
+                        <tr>
+                            <td> @item.EmployeeId </td>
+                            <td> @item.FirstName @item.LastName</td>
+                            <td> @item.Email</td>
+                            <td> @item.Designation</td>
+                            <td> @item.ProjectName</td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <td> You are not Authorized </td>
+}
+
+

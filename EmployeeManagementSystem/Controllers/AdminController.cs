@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Web.Mvc;
+using static EmployeeManagementSystem.Controllers.AccountsController;
 using Chunk = iTextSharp.text.Chunk;
 using Font = iTextSharp.text.Font;
 using Rectangle = iTextSharp.text.Rectangle;
@@ -16,6 +17,9 @@ using Rectangle = iTextSharp.text.Rectangle;
 namespace EmployeeManagementSystem.Controllers
 {
     [Route("controller")]
+    [NoCache]
+    [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
+
     public class AdminController : Controller
     {
         private AdminViewModel EmpAllOver;
@@ -27,6 +31,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
         DTableToRolesModel dtRole = new DTableToRolesModel();
+        DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
 
         DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
 
@@ -43,45 +48,54 @@ namespace EmployeeManagementSystem.Controllers
             return View();
         }*/
 
-
         [Route("[controller]/getallemployees")]
-        public ViewResult GetAllEmployeesDetails()
-        {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
-            AdminViewModel adminViewModel = new AdminViewModel();
-            adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
-            ViewData["allEmployees"] = adminViewModel.allEmployees;
-            EmpAllOver = adminViewModel;
-            return View(ViewData);
+        public ActionResult GetAllEmployeesDetails()
+            {
+            if (HttpContext.Session["Empid"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
+                AdminViewModel adminViewModel = new AdminViewModel();
+                adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
+                ViewData["allEmployees"] = adminViewModel.allEmployees;
+                EmpAllOver = adminViewModel;
+                return View(ViewData);
+            }
+            
+            return RedirectToAction("Login", "Accounts");
+
         }
 
-       
 
-        public ViewResult AddNewEmp(Employee model)
+
+        public ActionResult AddNewEmp(Employee model)
         {
+            if (HttpContext.Session["Empid"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+          
+                Dictionary<string, object> dict1 = new Dictionary<string, object>();
+                DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles"/*, dict*/, dict1);
+                Role roleOptions = new Role();
+                roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
+                ViewData["roleOptions"] = roleOptions;
 
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            
-            
-            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+                DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict1);
+                Designation designation = new Designation();
+                designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+                ViewData["designationOptions"] = designation;
 
-            Role roleOptions = new Role();
-            roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
-            ViewData["roleOptions"] = roleOptions;
+                return View();
+            }
+            return RedirectToAction("Login", "Accounts");
 
-            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
-
-            Designation designation = new Designation();
-            designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
-            ViewData["designationOptions"] = designation;
-
-            return View();
         }
 
         public ActionResult SaveNewEmp(Employee model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
                 //{ "@EmployeeId",model.EmployeeId},
                 { "@EmployeeCode",model.EmployeeCode},
                 { "@FirstName",model.FirstName},
@@ -111,14 +125,15 @@ namespace EmployeeManagementSystem.Controllers
 
                 { "@YearsOfExprience",model.YearsOfExprience},
             };
-            object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
-            Console.WriteLine(check);
-            if (check == null)
-            {
-                ViewBag.Message = "Invalid credentials";
+                object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
+                Console.WriteLine(check);
+                if (check == null)
+                {
+                    ViewBag.Message = "Invalid credentials";
+                }
+                return View();
             }
-
-            return RedirectToAction("AddLogin");
+            return RedirectToAction("Login", "Accounts");
 
         }
 
@@ -157,19 +172,25 @@ namespace EmployeeManagementSystem.Controllers
 
 
         public ActionResult EditEmp(Employee model)
-      {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-            Role roleOptions = new Role();
-            roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
-            ViewData["roleOptions"] = roleOptions;
+        {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+                Role roleOptions = new Role();
+                roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
+                ViewData["roleOptions"] = roleOptions;
 
 
-            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
-            Designation designation = new Designation();
-            designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
-            ViewData["designationOptions"]=designation;
-            return View(model);
+                DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+                Designation designation = new Designation();
+                designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+                ViewData["designationOptions"] = designation;
+                return View(model);
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult UpdateEmpDetails(Employee model)
@@ -207,29 +228,37 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult Department()
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable Department = dal.ExecuteDataSet<DataTable>("uspgetTeamEmps", dict);
-            DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
-            departmentsViewModel.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department);
-            ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;
-            return View(ViewData);
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                DataTable Department = dal.ExecuteDataSet<DataTable>("uspGetAllTeams", dict);
+                DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
+                departmentsViewModel.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department);
+                ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;
+                return View(ViewData);
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
 
         public ActionResult AddProject()
+        {
+            if (Session["EmpId"] != null)
             {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+                Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-            EmployeeIdNameViewModel employeeIdNameViewModel = new EmployeeIdNameViewModel();
+                DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+                EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
+                empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+                ViewData["AllEmpIdName"] = empIdName;
 
-            employeeIdNameViewModel.EmployeeIdNameList = dtEmpIdName.DataTableToEmployeeIdNameViewModel(EmpIdname);
+                return View();
+            }
 
-            employeeIdNameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+            return RedirectToAction("Login", "Accounts");
 
-            ViewData["AllEmpIdName"] = employeeIdNameViewModel;
-
-            return View();
         }
 
         public ActionResult SaveProject(Project model)
@@ -242,43 +271,62 @@ namespace EmployeeManagementSystem.Controllers
             dal.ExecuteNonQuery("uspSaveProject", dict);
 
             return RedirectToAction("AddProjectMembers", "Admin");
+
+
+
         }
 
         public ActionResult AddProjectMembers()
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-            EmployeeIdNameViewModel empIdnameViewModel = new EmployeeIdNameViewModel();
-            empIdnameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+                DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+                EmployeeIdNameViewModel empIdnameViewModel = new EmployeeIdNameViewModel();
+                empIdnameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
 
-            DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
-            Project projectsList = new Project();
-            projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
-            /*ViewData["AllEmpIdName"] = EmpIdname;*/
-            ViewData["EmpIdNameList"] = empIdnameViewModel;
-            ViewData["ProjectsList"] = projectsList;
+                DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
+                Project projectsList = new Project();
+                projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
+                /*ViewData["AllEmpIdName"] = EmpIdname;*/
+                ViewData["EmpIdNameList"] = empIdnameViewModel;
+                ViewData["ProjectsList"] = projectsList;
 
-            return View();
+                return View();
+            }
+
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult AddLogin()
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
+                DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
 
-            Employee EmpDR = new Employee();
+                Employee EmpDR = new Employee();
 
-            EmpDR.EmployeeList= cs.DataTabletoEmployeeModel(EmpDt);
+                EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);
 
-            ViewData["EmpCodeOption"]= EmpDR;
+                ViewData["EmpCodeOption"] = EmpDR;
 
-            return View();
+                return View();
+
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
         }
         public ActionResult SaveLogin(Login model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@EmployeeId",model.EmployeeId},
                 { "@Username",model.Username},
@@ -287,45 +335,60 @@ namespace EmployeeManagementSystem.Controllers
 
 
             };
-            object check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
-            Console.WriteLine(check);
-            if (check == null)
-            {
-                ViewBag.Message = "Invalid credentials";
+                object check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
+                Console.WriteLine(check);
+                if (check == null)
+                {
+                    ViewBag.Message = "Invalid credentials";
+                }
+
+                return RedirectToAction("GetAllEmployeesDetails");
             }
 
-            return RedirectToAction("GetAllEmployeesDetails");
-            
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult SaveProjectMember(ProjectMembers model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 {"@EmployeeId",model.EmployeeId },
                 {"@ProjectId",model.ProjectId }
 
             };
-            dal.ExecuteNonQuery("uspSaveProjectMember", dict);
+                dal.ExecuteNonQuery("uspSaveProjectMember", dict);
 
-            return RedirectToAction("Department");
+                return RedirectToAction("AddProjectMembers", "Admin");
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult DisableEmp(Employee model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@EmployeeId",model.EmployeeId},
 
             };
-            object check = dal.ExecuteNonQuery("uspDisableEmp", dict);
-            Console.WriteLine(check);
-            if (check == null)
-            {
-                ViewBag.Message = "Invalid credentials";
+                object check = dal.ExecuteNonQuery("uspDisableEmp", dict);
+                Console.WriteLine(check);
+                if (check == null)
+                {
+                    ViewBag.Message = "Invalid credentials";
+                }
+
+                return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
 
-            return RedirectToAction("GetAllEmployeesDetails", "Admin");
+            return RedirectToAction("Login", "Accounts");
+
         }
 
 
@@ -337,12 +400,19 @@ namespace EmployeeManagementSystem.Controllers
         }
         public ActionResult SaveDesignation(Designation designation)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@DesignationName",designation.DesignationName}
             };
-            object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
-            return RedirectToAction("GetAllDesignation");
+                object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
+                return RedirectToAction("GetAllDesignation");
+            }
+
+
+            return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -350,13 +420,18 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult GetAllDesignation()
         {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
+                Designation designation1 = new Designation();
+                designation1.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(datatable);
+                ViewData["designation"] = designation1.DesignationsList;
+                return View(ViewData);
+            }
 
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
-            Designation designation1 = new Designation();
-            designation1.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(datatable);
-            ViewData["designation"] = designation1.DesignationsList;
-            return View(ViewData);
+            return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -367,55 +442,79 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult UpdateDesignation(Designation model)
         {
-
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@DesignationId",model.DesignationId},
                 { "@DesignationName",model.DesignationName}
             };
-            object check = dal.ExecuteNonQuery("uspUpdateDesignation", dict);
-            if (check != null)
-            {
-                ViewData["success"] = "success";
+                object check = dal.ExecuteNonQuery("uspUpdateDesignation", dict);
+                if (check != null)
+                {
+                    ViewData["success"] = "success";
+
+                }
+                return RedirectToAction("GetAllDesignation");
 
             }
-            return RedirectToAction("GetAllDesignation");
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult DeleteDesignation(Designation model)
         {
-
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@DesignationId",model.DesignationId},
             };
-            object check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
-            return RedirectToAction("GetAllDesignation");
+                object check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
+                return RedirectToAction("GetAllDesignation");
+
+            }
+
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ActionResult Report(Employee model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@EmployeeId",model.EmployeeId},
             };
-            DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
-            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-            ExportToPdf(datatable, model.EmployeeId);
-            return View();
+                DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
+                LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+                ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                ExportToPdf(datatable, model.EmployeeId);
+                return View();
+            }
+
+            return RedirectToAction("Login", "Accounts");
 
 
         }
 
-        public ViewResult RoleView()
+        public ActionResult RoleView()
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-            Role role = new Role();
-            role.RolesList = dtRole.DataTableToRolesModel(dt);
-            return View(role);
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
+                Role role = new Role();
+                role.RolesList = dtRole.DataTableToRolesModel(dt);
+                return View(role);
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
         }
 
         public ViewResult AddRole()
@@ -425,24 +524,37 @@ namespace EmployeeManagementSystem.Controllers
         }
         public ActionResult SaveRole(Role model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 {"@RoleName", model.RoleName}
             };
-            dal.ExecuteNonQuery("uspSaveRole", dict);
+                dal.ExecuteNonQuery("uspSaveRole", dict);
 
-            return RedirectToAction("RoleView", "Admin");
+                return RedirectToAction("RoleView", "Admin");
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
 
         }
         public ActionResult DeleteRole(Role model)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 {"@RoleName", model.RoleName}
             };
-            dal.ExecuteNonQuery("uspDeleteRole", dict);
+                dal.ExecuteNonQuery("uspDeleteRole", dict);
 
-            return RedirectToAction("RoleView", "Admin");
+                return RedirectToAction("RoleView", "Admin");
+
+            }
+
+            return RedirectToAction("Login", "Accounts");
+
 
         }
         public void ExportToPdf(DataTable myDataTable, int model)
@@ -513,6 +625,30 @@ namespace EmployeeManagementSystem.Controllers
             contentByte.MoveTo(x1, y1);
             contentByte.LineTo(x2, y2);
             contentByte.Stroke();
+        }
+
+        public ActionResult GetAllTeamEmpsAdmin(Project emp)
+        {
+            if (Session["EmpId"] != null)
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@ProjectHeadEmployeeId",emp.ProjectHeadEmployeeId},
+            };
+
+
+                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmps", dict);
+                TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
+                tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
+                ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
+                //TeamEmps = tempEmpDetialsView;
+                return View(ViewData);
+
+            }
+
+            return RedirectToAction("Login", "Admin");
+
+
         }
 
 

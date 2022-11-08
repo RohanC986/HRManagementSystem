@@ -41,7 +41,7 @@ namespace EmployeeManagementSystem.ConversionService
 
         //    SqlCommand com = new SqlCommand("uspgetLeaveSummary", con);
         //    com.CommandType = CommandType.StoredProcedure;
-        //    com.Parameters.AddWithValue("@EmployeeId", Session["EmpId"]);
+        //    com.Parameters.AddWithValue("@EmployeeId", HttpContext.Session["EmpId"]);
         //    SqlDataAdapter da = new SqlDataAdapter(com);
         //    DataTable dt = new DataTable();
 

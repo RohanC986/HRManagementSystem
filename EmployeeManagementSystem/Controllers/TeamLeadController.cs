@@ -8,9 +8,12 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static EmployeeManagementSystem.Controllers.AccountsController;
 
 namespace EmployeeManagementSystem.Controllers
 {
+    [NoCache]
+    [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class TeamLeadController : Controller
     {
         
@@ -23,7 +26,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
-                { "@ProjectHeadEmployeeId",Session["EmpId"]},
+                { "@ProjectHeadEmployeeId",HttpContext.Session["EmpId"]},
             };
 
             
@@ -40,7 +43,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
-                { "@ProjectHeadEmployeeId",Session["EmpId"]},
+                { "@ProjectHeadEmployeeId",HttpContext.Session["EmpId"]},
             };
 
 

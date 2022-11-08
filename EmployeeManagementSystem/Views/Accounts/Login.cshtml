@@ -45,6 +45,18 @@
     }
     @Html.AntiForgeryToken()
 
+    @*<script type="text/javascript">
+
+        //Disable Back Button In All Browsers.
+        function DisableBackButtonAllBrowsers() {
+            window.history.forward()
+        };
+        DisableBackButtonAllBrowsers();
+        window.onload = DisableBackButtonAllBrowsers;
+        window.onpageshow = function (evts) { if (evts.persisted) DisableBackButtonAllBrowsers(); };
+        window.onunload = function () { void (0) };
+    </script>*@
+
 
     <div class="wrapper mx-auto ">
         <h3 class="Form-Header ">Login</h3>
@@ -62,7 +74,7 @@
                 <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
                 @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
 
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here",  required = "required",@autocomplete = "off", @type = "password" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", required = "required", @autocomplete = "off", @type = "password" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
             <button class="btn  login-btn">Login</button>
@@ -79,9 +91,9 @@
 
 
         </form>
-        <div class="text-center fs-6">
+        @*<div class="text-center fs-6">
             <a href="#">Forget password?</a>
-        </div>
+        </div>*@
 
         <h1>@ViewData["out"]</h1>
 

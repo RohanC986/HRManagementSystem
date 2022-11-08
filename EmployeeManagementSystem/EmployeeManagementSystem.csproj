@@ -385,12 +385,12 @@
     <Content Include="Views\Admin\Report.cshtml" />
     <Content Include="Views\Admin\AddRole.cshtml" />
     <Content Include="Views\Admin\RoleView.cshtml" />
-
     <Content Include="Views\Shared\_Notification.cshtml" />
-
+    <Content Include="Views\Admin\GetAllTeamEmpsAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

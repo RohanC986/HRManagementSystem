@@ -19,19 +19,19 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal mx-auto align-center " >
+<div class="form-horizontal mx-auto align-center ">
     <h4 class="addEmp">Add New Login</h4>
     <hr id="addloginpr" />
     @Html.ValidationSummary(true, "", new { @class = "text-danger " })
 
-<div class=" mx-auto align-center px-3" id="add-emp-login-div">
-    <div class="form-group mt-3 ">
-        @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
-        <div class="col-md-5">
-            @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-center Role-Down "  })
-            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+    <div class=" mx-auto align-center px-3" id="add-emp-login-div">
+        <div class="form-group mt-3 ">
+            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-center Role-Down " })
+                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
     <div class="form-group ">
         @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -49,17 +49,20 @@
         </div>
     </div>
 
-    
-
-
-
-    <input id="addemplogin-btn" type="submit" value="Add" class="btn-primary  " />
 
 
 
 
-</div>
+        <input id="addemplogin-btn" type="submit" value="Add" class="btn-primary  " />
 
+
+
+
+
+    </div>
+    <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
+        @Html.ActionLink("Back", "Department", "Admin")
+    </div>
 
 </div>
 
