@@ -228,6 +228,7 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult Department()
         {
+
             if (Session["EmpId"] != null)
             {
                 Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -239,6 +240,7 @@ namespace EmployeeManagementSystem.Controllers
             }
 
             return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -431,6 +433,7 @@ namespace EmployeeManagementSystem.Controllers
             }
 
             return RedirectToAction("Login", "Accounts");
+
 
 
         }
