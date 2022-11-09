@@ -5,63 +5,74 @@
 
     var data = (IEnumerable<EmployeeManagementSystem.Models.Leave>)ViewData["getleaves"];
 }
+@if (ViewBag.LeaveSummary == null)
+{
+    <h2 class="LeaveSummaryHeading">Leave Summary</h2>
+    <hr id="teamdepemphr" />
+    <div id="leavetable">
+        <table class="leaveTab">
+            @{
+                foreach (var item in data)
+                {
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading">Leave Accured</th>
+                        <td> @item.LeavesAccrued </td>
+                    </tr>
 
-<h2 class="LeaveSummaryHeading">Leave Summary</h2>
-<hr id="teamdepemphr" />
-<div id="leavetable">
-    <table class="leaveTab">
-        @{
-            foreach (var item in data)
-            {
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading">Leave Accured</th>
-                    <td> @item.LeavesAccrued </td>
-                </tr>
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading">Previous Balance</th>
+                        <td> @item.PreviousBalance</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading">SatSun Working</th>
+                        <td> @item.SatSunWorking</td>
 
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading">Previous Balance</th>
-                    <td> @item.PreviousBalance</td>
-                </tr>
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading">SatSun Working</th>
-                    <td> @item.SatSunWorking</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading"> Balance Leaves</th>
+                        <td> @item.BalanceLeaves</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading">Total Available</th>
+                        <td> @item.TotalAvailable</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th class="leaveTableHeading">Total Available</th>
+                        <td> @item.TotalAvailable</td>
 
-                </tr>
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading"> Balance Leaves</th>
-                    <td> @item.BalanceLeaves</td>
-                </tr>
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading">Total Available</th>
-                    <td> @item.TotalAvailable</td>
-                </tr>
-                <tr class="leaveTableRow">
-                    <th class="leaveTableHeading">Total Available</th>
-                    <td> @item.TotalAvailable</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th>Leaves Taken</th>
+                        <td> @item.LeavesTaken</td>
 
-                </tr>
-                <tr class="leaveTableRow">
-                    <th>Leaves Taken</th>
-                    <td> @item.LeavesTaken</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th>Cumilative Leaves</th>
+                        <td> @item.CumilativeLeaves</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th>Balance EOM</th>
+                        <td>@item.BalanceEOM</td>
 
-                </tr>
-                <tr class="leaveTableRow">
-                    <th>Cumilative Leaves</th>
-                    <td> @item.CumilativeLeaves</td>
-                </tr>
-                <tr class="leaveTableRow">
-                    <th>Balance EOM</th>
-                    <td>@item.BalanceEOM</td>
+                    </tr>
+                    <tr class="leaveTableRow">
+                        <th>Leave Without Pay</th>
+                        <td> @item.LeaveWithoutPay</td>
+                    </tr>
 
-                </tr>
-                <tr class="leaveTableRow">
-                    <th>Leave Without Pay</th>
-                    <td> @item.LeaveWithoutPay</td>
-                </tr>
-
+                }
             }
-        }
 
-    </table>
-</div>
+        </table>
+    </div>
+}
 
+
+else if (ViewBag.LeaveSummary != null)
+{
+    <div>
+        <p>
+            @ViewBag.LeaveSummary
+        </p>
+    </div>
+}

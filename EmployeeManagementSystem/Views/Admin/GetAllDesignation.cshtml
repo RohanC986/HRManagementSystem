@@ -4,7 +4,7 @@
     var data = (IEnumerable<EmployeeManagementSystem.Models.Designation>)ViewData["designation"];
 }
 
-@if (((Session["role"]).ToString()) == "Admin")
+@if (((Session["role"]).ToString()) == "Admin" && ViewBag.GetAllDesignation == null)
 {
     <h2 class="DepartHeading">Designation</h2>
     <hr id="addemphr" />
@@ -60,6 +60,14 @@
         </div>
     </div>
 
+}
+else if (ViewBag.GetAllDesignation != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetAllDesignation
+        </p>
+    </div>
 }
 else
 {

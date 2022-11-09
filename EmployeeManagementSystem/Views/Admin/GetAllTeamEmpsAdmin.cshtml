@@ -6,7 +6,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "Admin")
+@if (((Session["role"]).ToString()) == "Admin" && ViewBag.GetAllTeamEmpsAdmin == null)
 {
 
 
@@ -65,9 +65,18 @@
         </table>
     </div>
 }
+else if (ViewBag.GetAllTeamEmpsAdmin != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetAllTeamEmpsAdmin
+        </p>
+    </div>
+}
 else
 {
     <td> You are not Authorized </td>
 }
+
 
 

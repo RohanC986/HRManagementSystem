@@ -276,6 +276,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamLeadController.cs" />
+    <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
     <Compile Include="ConversionService\DTableToDesignationModel.cs" />
     <Compile Include="ConversionService\DTableToRolesModel.cs" />
     <Compile Include="ConversionService\DTableToProjectModel.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Models\ProjectMembers.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddAccountViewModel.cs" />
     <Compile Include="ViewModels\EmployeeIdNameViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\DepartmentListViewModel.cs" />
@@ -387,6 +389,7 @@
     <Content Include="Views\Admin\RoleView.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Admin\GetAllTeamEmpsAdmin.cshtml" />
+    <Content Include="Views\Admin\AccountDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

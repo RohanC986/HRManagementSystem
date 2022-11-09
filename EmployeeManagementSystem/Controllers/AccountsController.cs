@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystem.DataAccessLayer;
 using EmployeeManagementSystem.ViewModels;
+using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -65,11 +66,11 @@ namespace EmployeeManagementSystem.Controllers
                      return View();
                  }*/
                 object output = dal.ExecuteScalar("uspcheckCredentials", dict);
-                if (output == null)
-                {
-                    ViewBag.Loign = "User Not Found";
-                    return RedirectToAction("login");
-                }
+                //if (output == null)
+                //{
+                //    ViewBag.Message = "User Not Found";
+                //    return View();
+                //}
                 ViewBag.Loign = "Logged In Successfully";
                 HttpContext.Session["EmpId"] = output;
                 Dictionary<string, object> DictRole = new Dictionary<string, object>() {
@@ -115,9 +116,10 @@ namespace EmployeeManagementSystem.Controllers
             {
                 HttpContext.Session["LogimError"] = "User Not Found";
                 //return RedirectToAction("login");
-            }
 
-            return RedirectToAction("login");
+            }
+            return View("Error");
+            //return RedirectToAction("login");
 
             }
 

@@ -4,7 +4,7 @@
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
 }
 
-@if (((Session["role"]).ToString()) == "Admin")
+@if (((Session["role"]).ToString()) == "Admin" && ViewBag.Department == null)
 {
 
 
@@ -14,13 +14,13 @@
     <div class="dept-btn">
 
         <div class="dept-btn-sec ">
-            <a href="@Url.Action("AddProject" , "Admin")"  tabindex="-1">
+            <a href="@Url.Action("AddProject" , "Admin")" tabindex="-1">
                 <span class="fa fa-solid fa-file-chart-pie"></span>
                 Add Project
             </a>
         </div>
         <div class="dept-btn-sec">
-            <a href="@Url.Action("AddProjectMembers" , "Admin")"  tabindex="-1">
+            <a href="@Url.Action("AddProjectMembers" , "Admin")" tabindex="-1">
                 <span class="fa fa-solid fa-user-plus"></span>
                 Add Project Members
             </a>
@@ -30,7 +30,7 @@
 
     <div id="DepatDiv">
 
-        
+
         <table class="DepartTab">
             <thead>
                 <tr>
@@ -52,13 +52,13 @@
 
 
                 </tr>
-                <thead>
-                <tbody>
-                    @{
-                            foreach (var item in data)
-                        {
+            <thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
 
-                                        <tr>
+                        <tr>
 
 
                                             <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn" > @item.FirstName @item.LastName</td>
@@ -66,14 +66,14 @@
                                             @*<td> @item.FirstName @item.LastName </td>*@
                                             <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" >  @item.ProjectName</td>
 
-                                            @*<td> @item.ProjectName</td>*@
-                                            <td> @item.TotalMembers</td>
+                            @*<td> @item.ProjectName</td>*@
+                            <td> @item.TotalMembers</td>
 
 
 
 
 
-                                        </tr>
+                        </tr>
 
                     }
                 }
@@ -82,9 +82,18 @@
     </div>
 
 }
+else if ( ViewBag.Department != null)
+{
+    <div>
+        <p>
+            @ViewBag.Department
+        </p>
+    </div>
+}
 else
 {
     <td> You are not Authorized </td>
 }
+
 
 

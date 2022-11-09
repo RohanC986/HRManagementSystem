@@ -14,7 +14,7 @@
     </script>
 }
 
-@if (((Session["role"]).ToString()) == "Admin")
+@if (((Session["role"]).ToString()) == "Admin" && ViewBag.GetAllEmployeeDetails == null)
 {
 
 
@@ -114,9 +114,18 @@
 
 
 }
+else if (ViewBag.GetAllEmployeeDetails != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetAllEmployeeDetails
+        </p>
+    </div>
+}
 else
 {
     <td> You are not Authorized </td>
 }
+
 
 

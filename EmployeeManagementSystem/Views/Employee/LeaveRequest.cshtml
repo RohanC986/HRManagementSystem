@@ -4,81 +4,106 @@
     ViewBag.Title = "LeaveRequest";
 }
 
-
-@using (Html.BeginForm())
+@if (ViewBag.LeaveRequest == null)
 {
-    @Html.AntiForgeryToken()
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal" id="leaveRequestDiv">
-        <h4 class="LeaveRequestHeading">Leave Request</h4>
-        <hr id="leaverequesthr" />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+        <div class="form-horizontal" id="leaveRequestDiv">
+            <h4 class="LeaveRequestHeading">Leave Request</h4>
+            <hr id="leaverequesthr" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group ">
+                @Html.LabelFor(model => model.IsHalfday, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsHalfday)
+                        @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>*@
+            </div>
 
-        <div class="form-group ">
-            @Html.LabelFor(model => model.IsHalfday, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsHalfday)
-                    @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control " }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control" }, required = "required", min = 1 })
+                    @Html.ValidationMessageFor(model => model.LengthOfLeave, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-offset-2 col-md-10" id="LeaveBtn">
+                    <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
+
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control " }, required = "required" })
-                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    }
+}
 
 
+<script type="text/javascript">
+    $(function () {
+        $("#createsubmit").click(function () {
+            toastr.success("success", "Toastr");
+        });
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control" }, required = "required" ,min=1})
-                @Html.ValidationMessageFor(model => model.LengthOfLeave, "", new { @class = "text-danger" })
-            </div>
-        </div>
+</script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
-                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-
-            <div  class="col-md-offset-2 col-md-10" id="LeaveBtn">
-                <input type="submit" value="Create" class="btn btn-default btn-primary"  />
-
-            </div>
-        </div>
+else if (ViewBag.LeaveRequest != null)
+{
+    <div>
+        <p>
+            @ViewBag.LeaveRequest
+        </p>
     </div>
 }
+

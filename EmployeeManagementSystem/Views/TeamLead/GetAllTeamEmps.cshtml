@@ -1,17 +1,17 @@
 ﻿
 @{
     ViewBag.Title = "GetAllTeamEmps";
-   
+
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
 
 }
 
-@if (((Session["role"]).ToString()) == "Team Lead")
+@if (((Session["role"]).ToString()) == "Team Lead" && ViewBag.GetAllTeamEmps == null)
 {
-    
 
 
-   
+
+
 
     <h2 class="TeamEmpData">Team Employees</h2>
     <hr id="teamdepemphr" />
@@ -63,6 +63,15 @@
                 }
             </tbody>
         </table>
+    </div>
+}
+
+else if (ViewBag.RoleView != null)
+{
+    <div>
+        <p>
+            @ViewBag.RoleView
+        </p>
     </div>
 }
 else

@@ -4,77 +4,89 @@
     var data = (IEnumerable<EmployeeManagementSystem.Models.LeaveRequest>)ViewData["getleaverequest"];
 
 }
+@*@if (ViewBag.GetLeaveRequest == null)*@
+{
+
+    <h2 class="addEmp">Leave Request</h2>
+    <hr id="addemphr" />
+    <div id="main">
+        <table class="EmpTableDet">
+            <thead>
+                <tr>
+                    <th>
+                        LeaveId
+                    </th>
+
+
+                    <th>
+                        Is Half Day?
+                    </th>
+
+                    <th>
+                        LeaveType
+                    </th>
+
+                    <th>
+                        Reason
+                    </th>
+
+                    <th>
+                        LengthOfLeave
+                    </th>
+
+                    <th>
+                        StartDate
+                    </th>
+                    <th>
+                        EndDate
+                    </th>
+                    <th>
+                        Status
+                    </th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in data)
+                    {
+
+                        <tr>
+                            <td> @item.LeaveRequestId</td>
+
+                            <td> @item.IsHalfday</td>
+                            <td> @item.LeaveType</td>
+                            <td> @item.Reason</td>
+                            <td> @item.LengthOfLeave</td>
+                            <td> @item.StartDate</td>
+                            <td> @item.EndDate</td>
+                            <td> @item.Status</td>
 
 
 
 
-<h2 class="addEmp">Leave Request</h2>
-<hr id="addemphr" />
-<div id="main">
-    <table class="EmpTableDet">
-        <thead>
-            <tr>
-                <th>
-                    LeaveId
-                </th>
+                        </tr>
 
-
-                <th>
-                    Is Half Day?
-                </th>
-
-                <th>
-                    LeaveType
-                </th>
-
-                <th>
-                    Reason
-                </th>
-
-                <th>
-                    LengthOfLeave
-                </th>
-
-                <th>
-                    StartDate
-                </th>
-                <th>
-                    EndDate
-                </th>
-                <th>
-                    Status
-                </th>
-
-
-
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                foreach (var item in data)
-                {
-
-                    <tr>
-                        <td> @item.LeaveRequestId</td>
-
-                        <td> @item.IsHalfday</td>
-                        <td> @item.LeaveType</td>
-                        <td> @item.Reason</td>
-                        <td> @item.LengthOfLeave</td>
-                        <td> @item.StartDate</td>
-                        <td> @item.EndDate</td>
-                        <td> @item.Status</td>
-
-
-
-
-                    </tr>
-
+                    }
                 }
-            }
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+        @*<div>
+            @ViewBag.GetLeaveRequest
+        </div>*@
+    </div>
+}
+@*else if (ViewBag.GetLeaveRequest != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetLeaveRequest
+        </p>
+    </div>
+}*@
+
 
 
 

@@ -1,0 +1,66 @@
+﻿@model EmployeeManagementSystem.ViewModels.AddAccountViewModel
+
+@{
+    ViewBag.Title = "AccountDetails";
+    var EmpCode = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["EmpName"];
+
+    var EmpCodeOption = new List<SelectListItem>();
+    foreach (var item in EmpCode.EmployeeIdNameList)
+    {
+        EmpCodeOption.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() });
+    }
+}
+
+<h2>AccountDetails</h2>
+
+@using (Html.BeginForm("SaveDetails","Admin")) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>AccountDetails</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EmployeeID, EmpCodeOption, new { htmlAttributes = new { @class = "control-label form-control col-md-2 text-center Role-Down" } })
+                @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UANNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UANNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UANNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankAcNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BankAcNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BankAcNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IFSCCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IFSCCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IFSCCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back ", "AccountDetails")
+</div>

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "AddDesignation";
 }
-@if (((Session["role"]).ToString()) == "Admin")
+@if (((Session["role"]).ToString()) == "Admin" && ViewBag.AddDesignation == null)
 {
     <h2>AddDesignation</h2>
 
@@ -35,6 +35,14 @@
         @Html.ActionLink("Back","GetAllDesignation", "Admin")
     </div>
 }
+else if(ViewBag.AddDesignation == null)
+            {
+                <div>
+                    <p>
+                        @ViewBag.AddDesignation 
+                    </p>
+                </div>
+            }
 else
 {
     <td> You are not Authorized </td>

@@ -38,9 +38,11 @@ namespace EmployeeManagementSystem.Controllers
        
         public ActionResult LeaveRequest(LeaveRequest model)
         {
-            if (HttpContext.Session["EmpId"] != null)
+            try
             {
-                Dictionary<string, object> leavedict = new Dictionary<string, object>() {
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> leavedict = new Dictionary<string, object>() {
                 { "@EmployeeId",HttpContext.Session["EmpId"]},
                 { "@IsHalfday",model.IsHalfday},
                 { "@LeaveType",model.LeaveType},
@@ -52,39 +54,54 @@ namespace EmployeeManagementSystem.Controllers
 
 
             };
-                object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
-                Console.WriteLine(output);
-                if (output == null)
-                {
-                    ViewBag.Message = "Invalid credentials";
+                    object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
+                    Console.WriteLine(output);
+                    if (output == null)
+                    {
+                        ViewBag.Message = "Invalid credentials";
+                    }
+                    else
+                    {
+                        ViewData["Leave"] = "Leave Requested Succefully";
+                    }
+                    return View();
                 }
-                else
-                {
-                    ViewData["Leave"] = "Leave Requested Succefully";
-                }
-                return View();
             }
+            catch(Exception ex)
+            {
+                ViewBag.LeaveRequest = "Leave Request Not Successful";
+                return View();
+            };
             return RedirectToAction("Login","Accounts");   
                
         }
         public ActionResult LeaveSummary(Leave obj)
         {
-            if (HttpContext.Session["EmpId"] != null)
+            try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",HttpContext.Session["EmpId"]},
             };
 
 
-                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveSummary", dict);
-                LeaveViewModel leaveViewModel = new LeaveViewModel();
-                leaveViewModel.getleaves = lm.DataTabletoLeaveModel(EmpTable);
-                ViewData["getleaves"] = leaveViewModel.getleaves;
-                LeaveView = leaveViewModel;
-                return View(ViewData);
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveSummary", dict);
+                    LeaveViewModel leaveViewModel = new LeaveViewModel();
+                    leaveViewModel.getleaves = lm.DataTabletoLeaveModel(EmpTable);
+                    ViewData["getleaves"] = leaveViewModel.getleaves;
+                    LeaveView = leaveViewModel;
+                    return View(ViewData);
 
+                }
             }
+            catch(Exception ex)
+            {
+                ViewBag.LeaveSummary = "Could not get Leave Summary";
+                return View();
+            };
+            
             return RedirectToAction("Login", "Accounts");
 
 
@@ -92,39 +109,71 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult GetUserDetails(Leave obj)
         {
-            if (HttpContext.Session["EmpId"] != null)
+            try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",HttpContext.Session["EmpId"]}
             };
-                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                EmployeeViewModel employee = new EmployeeViewModel();
-                employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                ViewData["userdetails"] = employee.employees;
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+                    EmployeeViewModel employee = new EmployeeViewModel();
+                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
+                    ViewData["userdetails"] = employee.employees;
+                    return View();
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
+                }
+            }
+            catch(Exception ex)
+            {
+                ViewBag.GetUserDetails = "Could not get User Details";
                 return View();
 
-            }
-            return RedirectToAction("Login", "Accounts");
+            };
+            return View();
+
 
         }
 
         public ActionResult GetUserOwnDetails()
         {
-            if (HttpContext.Session["EmpId"] != null)
+            try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",HttpContext.Session["EmpId"]}
             };
-                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                EmployeeViewModel employee = new EmployeeViewModel();
-                employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                Employee employeeowndetail = new Employee();
-                employeeowndetail = employee.employees[0];
-                return View(employeeowndetail);
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+                    EmployeeViewModel employee = new EmployeeViewModel();
+                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
+                    Employee employeeowndetail = new Employee();
+                    employeeowndetail = employee.employees[0];
+                    return View(employeeowndetail);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
+
+                }
+
             }
-            return RedirectToAction("Login", "Accounts");
+            catch(Exception ex)
+            {
+                ViewBag.GetUserOwnDetails = "Could not get User Own Details";
+                return View();
+            }
+            return View();
+
+
 
         }
 
@@ -132,19 +181,37 @@ namespace EmployeeManagementSystem.Controllers
 
         public ActionResult GetLeaveRequest(LeaveRequest obj)
         {
-            if (HttpContext.Session["EmpId"] != null)
+            try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",HttpContext.Session["EmpId"]}
             };
-                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveRequest", dict);
-                LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-                leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(EmpTable);
-                ViewData["getleaverequest"] = leaveRequest.leaveRequests;
-                return View(ViewData);
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveRequest", dict);
+                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(EmpTable);
+                    ViewData["getleaverequest"] = leaveRequest.leaveRequests;
+                    return View(ViewData);
+
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
+                }
+
             }
-            return RedirectToAction("Login", "Accounts");
+            catch(Exception ex)
+            {
+                ViewBag.GetLeaveRequest = "Could not get Leave Request";
+                return View();
+            }
+            return View();
+
+
+
 
 
         }

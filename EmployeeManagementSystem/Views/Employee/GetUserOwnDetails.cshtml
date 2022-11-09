@@ -1,14 +1,15 @@
 ﻿@model EmployeeManagementSystem.Models.Employee
 @{
     ViewBag.Title = "Home Page";
-   
-    
+
+
 
 }
 
 
-    
-    @using (Html.BeginForm("AddEmployee()", "Admin"))
+@if (ViewBag.GetUserOwnDetails == null)
+{
+    using (Html.BeginForm("AddEmployee()", "Admin"))
     {
         @Html.AntiForgeryToken()
 
@@ -72,8 +73,8 @@
                 @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender ", disabled = "disabled", @readonly = "readonly" } })
-                    
-                    
+
+
 
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
@@ -83,7 +84,7 @@
                 @Html.LabelFor(model => model.BloodGroup, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Bloodgroup ", disabled = "disabled", @readonly = "readonly" } })
-                   
+
                     @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -166,8 +167,8 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder="Enter Your State ", disabled = "disabled", @readonly = "readonly" } })
-                   
+                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your State ", disabled = "disabled", @readonly = "readonly" } })
+
 
                     @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
                 </div>
@@ -183,10 +184,10 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8  ">
-                     @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role", disabled = "disabled", @readonly = "readonly"  } })
+                    @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role", disabled = "disabled", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-                    
-                    
+
+
                     @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -196,8 +197,8 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.Experienced, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Experienced, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Designation", disabled = "disabled", @readonly = "readonly"   } })
-                    
+                    @Html.EditorFor(model => model.Experienced, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Designation", disabled = "disabled", @readonly = "readonly" } })
+
 
                     @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
                 </div>
@@ -206,7 +207,7 @@
             <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.YearsOfExprience, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Years Of Experience ", min = "0",disabled = "disabled", @readonly = "readonly" } })
+                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Years Of Experience ", min = "0", disabled = "disabled", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.YearsOfExprience, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -221,12 +222,22 @@
 
 
 
-           
+
 
         </div>
 
-    
 
+
+    }
 }
 
+
+else if (ViewBag.GetUserOwnDetails != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetUserOwnDetails
+        </p>
+    </div>
+}
 

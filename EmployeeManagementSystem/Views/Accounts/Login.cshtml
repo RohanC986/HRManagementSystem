@@ -78,15 +78,16 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
             <button class="btn  login-btn">Login</button>
+            @if (ViewBag.Message != null)
+            {
+                <div id="popupdiv" style="border: 1px solid red; display: none;">
+                    @ViewBag.Message
+                </div>
+            }
+
+
             <div>
-                @if (ViewData["Error"] != null)
-                {
-                    <div>
-
-                    </div>
-
-
-                }
+               
             </div>
 
 
@@ -95,10 +96,9 @@
             <a href="#">Forget password?</a>
         </div>*@
 
-        <h1>@ViewData["out"]</h1>
+       
 
     </div>
-    <h1>@ViewData["out"]</h1>
 
 
 

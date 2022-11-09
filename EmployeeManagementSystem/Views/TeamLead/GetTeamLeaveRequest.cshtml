@@ -5,7 +5,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "Team Lead")
+@if (((Session["role"]).ToString()) == "Team Lead" && ViewBag.GetTeamLeaveRequest == null)
 {
     <h2 class="addEmp">Leave Request</h2>
     <hr id="addemphr" />
@@ -56,31 +56,31 @@
                     {
                         if (item.Status == "Pending")
                         {
-                                <tr>
-                                    <td> @item.LeaveRequestId</td>
-                                    <td> @item.FirstName @item.LastName</td>
-                                    <td> @item.isHalfDay</td>
-                                    <td> @item.LeaveType</td>
-                                    <td> @item.Reason</td>
-                                    <td> @item.LengthOfLeave</td>
-                                    <td> @item.StartDate</td>
-                                    <td> @item.EndDate</td>
-                                    <td> @item.Status</td>
-                                    @if (item.Status == "Pending")
-                                    {
-                                        <td>
-                                            <span>
-                                                <input value="Accept" onclick=" (confirm('Do you want to Accept Leave?')) ? window.location.href = '@Url.Action("LeaveAccept","TeamLead",item)' : null" id="emp-create-btn" class="btn-success" type="button" />
-                                                <input value="Reject" onclick=" (confirm('Do you want to Reject Leave?')) ?window.location.href='@Url.Action("LeaveReject","TeamLead",item)': null " id="emp-create-btn" class="btn-danger" type="button" />
-                                            </span>
-                                        </td>
+                            <tr>
+                                <td> @item.LeaveRequestId</td>
+                                <td> @item.FirstName @item.LastName</td>
+                                <td> @item.isHalfDay</td>
+                                <td> @item.LeaveType</td>
+                                <td> @item.Reason</td>
+                                <td> @item.LengthOfLeave</td>
+                                <td> @item.StartDate</td>
+                                <td> @item.EndDate</td>
+                                <td> @item.Status</td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <td>
+                                        <span>
+                                            <input value="Accept" onclick=" (confirm('Do you want to Accept Leave?')) ? window.location.href = '@Url.Action("LeaveAccept","TeamLead",item)' : null" id="emp-create-btn" class="btn-success" type="button" />
+                                            <input value="Reject" onclick=" (confirm('Do you want to Reject Leave?')) ?window.location.href='@Url.Action("LeaveReject","TeamLead",item)': null " id="emp-create-btn" class="btn-danger" type="button" />
+                                        </span>
+                                    </td>
 
-                                    }
-
-
+                                }
 
 
-                                </tr>
+
+
+                            </tr>
 
                         }
 
@@ -93,10 +93,17 @@
     </div>
 
 }
+else if (ViewBag.GetTeamLeaveRequest != null)
+{
+    <div>
+        <p>
+            @ViewBag.GetTeamLeaveRequest
+        </p>
+    </div>
+}
 else
 {
     <td> You are not Authorized </td>
 }
-
 
 
