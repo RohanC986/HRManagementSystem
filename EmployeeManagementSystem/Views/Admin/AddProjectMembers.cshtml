@@ -37,20 +37,18 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+@*                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                <label class="control-label col-md-4">Select Employee </label> 
                 <div class="col-md-8">
-                    @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
-                    *@
                     @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, htmlAttributes: new { @class = "text-center Role-Down " })
 
                     @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })
+                @*@Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                <label class="control-label col-md-4">Select Project</label>
                 <div class="col-md-8">
-                    @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Gender " } })
-                    *@
                     @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "text-center Role-Down " })
 
                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
@@ -58,12 +56,12 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-8  row justify-content-md-end">
+            <div class="form-group col-md-12  row justify-content-md-center">
                 <div class="col-md-2 col-sm-10 col ">
                     <input id="emp-create-btn" type="submit" value="Create" class="btn-primary btn-default " />
                 </div>
 
-                <div class="col-md-3 col-sm-5 " id="Emp-form-back-list">
+                <div class="col-md-1 col-sm-5 " id="Emp-form-back-list">
                     @Html.ActionLink("Back", "Department", "Admin")
                 </div>
 

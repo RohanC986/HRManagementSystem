@@ -165,8 +165,8 @@ body {
 }
 
 #Emp-form-back-list {
-    background-color: lavender;
-    padding: 1%;
+    background-color:lavender;
+    padding: 7px;
     text-align: center;
     font-size: 15px;
 }
@@ -426,9 +426,3 @@ table.DepartTab td {
 }
 /*Department-button*/
 
-
-
-/*Disabled Employee */
-#get-all-emp-tr{
-    background-color:red;
-}
