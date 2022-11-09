@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystem.ConversionService;
 using EmployeeManagementSystem.DataAccessLayer;
+using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
 using System;
@@ -21,6 +22,7 @@ namespace EmployeeManagementSystem.Controllers
         private LeaveViewModel LeaveView;
         DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
         DTableToTeamLeaveRequestModel DTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
+        DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         // GET: TeamLead
         public ViewResult GetAllTeamEmps(/*TeamEmpDetailsViewModel obj*/)
         {
@@ -86,7 +88,9 @@ namespace EmployeeManagementSystem.Controllers
                     { "@LeaveRequestId",leaveRequest.LeaveRequestId},
                 };
                 dal.ExecuteScalar("uspAcceptLeave", dict);
-               return RedirectToAction("GetTeamLeaveRequest");
+                this.AddNotification("Leave Accepted", NotificationType.SUCCESS);
+
+                return RedirectToAction("GetTeamLeaveRequest");
             }
             catch(Exception ex)
             {
@@ -107,6 +111,8 @@ namespace EmployeeManagementSystem.Controllers
 
                 };
                 dal.ExecuteScalar("uspRejectLeave", dict);
+                this.AddNotification("Leave Rejected", NotificationType.WARNING);
+
                 return RedirectToAction("GetTeamLeaveRequest");
 
             }
@@ -117,6 +123,40 @@ namespace EmployeeManagementSystem.Controllers
 
             return RedirectToAction("LeaveReject");
 
+
+        }
+        public ActionResult GetTeamSpecificUserDetails(Employee emp)
+        {
+            try
+            {
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@EmployeeId",HttpContext.Session["EmpId"]}
+            };
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+                    EmployeeViewModel employee = new EmployeeViewModel();
+                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
+                    Employee employeeowndetail = new Employee();
+                    employeeowndetail = employee.employees[0];
+
+                    return View(employeeowndetail);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GetUserOwnDetails = "Could not get User Own Details";
+                return View();
+            }
+            return View();
 
         }
 

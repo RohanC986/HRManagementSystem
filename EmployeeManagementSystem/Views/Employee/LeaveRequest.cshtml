@@ -4,9 +4,9 @@
     ViewBag.Title = "LeaveRequest";
 }
 
-@if (ViewBag.LeaveRequest == null)
-{
-    using (Html.BeginForm())
+@*@if (ViewBag.LeaveRequest == null)
+{*@
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
@@ -37,7 +37,7 @@
                 @* @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-3" })*@
                 <label class="control-label col-md-4">Leave Type</label>
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control " }, required = "required" })
+                    @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control " ,required = "required" }  })
                     @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -48,16 +48,16 @@
                 @*@Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })*@
                 <label class="control-label col-md-4">Length Of Leave</label>
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control" }, required = "required", min = 1 })
+                    @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control", required = "required", min = 1 }, required = "required", min = 1 })
                     @Html.ValidationMessageFor(model => model.LengthOfLeave, "", new { @class = "text-danger" })
-                </div>
+                </div>  
             </div>
 
             <div class="form-group col-md-12">
                 @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
                 <label class="control-label col-md-4">Start Date</label>
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date",required = "required"}, required = "required" })
                     @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 @* @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
                 <label class="control-label col-md-4">End Date</label>
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" }, required = "required" })
                     @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 @* @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-3" })*@
                 <label class="control-label col-md-4">Reason</label>
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" }, required = "required" })
+                    @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" })
                     @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -92,7 +92,15 @@
             </div>
         </div>
     }
-}
+@*}
+else if (ViewBag.LeaveRequest != null)
+{
+    <div>
+        <p>
+            @ViewBag.LeaveRequest
+        </p>
+    </div>
+}*@
 
 
 <script type="text/javascript">
@@ -105,4 +113,14 @@
 </script>
 
 
+
+
+else if (ViewBag.LeaveRequest != null)
+{
+    <div>
+        <p>
+            @ViewBag.LeaveRequest
+        </p>
+    </div>
+}
 

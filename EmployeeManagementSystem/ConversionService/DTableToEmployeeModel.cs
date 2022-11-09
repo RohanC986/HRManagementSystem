@@ -17,13 +17,15 @@ namespace EmployeeManagementSystem.ConversionService
             employees = (from DataRow dr in dt.Rows
                          select new Employee
                          {
+
                              EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
                              FirstName = dr["FirstName"].ToString(),
                              MiddleName = dr["MiddleName"].ToString(),
                              LastName = dr["LastName"].ToString(),
                              Email = dr["Email"].ToString(),
+                             //DOB = Convert.ToDateTime(dr["DOB"]),
                              DOB = dr["DOB"].ToString(),
-                             DOJ = dr["DOJ"].ToString(),
+                             DOJ = dr["DOj"].ToString(),
                              BloodGroup = dr["BloodGroup"].ToString(),
                              Gender = dr["Gender"].ToString(),
                              PersonalContact = Convert.ToInt64(dr["PersonalContact"]),
@@ -41,9 +43,6 @@ namespace EmployeeManagementSystem.ConversionService
                              PreviousCompanyName = dr["PreviousCompanyName"].ToString(),
                              YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"]),
                              IsActive  = Convert.ToBoolean(dr["IsActive"])
-
-
-
 
 
                          }

@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.DataAccessLayer;
+using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystem.ViewModels;
 using Org.BouncyCastle.Crypto.Tls;
 using System;
@@ -66,28 +67,25 @@ namespace EmployeeManagementSystem.Controllers
                      return View();
                  }*/
                 object output = dal.ExecuteScalar("uspcheckCredentials", dict);
-                //if (output == null)
-                //{
-                //    ViewBag.Message = "User Not Found";
-                //    return View();
-                //}
-                ViewBag.Loign = "Logged In Successfully";
-                HttpContext.Session["EmpId"] = output;
-                Dictionary<string, object> DictRole = new Dictionary<string, object>() {
-                { "@EmployeeId",output}
-                };
-
-                object role = dal.ExecuteScalar("getUserRole", DictRole);
-                HttpContext.Session["role"] = role;
-                ViewData["role"] = role;
-
                 Console.WriteLine(output);
                 if (output == null)
                 {
+                    ViewData["LoginError"] = "Invalid Username or Password";
+                    //this.AddNotification("Invalid Username Or Password ", NotificationType.ERROR);
+
                     return RedirectToAction("login");
                 }
                 else
                 {
+                    HttpContext.Session["EmpId"] = output;
+                    Dictionary<string, object> DictRole = new Dictionary<string, object>() {
+                { "@EmployeeId",output}
+                };
+
+                    object role = dal.ExecuteScalar("getUserRole", DictRole);
+                    HttpContext.Session["role"] = role;
+                    ViewData["role"] = role;
+                    this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
                     if ((role).ToString() == "Employee")
                     {
                         return RedirectToAction("GetUserOwnDetails", "Employee");
@@ -104,6 +102,18 @@ namespace EmployeeManagementSystem.Controllers
 
 
                 }
+
+                //if (output == null)
+                //{
+                //    ViewBag.Message = "User Not Found";
+                //    return View();
+                //}
+
+              
+
+
+              
+               
                 //Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 //Response.Cache.SetExpires(DateTime.Now.AddSeconds(-1));
                 //Response.Cache.SetNoStore();
@@ -144,7 +154,8 @@ namespace EmployeeManagementSystem.Controllers
             Response.Cookies.Clear();
             //session.removeall();
             HttpContext.Session.Clear();
-       
+            this.AddNotification("logged Out ", NotificationType.WARNING);
+
             //session["empid"] = null;
             return RedirectToAction("Login");
         }

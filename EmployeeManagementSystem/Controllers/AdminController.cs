@@ -1,10 +1,10 @@
 ﻿using EmployeeManagementSystem.ConversionService;
 using EmployeeManagementSystem.DataAccessLayer;
+using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,7 +23,7 @@ namespace EmployeeManagementSystem.Controllers
 
     public class AdminController : Controller
     {
-        
+
         private AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
         DTableToEmployeeIdNameViewModel dtEIN = new DTableToEmployeeIdNameViewModel();
@@ -34,7 +34,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
         DTableToRolesModel dtRole = new DTableToRolesModel();
         DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
-
+        DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
         DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
 
@@ -69,10 +69,10 @@ namespace EmployeeManagementSystem.Controllers
 
                 return RedirectToAction("Login", "Accounts");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.GetAllEmployeesDetailsError = "List of Users not found !";
-                
+
             }
 
 
@@ -105,12 +105,12 @@ namespace EmployeeManagementSystem.Controllers
                     return View();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.AddNewEmpError = "List Not Found";
             }
 
-            
+
             return RedirectToAction("GetAllEmployeesDetails", "Admin");
 
 
@@ -154,14 +154,15 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
-                    return View();
+                    this.AddNotification("Employee Added Successfully", NotificationType.SUCCESS);
+                    return RedirectToAction("AccountDetails", "Admin");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.SaveNewEmpError = "Data not saved";
             }
-            
+
             return RedirectToAction("AddNewEmp", "Admin");
 
         }
@@ -220,11 +221,11 @@ namespace EmployeeManagementSystem.Controllers
                     return View(model);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.EditEmpError = "Page not reloaded";
             }
-            
+
 
             return RedirectToAction("GetAllEmployeesDetails", "Admin");
 
@@ -261,9 +262,10 @@ namespace EmployeeManagementSystem.Controllers
                 { "@PreviousCompanyName",model.PreviousCompanyName}
             };
                 object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+                this.AddNotification("Updated Successfully", NotificationType.SUCCESS);
                 return RedirectToAction("GetAllEmployeesDetails");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.UpdateEmpDetailsError = "Data not Updated";
             }
@@ -287,7 +289,7 @@ namespace EmployeeManagementSystem.Controllers
                     return View(ViewData);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.DepartmentMessage = "List Not Loaded";
                 return View();
@@ -310,20 +312,20 @@ namespace EmployeeManagementSystem.Controllers
 
 
 
-                DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-                EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
-                empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
-                ViewData["AllEmpIdName"] = empIdName;
+                    DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+                    EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
+                    empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+                    ViewData["AllEmpIdName"] = empIdName;
 
 
                     return View();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.AddProjectError = "Page loading error";
             }
-            
+
 
             return RedirectToAction("GetAllEmployeesDetails", "Admin");
 
@@ -340,15 +342,17 @@ namespace EmployeeManagementSystem.Controllers
                 {"@ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
             };
                 dal.ExecuteNonQuery("uspSaveProject", dict);
+               
+                this.AddNotification("Project Saved Successfully", NotificationType.SUCCESS);
 
                 return RedirectToAction("AddProjectMembers", "Admin");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.SaveProjectError = "Data not saved";
             }
-            return RedirectToAction("AddProject","Admin");
-           
+            return RedirectToAction("AddProject", "Admin");
+
 
 
 
@@ -372,15 +376,17 @@ namespace EmployeeManagementSystem.Controllers
                     /*ViewData["AllEmpIdName"] = EmpIdname;*/
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
+                    this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
+
 
                     return View();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.AddProjectMembersError = "Page Loading Error";
             }
-            
+
 
 
             return RedirectToAction("Login", "Accounts");
@@ -408,11 +414,11 @@ namespace EmployeeManagementSystem.Controllers
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.AddLoginError = "Page loading error";
             }
-            
+
 
             return RedirectToAction("GetAllEmployeesDetails", "Admin");
 
@@ -438,6 +444,8 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
+                    this.AddNotification("Credentials Added Successfully", NotificationType.SUCCESS);
+
 
                     return RedirectToAction("GetAllEmployeesDetails");
                 }
@@ -467,6 +475,7 @@ namespace EmployeeManagementSystem.Controllers
 
             };
                     dal.ExecuteNonQuery("uspSaveProjectMember", dict);
+                    this.AddNotification("Member added Successfully", NotificationType.SUCCESS);
 
                     return RedirectToAction("AddProjectMembers", "Admin");
                 }
@@ -501,6 +510,7 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
+                    this.AddNotification("Employee Disabled Successfully", NotificationType.SUCCESS);
 
                     return RedirectToAction("GetAllEmployeesDetails", "Admin");
                 }
@@ -546,7 +556,10 @@ namespace EmployeeManagementSystem.Controllers
                 { "@DesignationName",designation.DesignationName}
             };
                     object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
+                    this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+
                     return RedirectToAction("GetAllDesignation");
+
                 }
             }
             catch (Exception ex)
@@ -625,6 +638,8 @@ namespace EmployeeManagementSystem.Controllers
                         ViewData["success"] = "success";
 
                     }
+                    this.AddNotification("Designation Updated Successfully", NotificationType.SUCCESS);
+
                     return RedirectToAction("GetAllDesignation");
 
                 }
@@ -652,6 +667,8 @@ namespace EmployeeManagementSystem.Controllers
                 { "@DesignationId",model.DesignationId},
             };
                     object check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
+                    this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+
                     return RedirectToAction("GetAllDesignation");
 
                 }
@@ -740,6 +757,8 @@ namespace EmployeeManagementSystem.Controllers
                 {"@RoleName", model.RoleName}
             };
                     dal.ExecuteNonQuery("uspSaveRole", dict);
+                    this.AddNotification("Role Added Successfully", NotificationType.SUCCESS);
+
 
                     return RedirectToAction("RoleView", "Admin");
                 }
@@ -772,6 +791,8 @@ namespace EmployeeManagementSystem.Controllers
                 {"@RoleName", model.RoleName}
             };
                     dal.ExecuteNonQuery("uspDeleteRole", dict);
+                    this.AddNotification("Role Deleted Successfully", NotificationType.SUCCESS);
+
 
                     return RedirectToAction("RoleView", "Admin");
 
@@ -871,11 +892,11 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     Dictionary<string, object> dict = new Dictionary<string, object>()
             {
-                { "@ProjectHeadEmployeeId",emp.ProjectHeadEmployeeId},
+                { "@ProjectName",emp.ProjectName},
             };
 
 
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmps", dict);
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmpsAdmin", dict);
                     TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
                     tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
                     ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
@@ -940,7 +961,44 @@ namespace EmployeeManagementSystem.Controllers
             };
 
             dal.ExecuteNonQuery("uspAddAccountD", dict);
+            this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
+
             return RedirectToAction("AddLogin", "Admin");
+        }
+
+        public ActionResult GetSpecificUserDetails(Employee emp)
+        {
+            try
+            {
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                { "@EmployeeId",HttpContext.Session["EmpId"]}
+            };
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+                    EmployeeViewModel employee = new EmployeeViewModel();
+                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
+                    Employee employeeowndetail = new Employee();
+                    employeeowndetail = employee.employees[0];
+
+                    return View(employeeowndetail);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GetUserOwnDetails = "Could not get User Own Details";
+                return View();
+            }
+            return View();
+
         }
 
 

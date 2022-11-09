@@ -4,8 +4,8 @@
     var data = (IEnumerable<EmployeeManagementSystem.Models.LeaveRequest>)ViewData["getleaverequest"];
 
 }
-@*@if (ViewBag.GetLeaveRequest == null)*@
-{
+@*@if (ViewBag.GetLeaveRequest == null)
+{*@
 
     <h2 class="addEmp">Leave Request</h2>
     <hr id="addemphr" />
@@ -76,7 +76,7 @@
             @ViewBag.GetLeaveRequest
         </div>*@
     </div>
-}
+@*}*@
 @*else if (ViewBag.GetLeaveRequest != null)
 {
     <div>

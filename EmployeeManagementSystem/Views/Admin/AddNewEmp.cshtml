@@ -147,7 +147,7 @@
                 @* @Html.LabelFor(model => model.PersonalContact, htmlAttributes: new { @class = "control-label col-md-4 " })*@
                 <label class="control-label col-md-4">Personal Contact</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", @minlength = "10", @maxlength = "10", @required = "required",  } })
+                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", required = "required" , minlength = "10", maxlength = "10" } })
                     @Html.ValidationMessageFor(model => model.PersonalContact, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -156,7 +156,7 @@
                 @* @Html.LabelFor(model => model.EmergencyContact, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Emergency Contact</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", @minlength = "10", @maxlength = "10", @required = "required" } })
+                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", required = "required", min = 10,max=10} })
                     @Html.ValidationMessageFor(model => model.EmergencyContact, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -165,7 +165,7 @@
                 @* @Html.LabelFor(model => model.AadharCardNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Aadhar Card</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Aadhar No. ", @minlength = "12", @maxlength = "12", @required = "required" } })
+                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Aadhar No. ", required = "required", min = 12, max = 12 } })
                     @Html.ValidationMessageFor(model => model.AadharCardNo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 @* @Html.LabelFor(model => model.PancardNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Pancard Number</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pan No. ", required = "required", @minlength = "10", @maxlength = "10" } })
+                    @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pan No. ", required = "required", min = 10,max=10 } })
                     @Html.ValidationMessageFor(model => model.PancardNo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -183,7 +183,7 @@
                 @* @Html.LabelFor(model => model.PassportNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Passport Number</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required", @minlength = "9", @maxlength = "9" } })
+                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required", min = 12,max=12 } })
                     @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
                 </div>
             </div>

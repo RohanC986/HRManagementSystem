@@ -19,9 +19,9 @@
         <table class="EmpTableDet">
             <thead>
                 <tr>
-                    <th>
+                    @*<th>
                         EmployeeId
-                    </th>
+                    </th>*@
 
                     <th>
                         Name
@@ -51,13 +51,15 @@
                     foreach (var item in data)
                     {
 
-                        <tr>
-                            <td> @item.EmployeeId </td>
-                            <td> @item.FirstName @item.LastName</td>
-                            <td> @item.Email</td>
-                            <td> @item.Designation</td>
-                            <td> @item.ProjectName</td>
-                        </tr>
+                                <tr>
+                                    @*<td> @item.EmployeeId </td>*@
+                                    <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+
+                                    @*<td> @item.FirstName @item.LastName</td>*@
+                                    <td> @item.Email</td>
+                                    <td> @item.Designation</td>
+                                    <td> @item.ProjectName</td>
+                                </tr>
 
                     }
                 }

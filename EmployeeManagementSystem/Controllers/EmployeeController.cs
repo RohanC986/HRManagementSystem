@@ -1,8 +1,10 @@
 ﻿using EmployeeManagementSystem.ConversionService;
 using EmployeeManagementSystem.DataAccessLayer;
 using EmployeeManagementSystem.DBContext;
+using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,7 +39,7 @@ namespace EmployeeManagementSystem.Controllers
 
        
         public ActionResult LeaveRequest(LeaveRequest model)
-        {
+            {
             try
             {
                 if (HttpContext.Session["EmpId"] != null)
@@ -54,16 +56,15 @@ namespace EmployeeManagementSystem.Controllers
 
 
             };
+                    
                     object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
-                    Console.WriteLine(output);
-                    if (output == null)
+                    if (model.LeaveType != null &&  model.StartDate!=null && model.EndDate!=null && model.LeaveType !=null && model.Reason!=null )
                     {
-                        ViewBag.Message = "Invalid credentials";
+                        this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);
+                        return RedirectToAction("GetLeaveRequest","Employee");
+
                     }
-                    else
-                    {
-                        ViewData["Leave"] = "Leave Requested Succefully";
-                    }
+
                     return View();
                 }
             }
@@ -122,6 +123,7 @@ namespace EmployeeManagementSystem.Controllers
                     employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
                     ViewData["userdetails"] = employee.employees;
                     return View();
+                    
 
                 }
                 else
@@ -156,6 +158,7 @@ namespace EmployeeManagementSystem.Controllers
                     employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
                     Employee employeeowndetail = new Employee();
                     employeeowndetail = employee.employees[0];
+
                     return View(employeeowndetail);
                 }
                 else
@@ -193,8 +196,9 @@ namespace EmployeeManagementSystem.Controllers
                     LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
                     leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(EmpTable);
                     ViewData["getleaverequest"] = leaveRequest.leaveRequests;
-                    return View(ViewData);
+                    return View();
 
+                                                        
                 }
                 else
                 {

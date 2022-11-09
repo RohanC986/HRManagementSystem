@@ -33,16 +33,7 @@
 
 @using (Html.BeginForm())
 {
-    if (ViewBag.Loign != null)
-    {
-        <script type="text/javascript">
-
-            window.onload = function () {
-                alert("Error");
-            };
-        </script>
-
-    }
+    
     @Html.AntiForgeryToken()
 
     @*<script type="text/javascript">
@@ -57,7 +48,12 @@
         window.onunload = function () { void (0) };
     </script>*@
 
-
+    if (ViewData["LoginError"] != null)
+                {
+                    <div>
+                      @ViewData["LoginError"]
+                    </div>
+                }
     <div class="wrapper mx-auto ">
         <h3 class="Form-Header ">Login</h3>
         <hr class="login-header" />

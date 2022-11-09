@@ -290,6 +290,7 @@
     <Compile Include="DataAccessLayer\DataAccessService.cs" />
     <Compile Include="DataAccessLayer\IDataAccessService.cs" />
     <Compile Include="DBContext\EMSContext.cs" />
+    <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -339,6 +340,7 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\CustomJS.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -387,9 +389,11 @@
     <Content Include="Views\Admin\Report.cshtml" />
     <Content Include="Views\Admin\AddRole.cshtml" />
     <Content Include="Views\Admin\RoleView.cshtml" />
-    <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\Admin\GetAllTeamEmpsAdmin.cshtml" />
     <Content Include="Views\Admin\AccountDetails.cshtml" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
+    <Content Include="Views\Admin\GetSpecificUserDetails.cshtml" />
+    <Content Include="Views\TeamLead\GetTeamSpecificUserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
