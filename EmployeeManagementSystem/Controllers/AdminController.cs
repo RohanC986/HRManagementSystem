@@ -251,6 +251,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 Dictionary<string, object> dict = new Dictionary<string, object>();
 
+
                 DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
                 EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
                 empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
@@ -260,6 +261,7 @@ namespace EmployeeManagementSystem.Controllers
             }
 
             return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -300,6 +302,7 @@ namespace EmployeeManagementSystem.Controllers
 
 
             return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -361,12 +364,14 @@ namespace EmployeeManagementSystem.Controllers
                 {"@ProjectId",model.ProjectId }
 
             };
+
                 dal.ExecuteNonQuery("uspSaveProjectMember", dict);
 
                 return RedirectToAction("AddProjectMembers", "Admin");
             }
 
             return RedirectToAction("Login", "Accounts");
+
 
         }
 
@@ -630,6 +635,7 @@ namespace EmployeeManagementSystem.Controllers
             contentByte.Stroke();
         }
 
+
         public ActionResult GetAllTeamEmpsAdmin(Project emp)
         {
             if (Session["EmpId"] != null)
@@ -653,10 +659,6 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-
-
-
-
 
 
 

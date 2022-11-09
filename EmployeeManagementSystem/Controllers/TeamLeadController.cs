@@ -24,61 +24,96 @@ namespace EmployeeManagementSystem.Controllers
         // GET: TeamLead
         public ViewResult GetAllTeamEmps(/*TeamEmpDetailsViewModel obj*/)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            try
             {
-                { "@ProjectHeadEmployeeId",HttpContext.Session["EmpId"]},
-            };
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+                {
+                    { "@ProjectHeadEmployeeId",Session["EmpId"]},
+                };
 
-            
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmps", dict);
-            TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
-            tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
-            ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
-            //TeamEmps = tempEmpDetialsView;
+
+                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmps", dict);
+                TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
+                tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
+                ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
+                //TeamEmps = tempEmpDetialsView;
+
+                return View(ViewData);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.GetAllTeamEmps = "GetAllTeamEmps Error";
+            }
             return View(ViewData);
 
         }
 
+        
         public ActionResult GetTeamLeaveRequest()
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+
+            try
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>()
+                    {
+                        { "@ProjectHeadEmployeeId",Session["EmpId"]},
+                    };
+
+
+                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeaveRequest", dict);
+                    GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
+                    getTeamLeaveRequest.getTeamLeaveRequestViewModels = DTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
+                    ViewData["TeamLeaveRequest"] = getTeamLeaveRequest.getTeamLeaveRequestViewModels;
+                return View(getTeamLeaveRequest);
+            }
+            catch(Exception ex)
             {
-                { "@ProjectHeadEmployeeId",HttpContext.Session["EmpId"]},
-            };
-
-
-            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeaveRequest", dict);
-            GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
-            getTeamLeaveRequest.getTeamLeaveRequestViewModels = DTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
-            ViewData["TeamLeaveRequest"] = getTeamLeaveRequest.getTeamLeaveRequestViewModels;
-            
+                ViewBag.GetTeamLeaveRequest = "Leave request Error";
+            }
             //TeamEmps = tempEmpDetialsView;
-            return View(getTeamLeaveRequest);
+            return RedirectToAction("GetTeamLeaveRequest");
 
         }
 
         public ActionResult LeaveAccept(GetTeamLeaveRequestViewModel leaveRequest)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            try
             {
-                { "@LeaveRequestId",leaveRequest.LeaveRequestId},
-            };
-            dal.ExecuteScalar("uspAcceptLeave", dict);
-            
-            return RedirectToAction("GetTeamLeaveRequest");
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+                {
+                    { "@LeaveRequestId",leaveRequest.LeaveRequestId},
+                };
+                dal.ExecuteScalar("uspAcceptLeave", dict);
+               return RedirectToAction("GetTeamLeaveRequest");
+            }
+            catch(Exception ex)
+            {
+                ViewBag.LeaveAccept = "Leave Accept Error ";
+            }
+            return RedirectToAction("LeaveAccept");
 
 
         }
 
         public ActionResult LeaveReject(GetTeamLeaveRequestViewModel leaveRequest)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            try
             {
-                { "@LeaveRequestId",leaveRequest.LeaveRequestId},
-                
-            };
-            dal.ExecuteScalar("uspRejectLeave", dict);
-            return RedirectToAction("GetTeamLeaveRequest");
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+                {
+                    { "@LeaveRequestId",leaveRequest.LeaveRequestId},
+
+                };
+                dal.ExecuteScalar("uspRejectLeave", dict);
+                return RedirectToAction("GetTeamLeaveRequest");
+
+            }
+            catch(Exception ex)
+            {
+                ViewBag.LeaveReject = "Leave Reject Error";
+            }
+
+            return RedirectToAction("LeaveReject");
 
 
         }

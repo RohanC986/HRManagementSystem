@@ -33,6 +33,7 @@ namespace EmployeeManagementSystem.Models
         public string PreviousCompanyName { get; set; }
         public int YearsOfExprience { get; set; }
 
+        public bool IsActive { get; set; } 
         public List<Employee> EmployeeList { get; set; }
 
     }

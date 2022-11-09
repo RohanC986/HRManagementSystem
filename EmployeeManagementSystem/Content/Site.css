@@ -145,7 +145,7 @@ body {
 
 #GetAllEmpDetails td {
         text-align: center;
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         padding-bottom: 15px;
 }
 
@@ -322,7 +322,14 @@ table.DepartTab td {
     font-size: large;
 }
 
-
+.Dep-team-lead-btn{
+   text-decoration:underline;
+}
+.Dep-team-lead-btn:hover{
+     color:red;
+    background-color:lightblue;
+    cursor:pointer;
+}
 
 
 /*Department*/
@@ -400,7 +407,7 @@ table.DepartTab td {
     color: black;
     padding: 5px;
     border-radius: 5px;
-}
+  
 .dept-btn-sec span {
     
     padding: 5px;
@@ -414,6 +421,14 @@ table.DepartTab td {
 .dept-btn-sec a:hover  , .GetAllEmpDet-btn-sec a:hover  {
    color:red; 
    text-decoration:none;
+   border:none;
 
 }
 /*Department-button*/
+
+
+
+/*Disabled Employee */
+#get-all-emp-tr{
+    background-color:red;
+}

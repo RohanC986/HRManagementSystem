@@ -39,8 +39,8 @@ namespace EmployeeManagementSystem.ConversionService
                              Designation = dr["Designation"].ToString(),
                              Experienced = Convert.ToBoolean(dr["Experienced"]),
                              PreviousCompanyName = dr["PreviousCompanyName"].ToString(),
-                             YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"])
-
+                             YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"]),
+                             IsActive  = Convert.ToBoolean(dr["IsActive"])
 
 
 

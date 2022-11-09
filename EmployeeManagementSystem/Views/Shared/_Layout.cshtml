@@ -52,7 +52,7 @@
                         </a>*@
                     @if (((Session["role"]).ToString()) == "Employee")
                     {
-                        <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                        <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="glyphicon  glyphicon-user"></span>
                             Profile
                         </a>
@@ -71,7 +71,7 @@
                     }
                     @if (((Session["role"]).ToString()) == "Admin")
                     {
-                        <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" tabindex="-1">
+                        <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto " tabindex="-1">
                             <span class="fa fa-solid fa-users"></span>
                             Employees
                         </a>
