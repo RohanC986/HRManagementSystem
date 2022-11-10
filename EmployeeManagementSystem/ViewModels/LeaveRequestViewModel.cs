@@ -8,6 +8,7 @@ namespace EmployeeManagementSystem.ViewModels
 {
     public class LeaveRequestViewModel
     {
+
         public List <LeaveRequest> leaveRequests;
     }
 }

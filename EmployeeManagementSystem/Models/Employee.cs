@@ -28,12 +28,12 @@ namespace EmployeeManagementSystem.Models
         public string State { get; set; }
         public string Pincode { get; set; }
         public string Role { get; set; }
-        public string Designation  { get; set; }
+        public string Designation { get; set; }
         public bool Experienced { get; set; }
         public string PreviousCompanyName { get; set; }
         public int YearsOfExprience { get; set; }
 
-        public bool IsActive { get; set; } 
+        public  bool? IsActive { get; set; }
         public List<Employee> EmployeeList { get; set; }
 
     }

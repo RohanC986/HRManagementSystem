@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Department";
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
+    //var data1 = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps1"];
+
 }
 
 
@@ -27,13 +29,18 @@
                 Add Project Members
             </a>
         </div>
+
     </div>
 
 
     <div id="DepatDiv">
-
+        @using (Html.BeginForm())
+        {
+        <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+        }
 
         <table class="DepartTab">
+
             <thead>
                 <tr>
                     <th>
@@ -49,8 +56,8 @@
                     </th>
 
                     @*<th>
-                            EmployeesOnLeave
-                        </th>*@
+                        EmployeesOnLeave
+                    </th>*@
 
 
                 </tr>
@@ -64,11 +71,11 @@
 
 
 
-                                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn" > @item.FirstName @item.LastName</td>
+                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn"> @item.FirstName @item.LastName</td>
 
-                                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" >  @item.ProjectName</td>
+                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'">  @item.ProjectName</td>
 
-                                            <td> @item.TotalMembers</td>
+                            <td> @item.TotalMembers</td>
 
 
 
@@ -85,12 +92,12 @@
 }
 else if (ViewBag.DepartmentMessage != null)
 {
-       
-            <script>
+
+    <script>
                 alert(@ViewBag.DepartmentMessage?@Url.Action("Login", "Admin"): null);
-            </script>
-            
-       
+    </script>
+
+
 
 }
 else

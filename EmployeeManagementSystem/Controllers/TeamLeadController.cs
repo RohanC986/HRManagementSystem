@@ -25,10 +25,26 @@ namespace EmployeeManagementSystem.Controllers
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveModel dtLeave = new DTableToLeaveModel();
         // GET: TeamLead
-        public ViewResult GetAllTeamEmps(/*TeamEmpDetailsViewModel obj*/)
+        public ViewResult GetAllTeamEmps(string emp)
         {
             try
             {
+                if (emp != null)
+                {
+                    Dictionary<string, object> dict1 = new Dictionary<string, object>()
+                {
+                    { "@ProjectHeadEmployeeId",Session["EmpId"]},
+                     { "@FirstName",emp},
+
+                };
+
+
+                    DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspTeamEmpsSearch", dict1);
+                    TeamEmpDetailsViewModel tempEmpDetialsView1 = new TeamEmpDetailsViewModel();
+                    tempEmpDetialsView1.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable1);
+                    ViewData["teamEmps1"] = tempEmpDetialsView1.teamEmps;
+                    return View(ViewData);
+                }
                 Dictionary<string, object> dict = new Dictionary<string, object>()
                 {
                     { "@ProjectHeadEmployeeId",Session["EmpId"]},

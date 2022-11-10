@@ -3,6 +3,8 @@
     ViewBag.Title = "GetAllTeamEmps";
 
     var data = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
+    var data1 = (IEnumerable<EmployeeManagementSystem.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps1"];
+
 
 }
 
@@ -12,60 +14,86 @@
 
 
 
+   
 
-    <h2 class="TeamEmpData">Team Employees</h2>
-    <hr id="teamdepemphr" />
-    <div id="main">
-        <table class="EmpTableDet">
-            <thead>
-                <tr>
-                    @*<th>
+<h2 class="TeamEmpData">Team Employees</h2><hr id="teamdepemphr" /><div id="main">
+    @using (Html.BeginForm())
+    {
+    <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+    }
+
+    <table class="EmpTableDet">
+        <thead>
+            <tr>
+                @*<th>
                         EmployeeId
                     </th>*@
 
-                    <th>
-                        Name
-                    </th>
+                <th>
+                    Name
+                </th>
 
-                    <th>
-                        Email
-                    </th>
+                <th>
+                    Email
+                </th>
 
-                    <th>
-                        Designation
-                    </th>
+                <th>
+                    Designation
+                </th>
 
-                    <th>
-                        Project Name
-                    </th>
+                <th>
+                    Project Name
+                </th>
 
-                    <th>
-                        Status
-                    </th>
+                <th>
+                    Status
+                </th>
 
 
-                </tr>
-            </thead>
-            <tbody>
-                @{
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (data1 != null)
+                {
+                    foreach (var item in data1)
+                    {
+
+                        <tr>
+                            @*<td> @item.EmployeeId </td>*@
+                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+
+                            @*<td> @item.FirstName @item.LastName</td>*@
+                            <td> @item.Email</td>
+                            <td> @item.Designation</td>
+                            <td> @item.ProjectName</td>
+                        </tr>
+
+                    }
+
+                }
+                else
+                {
                     foreach (var item in data)
                     {
 
-                                <tr>
-                                    @*<td> @item.EmployeeId </td>*@
-                                    <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+                        <tr>
+                            @*<td> @item.EmployeeId </td>*@
+                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
 
-                                    @*<td> @item.FirstName @item.LastName</td>*@
-                                    <td> @item.Email</td>
-                                    <td> @item.Designation</td>
-                                    <td> @item.ProjectName</td>
-                                </tr>
+                            @*<td> @item.FirstName @item.LastName</td>*@
+                            <td> @item.Email</td>
+                            <td> @item.Designation</td>
+                            <td> @item.ProjectName</td>
+                        </tr>
 
                     }
                 }
-            </tbody>
-        </table>
-    </div>
+
+            }
+        </tbody>
+    </table>
+</div>
 }
 
 else if (ViewBag.RoleView != null)

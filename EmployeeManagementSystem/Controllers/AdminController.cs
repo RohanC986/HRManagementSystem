@@ -51,13 +51,27 @@ namespace EmployeeManagementSystem.Controllers
         }*/
 
         [Route("[controller]/getallemployees")]
-        public ActionResult GetAllEmployeesDetails()
+        public ActionResult GetAllEmployeesDetails(string emp)
         {
 
             try
             {
+               
                 if (HttpContext.Session["Empid"] != null)
                 {
+                    if (emp != null)
+                    {
+                        Dictionary<string, object> dict1 = new Dictionary<string, object>()
+                        {
+                            { "@FirstName",emp},
+                        };
+                        DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspSearchEmps", dict1);
+                        AdminViewModel adminViewModel1 = new AdminViewModel();
+                        adminViewModel1.allEmployees = cs.DataTabletoEmployeeModel(EmpTable1);
+                        ViewData["allEmployees"] = adminViewModel1.allEmployees;
+                        EmpAllOver = adminViewModel1;
+                        return View(ViewData);
+                    }
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
                     AdminViewModel adminViewModel = new AdminViewModel();
@@ -278,13 +292,26 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult Department()
+        public ActionResult Department(string emp)
         {
             try
             {
+               
 
                 if (Session["EmpId"] != null)
                 {
+                    if (emp != null)
+                    {
+                        Dictionary<string, object> dict1 = new Dictionary<string, object>()
+                        {
+                            { "@ProjectName",emp}
+                        };
+                        DataTable Department1 = dal.ExecuteDataSet<DataTable>("uspGetAllTeamsSearch", dict1);
+                        DepartmentListViewModel departmentsViewModel1 = new DepartmentListViewModel();
+                        departmentsViewModel1.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department1);
+                        ViewData["TeamEmps"] = departmentsViewModel1.DepartmentsViews;
+                        return View(ViewData);
+                    }
                     Dictionary<string, object> dict = new Dictionary<string, object>();
                     DataTable Department = dal.ExecuteDataSet<DataTable>("uspGetAllTeams", dict);
                     DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
@@ -380,7 +407,8 @@ namespace EmployeeManagementSystem.Controllers
                     /*ViewData["AllEmpIdName"] = EmpIdname;*/
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
-                    this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
+                    
+                    //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
 
 
                     return View();
@@ -1022,14 +1050,6 @@ namespace EmployeeManagementSystem.Controllers
             return View();
 
         }
-
-
-
-
-
-
-
-
 
     }
 }
