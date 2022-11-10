@@ -23,6 +23,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
         DTableToTeamLeaveRequestModel DTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
+        DTableToLeaveModel dtLeave = new DTableToLeaveModel();
         // GET: TeamLead
         public ViewResult GetAllTeamEmps(/*TeamEmpDetailsViewModel obj*/)
         {
@@ -89,6 +90,57 @@ namespace EmployeeManagementSystem.Controllers
                 };
                 dal.ExecuteScalar("uspAcceptLeave", dict);
                 this.AddNotification("Leave Accepted", NotificationType.SUCCESS);
+                Dictionary<string, object> dict2 = new Dictionary<string, object>()
+                {
+                    {"@EmployeeId",leaveRequest.EmployeeId },
+                    { "@LeavesTaken",leaveRequest.LengthOfLeave},
+
+                };
+                Dictionary<string, object> dict3 = new Dictionary<string, object>()
+                {
+                    {"@EmployeeId",leaveRequest.EmployeeId }
+                };
+                DataTable balLeaves = dal.ExecuteDataSet<DataTable>("uspgetLeaveSummary", dict3);
+                LeaveViewModel leavesummary = new LeaveViewModel();
+                leavesummary.getleaves = dtLeave.DataTabletoLeaveModel(balLeaves);
+                int balanceLeaves=leavesummary.getleaves[0].BalanceLeaves;
+                int leavesTaken= leavesummary.getleaves[0].LeavesTaken;
+                int unpaidleaves = leavesummary.getleaves[0].UnPaidLeaves;
+
+                if (leavesTaken < 15)
+                {
+                    if((leavesTaken + (leaveRequest.LengthOfLeave))<=15)
+                    {
+                        Dictionary<string, object> dict4 = new Dictionary<string, object>()
+                        {
+                            {"@EmployeeId",leaveRequest.EmployeeId },
+                            {"@BalanceLeaves",(15-(leavesTaken+(leaveRequest.LengthOfLeave))) },
+                            {"@LeavesTaken",(leavesTaken+(leaveRequest.LengthOfLeave)) }
+                        };
+                        dal.ExecuteNonQuery("uspUpdateLeavesBefore15",dict4);
+                    }
+                    else if((leavesTaken + (leaveRequest.LengthOfLeave))>15)
+                    {
+                        Dictionary<string, object> dict5 = new Dictionary<string, object>()
+                        {
+                            {"@EmployeeId",leaveRequest.EmployeeId },
+                            {"@BalanceLeaves",0 },
+                            {"@LeavesTaken",leavesTaken+leaveRequest.LengthOfLeave },
+                            { "@UnPaidLeaves",(leavesTaken+leaveRequest.LengthOfLeave)-15}
+                        };
+                        dal.ExecuteNonQuery("uspUpdateLeavesAfter15",dict5);
+                    }
+                }
+                else
+                {
+                    Dictionary<string, object> dict6 = new Dictionary<string, object>()
+                        {
+                            {"@EmployeeId",leaveRequest.EmployeeId },
+                            {"@LeavesTaken",leavesTaken+leaveRequest.LengthOfLeave },
+                            { "@UnPaidLeaves",unpaidleaves+leaveRequest.LengthOfLeave}
+                        };
+                    dal.ExecuteNonQuery("uspUpdateUnPaidLeaves", dict6);
+                }
 
                 return RedirectToAction("GetTeamLeaveRequest");
             }

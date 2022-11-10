@@ -16,6 +16,7 @@ namespace EmployeeManagementSystem.ConversionService
                                              select new GetTeamLeaveRequestViewModel
                                              {
                                                  LeaveRequestId = Convert.ToInt32(dr["LeaveRequestId"]),
+                                                 EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
                                                  FirstName = dr["FirstName"].ToString(),
                                                  LastName = dr["LastName"].ToString(),
                                                  isHalfDay = Convert.ToBoolean(dr["isHalfDay"]),

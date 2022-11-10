@@ -1,12 +1,18 @@
-﻿using EmployeeManagementSystem.DataAccessLayer;
+using EmployeeManagementSystem.ConversionService;
+using EmployeeManagementSystem.DataAccessLayer;
 using EmployeeManagementSystem.Extensions;
+using EmployeeManagementSystem.Models;
 using EmployeeManagementSystem.ViewModels;
+using iTextSharp.text;
 using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using System.Web.Security;
 
 namespace EmployeeManagementSystem.Controllers
@@ -21,6 +27,7 @@ namespace EmployeeManagementSystem.Controllers
 
         private readonly string constr;
         DataAccessService dal = new DataAccessService();
+        DTableToEmployeeModel cs = new DTableToEmployeeModel();
 
 
         public AccountsController()
@@ -46,10 +53,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                
+               
                 HttpContext.Session["EmpId"] = null;
+                ViewData.Clear();
 
 
-                //HttpContext.Session["EmpId"] = null;
+                
                 Dictionary<string, object> dict = new Dictionary<string, object>() {
                 { "@Username",model.Username},
                 { "@Password",model.Password}
@@ -66,35 +76,200 @@ namespace EmployeeManagementSystem.Controllers
                      ModelState.AddModelError("", "invalid Username or Password");
                      return View();
                  }*/
-                object output = dal.ExecuteScalar("uspcheckCredentials", dict);
-                Console.WriteLine(output);
-                if (output == null)
-                {
-                    ViewData["LoginError"] = "Invalid Username or Password";
-                    //this.AddNotification("Invalid Username Or Password ", NotificationType.ERROR);
 
-                    return RedirectToAction("login");
+                Dictionary<string, object> dict1 = new Dictionary<string, object>() {
+                { "@Username",model.Username}
+                
+                };
+                object outputUser = dal.ExecuteScalar("uspGetUserEmployeeId", dict1);
+
+                Dictionary<string, object> dict2 = new Dictionary<string, object>() {
+                { "@Password",model.Password}
+
+                };
+                object outputPass = dal.ExecuteScalar("uspGetPassEmployeeId", dict2);
+
+
+               
+
+
+              
+
+                if (Convert.ToInt32(outputUser)==Convert.ToInt32(outputPass))
+                {
+                    Dictionary<string, object> dict3 = new Dictionary<string, object>()
+                    {
+                        
+                            { "EmployeeId",outputUser }
+                    };
+                    DataTable EmpTableUser = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict3);
+                    AdminViewModel adminViewModelUser = new AdminViewModel();
+                    adminViewModelUser.allEmployees = cs.DataTabletoEmployeeModel(EmpTableUser);
+                    HttpContext.Session["role"] = adminViewModelUser.allEmployees[0].Role;
+                    ViewData["role"] = adminViewModelUser.allEmployees[0].Role;
+                    HttpContext.Session["EmpId"] = adminViewModelUser.allEmployees[0].EmployeeId;
+                    HttpContext.Session["IsActive"] = adminViewModelUser.allEmployees[0].IsActive;
+                    dal.ExecuteNonQuery("uspResetAttempts", dict3);
+                    this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
+
+
                 }
                 else
                 {
-                    HttpContext.Session["EmpId"] = output;
-                    Dictionary<string, object> DictRole = new Dictionary<string, object>() {
-                { "@EmployeeId",output}
-                };
+                    
 
-                    object role = dal.ExecuteScalar("getUserRole", DictRole);
-                    HttpContext.Session["role"] = role;
-                    ViewData["role"] = role;
-                    this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
-                    if ((role).ToString() == "Employee")
+
+                    if (outputUser != null && outputPass == null)
+                    {
+                        Dictionary<string, object> dict6 = new Dictionary<string, object>()
+                        {
+                            {"@EmployeeId",outputUser}
+
+                        };
+                        object attempts = dal.ExecuteScalar("uspGetLoginAttempts", dict6);
+                        int attempts2 = Convert.ToInt32(attempts);
+                        
+
+                        if (attempts==null)
+                        {
+                            Dictionary<string, object> dict7 = new Dictionary<string, object>()
+                                {
+                                    {"@EmployeeId",outputUser},
+                                    {"@Attempts",1 }
+
+                                };
+                            dal.ExecuteNonQuery("uspAddAttempts", dict7);
+                            ViewBag.LoginError = "Invalid Password";
+                            this.AddNotification("Invalid Password", NotificationType.ERROR);
+                            return View();
+                        }
+                        else if (attempts2 < 4)
+                        {
+
+                            
+                            
+                            dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
+                            ViewBag.LoginError = $"Invalid Password({5 - attempts2} remaining out of 5)";
+                            this.AddNotification($"Invalid Password({5 - attempts2} remaining out of 5)", NotificationType.ERROR);
+                            return View();
+                            
+
+
+                        }
+                        else if (attempts2 == 4)
+                        {
+
+
+                           
+                            
+                                dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
+                            ViewBag.LoginError = "Last Attempt Remaining";
+                            this.AddNotification("Last Attempt Remaining", NotificationType.ERROR);
+                            return View();
+                        }
+                        else if (attempts2 == 5)
+                        {
+                            
+                            dal.ExecuteNonQuery("uspDisableEmployee", dict6);
+                            ViewBag.LoginError = "User blocked due to exceeded limit of attempts with wrong Password";
+
+                            this.AddNotification("User blocked due to exceeded limit of attempts with wrong Password", NotificationType.ERROR);
+                            return View();                        
+                        }
+
+                    }
+                    else if (outputUser == null && outputPass != null)
+                    {
+                        Dictionary<string, object> dict6 = new Dictionary<string, object>()
+                        {
+                            {"@EmployeeId",outputPass}
+
+                        };
+                        object attempts = dal.ExecuteScalar("uspGetLoginAttempts", dict6);
+                        int attempts2 = Convert.ToInt32(attempts);
+
+
+                        if (attempts == null)
+                        {
+                            Dictionary<string, object> dict7 = new Dictionary<string, object>()
+                                {
+                                    {"@EmployeeId",outputPass},
+                                    {"@Attempts",1 }
+
+                                };
+                            dal.ExecuteNonQuery("uspAddAttempts", dict7);
+                            ViewBag.LoginError = "Invalid Username";
+
+                            this.AddNotification("Invalid Username", NotificationType.ERROR); 
+                            return View();
+                        }
+                        else if (attempts2 < 4)
+                        {
+                            
+                            dal.ExecuteNonQuery("uspAddAttempts", dict6);
+                            ViewBag.LoginError = $"Invalid Username({5 - attempts2} remaining out of 5)";
+
+                            this.AddNotification($"Invalid Username({5 - attempts2} remaining out of 5)", NotificationType.ERROR);
+                            return View();
+                        }
+                        else if (attempts2 == 4)
+                        {
+                           
+                            dal.ExecuteNonQuery("uspAddAttempts", dict6);
+                            ViewBag.LoginError = "Last Attempt Remaining";
+                            this.AddNotification("Last Attempt Remaining", NotificationType.ERROR);
+                            return View();
+
+                        }
+                        else if (attempts2 == 5)
+                        {
+                           
+                            dal.ExecuteNonQuery("uspDisableEmployee", dict6);
+                            ViewBag.LoginError = "Last Attempt Remaining";
+                            this.AddNotification("User blocked due to exceeded limit of attempts with wrong Username", NotificationType.ERROR);
+                            return View();
+                        }
+                    }
+                    else if (outputPass == null && outputUser == null)
+                    {
+                        this.AddNotification("Invalid Credentials", NotificationType.ERROR);
+                        ViewBag.LoginError = "Invalid Credentials";
+                        return View();
+                    }
+
+                }
+               
+
+
+                
+
+                if (ViewData["role"].ToString() == null)
+                {
+                    this.AddNotification("Invalid Username or Password", NotificationType.ERROR);
+                    ViewBag.LoginError = "Invalid Username or Password";
+
+                    return View();
+                }
+                else if (Convert.ToInt32(HttpContext.Session["IsActive"])==0)
+                {
+                    this.AddNotification("User Blocked", NotificationType.ERROR);
+                    ViewBag.LoginError = "User Blocked";
+
+                    return View();
+
+                }
+                else
+                {
+
+                    if ((ViewData["role"]).ToString() == "Employee")
                     {
                         return RedirectToAction("GetUserOwnDetails", "Employee");
                     }
-                    else if ((role).ToString() == "Admin")
+                    else if ((ViewData["role"]).ToString() == "Admin")
                     {
                         return RedirectToAction("GetAllEmployeesDetails", "Admin");
                     }
-                    else if ((role).ToString() == "Team Lead")
+                    else if ((ViewData["role"]).ToString() == "Team Lead")
                     {
                         return RedirectToAction("GetAllTeamEmps", "TeamLead");
                     }
@@ -124,8 +299,8 @@ namespace EmployeeManagementSystem.Controllers
             }
             catch (Exception e)
             {
-                HttpContext.Session["LogimError"] = "User Not Found";
-                //return RedirectToAction("login");
+                ViewBag.LoginError= "User Not Found";
+                return View();
 
             }
             return View("Error");

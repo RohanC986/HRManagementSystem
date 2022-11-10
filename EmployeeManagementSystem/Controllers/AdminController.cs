@@ -154,13 +154,16 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
+
                     this.AddNotification("Employee Added Successfully", NotificationType.SUCCESS);
                     return RedirectToAction("AccountDetails", "Admin");
+
                 }
             }
             catch (Exception e)
             {
                 ViewBag.SaveNewEmpError = "Data not saved";
+                return RedirectToAction("AddNewEmp", "Admin");
             }
 
             return RedirectToAction("AddNewEmp", "Admin");
@@ -268,6 +271,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.UpdateEmpDetailsError = "Data not Updated";
+                return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
             return RedirectToAction("EditEmp");
 
@@ -385,6 +389,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.AddProjectMembersError = "Page Loading Error";
+                return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
 
 
@@ -417,10 +422,12 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.AddLoginError = "Page loading error";
+                
             }
+            return View();
 
 
-            return RedirectToAction("GetAllEmployeesDetails", "Admin");
+
 
         }
         public ActionResult SaveLogin(Login model)
@@ -552,9 +559,9 @@ namespace EmployeeManagementSystem.Controllers
                 if (Session["EmpId"] != null)
                 {
                     Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@DesignationName",designation.DesignationName}
-            };
+                    {
+                        { "@DesignationName",designation.DesignationName}
+                    };
                     object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
                     this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
 
@@ -941,16 +948,19 @@ namespace EmployeeManagementSystem.Controllers
                     return View();
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                ViewBag.AccountDetails = "Page Loading Error";
 
             }
             return RedirectToAction("SaveDetails", "Admin");
 
         }
-        public ActionResult SaveDetails(AccountDetails ac)
+        public ActionResult SaveAccountDetails(AccountDetails ac)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>()
+            try
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>()
             {
 
                 { "@EmployeeID",ac.EmployeeID},
@@ -964,7 +974,19 @@ namespace EmployeeManagementSystem.Controllers
             this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
 
             return RedirectToAction("AddLogin", "Admin");
-        }
+        
+
+                
+            }
+            catch(Exception e)
+            {
+                ViewBag.SaveAccountDetails = "Dat not Saved !";
+                return RedirectToAction("AccountDetails");
+            }
+            
+            }
+            
+
 
         public ActionResult GetSpecificUserDetails(Employee emp)
         {

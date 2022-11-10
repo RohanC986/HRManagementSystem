@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Login";
     Layout = null;
+    TempData["Error"] = ViewBag.LoginError;
 }
 @* login navbar*@
 <head>
@@ -33,27 +34,24 @@
 
 @using (Html.BeginForm())
 {
-    
+
+    if (ViewBag.LoginError != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.LoginError");
+            };
+        </script>
+
+    }
+
+
     @Html.AntiForgeryToken()
 
-    @*<script type="text/javascript">
+   
 
-        //Disable Back Button In All Browsers.
-        function DisableBackButtonAllBrowsers() {
-            window.history.forward()
-        };
-        DisableBackButtonAllBrowsers();
-        window.onload = DisableBackButtonAllBrowsers;
-        window.onpageshow = function (evts) { if (evts.persisted) DisableBackButtonAllBrowsers(); };
-        window.onunload = function () { void (0) };
-    </script>*@
-
-    if (ViewData["LoginError"] != null)
-                {
-                    <div>
-                      @ViewData["LoginError"]
-                    </div>
-                }
+    
     <div class="wrapper mx-auto ">
         <h3 class="Form-Header ">Login</h3>
         <hr class="login-header" />
@@ -88,15 +86,12 @@
 
 
         </form>
-        @*<div class="text-center fs-6">
-            <a href="#">Forget password?</a>
-        </div>*@
-
+        
        
 
     </div>
 
 
 
-
+ 
 }

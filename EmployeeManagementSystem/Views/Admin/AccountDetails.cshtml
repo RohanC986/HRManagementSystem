@@ -13,7 +13,7 @@
 
 <h2>AccountDetails</h2>
 
-@using (Html.BeginForm("SaveDetails","Admin")) 
+@using (Html.BeginForm("SaveAccountDetails","Admin",Model)) 
 {
     @Html.AntiForgeryToken()
     
@@ -61,6 +61,4 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back ", "AccountDetails")
-</div>
+

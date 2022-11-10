@@ -8,6 +8,7 @@ namespace EmployeeManagementSystem.ViewModels
     public class GetTeamLeaveRequestViewModel
     {
         public int LeaveRequestId { get; set; }
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool isHalfDay { get; set; }

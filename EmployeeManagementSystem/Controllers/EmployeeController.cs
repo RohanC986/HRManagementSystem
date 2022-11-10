@@ -38,8 +38,15 @@ namespace EmployeeManagementSystem.Controllers
 
 
        
-        public ActionResult LeaveRequest(LeaveRequest model)
-            {
+        public ActionResult LeaveRequest()
+        {
+            return View();
+               
+        }
+
+
+        public ActionResult SaveLeaveRequest(LeaveRequest model)
+        {
             try
             {
                 if (HttpContext.Session["EmpId"] != null)
@@ -56,26 +63,28 @@ namespace EmployeeManagementSystem.Controllers
 
 
             };
-                    
+
                     object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
-                    if (model.LeaveType != null &&  model.StartDate!=null && model.EndDate!=null && model.LeaveType !=null && model.Reason!=null )
+                    if (model.LeaveType != null && model.StartDate != null && model.EndDate != null && model.LeaveType != null && model.Reason != null)
                     {
                         this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);
-                        return RedirectToAction("GetLeaveRequest","Employee");
+                        return RedirectToAction("GetLeaveRequest", "Employee");
 
                     }
 
-                    return View();
+                    
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.LeaveRequest = "Leave Request Not Successful";
-                return View();
+                return RedirectToAction("GetUserDetails");
             };
-            return RedirectToAction("Login","Accounts");   
-               
+            return RedirectToAction("GetUserDetails", "Accounts");
+
         }
+
+
         public ActionResult LeaveSummary(Leave obj)
         {
             try
@@ -103,7 +112,7 @@ namespace EmployeeManagementSystem.Controllers
                 return View();
             };
             
-            return RedirectToAction("Login", "Accounts");
+            return RedirectToAction("GetUserDetails", "Employee");
 
 
         }
