@@ -52,7 +52,7 @@
         @*@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">First Name</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @maxlength = "15", required = "required" } })
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", minlength = "2", maxlength = "15", required = "required" } })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,7 +61,7 @@
         @* @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">Middle Name</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", @minlength = "2", @maxlength = "15", required = "required" } })
+            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", minlength = "2", maxlength = "15", required = "required" } })
             @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -70,7 +70,7 @@
         @*@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">Last Name</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Last Name ", @minlength = "3", @maxlength = "15", required = "required" } })
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Last Name ", minlength = "3", maxlength = "15", required = "required" } })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -147,7 +147,7 @@
         @*@Html.LabelFor(model => model.PersonalContact, htmlAttributes: new { @class = "control-label col-md-4 " })*@
         <label class="control-label col-md-4">Personal Contact</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact " , @minlength="10" , @maxlength="10" , required = "required" }  })
+            @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact " , @minlength="10" , @maxlength="10", required = "required" ,type="contact" }  })
             @Html.ValidationMessageFor(model => model.PersonalContact, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -156,7 +156,7 @@
         @*@Html.LabelFor(model => model.EmergencyContact, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">Emergency Contact</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", @minlength = "10", @maxlength = "10", required = "required" } })
+            @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", @minlength = "10", @maxlength = "10", required = "required", type = "contact" } })
             @Html.ValidationMessageFor(model => model.EmergencyContact, "", new { @class = "text-danger" })
         </div>
     </div>

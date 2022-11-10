@@ -322,10 +322,11 @@ table.DepartTab td {
     font-size: large;
 }
 
-.Dep-team-lead-btn{
-   text-decoration:underline;
+.Dep-team-lead-btn {
+    text-decoration: underline;
 }
-.Dep-team-lead-btn:hover{
+
+.Dep-team-lead-btn:hover ,.desi--btn{
      color:red;
     background-color:lightblue;
     cursor:pointer;
@@ -407,18 +408,19 @@ table.DepartTab td {
     color: black;
     padding: 5px;
     border-radius: 5px;
-  
+}
+
 .dept-btn-sec span {
     
     padding: 5px;
    
 }
 
-.dept-btn-sec a, .GetAllEmpDet-btn-sec a {
-        text-decoration: none;
+.dept-btn-sec a, .GetAllEmpDet-btn-sec a{
+    text-decoration: none;
 }
 
-.dept-btn-sec a:hover  , .GetAllEmpDet-btn-sec a:hover  {
+.dept-btn-sec a:hover  , .GetAllEmpDet-btn-sec a:hover  { 
    color:red; 
    text-decoration:none;
    border:none;
@@ -436,3 +438,26 @@ projectsearch {
 }
 
 /*Project Search bar*/
+
+/*Account Details*/
+#Acc-details {
+    width: 50%;
+    margin: 50px auto auto auto;
+    border: 2px solid black;
+}
+/*Account Details*/
+
+
+
+/*Getall designation back-btn*/
+#Getalldesi-form-back-list {
+    background-color: lavender;
+    padding: 7px;
+    text-align: center;
+    font-size: 15px;
+    margin-left:30%;
+}
+
+#Getalldesi-form-back-list a {
+    color: red;
+}

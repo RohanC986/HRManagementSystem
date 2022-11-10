@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,8 @@ namespace EmployeeManagementSystem.Models
         public string DOJ { get; set; }
         public string BloodGroup { get; set; }
         public string Gender { get; set; }
+
+
         public long PersonalContact { get; set; }
         public long EmergencyContact { get; set; }
         public long AadharCardNo { get; set; }
