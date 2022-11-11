@@ -397,7 +397,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     Dictionary<string, object> dict = new Dictionary<string, object>();
 
-                    DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
+                    DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdNameAll", dict);
                     EmployeeIdNameViewModel empIdnameViewModel = new EmployeeIdNameViewModel();
                     empIdnameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
 
@@ -539,7 +539,7 @@ namespace EmployeeManagementSystem.Controllers
                 { "@EmployeeId",model.EmployeeId},
 
             };
-                    object check = dal.ExecuteNonQuery("uspDisableEmp", dict);
+                    object check = dal.ExecuteNonQuery("uspDisableEmployee", dict);
                     Console.WriteLine(check);
                     if (check == null)
                     {
@@ -558,6 +558,48 @@ namespace EmployeeManagementSystem.Controllers
                 return View();
 
             }
+
+
+
+
+            return RedirectToAction("Login", "Accounts");
+
+        }
+
+
+
+        public ActionResult EnableEmp(Employee model)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>() {
+
+                { "@EmployeeId",model.EmployeeId},
+
+            };
+                    object check = dal.ExecuteNonQuery("uspEnableEmployee", dict);
+                    Console.WriteLine(check);
+                    if (check == null)
+                    {
+                        ViewBag.Message = "Invalid credentials";
+                    }
+                    this.AddNotification("Employee Enables Successfully", NotificationType.SUCCESS);
+
+                    return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GetAllDesignation = "Could Not Disable Employee ";
+                return View();
+
+            }
+
+
 
 
             return RedirectToAction("Login", "Accounts");
@@ -736,6 +778,7 @@ namespace EmployeeManagementSystem.Controllers
                     leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
                     ViewData["leaveRequest"] = leaveRequest.leaveRequests;
                     ExportToPdf(datatable, model.EmployeeId);
+                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
                     return View();
                 }
 

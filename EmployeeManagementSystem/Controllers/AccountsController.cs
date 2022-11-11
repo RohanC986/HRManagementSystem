@@ -180,7 +180,9 @@ namespace EmployeeManagementSystem.Controllers
                     }
                     else if (outputUser == null && outputPass != null)
                     {
-                        Dictionary<string, object> dict6 = new Dictionary<string, object>()
+                        ViewBag.LoginError = "Invalid Username";
+                        return View()
+;                        /*Dictionary<string, object> dict6 = new Dictionary<string, object>()
                         {
                             {"@EmployeeId",outputPass}
 
@@ -228,7 +230,7 @@ namespace EmployeeManagementSystem.Controllers
                             ViewBag.LoginError = "Last Attempt Remaining";
                             this.AddNotification("User blocked due to exceeded limit of attempts with wrong Username", NotificationType.ERROR);
                             return View();
-                        }
+                        }*/
                     }
                     else if (outputPass == null && outputUser == null)
                     {

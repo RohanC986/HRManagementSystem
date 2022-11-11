@@ -4,7 +4,7 @@
     ViewBag.Title = "LeaveRequest";
 }
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("SaveLeaveRequest","Employee",Model))
     {
         @Html.AntiForgeryToken()
 

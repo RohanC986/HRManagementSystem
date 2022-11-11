@@ -7,7 +7,7 @@
     var emp = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["AllEmpIdName"];
 
 
-    var empOptions = new List<SelectListItem>();
+    var empOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
 
     foreach (var item in emp.EmployeeIdNameList)
     {
@@ -42,7 +42,7 @@
                 *@
                 <label class="control-label col-md-4">Project Head</label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-left Role-Down " })
                     @Html.ValidationMessageFor(model => model.ProjectHeadEmployeeId, "", new { @class = "text-danger" })
                 </div>
             </div>

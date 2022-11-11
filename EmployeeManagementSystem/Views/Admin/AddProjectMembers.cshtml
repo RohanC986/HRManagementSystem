@@ -7,7 +7,7 @@
 
 
 
-    var EmployeeOptions = new List<SelectListItem>();
+    var EmployeeOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
     foreach (var item in emp.EmployeeIdNameList)
     {
         EmployeeOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() });
@@ -15,7 +15,7 @@
     }
 
 
-    var ProjectOptions = new List<SelectListItem>();
+    var ProjectOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Project", Value = "" } };
     foreach (var item in proj.ProjectList)
     {
         ProjectOptions.Add(new SelectListItem() { Text = item.ProjectName, Value = item.ProjectId.ToString() });
@@ -40,7 +40,7 @@
 @*                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Select Employee </label> 
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.DropDownListFor(model => model.EmployeeId,EmployeeOptions, htmlAttributes: new { @class = "text-left Role-Down " })
 
                     @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                 </div>
@@ -49,7 +49,7 @@
                 @*@Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Select Project</label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "text-left Role-Down " })
 
                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 

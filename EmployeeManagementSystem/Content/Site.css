@@ -326,7 +326,7 @@ table.DepartTab td {
     text-decoration: underline;
 }
 
-.Dep-team-lead-btn:hover ,.desi--btn{
+.Dep-team-lead-btn:hover ,.desi--btn ,{
      color:red;
     background-color:lightblue;
     cursor:pointer;
@@ -460,4 +460,15 @@ projectsearch {
 
 #Getalldesi-form-back-list a {
     color: red;
+}
+
+
+
+/*Get all emp btn*/
+
+.getallemp-btn:hover {
+    color: red;
+    text-decoration: none;
+    border: none;
+    cursor:pointer;
 }

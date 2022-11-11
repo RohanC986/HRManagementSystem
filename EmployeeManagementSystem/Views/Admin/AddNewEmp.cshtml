@@ -163,7 +163,7 @@
                 <label class="control-label col-md-4">Emergency Contact</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", type = "phone", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}" , @minlength = "10", @maxlength = "10" , type="contact" } })
+                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", type = "contact", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}" , @minlength = "10", @maxlength = "10" } })
 
 
                     @Html.ValidationMessageFor(model => model.EmergencyContact, "", new { @class = "text-danger" })

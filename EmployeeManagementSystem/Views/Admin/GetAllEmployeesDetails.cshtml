@@ -48,7 +48,7 @@
 
         <thead class="">
             <tr>
-                <th class="col-md-3">
+                <th class="col-md-3 ">
                     Name
                 </th>
 
@@ -58,9 +58,9 @@
                 </th>
 
 
-                <th class="col-md-1">
+               @* <th class="col-md-1">
                     Role
-                </th>
+                </th>*@
                 <th class="col-md-2">
                     Designation
                 </th>
@@ -84,10 +84,10 @@
 
                         @if (item.IsActive == true)
                         {
-                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName @item.MiddleName @item.LastName</td>
+                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3 getallemp-btn ">@item.FirstName @item.MiddleName @item.LastName</td>
 
                             <td class="col-md-2"> @item.Email</td>
-                            <td class="col-md-1">@item.Role</td>
+                            @*<td class="col-md-1">@item.Role</td>*@
                             <td class="col-md-2"> @item.Designation</td>
                             <td class="col-md-3">
                                 <span>
@@ -107,13 +107,13 @@
 
                                 @*<td class="col-md-3 disabled bg-secondary text-white">@item.FirstName @item.MiddleName @item.LastName</td>*@
                                 <td class="col-md-2 disabled bg-secondary text-white"> @item.Email</td>
-                                <td class="col-md-1 disabled bg-secondary text-white">@item.Role</td>
-                                <td class="col-md-2 disabled bg-secondary text-white"> @item.Designation</td>
+@*                                <td class="col-md-1 disabled bg-secondary text-white">@item.Role</td>
+*@                                <td class="col-md-2 disabled bg-secondary text-white"> @item.Designation</td>
                                 <td class="col-md-3 disabled bg-secondary text-white">
                                     <span>
                                         <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Details Disbaled" disabled><i class="fa fa-solid fa-pen mx-1"></i></button>
 
-                                        <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Employee Disbaled" disabled><i class="fa fa-regular fa-user-slash mx-1"></i></button>
+                                        <button onclick="(confirm('do you want to Enable?')) ? location.href='@Url.Action("EnableEmp", "Admin", item)' : null;" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Enable Employee? " ><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
 
                                         <button onclick="location.href='@Url.Action("Report", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Report Disbaled" disabled><i class="fa fa-thin fa-file-chart-pie mx-1 "></i></button>
