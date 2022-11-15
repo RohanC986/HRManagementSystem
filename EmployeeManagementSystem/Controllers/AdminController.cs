@@ -1,8 +1,7 @@
-﻿using EmployeeManagementSystem.ConversionService;
-using EmployeeManagementSystem.DataAccessLayer;
-using EmployeeManagementSystem.Extensions;
-using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.ViewModels;
+﻿using EmployeeManagementSystemCore.DataAccessLayer;
+using EmployeeManagementSystemInfrastructure.ConversionService;
+using EmployeeManagementSystemCore.ViewModels;
+using EmployeeManagementSystemCore.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -14,6 +13,7 @@ using static EmployeeManagementSystem.Controllers.AccountsController;
 using Chunk = iTextSharp.text.Chunk;
 using Font = iTextSharp.text.Font;
 using Rectangle = iTextSharp.text.Rectangle;
+using EmployeeManagementSystem.Extensions;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -37,7 +37,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
         DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
-
+        EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion(); 
         public List<Role> RolesList { get; private set; }
 
         public AdminController()
@@ -468,8 +468,8 @@ namespace EmployeeManagementSystem.Controllers
 
                 { "@EmployeeId",model.EmployeeId},
                 { "@Username",model.Username},
-                { "@Password",model.Password},
-                { "@LastLogin",model.LastLogin},
+                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(  (model.Password))},
+                { "@LastLogin",(model.LastLogin)}
 
 
             };
@@ -1024,7 +1024,7 @@ namespace EmployeeManagementSystem.Controllers
                 ViewBag.AccountDetails = "Page Loading Error";
 
             }
-            return RedirectToAction("SaveDetails", "Admin");
+            return RedirectToAction("SaveAccountDetails", "Admin");
 
         }
         public ActionResult SaveAccountDetails(AccountDetails ac)

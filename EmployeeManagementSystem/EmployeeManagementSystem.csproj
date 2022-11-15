@@ -278,19 +278,6 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamLeadController.cs" />
-    <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
-    <Compile Include="ConversionService\DTableToDesignationModel.cs" />
-    <Compile Include="ConversionService\DTableToRolesModel.cs" />
-    <Compile Include="ConversionService\DTableToProjectModel.cs" />
-    <Compile Include="ConversionService\DTableToEmployeeIdNameViewModel.cs" />
-    <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
-    <Compile Include="ConversionService\DTableToEmployeeModel.cs" />
-    <Compile Include="ConversionService\DTableToLeaveModel.cs" />
-    <Compile Include="ConversionService\DTableToLeaveRequestModel.cs" />
-    <Compile Include="ConversionService\DTableToTeamEmpModel.cs" />
-    <Compile Include="ConversionService\DTableToTeamLeaveRequestModel.cs" />
-    <Compile Include="DataAccessLayer\DataAccessService.cs" />
-    <Compile Include="DataAccessLayer\IDataAccessService.cs" />
     <Compile Include="DBContext\EMSContext.cs" />
     <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -301,29 +288,7 @@
       <DependentUpon>202210190650327_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountDetails.cs" />
-    <Compile Include="Models\Designation.cs" />
-    <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\Leave.cs" />
-    <Compile Include="Models\LeaveRequest.cs" />
-    <Compile Include="Models\LeaveType.cs" />
-    <Compile Include="Models\Attempt.cs" />
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\ProjectMembers.cs" />
-    <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AddAccountViewModel.cs" />
-    <Compile Include="ViewModels\EmployeeIdNameViewModel.cs" />
-    <Compile Include="ViewModels\AdminViewModel.cs" />
-    <Compile Include="ViewModels\DepartmentListViewModel.cs" />
-    <Compile Include="ViewModels\DepartmentsViewModel.cs" />
-    <Compile Include="ViewModels\EmployeeViewModel.cs" />
-    <Compile Include="ViewModels\GetTeamLeaveRequestViewModel.cs" />
-    <Compile Include="ViewModels\LeaveRequestViewModel.cs" />
-    <Compile Include="ViewModels\LeaveViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\TeamEmpDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -419,6 +384,16 @@
     <EmbeddedResource Include="Migrations\202210190650327_Initial.resx">
       <DependentUpon>202210190650327_Initial.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeManagementSystemCore\EmployeeManagementSystemCore.csproj">
+      <Project>{1a9f0910-12c3-41a8-952e-2b00acdbec99}</Project>
+      <Name>EmployeeManagementSystemCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeeManagementSystemInfrastructure\EmployeeManagementSystemInfrastructure.csproj">
+      <Project>{be585b15-5c2d-49ca-b696-dd5a5ed071f8}</Project>
+      <Name>EmployeeManagementSystemInfrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

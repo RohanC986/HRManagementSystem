@@ -1,8 +1,9 @@
-﻿using EmployeeManagementSystem.ConversionService;
-using EmployeeManagementSystem.DataAccessLayer;
+﻿
 using EmployeeManagementSystem.Extensions;
-using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.ViewModels;
+using EmployeeManagementSystemCore.DataAccessLayer;
+using EmployeeManagementSystemInfrastructure.ConversionService;
+using EmployeeManagementSystemCore.ViewModels;
+using EmployeeManagementSystemCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;

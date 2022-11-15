@@ -1,8 +1,6 @@
-using EmployeeManagementSystem.ConversionService;
-using EmployeeManagementSystem.DataAccessLayer;
+
 using EmployeeManagementSystem.Extensions;
-using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.ViewModels;
+
 using iTextSharp.text;
 using Org.BouncyCastle.Crypto.Tls;
 using System;
@@ -14,6 +12,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Security;
+using EmployeeManagementSystemCore.DataAccessLayer;
+using EmployeeManagementSystemInfrastructure.ConversionService;
+using EmployeeManagementSystemCore.ViewModels;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -28,6 +29,9 @@ namespace EmployeeManagementSystem.Controllers
         private readonly string constr;
         DataAccessService dal = new DataAccessService();
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
+        DTableToLoginViewModel dTable = new DTableToLoginViewModel();
+        EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
+        LoginViewModel LoginViewModel = new LoginViewModel();
 
 
         public AccountsController()
@@ -84,7 +88,7 @@ namespace EmployeeManagementSystem.Controllers
                 object outputUser = dal.ExecuteScalar("uspGetUserEmployeeId", dict1);
 
                 Dictionary<string, object> dict2 = new Dictionary<string, object>() {
-                { "@Password",model.Password}
+                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password)}
 
                 };
                 object outputPass = dal.ExecuteScalar("uspGetPassEmployeeId", dict2);
@@ -102,13 +106,16 @@ namespace EmployeeManagementSystem.Controllers
                         
                             { "EmployeeId",outputUser }
                     };
-                    DataTable EmpTableUser = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict3);
+                    DataTable EmpTableUser = dal.ExecuteDataSet<DataTable>("uspGetRole", dict3);
                     AdminViewModel adminViewModelUser = new AdminViewModel();
-                    adminViewModelUser.allEmployees = cs.DataTabletoEmployeeModel(EmpTableUser);
-                    HttpContext.Session["role"] = adminViewModelUser.allEmployees[0].RoleId;
-                    ViewData["role"] = adminViewModelUser.allEmployees[0].RoleId;
-                    HttpContext.Session["EmpId"] = adminViewModelUser.allEmployees[0].EmployeeId;
-                    HttpContext.Session["IsActive"] = adminViewModelUser.allEmployees[0].IsActive;
+
+                    LoginViewModel.loginViewModels = dTable.DTableToLoginViewModels(EmpTableUser);
+                    HttpContext.Session["role"] = LoginViewModel.loginViewModels[0].RoleId;
+                    ViewData["role"] = LoginViewModel.loginViewModels[0].RoleId;
+                    HttpContext.Session["EmpId"] = LoginViewModel.loginViewModels[0].EmployeeId;
+                    HttpContext.Session["IsActive"] = LoginViewModel.loginViewModels[0].IsActive;
+
+
                     dal.ExecuteNonQuery("uspResetAttempts", dict3);
                     this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
 

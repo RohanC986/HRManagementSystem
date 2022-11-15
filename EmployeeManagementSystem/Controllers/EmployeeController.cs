@@ -1,9 +1,7 @@
-﻿using EmployeeManagementSystem.ConversionService;
-using EmployeeManagementSystem.DataAccessLayer;
-using EmployeeManagementSystem.DBContext;
-using EmployeeManagementSystem.Extensions;
-using EmployeeManagementSystem.Models;
-using EmployeeManagementSystem.ViewModels;
+﻿using EmployeeManagementSystemCore.DataAccessLayer;
+using EmployeeManagementSystemInfrastructure.ConversionService;
+using EmployeeManagementSystemCore.ViewModels;
+using EmployeeManagementSystemCore.Models;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +10,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 using static EmployeeManagementSystem.Controllers.AccountsController;
+using EmployeeManagementSystem.DBContext;
+using EmployeeManagementSystem.Extensions;
 
 namespace EmployeeManagementSystem.Controllers
 {
