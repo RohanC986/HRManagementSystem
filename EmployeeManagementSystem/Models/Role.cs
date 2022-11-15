@@ -9,6 +9,8 @@ namespace EmployeeManagementSystem.Models
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
 
         public List<Role> RolesList { get; set; }
     }

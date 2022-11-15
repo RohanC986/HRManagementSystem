@@ -97,7 +97,7 @@ namespace EmployeeManagementSystem.Controllers
 
 
 
-        public ActionResult AddNewEmp(Employee model)
+        public ActionResult AddNewEmp()
         {
             try
             {
@@ -156,8 +156,8 @@ namespace EmployeeManagementSystem.Controllers
                 { "@City",model.City},
                 { "@State",model.State},
                 { "@Pincode",model.Pincode},
-                { "@Role",model.Role},
-                { "@Designation",model.Designation},
+                { "@Role",model.RoleId},
+                { "@Designation",model.DesignationId},
                 { "@Experienced",model.Experienced},
                 {"@PreviousCompanyName",model.PreviousCompanyName },
                 { "@YearsOfExprience",model.YearsOfExprience},
@@ -272,8 +272,8 @@ namespace EmployeeManagementSystem.Controllers
                 { "@City",model.City},
                 { "@State",model.State},
                 { "@Pincode",model.Pincode},
-                { "@Role",model.Role},
-                { "@Designation",model.Designation},
+                { "@Role",model.RoleId},
+                { "@Designation",model.DesignationId},
                 { "@Experienced",model.Experienced},
                 { "@YearsOfExprience",model.YearsOfExprience},
                 { "@PreviousCompanyName",model.PreviousCompanyName}

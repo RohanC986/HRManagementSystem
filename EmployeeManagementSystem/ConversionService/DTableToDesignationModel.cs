@@ -19,6 +19,8 @@ namespace EmployeeManagementSystem.ConversionService
                                 {
                                     DesignationId = Convert.ToInt32(dr["DesignationId"]),
                                     DesignationName = dr["DesignationName"].ToString(),
+                                    Created = dr["Created"].ToString(),
+                                    LastModified = dr["LastModified"].ToString()
                                 }
 
                 ).ToList();

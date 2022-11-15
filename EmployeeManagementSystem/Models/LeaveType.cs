@@ -9,5 +9,7 @@ namespace EmployeeManagementSystem.Models
     {
         public int LeaveTypeId { get; set; }
         public string LeaveTypeName { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
     }
 }

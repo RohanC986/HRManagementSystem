@@ -22,7 +22,9 @@ namespace EmployeeManagementSystem.ConversionService
                           LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
                           StartDate = dr["StartDate"].ToString(),
                           EndDate = dr["EndDate"].ToString(),
-                          Status = dr["Status"].ToString()
+                          Status = dr["Status"].ToString(),
+                          Created = dr["Created"].ToString(),
+                          LastModified = dr["LastModified"].ToString()
 
                       }
 

@@ -51,7 +51,7 @@
             <span class="glyphicon glyphicon-user"></span>
             Profile
         </a>*@
-                    @if (((Session["role"]).ToString()) == "Employee")
+                    @if (Convert.ToInt32(Session["role"]) == 3)
                     {
                         <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="glyphicon  glyphicon-user"></span>
@@ -72,7 +72,7 @@
                     
                     }
                     
-                    @if (((Session["role"]).ToString()) == "Admin")
+                    @if (Convert.ToInt32(Session["role"]) == 1)
                     {
                         <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="fa fa-solid fa-users"></span>
@@ -89,7 +89,7 @@
 
 
                     }
-                    @if (((Session["role"]).ToString()) == "Team Lead")
+                    @if (Convert.ToInt32(Session["role"]) == 2)
                     {
                         <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" >
                             <span class="fa fa-solid fa-users"></span>

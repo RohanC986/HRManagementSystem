@@ -10,5 +10,7 @@ namespace EmployeeManagementSystem.Models
         public int AttemptsId { get; set; }
         public int EmployeeId { get; set; }
         public int Attempts { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
     }
 }

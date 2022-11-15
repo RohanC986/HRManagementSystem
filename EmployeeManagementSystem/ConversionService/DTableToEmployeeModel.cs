@@ -37,12 +37,14 @@ namespace EmployeeManagementSystem.ConversionService
                              City = dr["City"].ToString(),
                              State = dr["State"].ToString(),
                              Pincode = dr["Pincode"].ToString(),
-                             Role = dr["Role"].ToString(),
-                             Designation = dr["Designation"].ToString(),
+                             RoleId = Convert.ToInt32(dr["RoleId"]),
+                             DesignationId = Convert.ToInt32(dr["DesignationId"]),
                              Experienced = Convert.ToBoolean(dr["Experienced"]),
                              PreviousCompanyName = dr["PreviousCompanyName"].ToString(),
                              YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"]),
-                             IsActive  = Convert.ToBoolean(dr["IsActive"])
+                             IsActive  = Convert.ToBoolean(dr["IsActive"]),
+                             Created = DateTime.Parse(dr["Created"].ToString()),
+                             LastModified = DateTime.Parse(dr["LastModified"].ToString())
 
 
                          }

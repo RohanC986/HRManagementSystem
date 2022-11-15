@@ -14,6 +14,9 @@ namespace EmployeeManagementSystem.ViewModels
         public string UANNo { get; set; }
         public string BankAcNo { get; set; }
         public string IFSCCode { get; set; }
-        public List<AddAccountViewModel> accountDetails { get; set; }
+        public string Created { get; set; }
+        public string LastModified { get; set; }
+    
+         public List<AddAccountViewModel> accountDetails { get; set; }
     }
 }

@@ -105,8 +105,8 @@ namespace EmployeeManagementSystem.Controllers
                     DataTable EmpTableUser = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict3);
                     AdminViewModel adminViewModelUser = new AdminViewModel();
                     adminViewModelUser.allEmployees = cs.DataTabletoEmployeeModel(EmpTableUser);
-                    HttpContext.Session["role"] = adminViewModelUser.allEmployees[0].Role;
-                    ViewData["role"] = adminViewModelUser.allEmployees[0].Role;
+                    HttpContext.Session["role"] = adminViewModelUser.allEmployees[0].RoleId;
+                    ViewData["role"] = adminViewModelUser.allEmployees[0].RoleId;
                     HttpContext.Session["EmpId"] = adminViewModelUser.allEmployees[0].EmployeeId;
                     HttpContext.Session["IsActive"] = adminViewModelUser.allEmployees[0].IsActive;
                     dal.ExecuteNonQuery("uspResetAttempts", dict3);
@@ -263,15 +263,15 @@ namespace EmployeeManagementSystem.Controllers
                 else
                 {
 
-                    if ((ViewData["role"]).ToString() == "Employee")
+                    if (Convert.ToInt32(ViewData["role"]) == 3)
                     {
                         return RedirectToAction("GetUserOwnDetails", "Employee");
                     }
-                    else if ((ViewData["role"]).ToString() == "Admin")
+                    else if (Convert.ToInt32(ViewData["role"]) == 1)
                     {
                         return RedirectToAction("GetAllEmployeesDetails", "Admin");
                     }
-                    else if ((ViewData["role"]).ToString() == "Team Lead")
+                    else if (Convert.ToInt32(ViewData["role"]) == 2)
                     {
                         return RedirectToAction("GetAllTeamEmps", "TeamLead");
                     }

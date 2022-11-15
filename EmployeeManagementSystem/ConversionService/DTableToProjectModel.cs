@@ -18,7 +18,9 @@ namespace EmployeeManagementSystem.ConversionService
                          {
                              ProjectId = Convert.ToInt32(dr["ProjectId"]),
                              ProjectHeadEmployeeId = Convert.ToInt32(dr["ProjectHeadEmployeeId"]),
-                             ProjectName = dr["ProjectName"].ToString()
+                             ProjectName = dr["ProjectName"].ToString(),
+                             Created = dr["Created"].ToString(),
+                             LastModified = dr["LastModified"].ToString()
                             
                             
                          }
