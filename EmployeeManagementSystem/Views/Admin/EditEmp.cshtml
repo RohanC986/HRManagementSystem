@@ -1,11 +1,11 @@
-﻿@model EmployeeManagementSystem.Models.Employee
+﻿@model EmployeeManagementSystemCore.Models.Employee
 
 @{
     ViewBag.Title = "EditEmp";
     //var data = (EmployeeManagementSystem.Models.Employee)ViewData["model"];
 
-    var role = (EmployeeManagementSystem.Models.Role)ViewData["roleOptions"];
-    var Designation = (EmployeeManagementSystem.Models.Designation)ViewData["designationOptions"];
+    var role = (EmployeeManagementSystemCore.Models.Role)ViewData["roleOptions"];
+    var Designation = (EmployeeManagementSystemCore.Models.Designation)ViewData["designationOptions"];
 
     var roleOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Role", Value = "Select Role" } };
     foreach (var item in role.RolesList)

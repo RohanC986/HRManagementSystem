@@ -1,12 +1,12 @@
-﻿
+﻿@model EmployeeManagementSystemCore.ViewModels.AdminViewModel
 @{
     ViewBag.Title = "GetAllEmployeesDetails";
 
-    //var data1 = (IEnumerable<EmployeeManagementSystem.Models.Employee>)ViewData["allEmployees1"];
-    var data = (IEnumerable<EmployeeManagementSystem.Models.Employee>)ViewData["allEmployees"];
+    //var model1 = (IEnumerable<EmployeeManagementSystem.Models.Employee>)Viewmodel["allEmployees1"];
+    var data = ViewData["RoleId"];
     <script>
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[model-toggle="tooltip"]').tooltip()
         })
 
 
@@ -15,7 +15,7 @@
 }
 
 
-@if (Convert.ToInt32((Session["role"]).ToString()) == 1 && ViewBag.GetAllEmployeeDetails == null)
+@if (Convert.ToInt32(data) == 1 && ViewBag.GetAllEmployeeDetails == null)
 {
 
 
@@ -31,7 +31,7 @@
         </div>
         <div class="GetAllEmpDet-btn-sec mx-5">
             <a href="@Url.Action("GetAllDesignation" , "Admin")">
-                <span class="fa fa-solid fa-database" ></span>
+                <span class="fa fa-solid fa-modelbase" ></span>
                 All Designation
             </a>
         </div>
@@ -76,7 +76,7 @@
 
             @if (data != null)
             {
-                foreach (var item in data)
+                foreach (var item in Model.allEmployees)
                 {
 
                     <tr class="table-bordered ">
@@ -91,11 +91,11 @@
                             <td class="col-md-2"> @item.DesignationId</td>
                             <td class="col-md-3">
                                 <span>
-                                    <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" data-toggle="tooltip" data-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
+                                    <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
 
-                                    <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
+                                    <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
-                                    <button onclick="location.href='@Url.Action("Report", "Admin", item)'" id="emp-create-btn" class="btn-success btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Generate Report"><i class="fa fa-thin fa-file-chart-pie mx-1"></i></button>
+                                    <button onclick="location.href='@Url.Action("Report", "Admin", item)'" id="emp-create-btn" class="btn-success btn-sm" type="button" model-toggle="tooltip" model-placement="top" title="Generate Report"><i class="fa fa-thin fa-file-chart-pie mx-1"></i></button>
 
                                 </span>
                             </td>
@@ -111,12 +111,12 @@
 *@                                <td class="col-md-2 disabled bg-secondary text-white"> @item.DesignationId</td>
                                 <td class="col-md-3 disabled bg-secondary text-white">
                                     <span>
-                                        <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Details Disbaled" disabled><i class="fa fa-solid fa-pen mx-1"></i></button>
+                                        <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Details Disbaled" disabled><i class="fa fa-solid fa-pen mx-1"></i></button>
 
-                                        <button onclick="(confirm('do you want to Enable?')) ? location.href='@Url.Action("EnableEmp", "Admin", item)' : null;" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" data-toggle="tooltip" data-placement="top" title="Enable Employee? " ><i class="fa fa-regular fa-user-slash mx-1"></i></button>
+                                        <button onclick="(confirm('do you want to Enable?')) ? location.href='@Url.Action("EnableEmp", "Admin", item)' : null;" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Enable Employee? " ><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
 
-                                        <button onclick="location.href='@Url.Action("Report", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Report Disbaled" disabled><i class="fa fa-thin fa-file-chart-pie mx-1 "></i></button>
+                                        <button onclick="location.href='@Url.Action("Report", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm" type="button" model-toggle="tooltip" model-placement="top" title="Report Disbaled" disabled><i class="fa fa-thin fa-file-chart-pie mx-1 "></i></button>
 
                                 </span>
                             </td>

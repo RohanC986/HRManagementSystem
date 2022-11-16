@@ -51,13 +51,14 @@ namespace EmployeeManagementSystem.Controllers
         }*/
 
         [Route("[controller]/getallemployees")]
-        public ActionResult GetAllEmployeesDetails(string emp)
+        public ActionResult GetAllEmployeesDetails(LoginViewModel model,string emp)
         {
 
             try
+                
             {
-               
-                if (HttpContext.Session["Empid"] != null)
+                model = (LoginViewModel)TempData["Login"];
+                if (model.EmployeeId != null)
                 {
                     if (emp != null)
                     {
@@ -76,9 +77,9 @@ namespace EmployeeManagementSystem.Controllers
                     DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
                     AdminViewModel adminViewModel = new AdminViewModel();
                     adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
-                    ViewData["allEmployees"] = adminViewModel.allEmployees;
+                    ViewData["RoleId"] = model.RoleId;
                     EmpAllOver = adminViewModel;
-                    return View(ViewData);
+                    return View(adminViewModel);
                 }
 
                 return RedirectToAction("Login", "Accounts");

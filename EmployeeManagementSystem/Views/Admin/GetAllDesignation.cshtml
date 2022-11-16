@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "GetAllDesignation";
-    var data = (IEnumerable<EmployeeManagementSystem.Models.Designation>)ViewData["designation"];
+    var data = (IEnumerable<EmployeeManagementSystemCore.Models.Designation>)ViewData["designation"];
 }
 
 @if (((Session["role"]).ToString()) == "Admin" && ViewBag.GetAllDesignation == null)

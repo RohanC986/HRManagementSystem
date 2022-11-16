@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountsBL\LoginLogout.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
@@ -62,6 +64,9 @@
       <Project>{1A9F0910-12C3-41A8-952E-2B00ACDBEC99}</Project>
       <Name>EmployeeManagementSystemCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AdminBL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
