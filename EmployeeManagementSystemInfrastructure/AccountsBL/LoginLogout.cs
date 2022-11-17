@@ -93,7 +93,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
                                 };
                             dal.ExecuteNonQuery("uspAddAttempts", dict7);
-                            model.LoginMessage  = "Invalid Password";
+                            model.PasswordMessage  = "Invalid Password";
                             //ViewBag.LoginError = "Invalid Password";
                             //this.AddNotification("Invalid Password", NotificationType.ERROR);
                             return model;
@@ -104,7 +104,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
 
                             dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
-                            model.LoginMessage = $"Invalid Password({5 - attempts2} remaining out of 5)";
+                            model.PasswordMessage = $"Invalid Password({5 - attempts2} remaining out of 5)";
                             //ViewBag.LoginError = $"Invalid Password({5 - attempts2} remaining out of 5)";
                             //this.AddNotification($"Invalid Password({5 - attempts2} remaining out of 5)", NotificationType.ERROR);
                             return  model;
@@ -119,7 +119,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
 
                             dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
-                            model.LoginMessage = "Last Attempt Remaining";
+                            model.PasswordMessage = "Last Attempt Remaining";
                             //ViewBag.LoginError = "Last Attempt Remaining";
                             //this.AddNotification("Last Attempt Remaining", NotificationType.ERROR);
                             return  model;
@@ -128,7 +128,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
                         {
 
                             dal.ExecuteNonQuery("uspDisableEmployee", dict6);
-                            model.LoginMessage = "User blocked due to exceeded limit of attempts with wrong Password";
+                            model.PasswordMessage = "User blocked due to exceeded limit of attempts with wrong Password";
                             //ViewBag.LoginError = "User blocked due to exceeded limit of attempts with wrong Password";
 
                             //this.AddNotification("User blocked due to exceeded limit of attempts with wrong Password", NotificationType.ERROR);
@@ -138,13 +138,13 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
                     }
                     else if (outputUser == null && outputPass != null)
                     {
-                        model.LoginMessage = "Invalid Username";
+                        model.UsernameMessage = "Invalid Username";
                         //ViewBag.LoginError = "Invalid Username";
                         return model;
                     }
                     else if (outputPass == null && outputUser == null)
                     {
-                        model.LoginMessage = "Invalid Credentials";
+                        model.UsernameMessage = "Invalid Credentials";
                         //this.AddNotification("Invalid Credentials", NotificationType.ERROR);
                         //ViewBag.LoginError = "Invalid Credentials";
                         return model;
@@ -155,7 +155,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
             }
             catch (Exception e)
             {
-                model.LoginMessage = "User Not Found";
+                model.UsernameMessage = "User Not Found";
 
                 return model;
             }

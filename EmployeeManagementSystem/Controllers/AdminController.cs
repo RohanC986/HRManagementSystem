@@ -137,7 +137,8 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
+                    Dictionary<string, object> dict
+                         = new Dictionary<string, object>() {
                 //{ "@EmployeeId",model.EmployeeId},
                 { "@EmployeeCode",model.EmployeeCode},
                 { "@FirstName",model.FirstName},
@@ -163,7 +164,7 @@ namespace EmployeeManagementSystem.Controllers
                 {"@PreviousCompanyName",model.PreviousCompanyName },
                 { "@YearsOfExprience",model.YearsOfExprience},
             };
-                    object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
+                    object check = dal.ExecuteNonQuery("uspAddNewEmp",dict);
                     Console.WriteLine(check);
                     if (check == null)
                     {

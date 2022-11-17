@@ -472,3 +472,9 @@ projectsearch {
     border: none;
     cursor:pointer;
 }
+
+
+/*login page error*/
+.usernameerror,.passworderror{
+    color:red;
+}

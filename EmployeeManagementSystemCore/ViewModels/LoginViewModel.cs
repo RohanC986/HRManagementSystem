@@ -21,7 +21,9 @@ namespace EmployeeManagementSystemCore.ViewModels
         public string Password { get; set; }
         public int RoleId { get; set; }
         public int IsActive { get; set; }   
-        public string LoginMessage { get; set; }    
+        public string UsernameMessage { get; set; }
+        public string PasswordMessage { get; set; }
+
         public List<LoginViewModel> loginViewModels { get; set; }   
         public Dictionary<string, object> EmployeeDict { get; set; }
 

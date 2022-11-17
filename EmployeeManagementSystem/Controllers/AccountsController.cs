@@ -70,7 +70,7 @@ namespace EmployeeManagementSystem.Controllers
                 LoginViewModel op = loginLogout.Login(model);
 
 
-                if (op.EmployeeId != null && op.LoginMessage== null )
+                if (op.EmployeeId != null && op.UsernameMessage== null && op.PasswordMessage==null)
                 {
                     HttpContext.Session["role"] = op.RoleId;
                     HttpContext.Session["EmpId"] = op.EmployeeId;
@@ -121,7 +121,9 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Accounts");
+                    ViewBag.UsernameError = op.UsernameMessage;
+                    ViewBag.PasswordError = op.PasswordMessage;
+                    return View();
                 }
             
                 return View();
