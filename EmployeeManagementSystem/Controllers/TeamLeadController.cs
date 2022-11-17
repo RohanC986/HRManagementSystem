@@ -57,7 +57,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                 int EmpId = Convert.ToInt32(Session["EmpId"]);
                 LeavesService leavesService = new LeavesService();
-                var op = leavesService.TeamLeaveRequest(EmpId);
+                GetTeamLeaveRequestViewModel op = leavesService.TeamLeaveRequest(EmpId);
                 ViewData["TeamLeaveRequest"] = op;
                 return View(op);
             }

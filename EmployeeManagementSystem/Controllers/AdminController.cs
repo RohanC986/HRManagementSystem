@@ -251,8 +251,8 @@ namespace EmployeeManagementSystem.Controllers
                 { "@City",model.City},
                 { "@State",model.State},
                 { "@Pincode",model.Pincode},
-                { "@Role",model.RoleId},
-                { "@Designation",model.DesignationId},
+                { "@RoleName",model.RoleName},
+                { "@DesignationName",model.DesignationName},
                 { "@Experienced",model.Experienced},
                 { "@YearsOfExprience",model.YearsOfExprience},
                 { "@PreviousCompanyName",model.PreviousCompanyName}

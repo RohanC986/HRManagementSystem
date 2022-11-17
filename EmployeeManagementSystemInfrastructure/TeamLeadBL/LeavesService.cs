@@ -51,7 +51,7 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
 
         }
 
-        public List<GetTeamLeaveRequestViewModel> TeamLeaveRequest(int EmpId)
+        public GetTeamLeaveRequestViewModel TeamLeaveRequest(int EmpId)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
                     {
@@ -62,7 +62,7 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeaveRequest", dict);
             GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
             getTeamLeaveRequest.getTeamLeaveRequestViewModels = DTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
-            return getTeamLeaveRequest.getTeamLeaveRequestViewModels;
+            return getTeamLeaveRequest;
         }
     }
 }
