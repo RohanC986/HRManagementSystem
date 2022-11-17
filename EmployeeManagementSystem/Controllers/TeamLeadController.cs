@@ -55,17 +55,11 @@ namespace EmployeeManagementSystem.Controllers
 
             try
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-                    {
-                        { "@ProjectHeadEmployeeId",Session["EmpId"]},
-                    };
-
-
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeaveRequest", dict);
-                    GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
-                    getTeamLeaveRequest.getTeamLeaveRequestViewModels = DTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
-                    ViewData["TeamLeaveRequest"] = getTeamLeaveRequest.getTeamLeaveRequestViewModels;
-                return View(getTeamLeaveRequest);
+                int EmpId = Convert.ToInt32(Session["EmpId"]);
+                LeavesService leavesService = new LeavesService();
+                var op = leavesService.TeamLeaveRequest(EmpId);
+                ViewData["TeamLeaveRequest"] = op;
+                return View(op);
             }
             catch(Exception ex)
             {

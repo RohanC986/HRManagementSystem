@@ -50,5 +50,19 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
             return tempEmpDetialsView.teamEmps;
 
         }
+
+        public List<GetTeamLeaveRequestViewModel> TeamLeaveRequest(int EmpId)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+                    {
+                        { "@ProjectHeadEmployeeId",EmpId},
+                    };
+
+
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeaveRequest", dict);
+            GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
+            getTeamLeaveRequest.getTeamLeaveRequestViewModels = DTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
+            return getTeamLeaveRequest.getTeamLeaveRequestViewModels;
+        }
     }
 }

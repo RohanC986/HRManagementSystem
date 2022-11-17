@@ -78,10 +78,10 @@ namespace EmployeeManagementSystemCore.Models
         public string Pincode { get; set; }
 
         [Required(ErrorMessage = "Role is required")]
-        public int RoleId { get; set; }
+        public string RoleName { get; set; }
 
         [Required(ErrorMessage = "Designation is required")]
-        public int DesignationId { get; set; }
+        public string DesignationName { get; set; }
 
         [Required(ErrorMessage = "Experienced Status is required")]
         public bool Experienced { get; set; }
