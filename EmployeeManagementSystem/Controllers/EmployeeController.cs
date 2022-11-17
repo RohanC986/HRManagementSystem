@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using static EmployeeManagementSystem.Controllers.AccountsController;
 using EmployeeManagementSystem.DBContext;
 using EmployeeManagementSystem.Extensions;
+using EmployeeManagementSystemInfrastructure.EmployeeBL;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -49,23 +50,12 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
-                {   
-                    Dictionary<string, object> leavedict = new Dictionary<string, object>() {
-                { "@EmployeeId",HttpContext.Session["EmpId"]},
-                { "@IsHalfday",model.IsHalfday},
-                { "@LeaveType",model.LeaveType},
-                { "@Reason",model.Reason},
-                { "@LengthOfLeave",model.LengthOfLeave},
-                { "@StartDate",model.StartDate},
-                { "@EndDate",model.EndDate},
-                { "@Status","Pending"}
-
-
-            };
-
-                    object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
-                    if (model.LeaveType != null && model.StartDate != null && model.EndDate != null && model.LeaveType != null && model.Reason != null)
+                {
+                    EmployeeService employeeService = new EmployeeService();
+                    int op = employeeService.SaveLeaveRequest(model,Empid);
+                    if (op == 1)
                     {
                         this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);
                         return RedirectToAction("GetLeaveRequest", "Employee");
@@ -89,19 +79,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@EmployeeId",HttpContext.Session["EmpId"]},
-            };
-
-
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveSummary", dict);
-                    LeaveViewModel leaveViewModel = new LeaveViewModel();
-                    leaveViewModel.getleaves = lm.DataTabletoLeaveModel(EmpTable);
-                    ViewData["getleaves"] = leaveViewModel.getleaves;
-                    LeaveView = leaveViewModel;
+                    EmployeeService employeeService = new EmployeeService();
+                    var Leave = employeeService.LeaveSummary(obj, Empid);
+                    ViewData["getleaves"] = Leave.getleaves;
+                    LeaveView = Leave;
                     return View(ViewData);
 
                 }
@@ -121,16 +105,12 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@EmployeeId",HttpContext.Session["EmpId"]}
-            };
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                    EmployeeViewModel employee = new EmployeeViewModel();
-                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                    ViewData["userdetails"] = employee.employees;
+                    EmployeeService employeeService = new EmployeeService();
+                    var details = employeeService.GetUserDetails(obj, Empid);
+                    ViewData["userdetails"] = details.employees;
                     return View();
                     
 
@@ -156,19 +136,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@EmployeeId",HttpContext.Session["EmpId"]}
-            };
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                    EmployeeViewModel employee = new EmployeeViewModel();
-                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                    Employee employeeowndetail = new Employee();
-                    employeeowndetail = employee.employees[0];
+                    EmployeeService employeeService = new EmployeeService();
+                    var details = employeeService.GetUserOwnDetails(Empid);
 
-                    return View(employeeowndetail);
+                    return View(details);
                 }
                 else
                 {
@@ -195,19 +169,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@EmployeeId",HttpContext.Session["EmpId"]}
-            };
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetLeaveRequest", dict);
-                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(EmpTable);
-                    ViewData["getleaverequest"] = leaveRequest.leaveRequests;
+                    EmployeeService employeeService = new EmployeeService();
+                    var details = employeeService.GetLeaveRequest(Empid);
+                    ViewData["getleaverequest"] = details.leaveRequests;
                     return View();
-
-                                                        
                 }
                 else
                 {
@@ -219,7 +187,7 @@ namespace EmployeeManagementSystem.Controllers
             catch(Exception ex)
             {
                 ViewBag.GetLeaveRequest = "Could not get Leave Request";
-                return View();
+                return RedirectToAction("GetUserOwnDetails");
             }
             return View();
 

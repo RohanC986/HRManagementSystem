@@ -61,7 +61,7 @@
 
                         <tr>
                             @*<td> @item.EmployeeId </td>*@
-                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+                            <td onclick="location.href='@Url.Action("GetTeamSpecificUserDetails", "TeamLead",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
 
                             @*<td> @item.FirstName @item.LastName</td>*@
                             <td> @item.Email</td>
@@ -79,7 +79,7 @@
 
                         <tr>
                             @*<td> @item.EmployeeId </td>*@
-                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item.EmployeeId)'" class="col-md-3">@item.FirstName  @item.LastName</td>
 
                             @*<td> @item.FirstName @item.LastName</td>*@
                             <td> @item.Email</td>

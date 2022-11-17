@@ -58,8 +58,9 @@
     <Compile Include="ConversionService\DTableToTeamEmpModel.cs" />
     <Compile Include="ConversionService\DTableToTeamLeaveRequestModel.cs" />
     <Compile Include="ConversionService\EncryptDecryptConversion.cs" />
+    <Compile Include="EmployeeBL\EmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeamLeadBL\LeavesService.cs" />
+    <Compile Include="TeamLeadBL\TeamLead.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagementSystemCore\EmployeeManagementSystemCore.csproj">
