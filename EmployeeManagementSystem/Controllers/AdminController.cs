@@ -60,6 +60,7 @@ namespace EmployeeManagementSystem.Controllers
             {
                 //model = (LoginViewModel)TempData["Login"];
                 if (Session["EmpId"] != null)
+
                 {
                     if (emp != null)
                     {

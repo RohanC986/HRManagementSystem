@@ -31,7 +31,7 @@
                 @*@Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Employee Name</label>
                 <div class="col-md-5">
-                    @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-center Role-Down " })
+                    @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-left Role-Down " })
                     @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                 </div>
             </div>

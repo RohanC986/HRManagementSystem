@@ -38,10 +38,12 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
                 };
                 object outputUser = dal.ExecuteScalar("uspGetUserEmployeeId", dict1);
                 var l = encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password);
+
                 Dictionary<string, object> dict2 = new Dictionary<string, object>() {
-                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password)}
+                { "@Password",l}
 
                 };
+                
                 object outputPass = dal.ExecuteScalar("uspGetPassEmployeeId", dict2);
 
 
@@ -65,7 +67,6 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
                     return model;
 
 
-                    //HttpContext.Session["role"] = LoginViewModel.loginViewModels[0].RoleId;
 
 
                 }

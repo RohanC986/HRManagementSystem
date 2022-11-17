@@ -4,9 +4,7 @@
 
 
 }
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @if (((Session["role"]).ToString()) == "Admin" && ViewBag.RoleView == null)
 {
     <div>

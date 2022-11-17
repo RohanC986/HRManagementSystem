@@ -362,6 +362,7 @@
     <Content Include="Views\Shared\_Notifications.cshtml" />
     <Content Include="Views\Admin\GetSpecificUserDetails.cshtml" />
     <Content Include="Views\TeamLead\GetTeamSpecificUserDetails.cshtml" />
+    <Content Include="Views\Shared\_GetAllEmployeeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

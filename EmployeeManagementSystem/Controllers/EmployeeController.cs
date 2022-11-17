@@ -50,7 +50,7 @@ namespace EmployeeManagementSystem.Controllers
             try
             {
                 if (HttpContext.Session["EmpId"] != null)
-                {
+                {   
                     Dictionary<string, object> leavedict = new Dictionary<string, object>() {
                 { "@EmployeeId",HttpContext.Session["EmpId"]},
                 { "@IsHalfday",model.IsHalfday},

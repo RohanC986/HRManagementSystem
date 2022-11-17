@@ -68,8 +68,13 @@ namespace EmployeeManagementSystem.Controllers
 
                 LoginLogout loginLogout = new LoginLogout();
                 LoginViewModel op = loginLogout.Login(model);
-                if (op.EmployeeId != null && op.LoginMessage== null)
+
+
+                if (op.EmployeeId != null && op.LoginMessage== null )
                 {
+                    HttpContext.Session["role"] = op.RoleId;
+                    HttpContext.Session["EmpId"] = op.EmployeeId;
+
                     Dictionary<string, object> dict3 = new Dictionary<string, object>()
                     {
 
@@ -104,7 +109,8 @@ namespace EmployeeManagementSystem.Controllers
                         }
                         else if (model.RoleId == 1)
                         {
-                            return RedirectToAction("GetAllEmployeesDetails", "Admin",model);
+
+                            return RedirectToAction("GetAllEmployeesDetails", "Admin",op);
                         }
                         else if (model.RoleId == 2)
                         {
