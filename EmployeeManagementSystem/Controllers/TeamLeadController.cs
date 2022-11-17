@@ -11,6 +11,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static EmployeeManagementSystem.Controllers.AccountsController;
+using EmployeeManagementSystemInfrastructure.TeamLeadBL;
+using EmployeeManagementSystemInfrastructure.AdminBL;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -30,35 +32,12 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                if (emp != null)
-                {
-                    Dictionary<string, object> dict1 = new Dictionary<string, object>()
-                {
-                    { "@ProjectHeadEmployeeId",Session["EmpId"]},
-                     { "@FirstName",emp},
-
-                };
-
-
-                    DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspTeamEmpsSearch", dict1);
-                    TeamEmpDetailsViewModel tempEmpDetialsView1 = new TeamEmpDetailsViewModel();
-                    tempEmpDetialsView1.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable1);
-                    ViewData["teamEmps1"] = tempEmpDetialsView1.teamEmps;
+                    int empid = Convert.ToInt32(Session["EmpId"]);               
+                    List<TeamEmpDetailsViewModel> employees = new List<TeamEmpDetailsViewModel>();
+                    LeavesService leavesService = new LeavesService();
+                    employees = leavesService.GetTeamEmps( emp,empid);
+                    ViewData["teamEmps1"] = employees;
                     return View(ViewData);
-                }
-                Dictionary<string, object> dict = new Dictionary<string, object>()
-                {
-                    { "@ProjectHeadEmployeeId",Session["EmpId"]},
-                };
-
-
-                DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmps", dict);
-                TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
-                tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
-                ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
-                //TeamEmps = tempEmpDetialsView;
-
-                return View(ViewData);
             }
             catch(Exception ex)
             {

@@ -58,7 +58,7 @@ namespace EmployeeManagementSystem.Controllers
         [NoCache]
 
         public ActionResult Login(LoginViewModel model)
-        {
+            {
             try
             {
                 
@@ -76,6 +76,8 @@ namespace EmployeeManagementSystem.Controllers
                             { "EmployeeId",model.EmployeeId }
                     };
                     dal.ExecuteNonQuery("uspResetAttempts",dict3);
+                    Session["role"] = model.RoleId;
+                    Session["EmpId"] = model.EmployeeId;
                     this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
                     TempData["Login"] = model;
                     if (model.RoleId.ToString() == null)
@@ -102,7 +104,7 @@ namespace EmployeeManagementSystem.Controllers
                         }
                         else if (model.RoleId == 1)
                         {
-                            return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                            return RedirectToAction("GetAllEmployeesDetails", "Admin",model);
                         }
                         else if (model.RoleId == 2)
                         {

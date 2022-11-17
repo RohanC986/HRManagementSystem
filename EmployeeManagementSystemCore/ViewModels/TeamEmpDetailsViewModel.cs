@@ -12,7 +12,7 @@ namespace EmployeeManagementSystemCore.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Designation { get; set; }
+        public int DesignationId { get; set; }
         public string ProjectName { get; set; }
 
         public List<TeamEmpDetailsViewModel> teamEmps { get; set; }

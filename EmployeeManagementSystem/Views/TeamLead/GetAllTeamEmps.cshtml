@@ -8,7 +8,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "Team Lead" && ViewBag.GetAllTeamEmps == null)
+@if (((Session["role"]).ToString()) == "2" && ViewBag.GetAllTeamEmps == null)
 {
 
 
@@ -38,7 +38,7 @@
                 </th>
 
                 <th>
-                    Designation
+                    DesignationId
                 </th>
 
                 <th>
@@ -65,7 +65,7 @@
 
                             @*<td> @item.FirstName @item.LastName</td>*@
                             <td> @item.Email</td>
-                            <td> @item.Designation</td>
+                            <td> @item.DesignationId</td>
                             <td> @item.ProjectName</td>
                         </tr>
 
@@ -83,7 +83,7 @@
 
                             @*<td> @item.FirstName @item.LastName</td>*@
                             <td> @item.Email</td>
-                            <td> @item.Designation</td>
+                            <td> @item.DesignationId</td>
                             <td> @item.ProjectName</td>
                         </tr>
 

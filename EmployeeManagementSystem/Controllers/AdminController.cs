@@ -14,6 +14,7 @@ using Chunk = iTextSharp.text.Chunk;
 using Font = iTextSharp.text.Font;
 using Rectangle = iTextSharp.text.Rectangle;
 using EmployeeManagementSystem.Extensions;
+using EmployeeManagementSystemInfrastructure.AdminBL;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -57,8 +58,8 @@ namespace EmployeeManagementSystem.Controllers
             try
                 
             {
-                model = (LoginViewModel)TempData["Login"];
-                if (model.EmployeeId != null)
+                //model = (LoginViewModel)TempData["Login"];
+                if (Session["EmpId"] != null)
                 {
                     if (emp != null)
                     {
@@ -78,6 +79,7 @@ namespace EmployeeManagementSystem.Controllers
                     AdminViewModel adminViewModel = new AdminViewModel();
                     adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
                     ViewData["RoleId"] = model.RoleId;
+                    ViewData["EmployeeId"] = model.EmployeeId;
                     EmpAllOver = adminViewModel;
                     return View(adminViewModel);
                 }
@@ -102,8 +104,8 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-
-                if (HttpContext.Session["Empid"] != null)
+               
+                if (Session["EmpId"]!=  null)
                 {
 
                     Dictionary<string, object> dict1 = new Dictionary<string, object>();
@@ -135,37 +137,12 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+               
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
-                //{ "@EmployeeId",model.EmployeeId},
-                { "@EmployeeCode",model.EmployeeCode},
-                { "@FirstName",model.FirstName},
-                { "@MiddleName",model.MiddleName},
-                { "@LastName",model.LastName},
-                { "@Email",model.Email},
-                { "@DOB",model.DOB},
-                { "@DOJ",model.DOJ},
-                { "@BloodGroup",model.BloodGroup},
-                { "@Gender",model.Gender},
-                { "@PersonalContact",model.PersonalContact},
-                { "@EmergencyContact",model.EmergencyContact},
-                { "@AadharCardNo",model.AadharCardNo},
-                { "@PancardNo",model.PancardNo},
-                {"@PassportNo",model.PassportNo},
-                { "@Address",model.Address},
-                { "@City",model.City},
-                { "@State",model.State},
-                { "@Pincode",model.Pincode},
-                { "@Role",model.RoleId},
-                { "@Designation",model.DesignationId},
-                { "@Experienced",model.Experienced},
-                {"@PreviousCompanyName",model.PreviousCompanyName },
-                { "@YearsOfExprience",model.YearsOfExprience},
-            };
-                    object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
-                    Console.WriteLine(check);
-                    if (check == null)
+                    Employees emp = new Employees();
+                    var op = emp.SaveEmployee(model);
+                    if (op == null)
                     {
                         ViewBag.Message = "Invalid credentials";
                     }

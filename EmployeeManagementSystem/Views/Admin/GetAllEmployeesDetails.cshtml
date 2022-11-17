@@ -3,7 +3,8 @@
     ViewBag.Title = "GetAllEmployeesDetails";
 
     //var model1 = (IEnumerable<EmployeeManagementSystem.Models.Employee>)Viewmodel["allEmployees1"];
-    var data = ViewData["RoleId"];
+    var data = Convert.ToInt32(ViewData["RoleId"]);
+    var data1 = Convert.ToInt32(ViewData["EmployeeId"]);
     <script>
         $(function () {
             $('[model-toggle="tooltip"]').tooltip()
@@ -24,7 +25,7 @@
     <div class="GetAllEmpDet-btn">
 
         <div class="GetAllEmpDet-btn-sec desi--btn">
-            <a  href="@Url.Action("AddNewEmp","Admin")">
+            <a  href="@Url.Action("AddNewEmp","Admin",data1)">
                 <span class="fa fa-solid fa-user"></span>
                 Add Employee
             </a>

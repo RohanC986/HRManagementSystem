@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsBL\LoginLogout.cs" />
+    <Compile Include="AdminBL\Employees.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="ConversionService\DTableToTeamLeaveRequestModel.cs" />
     <Compile Include="ConversionService\EncryptDecryptConversion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeamLeadBL\LeavesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagementSystemCore\EmployeeManagementSystemCore.csproj">
@@ -65,8 +67,6 @@
       <Name>EmployeeManagementSystemCore</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AdminBL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

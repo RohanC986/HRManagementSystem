@@ -37,7 +37,7 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
                 };
                 object outputUser = dal.ExecuteScalar("uspGetUserEmployeeId", dict1);
-
+                var l = encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password);
                 Dictionary<string, object> dict2 = new Dictionary<string, object>() {
                 { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password)}
 
