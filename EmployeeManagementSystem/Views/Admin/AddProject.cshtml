@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Add Project";
 
-    var emp = (EmployeeManagementSystem.ViewModels.EmployeeIdNameViewModel)ViewData["AllEmpIdName"];
+    var emp = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModel)ViewData["AllEmpIdName"];
 
 
     var empOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
@@ -14,7 +14,7 @@
         empOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() });
     }
 }
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.AddProject == null)
+@if (Convert.ToInt16((Session["Role"]).ToString()) == 1 && ViewBag.AddProject == null)
 {
 
     using (Html.BeginForm("SaveProject", "Admin", Model))
@@ -29,6 +29,7 @@
 
 
             <div class="form-group col-md-6">
+@*                @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-4" })*@ 
                 <label class="control-label col-md-4">Select Project</label> 
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Project Name ", required = "required" } })
@@ -37,7 +38,8 @@
             </div>
 
             <div class="form-group col-md-6">
-               
+                @*@Html.LabelFor(model => model.ProjectHeadEmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+                *@
                 <label class="control-label col-md-4">Project Head</label>
                 <div class="col-md-8">
                     @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-left Role-Down " })
@@ -48,14 +50,14 @@
 
 
 
-            <div class="form-group col-md-12  row justify-content-md-center add-project-btn-div">
-                <div class="col-md-1 col-sm-12 col ">
+            <div class="form-group col-md-12  row justify-content-md-center">
+                <div class="col-md-2 col-sm-10 col ">
                     <input id="emp-create-btn" type="submit" value="Create" class="btn-primary btn-default " />
                 </div>
 
-                <div class="col-md-1 col-sm-12 " id="Addproject-form-back-list">
+                <div class="col-md-1 col-sm-5 " id="Emp-form-back-list">
 
-                    @Html.ActionLink("Back", "Department", "Admin",, new { @class = "btn-success -default" })
+                    @Html.ActionLink("Back", "Department", "Admin")
 
                 </div>
 

@@ -19,7 +19,7 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                              FirstName = dr["FirstName"].ToString(),
                              LastName = dr["LastName"].ToString(),
                              Email = dr["Email"].ToString(),
-                             DesignationId = Convert.ToInt32(dr["EmployeeId"]),
+                             DesignationId = Convert.ToInt32(dr["DesignationId"]),
                              ProjectName = dr["ProjectName"].ToString()
                          }
 

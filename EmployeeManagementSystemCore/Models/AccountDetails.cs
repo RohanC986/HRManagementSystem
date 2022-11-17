@@ -16,21 +16,21 @@ namespace EmployeeManagementSystemCore.Models
 
 
         [Required(ErrorMessage = "UAN is required")]
-        [StringLength(12)]
+        [RegularExpression("[0-9{12-20}]")]
         public string UANNo { get; set; }
 
 
         [Required(ErrorMessage = "Bank Account Number is required")]
-        [StringLength(9-18)]
+        [RegularExpression("[0-9{12-20}]")]
         public string BankAcNo { get; set; }
 
 
 
-        [RegularExpression("^[A-Z]{4}0[0-9]{5}$", ErrorMessage = "UAN id is not valid")]
+        [RegularExpression("^[A-Z]{4}0[0-9]{7}$", ErrorMessage = "UAN id is not valid")]
         [Required(ErrorMessage = "IFSC Code is required")]
-        public string IFSCCode { get; set; }
+        public DateTime IFSCCode { get; set; }
 
-        public string Created { get; set; }
+        public DateTime Created { get; set; }
         public string LastModified { get; set; }
         public List<AccountDetails> accountDetails { get; set; }
     }

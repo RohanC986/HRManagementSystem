@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "EditDesignation";
 }
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.EditDesigation == null)
+@if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.EditDesigation == null)
 {
     <h4 class="LeaveSummaryHeading">Edit Designation</h4>
     <hr id="leaverequesthr" />
@@ -18,6 +18,7 @@
             @Html.HiddenFor(model => model.DesignationId)
 
             <div class="form-group my-5">
+                @* @Html.LabelFor(model => model.DesignationName, htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <label class="control-label col-md-4">Designation Name</label>
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.DesignationName, new { htmlAttributes = new { @class = "form-control" } })

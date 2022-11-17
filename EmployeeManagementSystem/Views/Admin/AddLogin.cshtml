@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Login Page";
 
-    var EmpCode = (EmployeeManagementSystem.Models.Employee)ViewData["EmpCodeOption"];
+    var EmpCode = (EmployeeManagementSystemCore.Models.Employee)ViewData["EmpCodeOption"];
 
     var EmpCodeOption = new List<SelectListItem>();
     foreach (var item in EmpCode.EmployeeList)
@@ -14,7 +14,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.AddLogin == null)
+@if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.AddLogin == null)
 {
 
     using (Html.BeginForm("SaveLogin", "Admin", Model))
@@ -31,7 +31,7 @@
                 @*@Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Employee Name</label>
                 <div class="col-md-5">
-                    @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.EmployeeId, EmpCodeOption, htmlAttributes: new { @class = "text-center Role-Down " })
                     @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                 </div>
             </div>

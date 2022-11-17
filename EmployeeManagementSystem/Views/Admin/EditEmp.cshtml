@@ -10,20 +10,20 @@
     var roleOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Role", Value = "Select Role" } };
     foreach (var item in role.RolesList)
     {
-        roleOptions.Add(new SelectListItem() { Text = item.RoleName, Value = item.RoleName.ToString() });
+        roleOptions.Add(new SelectListItem() { Text = item.RoleName, Value = item.RoleId.ToString() });
     }
 
     var DesignationOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Designation", Value = "Select Designation" } };
     foreach (var item in Designation.DesignationsList)
     {
-        DesignationOptions.Add(new SelectListItem() { Text = item.DesignationName, Value = item.DesignationName.ToString() });
+        DesignationOptions.Add(new SelectListItem() { Text = item.DesignationName, Value = item.DesignationId.ToString() });
     }
 
 
 }
 
 
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.EditEmp == null)
+@if (Convert.ToInt32((Session["role"]).ToString()) == 1 && ViewBag.EditEmp == null)
 {
 
 
@@ -31,7 +31,7 @@
     using (Html.BeginForm("UpdateEmpDetails", "Admin", Model))
     {
         @Html.AntiForgeryToken()
-<div class="form-horizontal mx-auto align-center  ">
+    <div class="form-horizontal mx-auto align-center  ">
     <h4 class="addEmp">Edit Employee Details</h4>
     <hr id="addemphr" />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -260,23 +260,23 @@
 
 
     <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8  ">
             @* @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Role" } })
                 @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
             *@
-            @Html.DropDownListFor(model => model.Role, roleOptions, htmlAttributes: new { @class = "text-left Role-Down " })
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.RoleId, roleOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+            @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
 
         </div>
     </div>
 
     <div class="form-group col-md-6">
-        @Html.LabelFor(model => model.Designation, htmlAttributes: new { @class = "control-label col-md-4" })
+        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
 
-            @Html.DropDownListFor(model => model.Designation, DesignationOptions, htmlAttributes: new { @class = "text-left Role-Down " })
-            @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.DesignationId, DesignationOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+            @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
         </div>
     </div>
 

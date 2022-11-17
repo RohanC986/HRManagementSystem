@@ -6,7 +6,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.GetAllTeamEmpsAdmin == null)
+@if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.GetAllTeamEmpsAdmin == null)
 {
 
 
