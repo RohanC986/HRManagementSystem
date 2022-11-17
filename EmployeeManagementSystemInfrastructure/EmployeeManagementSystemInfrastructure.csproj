@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AccountsBL\LoginLogout.cs" />
     <Compile Include="AdminBL\Employees.cs" />
+    <Compile Include="AdminBL\ProjectService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />

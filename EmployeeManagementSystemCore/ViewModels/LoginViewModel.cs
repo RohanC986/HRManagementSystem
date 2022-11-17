@@ -11,12 +11,13 @@ namespace EmployeeManagementSystemCore.ViewModels
         public  int? EmployeeId { get; set; }
 
         [Required(ErrorMessage = "Designation Name required")]
-        [RegularExpression("^\\S+@\\S+\\.\\S+$", ErrorMessage = "E-mail id is not valid")]
+        //[RegularExpression("^\\S+@\\S+\\.\\S+$", ErrorMessage = "E-mail id is not valid")]
 
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Designation Name required")]
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,12}$", ErrorMessage = "Password is not valid")]
+        //
+        //[RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,12}$", ErrorMessage = "Password is not valid")]
 
         public string Password { get; set; }
         public int RoleId { get; set; }

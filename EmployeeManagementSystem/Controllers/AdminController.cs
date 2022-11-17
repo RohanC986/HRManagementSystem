@@ -14,6 +14,7 @@ using Chunk = iTextSharp.text.Chunk;
 using Font = iTextSharp.text.Font;
 using Rectangle = iTextSharp.text.Rectangle;
 using EmployeeManagementSystem.Extensions;
+using EmployeeManagementSystemInfrastructure.AdminBL;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -57,29 +58,18 @@ namespace EmployeeManagementSystem.Controllers
             try
                 
             {
-               
+                Employees employees = new Employees();
+                int EmpId = Convert.ToInt32(Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    if (emp != null)
-                    {
-                        Dictionary<string, object> dict1 = new Dictionary<string, object>()
-                        {
-                            { "@FirstName",emp},
-                        };
-                        DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspSearchEmps", dict1);
-                        AdminViewModel adminViewModel1 = new AdminViewModel();
-                        adminViewModel1.allEmployees = cs.DataTabletoEmployeeModel(EmpTable1);
-                        ViewData["allEmployees"] = adminViewModel1.allEmployees;
-                        EmpAllOver = adminViewModel1;
-                        return View(ViewData);
-                    }
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
-                    AdminViewModel adminViewModel = new AdminViewModel();
-                    adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
+                    
+                    var op = employees.GetAllEmployeesDetails(model,emp);
+                    ViewData["allEmployees"] = op.allEmployees;
+                    EmpAllOver = op;
                     ViewData["RoleId"] = model.RoleId;
-                    EmpAllOver = adminViewModel;
-                    return View(adminViewModel);
+                    return View(ViewData);
+                    //ViewData["RoleId"] = model.RoleId;
+                    //return View(ViewData["allEmployees"]);
                 }
 
                 return RedirectToAction("Login", "Accounts");
@@ -102,19 +92,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-
+                Employees employees = new Employees();
+                int EmpId = Convert.ToInt32(Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-
-                    Dictionary<string, object> dict1 = new Dictionary<string, object>();
-                    DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles"/*, dict*/, dict1);
-                    Role roleOptions = new Role();
-                    roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
-                    ViewData["roleOptions"] = roleOptions;
-
-                    DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict1);
-                    Designation designation = new Designation();
-                    designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+                    var roles = employees.GetRoles();
+                    ViewData["roleOptions"] = roles;
+                    var designation = employees.GetDesignation();   
                     ViewData["designationOptions"] = designation;
 
                     return View();
@@ -137,35 +121,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict
-                         = new Dictionary<string, object>() {
-                //{ "@EmployeeId",model.EmployeeId},
-                { "@EmployeeCode",model.EmployeeCode},
-                { "@FirstName",model.FirstName},
-                { "@MiddleName",model.MiddleName},
-                { "@LastName",model.LastName},
-                { "@Email",model.Email},
-                { "@DOB",model.DOB},
-                { "@DOJ",model.DOJ},
-                { "@BloodGroup",model.BloodGroup},
-                { "@Gender",model.Gender},
-                { "@PersonalContact",model.PersonalContact},
-                { "@EmergencyContact",model.EmergencyContact},
-                { "@AadharCardNo",model.AadharCardNo},
-                { "@PancardNo",model.PancardNo},
-                {"@PassportNo",model.PassportNo},
-                { "@Address",model.Address},
-                { "@City",model.City},
-                { "@State",model.State},
-                { "@Pincode",model.Pincode},
-                { "@Role",model.RoleId},
-                { "@Designation",model.DesignationId},
-                { "@Experienced",model.Experienced},
-                {"@PreviousCompanyName",model.PreviousCompanyName },
-                { "@YearsOfExprience",model.YearsOfExprience},
-            };
-                    object check = dal.ExecuteNonQuery("uspAddNewEmp",dict);
-                    Console.WriteLine(check);
+
+                    Employees employees = new Employees();
+                    var check = employees.SaveNewEmp(model);
                     if (check == null)
                     {
                         ViewBag.Message = "Invalid credentials";
@@ -226,16 +184,10 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-                    Role roleOptions = new Role();
-                    roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
-                    ViewData["roleOptions"] = roleOptions;
-
-
-                    DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
-                    Designation designation = new Designation();
-                    designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+                    Employees employees = new Employees();
+                    var roles = employees.GetRoles();
+                    var designation = employees.GetDesignation();   
+                    ViewData["roleOptions"] = roles;
                     ViewData["designationOptions"] = designation;
                     return View(model);
                 }
@@ -254,33 +206,8 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>() {
-                { "@EmployeeId",model.EmployeeId},
-                { "@EmployeeCode",model.EmployeeCode},
-                { "@FirstName",model.FirstName},
-                { "@MiddleName",model.MiddleName},
-                { "@LastName",model.LastName},
-                { "@Email",model.Email},
-                { "@DOB",model.DOB},
-                { "@DOJ",model.DOJ},
-                { "@BloodGroup",model.BloodGroup},
-                { "@Gender",model.Gender},
-                { "@PersonalContact",model.PersonalContact},
-                { "@EmergencyContact",model.EmergencyContact},
-                { "@AadharCardNo",model.AadharCardNo},
-                { "@PassportNo",model.PassportNo},
-                { "@PancardNo",model.PancardNo},
-                { "@Address",model.Address},
-                { "@City",model.City},
-                { "@State",model.State},
-                { "@Pincode",model.Pincode},
-                { "@Role",model.RoleId},
-                { "@Designation",model.DesignationId},
-                { "@Experienced",model.Experienced},
-                { "@YearsOfExprience",model.YearsOfExprience},
-                { "@PreviousCompanyName",model.PreviousCompanyName}
-            };
-                object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+                Employees employees = new Employees();
+                var check = employees.UpdateEmpDetails(model);  
                 this.AddNotification("Updated Successfully", NotificationType.SUCCESS);
                 return RedirectToAction("GetAllEmployeesDetails");
             }
@@ -298,27 +225,18 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-               
-
+                ProjectService projectService = new ProjectService();
                 if (Session["EmpId"] != null)
                 {
                     if (emp != null)
                     {
-                        Dictionary<string, object> dict1 = new Dictionary<string, object>()
-                        {
-                            { "@ProjectName",emp}
-                        };
-                        DataTable Department1 = dal.ExecuteDataSet<DataTable>("uspGetAllTeamsSearch", dict1);
-                        DepartmentListViewModel departmentsViewModel1 = new DepartmentListViewModel();
-                        departmentsViewModel1.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department1);
-                        ViewData["TeamEmps"] = departmentsViewModel1.DepartmentsViews;
+                        
+                        var department = projectService.Departments(emp);
+                        ViewData["TeamEmps"] = department;
                         return View(ViewData);
                     }
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    DataTable Department = dal.ExecuteDataSet<DataTable>("uspGetAllTeams", dict);
-                    DepartmentListViewModel departmentsViewModel = new DepartmentListViewModel();
-                    departmentsViewModel.DepartmentsViews = dataTabletoDepartmentsModel.DataTabletoDepartmentsModel(Department);
-                    ViewData["TeamEmps"] = departmentsViewModel.DepartmentsViews;
+                    var department1 = projectService.Departments(emp);
+                    ViewData["TeamEmps"] = department1;
                     return View(ViewData);
                 }
             }

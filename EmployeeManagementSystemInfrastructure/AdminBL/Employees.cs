@@ -67,7 +67,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
                 { "@State",model.State},
                 { "@Pincode",model.Pincode},
                 { "@RoleId",model.RoleId},
-                { "@DesignationId",model.DesignationId},
+                { "@DesignationId",model.DesignationName},
                 { "@Experienced",model.Experienced},
                 {"@PreviousCompanyName",model.PreviousCompanyName },
                 { "@YearsOfExprience",model.YearsOfExprience},
@@ -75,5 +75,113 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
             return check;
         }
+
+        public AdminViewModel GetAllEmployeesDetails(LoginViewModel model, string emp)
+        {
+            if(emp != null)
+            {
+                Dictionary<string, object> dict1 = new Dictionary<string, object>()
+                        {
+                            { "@FirstName",emp},
+                        };
+                DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspSearchEmps", dict1);
+                AdminViewModel adminViewModel1 = new AdminViewModel();
+                adminViewModel1.allEmployees = cs.DataTabletoEmployeeModel(EmpTable1);
+                return adminViewModel1;
+            };
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
+            AdminViewModel adminViewModel = new AdminViewModel();
+            adminViewModel.allEmployees = cs.DataTabletoEmployeeModel(EmpTable);
+            return adminViewModel;
+
+        }
+
+        public Role GetRoles()
+        {
+            
+            Dictionary<string, object> dict1 = new Dictionary<string, object>();
+            DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles"/*, dict*/, dict1);
+            Role roleOptions = new Role();
+            roleOptions.RolesList = dtRole.DataTableToRolesModel(dt);
+            return roleOptions;
+        }
+
+        public Designation GetDesignation()
+        {
+            Dictionary<string, object> dict1 = new Dictionary<string, object>();
+            DataTable dtDesignation = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation"/*, dict*/, dict1);
+            Designation designation = new Designation();
+            designation.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(dtDesignation);
+            return designation;
+        }
+
+        public object SaveNewEmp(Employee model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+                //{ "@EmployeeId",model.EmployeeId},
+                { "@EmployeeCode",model.EmployeeCode},
+                { "@FirstName",model.FirstName},
+                { "@MiddleName",model.MiddleName},
+                { "@LastName",model.LastName},
+                { "@Email",model.Email},
+                { "@DOB",model.DOB},
+                { "@DOJ",model.DOJ},
+                { "@BloodGroup",model.BloodGroup},
+                { "@Gender",model.Gender},
+                { "@PersonalContact",model.PersonalContact},
+                { "@EmergencyContact",model.EmergencyContact},
+                { "@AadharCardNo",model.AadharCardNo},
+                { "@PancardNo",model.PancardNo},
+                {"@PassportNo",model.PassportNo},
+                { "@Address",model.Address},
+                { "@City",model.City},
+                { "@State",model.State},
+                { "@Pincode",model.Pincode},
+                { "@Role",model.RoleId},
+                { "@Designation",model.DesignationName},
+                { "@Experienced",model.Experienced},
+                {"@PreviousCompanyName",model.PreviousCompanyName },
+                { "@YearsOfExprience",model.YearsOfExprience},
+            };
+            object check = dal.ExecuteNonQuery("uspAddNewEmp", dict);
+            return check;
+
+        }
+
+        public object UpdateEmpDetails(Employee model)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>() {
+                { "@EmployeeId",model.EmployeeId},
+                { "@EmployeeCode",model.EmployeeCode},
+                { "@FirstName",model.FirstName},
+                { "@MiddleName",model.MiddleName},
+                { "@LastName",model.LastName},
+                { "@Email",model.Email},
+                { "@DOB",model.DOB},
+                { "@DOJ",model.DOJ},
+                { "@BloodGroup",model.BloodGroup},
+                { "@Gender",model.Gender},
+                { "@PersonalContact",model.PersonalContact},
+                { "@EmergencyContact",model.EmergencyContact},
+                { "@AadharCardNo",model.AadharCardNo},
+                { "@PassportNo",model.PassportNo},
+                { "@PancardNo",model.PancardNo},
+                { "@Address",model.Address},
+                { "@City",model.City},
+                { "@State",model.State},
+                { "@Pincode",model.Pincode},
+                { "@Role",model.RoleId},
+                { "@Designation",model.DesignationName},
+                { "@Experienced",model.Experienced},
+                { "@YearsOfExprience",model.YearsOfExprience},
+                { "@PreviousCompanyName",model.PreviousCompanyName}
+            };
+            object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
+            return check;
+        }
+       
+
+
     }
 }

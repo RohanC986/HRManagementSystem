@@ -29,12 +29,12 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        private EMSContext db = new EMSContext();
-        DataAccessService dal = new DataAccessService();
-        private LeaveViewModel LeaveView;
-        DTableToLeaveModel lm = new DTableToLeaveModel();
-        DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
-        DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
+        //private EMSContext db = new EMSContext();
+        //DataAccessService dal = new DataAccessService();
+        //private LeaveViewModel LeaveView;
+        //DTableToLeaveModel lm = new DTableToLeaveModel();
+        //DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
+        //DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
 
 
 
@@ -85,7 +85,7 @@ namespace EmployeeManagementSystem.Controllers
                     EmployeeService employeeService = new EmployeeService();
                     var Leave = employeeService.LeaveSummary(obj, Empid);
                     ViewData["getleaves"] = Leave.getleaves;
-                    LeaveView = Leave;
+                    
                     return View(ViewData);
 
                 }
