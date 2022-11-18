@@ -50,14 +50,15 @@
 
 
 
-            <div class="form-group col-md-12  row justify-content-md-center">
-                <div class="col-md-2 col-sm-10 col ">
+
+            <div class="form-group col-md-12  row justify-content-md-center add-project-btn-div">
+                <div class="col-md-1 col-sm-12 col ">
                     <input id="emp-create-btn" type="submit" value="Create" class="btn-primary btn-default " />
                 </div>
 
-                <div class="col-md-1 col-sm-5 " id="Emp-form-back-list">
+                <div class="col-md-1 col-sm-12 col" id="Addproject-form-back-list">
 
-                    @Html.ActionLink("Back", "Department", "Admin")
+                    @Html.ActionLink("Back", "Department", "Admin", new { @class = "btn-success -default" })
 
                 </div>
 

@@ -326,9 +326,9 @@ table.DepartTab td {
     text-decoration: underline;
 }
 
-.Dep-team-lead-btn:hover ,.desi--btn ,{
-     color:red;
-    background-color:lightblue;
+.Dep-team-lead-btn:hover  ,.desi--btn ,.getallemp-btn:hover{
+    color:blue;
+    background-color:lightgray;
     cursor:pointer;
 }
 
@@ -402,7 +402,12 @@ table.DepartTab td {
     margin-bottom: 2%;
 }
 
-
+.GetAllDes-btn-sec {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.95rem;
+    margin-bottom: 2%;
+}
 .dept-btn-sec, .GetAllEmpDet-btn-sec {
     background-color: #dee2e6;
     color: black;
@@ -463,11 +468,30 @@ projectsearch {
 }
 
 
+/*Add Project Btn*/
+.add-project-btn-div {
+    display: flex;
+}
+
+#Addproject-form-back-list {
+    margin-top: 2px;
+    padding: 5px;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+#Addproject-form-back-list a {
+        padding: 9px;
+        padding-right: 10px;
+        padding-left: 10px;
+        color: white;
+        text-decoration: none;
+}
 
 /*Get all emp btn*/
 
 .getallemp-btn:hover {
-    color: red;
+    color: blue;
     text-decoration: none;
     border: none;
     cursor:pointer;

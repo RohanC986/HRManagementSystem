@@ -18,13 +18,13 @@
     <div class="dept-btn">
 
         <div class="dept-btn-sec ">
-            <a href="@Url.Action("AddProject" , "Admin")" >
+            <a href="@Url.Action("AddProject" , "Admin")">
                 <span class="fa fa-solid fa-file-chart-pie"></span>
                 Add Project
             </a>
         </div>
         <div class="dept-btn-sec">
-            <a href="@Url.Action("AddProjectMembers" , "Admin")" >
+            <a href="@Url.Action("AddProjectMembers" , "Admin")">
                 <span class="fa fa-solid fa-user-plus"></span>
                 Add Project Members
             </a>
@@ -36,7 +36,7 @@
     <div id="DepatDiv">
         @using (Html.BeginForm())
         {
-        <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+            <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
         }
 
         <table class="DepartTab">
@@ -44,11 +44,11 @@
             <thead>
                 <tr>
                     <th>
-                        Name
+                        Project Name
                     </th>
 
                     <th>
-                        Project Name
+                        Team Lead
                     </th>
 
                     <th>
@@ -56,8 +56,8 @@
                     </th>
 
                     @*<th>
-                        EmployeesOnLeave
-                    </th>*@
+                            EmployeesOnLeave
+                        </th>*@
 
 
                 </tr>
@@ -68,17 +68,14 @@
                     {
 
                         <tr>
+                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'">  @item.ProjectName</td>
 
 
 
                             <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn"> @item.FirstName @item.LastName</td>
 
-                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'">  @item.ProjectName</td>
 
                             <td> @item.TotalMembers</td>
-
-
-
 
 
                         </tr>
@@ -87,6 +84,11 @@
                 }
             </tbody>
         </table>
+    </div>
+    <div class="form-group col-md-6 my-2" style="margin-left:45%;">
+        <div class="col-md-2 " id="Emp-form-back-list">
+            @Html.ActionLink("Back", "GetAllEmployeesDetails")
+        </div>
     </div>
 
 }

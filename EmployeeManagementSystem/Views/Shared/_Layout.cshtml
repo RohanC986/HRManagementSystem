@@ -60,20 +60,20 @@
                             Profile
                         </a>
                         <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-open-file"></span>
-                            Get Leave Request
+                            <span class="glyphicon  glyphicon-time"></span>
+                            History
                         </a>
                         <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="glyphicon  glyphicon-open-file"></span>
-                            Leave Request
+                            Leave
                         </a>
                         <a href="@Url.Action("LeaveSummary" , "Employee")" id="LeaveSummary" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="glyphicon  glyphicon-list-alt"></span>
-                            Leave Summary
+                            Summary
                         </a>
-                    
+
                     }
-                    
+
                     @if (Convert.ToInt32(Session["role"]) == 1)
                     {
                         <a href="@Url.Action("GetAllEmployeesDetails" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
@@ -83,7 +83,7 @@
 
 
 
-                        <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" >
+                        <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="fa fa-solid fa-tv"></span>
                             Projects
                         </a>
@@ -93,20 +93,25 @@
                     }
                     @if (Convert.ToInt32(Session["role"]) == 2)
                     {
-                        <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" >
-                            <span class="fa fa-solid fa-users"></span>
-                            Get All Team Emps
+                        <a href="@Url.Action("GetUserOwnDetails" , "")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
+                            <span class="glyphicon  glyphicon-user"></span>
+                            Profile
                         </a>
-                        <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" >
+
+                        <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="fa fa-solid fa-users"></span>
+                            Team
+                        </a>
+                        <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="fa fa-solid fa-file-plus"></span>
-                            Get Team Leave Requests
+                            Requests
                         </a>
                     }
 
-                     
 
 
-                    <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto" >
+
+                    <a href="@Url.Action("Logout" , "Accounts")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Logout
                     </a>

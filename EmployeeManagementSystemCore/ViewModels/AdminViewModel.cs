@@ -92,7 +92,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         [Required(ErrorMessage = "Passport Number is required")]
         [StringLength(12, MinimumLength = 12)]
-        [RegularExpression("[A-Z]{4}([0-9]{8})", ErrorMessage = "Passport Number is not valid")]
+        [RegularExpression("^[A-Z]{4}-([0-9]{8})", ErrorMessage = "Pancard Number is not valid")]
         public string PassportNo { get; set; }
 
 
@@ -142,14 +142,12 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
 
-        [Required(ErrorMessage = "Previous Company is required")]
         public string PreviousCompanyName { get; set; }
 
 
 
 
-        [Required(ErrorMessage = "Years of Experience is required")]
-        [Range(0, 38, ErrorMessage = "Experience should be between 0 and 38")]
+        
         public int YearsOfExprience { get; set; }
 
 

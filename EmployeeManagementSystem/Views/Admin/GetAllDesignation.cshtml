@@ -8,7 +8,16 @@
 {
     <h2 class="DepartHeading">Designation</h2>
     <hr id="addemphr" />
+    <div class="GetAllDes-btn-sec">
 
+        <div class="GetAllEmpDet-btn-sec desi--btn">
+            <a href="@Url.Action("AddDesignation" , "Admin")">
+                <span class="fa fa-solid fa-user"></span>
+                Add Designation
+            </a>
+        </div>
+
+    </div>
     <div id="DepatDiv">
         <table class="DepartTab">
             <thead>
@@ -22,8 +31,7 @@
                         Designation Name
                     </th>
                     <th>
-                        <button onclick="location.href='@Url.Action("AddDesignation", "Admin")'" id="emp-create-btn" class="btn-primary" type="button"> Add </button>
-
+                        Actions
                     </th>
                 </tr>
             <thead>
@@ -41,9 +49,11 @@
                             <td>
                                 <span>
 
-                                    <button onclick="location.href='@Url.Action("EditDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Edit</button>
+
+                                    <button onclick="location.href='@Url.Action("EditDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
                                     @*<button onclick="location.href='@Url.Action("DeleteDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Delete</button>*@
-                                    <button onclick="(confirm('do you want to delete')) ? location.href = '  @Url.Action("DeleteDesignation", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button">Delete</button>
+                                    <button onclick="(confirm('do you want to delete')) ? location.href = '  @Url.Action("DeleteDesignation", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Delete Designation"><i class="fa fa-solid fa-trash mx-1"></i></button>
+
 
                                 </span>
                             </td>
