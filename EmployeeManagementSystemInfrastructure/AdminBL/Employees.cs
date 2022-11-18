@@ -237,8 +237,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
         {
             Dictionary<string, object> dict = new Dictionary<string, object>() {
 
-                { "@DesignationId",model.DesignationId},
-                { "@DesignationName",model.DesignationName}
+                { "@DesignationId",model.DesignationId}
             };
             int check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
             return check;

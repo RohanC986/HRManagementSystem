@@ -30,7 +30,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal mx-auto align-center  ">
+        <div class="form-horizontal mx-auto align-center  " id="AddNewMainDiv">
             <h4 class="addEmp">Employee Details</h4>
             <hr id="addemphr" />
 
@@ -88,7 +88,7 @@
                 <label class="control-label col-md-4">Date Of Birth</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOB ", required = "required" ,type= "date",max = "2003-01-01" } })
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOB ", required = "required", type = "date", max = "2003-01-01" } })
 
                     @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                 </div>
@@ -138,7 +138,7 @@
                 <label class="control-label col-md-4">Date Of Joining</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOJ ", required = "required" ,type = "date", min = $"{DateTime.Now}" } })
+                    @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOJ ", required = "required", type = "date", min = $"{DateTime.Now}" } })
 
                     @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
                 </div>
@@ -152,7 +152,7 @@
                 <label class="control-label col-md-4">Personal Contact</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", required = "required" , pattern ="[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
+                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
 
                     @Html.ValidationMessageFor(model => model.PersonalContact, "", new { @class = "text-danger" })
                 </div>
@@ -163,7 +163,7 @@
                 <label class="control-label col-md-4">Emergency Contact</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ",    required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}" , @minlength = "10", @maxlength = "10" , type="contact" } })
+                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
 
 
                     @Html.ValidationMessageFor(model => model.EmergencyContact, "", new { @class = "text-danger" })
@@ -216,7 +216,7 @@
                 @*@Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">City</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your City", required = "required"  } })
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your City", required = "required" } })
                     @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -273,9 +273,9 @@
                 </div>
             </div>
 
-        
 
-         
+
+
 
             <div class="form-group col-md-6">
                 @* @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })*@
@@ -302,7 +302,7 @@
 
             <div class="form-group col-md-6">
                 @* @Html.LabelFor(model => model.Experienced, htmlAttributes: new { @class = "control-label col-md-4" })*@
-                <label class="control-label col-md-4">Experienced</label>
+                <label class="control-label col-md-4 " for="seeAnotherField">Experienced</label>
                 <div class="col-md-8">
                     @*@Html.EditorFor(model => model.Experienced, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Designation" } })
                     *@
@@ -312,7 +312,7 @@
                         new SelectListItem { Text = "No", Value = "false"},
                         new SelectListItem { Text = "Yes", Value ="true" },
 
-             }, htmlAttributes: new { @class = "text-left Role-Down " })
+             }, htmlAttributes: new { @id = "seeAnotherField", @class = "text-left Role-Down " })
                     @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
                 </div>
 
@@ -320,12 +320,12 @@
             </div>
 
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 " id="otherFieldDiv">
 
                 @* @Html.LabelFor(model => model.YearsOfExprience, htmlAttributes: new { @class = "control-label col-md-4" })*@
-                <label class="control-label col-md-4">Years Of Experience</label>
+                <label class="control-label col-md-4" for="otherField">Years Of Experience</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Years Of Experience ", min = "0", } })
+                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { id = "otherField", @class = " hideClass form-control otherField", placeholder = "Enter Years Of Experience ", min = "0", } })
                     @Html.ValidationMessageFor(model => model.YearsOfExprience, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -333,11 +333,11 @@
 
 
 
-            <div class="form-group col-md-10 ">
+            <div class="form-group col-md-10 " id="otherFieldDiv">
                 @* @Html.LabelFor(model => model.PreviousCompanyName, htmlAttributes: new { @class = "control-label col-md-4 " })*@
-                <label class="control-label col-md-4">Previous Company Name</label>
+                <label class="control-label col-md-4" for="otherField">Previous Company Name</label>
                 <div class="col-md-7">
-                    @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Previous Company Name " } })
+                    @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { id = "otherField", @class = "hideClass form-control otherField", placeholder = "Enter Previous Company Name " } })
                     @Html.ValidationMessageFor(model => model.PreviousCompanyName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -373,5 +373,25 @@ else
 {
     <td> You are not Authorized </td>
 }
+
+<script type="text/javascript">
+   
+    $("#seeAnotherField").change(function () {
+        var otherField = $("#AddNewMainDiv").find(".hideClass");
+        console.log(otherField);
+        if ($(this).val() == "true") {
+            $(otherField).attr("disabled", false);
+            
+
+            $(otherField).attr('required', '');
+            $(otherField).attr('data-error', 'This field is required.');
+        } else {
+            $(otherField).attr("disabled", true);
+           
+        }
+    });
+   // $("#seeAnotherField").trigger("change");
+
+</script>
 
 

@@ -28,10 +28,10 @@ namespace EmployeeManagementSystemCore.Models
 
         [RegularExpression("^[A-Z]{4}0[0-9]{7}$", ErrorMessage = "UAN id is not valid")]
         [Required(ErrorMessage = "IFSC Code is required")]
-        public DateTime IFSCCode { get; set; }
+        public string IFSCCode { get; set; }
 
         public DateTime Created { get; set; }
-        public string LastModified { get; set; }
+        public DateTime LastModified { get; set; }
         public List<AccountDetails> accountDetails { get; set; }
     }
 }

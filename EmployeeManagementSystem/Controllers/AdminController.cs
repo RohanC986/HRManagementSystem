@@ -139,7 +139,7 @@ namespace EmployeeManagementSystem.Controllers
                 return RedirectToAction("AddNewEmp", "Admin");
             }
 
-            return RedirectToAction("AddNewEmp", "Admin");
+            return RedirectToAction("AccountDetails", "Admin");
 
         }
 

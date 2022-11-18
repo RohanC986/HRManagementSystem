@@ -120,6 +120,7 @@ namespace EmployeeManagementSystem.Controllers
                     }
                 }
                 else
+                
                 {
                     ViewBag.UsernameError = op.UsernameMessage;
                     ViewBag.PasswordError = op.PasswordMessage;

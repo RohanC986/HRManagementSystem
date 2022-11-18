@@ -17,14 +17,14 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
         [Required(ErrorMessage = "First Name is required")]
-        [StringLength(20, MinimumLength = 20)]
+        [StringLength(20, MinimumLength = 2)]
         public string FirstName { get; set; }
 
 
         public string MiddleName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(20, MinimumLength = 20)]
+        [StringLength(20, MinimumLength = 2)]
         public string LastName { get; set; }
 
 

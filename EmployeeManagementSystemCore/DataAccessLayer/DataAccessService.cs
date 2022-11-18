@@ -98,7 +98,6 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                         {
                             ParameterName = param.Key,
                             Value = param.Value,
-                            SqlDbType = SqlDbType.NVarChar,
                             Direction = ParameterDirection.Input
                         };
                         myCommand.Parameters.Add(parameter);
