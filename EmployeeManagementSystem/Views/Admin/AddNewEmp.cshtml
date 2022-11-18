@@ -174,7 +174,7 @@
                 @* @Html.LabelFor(model => model.AadharCardNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Aadhar Card</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Aadhar No. ", required = "required", pattern= "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}-[0-9]{2}", @minlength = "12", @maxlength = "12" } })
+                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Aadhar No. ", required = "required", pattern= "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}-[0-9]{2}", minlength = "12", maxlength = "12" } })
 
                     @Html.ValidationMessageFor(model => model.AadharCardNo, "", new { @class = "text-danger" })
                 </div>
@@ -196,7 +196,7 @@
                 @* @Html.LabelFor(model => model.PassportNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Passport Number</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required",  @minlength = "9", @maxlength = "9"} })
+                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required",  @minlength = "12", @maxlength = "12",pattern= "^[A-Z]{4}-([0-9]{8})" } })
                     @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
                 </div>
             </div>

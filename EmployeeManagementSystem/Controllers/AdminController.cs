@@ -67,7 +67,7 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["allEmployees"] = op.allEmployees;
                     EmpAllOver = op;
                     ViewData["RoleId"] = model.RoleId;
-                    return View(ViewData);
+                    return View(op);
                     //ViewData["RoleId"] = model.RoleId;
                     //return View(ViewData["allEmployees"]);
                 }

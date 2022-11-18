@@ -131,7 +131,7 @@ namespace EmployeeManagementSystemCore.Models
 
 
         [Required(ErrorMessage = "Designation is required")]
-        public string DesignationName { get; set; }
+        public int DesignationId { get; set; }
 
 
 
