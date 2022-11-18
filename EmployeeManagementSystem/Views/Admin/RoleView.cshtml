@@ -7,7 +7,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.RoleView == null)
+@if ((Convert.ToInt16((Session["role"])) == 1 && ViewBag.RoleView == null))
 {
     <div>
         <input type="Button" value="+ Role" onclick="window.location.href='@Url.Action("AddRole","Admin")'" style=" font-size:" 1.2em" />

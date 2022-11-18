@@ -1,7 +1,9 @@
-﻿using EmployeeManagementSystemCore.DataAccessLayer;
-using EmployeeManagementSystemInfrastructure.ConversionService;
-using EmployeeManagementSystemCore.ViewModels;
+﻿using EmployeeManagementSystem.Extensions;
+using EmployeeManagementSystemCore.DataAccessLayer;
 using EmployeeManagementSystemCore.Models;
+using EmployeeManagementSystemCore.ViewModels;
+using EmployeeManagementSystemInfrastructure.AdminBL;
+using EmployeeManagementSystemInfrastructure.ConversionService;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -13,8 +15,6 @@ using static EmployeeManagementSystem.Controllers.AccountsController;
 using Chunk = iTextSharp.text.Chunk;
 using Font = iTextSharp.text.Font;
 using Rectangle = iTextSharp.text.Rectangle;
-using EmployeeManagementSystem.Extensions;
-using EmployeeManagementSystemInfrastructure.AdminBL;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -38,7 +38,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
         DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
-        EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion(); 
+        EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
         public List<Role> RolesList { get; private set; }
 
         public AdminController()
@@ -52,18 +52,17 @@ namespace EmployeeManagementSystem.Controllers
         }*/
 
         [Route("[controller]/getallemployees")]
-        public ActionResult GetAllEmployeesDetails(LoginViewModel model,string emp)
+        public ActionResult GetAllEmployeesDetails(LoginViewModel model, string emp)
         {
 
             try
-                
+
             {
                 Employees employees = new Employees();
                 int EmpId = Convert.ToInt32(Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    
-                    var op = employees.GetAllEmployeesDetails(model,emp);
+                    AdminViewModel op = employees.GetAllEmployeesDetails(model, emp);
                     ViewData["allEmployees"] = op.allEmployees;
                     EmpAllOver = op;
                     ViewData["RoleId"] = model.RoleId;
@@ -98,7 +97,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     var roles = employees.GetRoles();
                     ViewData["roleOptions"] = roles;
-                    var designation = employees.GetDesignation();   
+                    var designation = employees.GetDesignation();
                     ViewData["designationOptions"] = designation;
 
                     return View();
@@ -186,7 +185,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     Employees employees = new Employees();
                     var roles = employees.GetRoles();
-                    var designation = employees.GetDesignation();   
+                    var designation = employees.GetDesignation();
                     ViewData["roleOptions"] = roles;
                     ViewData["designationOptions"] = designation;
                     return View(model);
@@ -207,7 +206,7 @@ namespace EmployeeManagementSystem.Controllers
             try
             {
                 Employees employees = new Employees();
-                var check = employees.UpdateEmpDetails(model);  
+                var check = employees.UpdateEmpDetails(model);
                 this.AddNotification("Updated Successfully", NotificationType.SUCCESS);
                 return RedirectToAction("GetAllEmployeesDetails");
             }
@@ -230,14 +229,14 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     if (emp != null)
                     {
-                        
-                        var department = projectService.Departments(emp);
-                        ViewData["TeamEmps"] = department;
-                        return View(ViewData);
+
+                        DepartmentListViewModel department = projectService.Departments(emp);
+                        ViewData["TeamEmps"] = department.DepartmentsViews;
+                        return View(department.DepartmentsViews);
                     }
-                    var department1 = projectService.Departments(emp);
-                    ViewData["TeamEmps"] = department1;
-                    return View(ViewData);
+                    DepartmentListViewModel department1 = projectService.Departments(emp);
+                    ViewData["TeamEmps"] = department1.DepartmentsViews;
+                    return View(department1.DepartmentsViews);
                 }
             }
             catch (Exception e)
@@ -257,15 +256,11 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
+
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-
-
-
-                    DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdName", dict);
-                    EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
-                    empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+                    ProjectService projectService = new ProjectService();
+                    EmployeeIdNameViewModel empIdName = projectService.AddProject();
                     ViewData["AllEmpIdName"] = empIdName;
 
 
@@ -287,15 +282,13 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                {"@ProjectName",model.ProjectName },
-                {"@ProjectHeadEmployeeId",model.ProjectHeadEmployeeId }
-            };
-                dal.ExecuteNonQuery("uspSaveProject", dict);
-               
-                this.AddNotification("Project Saved Successfully", NotificationType.SUCCESS);
+                ProjectService projectService = new ProjectService();
+                int op = projectService.SaveProject(model);
+                if (op > 0)
+                {
+                    this.AddNotification("Project Saved Successfully", NotificationType.SUCCESS);
 
+                }
                 return RedirectToAction("Department", "Admin");
             }
             catch (Exception e)
@@ -315,22 +308,12 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-
-                    DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetEmpIdNameAll", dict);
-                    EmployeeIdNameViewModel empIdnameViewModel = new EmployeeIdNameViewModel();
-                    empIdnameViewModel.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
-
-                    DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
-                    Project projectsList = new Project();
-                    projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
-                    /*ViewData["AllEmpIdName"] = EmpIdname;*/
+                    ProjectService projectService = new ProjectService();
+                    EmployeeIdNameViewModel empIdnameViewModel = projectService.GetEmpId();
+                    Project projectsList = projectService.AddProjectMembers();
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
-                    
-                    //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
-
-
+                    this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
                     return View();
                 }
             }
@@ -353,14 +336,15 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    //Dictionary<string, object> dict = new Dictionary<string, object>();
 
-                    DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
+                    //DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
 
-                    Employee EmpDR = new Employee();
+                    //Employee EmpDR = new Employee();
 
-                    EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);
-
+                    //EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);
+                    LoginService loginService = new LoginService();
+                    Employee EmpDR = loginService.AddLogin();
                     ViewData["EmpCodeOption"] = EmpDR;
 
                     return View();
@@ -370,7 +354,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.AddLoginError = "Page loading error";
-                
+
             }
             return View();
 
@@ -384,34 +368,17 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> diction = new Dictionary<string, object>() {
-
-                        { "@EmployeeId",model.EmployeeId},
-                        
-
-                     };
-                    object roleid = dal.ExecuteScalar("uspGetEmpRole", diction);
-
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
-
-                            { "@EmployeeId",model.EmployeeId},
-                            { "@Username",model.Username},
-                            { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(  (model.Password))},
-                            { "@LastLogin",(model.LastLogin)},
-                                    {"@RoleId",roleid }
-
-
-                    };
-                    object check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
+                    LoginService loginService = new LoginService();
+                    int check = loginService.SaveLogin(model);
                     Console.WriteLine(check);
-                    if (check == null)
+                    if (check == 0)
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
                     this.AddNotification("Credentials Added Successfully", NotificationType.SUCCESS);
 
 
-                    return RedirectToAction("GetAllEmployeesDetails","Admin");
+                    return RedirectToAction("GetAllEmployeesDetails", "Admin");
                 }
             }
             catch (Exception ex)
@@ -432,15 +399,12 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                {"@EmployeeId",model.EmployeeId },
-                {"@ProjectId",model.ProjectId }
-
-            };
-                    dal.ExecuteNonQuery("uspSaveProjectMember", dict);
-                    this.AddNotification("Member added Successfully", NotificationType.SUCCESS);
-
+                    ProjectService projectService = new ProjectService();
+                    int op = projectService.SaveProjectMember(model);
+                    if (op > 0)
+                    {
+                        this.AddNotification("Member added Successfully", NotificationType.SUCCESS);
+                    }
                     return RedirectToAction("Department", "Admin");
                 }
             }
@@ -463,14 +427,10 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
-
-                { "@EmployeeId",model.EmployeeId},
-
-            };
-                    object check = dal.ExecuteNonQuery("uspDisableEmployee", dict);
+                    Employees employees = new Employees();
+                    int check = employees.DisableEmp(model);
                     Console.WriteLine(check);
-                    if (check == null)
+                    if (check > 0)
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
@@ -503,14 +463,10 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
-
-                { "@EmployeeId",model.EmployeeId},
-
-            };
-                    object check = dal.ExecuteNonQuery("uspEnableEmployee", dict);
+                    Employees employees = new Employees();
+                    int check = employees.EnableEmp(model);
                     Console.WriteLine(check);
-                    if (check == null)
+                    if (check > 0)
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
@@ -557,13 +513,12 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
+                    Employees employees = new Employees();
+                    int check = employees.SaveDesignation(designation);
+                    if (check > 0)
                     {
-                        { "@DesignationName",designation.DesignationName}
-                    };
-                    object check = dal.ExecuteNonQuery("uspAddDesignation", dict);
-                    this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
-
+                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+                    }
                     return RedirectToAction("GetAllDesignation");
 
                 }
@@ -590,11 +545,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetAllDesignation", dict);
-                    Designation designation1 = new Designation();
-                    designation1.DesignationsList = DTableToDesignationModel.DataTabletoDesignationsModel(datatable);
-                    ViewData["designation"] = designation1.DesignationsList;
+                    Employees employees = new Employees();
+                    Designation designation = employees.GetAllDesignation();
+                    ViewData["designation"] = designation.DesignationsList;
                     return View(ViewData);
                 }
 
@@ -633,13 +586,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
-
-                { "@DesignationId",model.DesignationId},
-                { "@DesignationName",model.DesignationName}
-            };
-                    object check = dal.ExecuteNonQuery("uspUpdateDesignation", dict);
-                    if (check != null)
+                    Employees employees = new Employees();
+                    int check = employees.UpdateDesignation(model);
+                    if (check > 0)
                     {
                         ViewData["success"] = "success";
 
@@ -668,12 +617,13 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
+                    Employees employees = new Employees();
+                    int check = employees.DeleteDesignation(model);
+                    if (check > 0)
+                    {
+                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+                    }
 
-                { "@DesignationId",model.DesignationId},
-            };
-                    object check = dal.ExecuteNonQuery("uspDeleteDesignation", dict);
-                    this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
 
                     return RedirectToAction("GetAllDesignation");
 
@@ -729,10 +679,8 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
-                    DataTable dt = dal.ExecuteDataSet<DataTable>("uspGetAllRoles", dict);
-                    Role role = new Role();
-                    role.RolesList = dtRole.DataTableToRolesModel(dt);
+                    Employees employees = new Employees();
+                    Role role = employees.GetRoles();
                     return View(role);
                 }
 
@@ -759,13 +707,12 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                {"@RoleName", model.RoleName}
-            };
-                    dal.ExecuteNonQuery("uspSaveRole", dict);
-                    this.AddNotification("Role Added Successfully", NotificationType.SUCCESS);
-
+                    Employees employees = new Employees();
+                    int check = employees.SaveRole(model);
+                    if (check > 0)
+                    {
+                        this.AddNotification("Role Added Successfully", NotificationType.SUCCESS);
+                    }
 
                     return RedirectToAction("RoleView", "Admin");
                 }
@@ -793,14 +740,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                {"@RoleName", model.RoleName}
-            };
-                    dal.ExecuteNonQuery("uspDeleteRole", dict);
+                    Employees employees = new Employees();
+                    int check = employees.DeleteRole(model);
                     this.AddNotification("Role Deleted Successfully", NotificationType.SUCCESS);
-
-
                     return RedirectToAction("RoleView", "Admin");
 
                 }
@@ -897,17 +839,9 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@ProjectName",emp.ProjectName},
-            };
-
-
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspTeamEmpsAdmin", dict);
-                    TeamEmpDetailsViewModel tempEmpDetialsView = new TeamEmpDetailsViewModel();
-                    tempEmpDetialsView.teamEmps = tableToTeamEmpModel.DataTabletoTeamEmployeesModel(EmpTable);
+                    Employees employees = new Employees();
+                    TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(emp);
                     ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
-                    //TeamEmps = tempEmpDetialsView;
                     return View(ViewData);
 
                 }
@@ -936,11 +870,13 @@ namespace EmployeeManagementSystem.Controllers
             {
                 if (Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>();
+                    //Dictionary<string, object> dict = new Dictionary<string, object>();
 
-                    DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspEmpsWithoutAC", dict);
-                    EmployeeIdNameViewModel empname = new EmployeeIdNameViewModel();
-                    empname.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpDt);
+                    //DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspEmpsWithoutAC", dict);
+                    //EmployeeIdNameViewModel empname = new EmployeeIdNameViewModel();
+                    //empname.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpDt);
+                    Employees employee = new Employees();
+                    EmployeeIdNameViewModel empname = employee.AccountDetails(emp); 
                     ViewData["EmpName"] = empname;
 
 
@@ -960,49 +896,35 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
+                Employees employee = new Employees();
+                int check = employee.SaveAccountDetails(ac);
+                if(check > 0)
+                {
+                    this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
 
-                { "@EmployeeID",ac.EmployeeID},
-                { "@UANNo",ac.UANNo},
-                { "@BankAcNo",ac.BankAcNo},
-                { "@IFSCCode",ac.IFSCCode},
-
-            };
-
-            dal.ExecuteNonQuery("uspAddAccountD", dict);
-            this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
-
-            return RedirectToAction("AddLogin", "Admin");
-        
-
-                
+                }
+                return RedirectToAction("AddLogin", "Admin");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ViewBag.SaveAccountDetails = "Dat not Saved !";
                 return RedirectToAction("AccountDetails");
             }
-            
-            }
-            
+
+        }
+
 
 
         public ActionResult GetSpecificUserDetails(Employee emp)
         {
             try
             {
+                
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    Dictionary<string, object> dict = new Dictionary<string, object>()
-            {
-                { "@EmployeeId",HttpContext.Session["EmpId"]}
-            };
-                    DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                    EmployeeViewModel employee = new EmployeeViewModel();
-                    employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                    Employee employeeowndetail = new Employee();
-                    employeeowndetail = employee.employees[0];
+                    int EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
+                    Employees employees = new Employees();
+                    AdminViewModel employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
 
                     return View(employeeowndetail);
                 }

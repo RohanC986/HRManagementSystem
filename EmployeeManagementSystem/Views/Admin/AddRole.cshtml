@@ -7,7 +7,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.AddRole == null)
+@if ((Convert.ToInt16((Session["role"])) == 1  && ViewBag.AddRole == null))
 {
     <head>
 

@@ -15,7 +15,8 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         public int TotalMembers { get; set; }
         public int EmployeesOnLeave { get; set; }
-       
+        public List<DepartmentsViewModel> DepartmentsViews { get; set; }
+
     }
 
 

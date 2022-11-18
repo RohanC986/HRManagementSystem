@@ -1,19 +1,21 @@
 ﻿using EmployeeManagementSystemCore.Models;
+using EmployeeManagementSystemCore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
-    public class DTableToEmployeeModel
+    public class DTableToAdminViewModel
     {
-        
-        public List<Employee> DataTabletoEmployeeModel(DataTable dt)
+        public List<AdminViewModel> DataTabletoAdminEmployeeModel(DataTable dt)
         {
-            List<Employee> employees = new List<Employee>();
+            List<AdminViewModel> employees = new List<AdminViewModel>();
             employees = (from DataRow dr in dt.Rows
-                         select new Employee
+                         select new AdminViewModel
                          {
 
                              EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
@@ -35,14 +37,18 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                              City = dr["City"].ToString(),
                              State = dr["State"].ToString(),
                              Pincode = dr["Pincode"].ToString(),
-                             RoleId = Convert.ToInt16(dr["RoleId"]),
-                             DesignationId = Convert.ToInt16(dr["DesignationId"]),
+                             //RoleId = Convert.ToInt16(dr["RoleId"]),
+
+                             RoleName = dr["RoleName"].ToString(),
+                             DesignationName = dr["DesignationName"].ToString(),
                              Experienced = Convert.ToBoolean(dr["Experienced"]),
                              PreviousCompanyName = dr["PreviousCompanyName"].ToString(),
                              YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"]),
-                             IsActive  = Convert.ToBoolean(dr["IsActive"]),
+                             IsActive = Convert.ToBoolean(dr["IsActive"]),
                              Created = DateTime.Parse(dr["Created"].ToString()),
                              LastModified = DateTime.Parse(dr["LastModified"].ToString())
+
+
                          }
 
                 ).ToList();
