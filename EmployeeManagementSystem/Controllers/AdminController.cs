@@ -842,7 +842,9 @@ namespace EmployeeManagementSystem.Controllers
                     Employees employees = new Employees();
                     TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(emp);
                     ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
+
                     return View(ViewData);
+
 
                 }
                 else

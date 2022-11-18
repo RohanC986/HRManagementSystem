@@ -12,19 +12,22 @@ namespace EmployeeManagementSystemCore.ViewModels
         public int EmployeeId { get; set; }
 
         [Required(ErrorMessage = "Employee Code required")]
+        [RegularExpression("[0-9]{1,3}",ErrorMessage ="Employee Code should be 1-3 digit")]
         public int EmployeeCode { get; set; }
 
 
 
         [Required(ErrorMessage = "First Name is required")]
-        [StringLength(20, MinimumLength = 20)]
+        [StringLength(20, MinimumLength = 2)]
+        [RegularExpression("[A-Za-z]{2,20}", ErrorMessage = "First name should be only alphabets[2-20]")]
         public string FirstName { get; set; }
 
 
         public string MiddleName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(20, MinimumLength = 20)]
+        [StringLength(20, MinimumLength = 2)]
+        [RegularExpression("[A-Za-z]{2,20}", ErrorMessage = "Last name should be only alphabets[2-20]")]
         public string LastName { get; set; }
 
 
@@ -90,9 +93,8 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
 
-        [Required(ErrorMessage = "Passport Number is required")]
         [StringLength(12, MinimumLength = 12)]
-        [RegularExpression("^[A-Z]{4}([0-9]{8})", ErrorMessage = "Pancard Number is not valid")]
+        [RegularExpression("[A-Z]{4}([0-9]{8})", ErrorMessage = "Passport Number is not valid")]
         public string PassportNo { get; set; }
 
 

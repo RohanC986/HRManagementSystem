@@ -19,10 +19,10 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                                     
                                     EmployeeID = Convert.ToInt32(dr["EmployeeID"]),
                                     UANNo = dr["UANNo"].ToString(),
-                                    BankAcNo = Convert.ToInt32(dr["BankAcNo"]),
+                                    BankAcNo = dr["BankAcNo"].ToString(),
                                     IFSCCode = dr["IFSCCode"].ToString(),
-                                    Created = dr["Created"].ToString(),
-                                    LastModified = dr["LastModified"].ToString()
+                                    Created = DateTime.Parse(dr["Created"].ToString()),
+                                    LastModified = DateTime.Parse(dr["LastModified"].ToString())
                                     //EmployeesOnLeave = Convert.ToInt32(dr["EmployeesOnLeave"]),
                                 }
 
