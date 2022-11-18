@@ -19,6 +19,7 @@ namespace EmployeeManagementSystemInfrastructure.EmployeeBL
         DTableToLeaveModel lm = new DTableToLeaveModel();
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
+        DTableToAdminViewModel dtadminvm= new DTableToAdminViewModel();
         public int SaveLeaveRequest(LeaveRequest model, int Empid)
         {
 
@@ -70,18 +71,17 @@ namespace EmployeeManagementSystemInfrastructure.EmployeeBL
         }
 
 
-        public Employee GetUserOwnDetails(int EmpId)   
+        public AdminViewModel GetUserOwnDetails(int EmpId)   
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",EmpId}
             };
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-            EmployeeViewModel employee = new EmployeeViewModel();
-            employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-            Employee employeeowndetail = new Employee();
-            employeeowndetail = employee.employees[0];
-            return employeeowndetail;
+            AdminViewModel employee = new AdminViewModel();
+            employee.allEmployees = dtadminvm.DataTabletoAdminEmployeeModel(EmpTable);
+            
+            return employee;
         }
         public LeaveRequestViewModel GetLeaveRequest(int EmpId)
         {

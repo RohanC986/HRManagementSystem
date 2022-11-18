@@ -31,7 +31,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
         [Required(ErrorMessage = "Email is required")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]-@([a-zA-Z0-9-]-\\.)-[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
+        [RegularExpression("^\\S+@\\S+\\.\\S+$", ErrorMessage = "E-mail id is not valid")]
         public string Email { get; set; }
 
 
@@ -92,7 +92,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         [Required(ErrorMessage = "Passport Number is required")]
         [StringLength(12, MinimumLength = 12)]
-        [RegularExpression("^[A-Z]{4}-([0-9]{8})", ErrorMessage = "Pancard Number is not valid")]
+        [RegularExpression("[A-Z]{4}([0-9]{8})", ErrorMessage = "Passport Number is not valid")]
         public string PassportNo { get; set; }
 
 
@@ -131,7 +131,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
         [Required(ErrorMessage = "Designation is required")]
-        public String DesignationName { get; set; }
+        public string DesignationName { get; set; }
 
 
 

@@ -34,7 +34,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
         [Required(ErrorMessage = "Email is required")]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]-@([a-zA-Z0-9-]-\\.)-[a-zA-Z]{2,6}$", ErrorMessage = "E-mail id is not valid")]
+        [RegularExpression("^\\S+@\\S+\\.\\S+$", ErrorMessage = "E-mail id is not valid")]
         public string Email { get; set; }
 
 

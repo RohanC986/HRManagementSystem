@@ -140,9 +140,9 @@ namespace EmployeeManagementSystem.Controllers
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    var details = employeeService.GetUserOwnDetails(Empid);
+                    AdminViewModel details = employeeService.GetUserOwnDetails(Empid);
 
-                    return View(details);
+                    return View(details.allEmployees[0]);
                 }
                 else
                 {

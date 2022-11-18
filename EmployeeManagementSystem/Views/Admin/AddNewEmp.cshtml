@@ -78,7 +78,7 @@
                 @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Email</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email ", required = "required", type = "email" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email ", required = "required", type = "email",pattern="^\\S+@\\S+\\.\\S+$" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
