@@ -313,7 +313,7 @@ namespace EmployeeManagementSystem.Controllers
                     Project projectsList = projectService.AddProjectMembers();
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
-                    this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
+                    //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
                     return View();
                 }
             }

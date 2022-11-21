@@ -191,8 +191,8 @@
     </div>
 
 
-    @if (Model.Experienced == true)
-    {
+    @*@if (Model.Experienced == true)*@
+    @*{
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.Experienced, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
@@ -202,9 +202,9 @@
                 @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
-    else
-    {
+    }*@
+    @*else
+    {*@
     <div class="form-group col-md-6">
         @Html.LabelFor(model => model.Experienced, htmlAttributes: new { @class = "control-label col-md-4" })
         <div class="col-md-8">
@@ -214,7 +214,7 @@
             @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
         </div>
     </div>
-    }
+    @*}*@
 
            @if (Model.Experienced == true)
            {
