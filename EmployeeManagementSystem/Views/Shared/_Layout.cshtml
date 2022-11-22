@@ -103,7 +103,7 @@
                     }
                     @if (Convert.ToInt32(Session["role"]) == 2)
                     {
-                        <a href="@Url.Action("GetUserOwnDetails" , "")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
+                        <a href="@Url.Action("GetUserOwnDetails" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="glyphicon  glyphicon-user"></span>
                             Profile
                         </a>
@@ -115,6 +115,14 @@
                         <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="fa fa-solid fa-file-plus"></span>
                             Requests
+                        </a>
+                        <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-time"></span>
+                            History
+                        </a>
+                        <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="glyphicon  glyphicon-open-file"></span>
+                            Leave
                         </a>
                     }
 

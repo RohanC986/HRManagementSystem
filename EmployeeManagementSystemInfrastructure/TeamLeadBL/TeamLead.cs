@@ -22,6 +22,7 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
         DTableToTeamLeaveRequestModel DTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveModel dtLeave = new DTableToLeaveModel();
+        DTableToAdminViewModel DTableToAdminViewModel = new DTableToAdminViewModel();
 
         public List<TeamEmpDetailsViewModel> GetTeamEmps(string emp, int empid)
 
@@ -146,18 +147,22 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
 
         }
 
-        public Employee GetUserSpecificDetails(TeamEmpDetailsViewModel EmpId)
+        public AdminViewModel GetUserSpecificDetails(int EmpId)
         {
                 Dictionary<string, object> dict = new Dictionary<string, object>()
             {
-                { "@EmployeeId",EmpId.EmployeeId}
+                { "@EmployeeId",EmpId}
             };
                 DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-                EmployeeViewModel employee = new EmployeeViewModel();
-                employee.employees = dTableToEmployeeModel.DataTabletoEmployeeModel(EmpTable);
-                Employee employeeowndetail = new Employee();
-                employeeowndetail = employee.employees[0];
+                AdminViewModel employee = new AdminViewModel();
+                employee.allEmployees = DTableToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
+                AdminViewModel employeeowndetail = employee.allEmployees[0];
                 return employeeowndetail;
         }
+
+
+        
+
+         
     }
 }

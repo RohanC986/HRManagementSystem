@@ -381,13 +381,10 @@ else
         console.log(otherField);
         if ($(this).val() == "true") {
             $(otherField).attr("disabled", false);
-            
-
             $(otherField).attr('required', '');
             $(otherField).attr('data-error', 'This field is required.');
         } else {
-            $(otherField).attr("disabled", true);
-           
+            $(otherField).attr("disabled", true);       
         }
     });
    // $("#seeAnotherField").trigger("change");

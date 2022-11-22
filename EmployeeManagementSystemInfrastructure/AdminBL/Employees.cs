@@ -29,6 +29,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
         DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
         EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
         DTableToAdminViewModel ToAdminViewModel = new DTableToAdminViewModel();
+        DTableToTeamLeaveRequestModel dTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
 
         //public List<T> AddEmp(LoginViewModel model)
         //{
@@ -321,6 +322,18 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             AdminViewModel employee = new AdminViewModel();
             employee.allEmployees = ToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
             return employee;   
+        }
+
+        public GetTeamLeaveRequestViewModel TeamLeadRequest(int EmpId)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+                  
+
+
+            DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetTeamLeadLeaveRequest",dict);
+            GetTeamLeaveRequestViewModel getTeamLeaveRequest = new GetTeamLeaveRequestViewModel();
+            getTeamLeaveRequest.getTeamLeaveRequestViewModels = dTableToTeamLeaveRequestModel.DataTabletoLeaveRequestViewModel(EmpTable);
+            return getTeamLeaveRequest;
         }
     }
 }

@@ -4,6 +4,7 @@ using EmployeeManagementSystemCore.Models;
 using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.AdminBL;
 using EmployeeManagementSystemInfrastructure.ConversionService;
+using EmployeeManagementSystemInfrastructure.TeamLeadBL;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -944,6 +945,44 @@ namespace EmployeeManagementSystem.Controllers
                 return View();
             }
             return View();
+
+        }
+
+        //public ActionResult GetTeamLeadLeaveRequest()
+        //{
+        //    try
+        //    {
+        //        int EmpId = Convert.ToInt32(Session["EmpId"]);
+        //        TeamLead leavesService = new TeamLead();
+        //        GetTeamLeaveRequestViewModel op = leavesService.TeamLeaveRequest(EmpId);
+        //        ViewData["TeamLeadRequest"] = op;
+        //        return View(op);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.GetTeamLeaveRequest = "Leave request Error";
+        //    }
+        //    //TeamEmps = tempEmpDetialsView;
+        //    return RedirectToAction("");
+        //}
+        public ActionResult GetTeamLeadLeaveRequest()
+
+        {
+
+            try
+            {
+                int EmpId = Convert.ToInt32(Session["EmpId"]);
+                Employees leavesService = new Employees();
+                GetTeamLeaveRequestViewModel op = leavesService.TeamLeadRequest(EmpId);
+                ViewData["TeamLeadRequest"] = op;
+                return View(op);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.GetTeamLeaveRequest = "Leave request Error";
+            }
+            //TeamEmps = tempEmpDetialsView;
+            return RedirectToAction("GetTeamLeaveRequest");
 
         }
 
