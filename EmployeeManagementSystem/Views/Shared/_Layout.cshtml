@@ -55,22 +55,29 @@
         </a>*@
                     @if (Convert.ToInt32(Session["role"]) == 3)
                     {
+
                         <a href="@Url.Action("GetUserOwnDetails" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="glyphicon  glyphicon-user"></span>
                             Profile
                         </a>
-                        <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-time"></span>
-                            History
-                        </a>
-                        <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-open-file"></span>
-                            Leave
-                        </a>
-                        <a href="@Url.Action("LeaveSummary" , "Employee")" id="LeaveSummary" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-list-alt"></span>
-                            Summary
-                        </a>
+
+                        <div class="emp-dropdown">
+                            <a class="emp-dropbtn nav-item nav-link text-light mx-lg-4 mx-sm-auto"><span class="glyphicon glyphicon-home mx-2"></span>Leave Management</a>
+                            <div class="emp-dropdown-content">
+                                <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link  mx-lg-4 mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-time"></span>
+                                    Leave History
+                                </a>
+                                <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link  mx-lg-4 mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-open-file"></span>
+                                    Leave Request
+                                </a>
+                                <a href="@Url.Action("LeaveSummary" , "Employee")" id="LeaveSummary" class="nav-item nav-link  mx-lg-4 mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-list-alt"></span>
+                                    Leave Summary
+                                </a>
+                            </div>
+                        </div>
 
                     }
 
@@ -81,7 +88,10 @@
                             Employees
                         </a>
 
-
+                        <a href="@Url.Action("GetAllDesignation" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
+                            <span class="fa fa-solid fa-database"></span>
+                            All Designation
+                        </a>
 
                         <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
                             <span class="fa fa-solid fa-tv"></span>

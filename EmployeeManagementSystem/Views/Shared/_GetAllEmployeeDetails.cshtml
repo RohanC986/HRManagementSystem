@@ -29,10 +29,10 @@
         <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
     }
 
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        <table id="GetAllEmpDetails">
+    <div class="table-wrapper-scroll-y scroll-demo"  >
+        <table id="GetAllEmpDetails" >
 
-            <thead class="">
+            <thead class=" ">
                 <tr>
                     <th class="col-md-3 ">
                         Name
@@ -73,7 +73,7 @@
 
                             <td class="col-md-2"> @item.Email</td>
                             @*<td class="col-md-1">@item.Role</td>*@
-                            <td class="col-md-2"> @item.DesignationId</td>
+                            <td class="col-md-2"> @item.DesignationName</td>
                             <td class="col-md-3">
                                 <span>
                                     <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
@@ -94,7 +94,7 @@
                             <td class="col-md-2 disabled bg-secondary text-white"> @item.Email</td>
                             @*                                <td class="col-md-1 disabled bg-secondary text-white">@item.Role</td>
                             *@
-                            <td class="col-md-2 disabled bg-secondary text-white"> @item.DesignationId</td>
+                            <td class="col-md-2 disabled bg-secondary text-white"> @item.DesignationName</td>
                             <td class="col-md-3 disabled bg-secondary text-white">
                                 <span>
                                     <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Details Disbaled" disabled><i class="fa fa-solid fa-pen mx-1"></i></button>

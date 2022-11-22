@@ -51,7 +51,6 @@
 
 
                                     <button onclick="location.href='@Url.Action("EditDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
-                                    @*<button onclick="location.href='@Url.Action("DeleteDesignation", "Admin",item)'" id="emp-create-btn" class="btn-primary" type="button">Delete</button>*@
                                     <button onclick="(confirm('do you want to delete')) ? location.href = '  @Url.Action("DeleteDesignation", "Admin",item)' : null;" id="emp-create-btn" class="btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Delete Designation"><i class="fa fa-solid fa-trash mx-1"></i></button>
 
 

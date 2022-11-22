@@ -68,11 +68,11 @@
                     {
 
                         <tr>
-                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'">  @item.ProjectName</td>
+                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn">  @item.ProjectName</td>
 
 
 
-                            <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",item)'" class="Dep-team-lead-btn"> @item.FirstName @item.LastName</td>
+                            <td > @item.FirstName @item.LastName</td>
 
 
                             <td> @item.TotalMembers</td>

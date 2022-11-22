@@ -61,7 +61,7 @@
         @* @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">Middle Name</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", minlength = "2", maxlength = "15", required = "required" } })
+            @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", minlength = "2", maxlength = "15",  } })
             @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -183,7 +183,7 @@
         @*  @Html.LabelFor(model => model.PassportNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
         <label class="control-label col-md-4">Passport Number</label>
         <div class="col-md-8">
-            @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", @minlength = "9", @maxlength = "9", required = "required" } })
+            @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", @minlength = "9", @maxlength = "12", required = "required" } })
             @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -322,6 +322,9 @@
             <input id="emp-create-btn" type="submit" onclick="Confirm('fdaf');" value="Save" class="btn-primary btn-default " />
         </div>
 
+        <div class="col-md-1 " id="Emp-form-back-list">
+            @Html.ActionLink("Back", "GetAllEmployeesDetails")
+        </div>
 
 
     </div>

@@ -165,14 +165,15 @@ body {
 }
 
 #Emp-form-back-list {
-    background-color:lavender;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
     padding: 7px;
     text-align: center;
-    font-size: 15px;
+    font-size: 1.6rem;
 }
 
 #Emp-form-back-list a {
-        color: red;
+        color: white;
 }
 
 #emp-create-btn {
@@ -299,7 +300,7 @@ table.leaveTab td {
     width: 60%;
     padding: 10px;
     margin: auto;
-    border: 2px solid black;
+    border: 1px solid #fff;
 }
 
 .DepartTab {
@@ -502,3 +503,63 @@ projectsearch {
 .usernameerror,.passworderror{
     color:red;
 }
+
+
+
+
+/*Employee navbar Drop-down*/
+.emp-dropbtn {
+   
+    font-size: 1.68rem;
+    font-family: Arial;
+    border: none;
+}
+
+.emp-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.emp-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: darkblue;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.emp-dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+
+.emp-dropdown:hover .emp-dropdown-content {
+    display: block;
+}
+
+.emp-dropdown:hover .emp-dropbtn {
+    cursor: pointer;
+}
+
+.emp-dropdown-content a:hover{
+    color:greenyellow;
+
+}
+/*Employee navbar Drop-down*/
+
+
+
+/*Get allEmployeeDetails Scroll Bar */
+.scroll-demo {
+    height: 58vh;
+    overflow: auto;
+    padding: 5px;
+    border: 1px solid #ebebeb;
+}
+
+/*Get allEmployeeDetails Scroll Bar */

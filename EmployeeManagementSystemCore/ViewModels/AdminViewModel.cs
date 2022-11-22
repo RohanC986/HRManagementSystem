@@ -92,7 +92,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         [Required(ErrorMessage = "Passport Number is required")]
         [StringLength(12, MinimumLength = 12)]
-        [RegularExpression("^[A-Z]{4}-([0-9]{8})", ErrorMessage = "Pancard Number is not valid")]
+        [RegularExpression("^[A-Z]{4}-([0-9]{8})", ErrorMessage = "Passport Number is not valid")]
         public string PassportNo { get; set; }
 
 

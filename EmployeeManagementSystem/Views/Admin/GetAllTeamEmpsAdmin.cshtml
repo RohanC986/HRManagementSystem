@@ -16,7 +16,7 @@
     <h2 class="TeamEmpData">GetAllTeamEmps</h2>
     <hr id="teamdepemphr" />
     <div id="main">
-        <table class="EmpTableDet">
+        <table  id="GetAllEmpDetails">
             <thead>
                 <tr>
                     <th>
@@ -40,7 +40,7 @@
                     </th>
 
                     <th>
-                        Status
+                        Actions
                     </th>
 
 
@@ -51,13 +51,23 @@
                     foreach (var item in data)
                     {
 
-                        <tr>
-                            <td> @item.EmployeeId </td>
-                            <td> @item.FirstName @item.LastName</td>
-                            <td> @item.Email</td>
-                            <td> @item.DesignationName</td>
-                            <td> @item.ProjectName</td>
-                        </tr>
+                                <tr>
+                                    <td> @item.EmployeeId </td>
+                                    <td> @item.FirstName @item.LastName</td>
+                                    <td> @item.Email</td>
+                                    <td> @item.DesignationName</td>
+                                    <td> @item.ProjectName</td>
+                                    <td class="col-md-3">
+                                        <span>
+                                            <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
+
+                                            <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
+
+
+                                        </span>
+                                    </td>
+
+                                </tr>
 
                     }
                 }
