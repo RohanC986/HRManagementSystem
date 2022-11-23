@@ -114,7 +114,7 @@ namespace EmployeeManagementSystem.Controllers
                         }
                         else if (model.RoleId == 2)
                         {
-                            return RedirectToAction("GetAllTeamEmps", "TeamLead",op.EmployeeId);
+                            return RedirectToAction("GetUserOwnDetails", "TeamLead",op.EmployeeId);
                         }
 
                     }

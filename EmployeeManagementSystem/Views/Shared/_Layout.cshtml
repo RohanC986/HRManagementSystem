@@ -90,7 +90,7 @@
 
                         <a href="@Url.Action("GetAllDesignation" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto ">
                             <span class="fa fa-solid fa-database"></span>
-                            All Designation
+                            Designations
                         </a>
 
                         <a href="@Url.Action("Department" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
@@ -108,22 +108,43 @@
                             Profile
                         </a>
 
-                        <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="fa fa-solid fa-users"></span>
-                            Team
-                        </a>
-                        <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="fa fa-solid fa-file-plus"></span>
-                            Requests
-                        </a>
-                        <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-time"></span>
-                            History
-                        </a>
-                        <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
-                            <span class="glyphicon  glyphicon-open-file"></span>
-                            Leave
-                        </a>
+
+
+                        <div class="emp-dropdown">
+                            <a class="emp-dropbtn nav-item nav-link text-light mx-lg-4 mx-sm-auto"><span class="glyphicon glyphicon-home mx-2"></span>Team</a>
+                            <div class="emp-dropdown-content">
+                                <a href="@Url.Action("GetAllTeamEmps" , "TeamLead")" class="nav-item nav-link   mx-sm-auto">
+                                    <span class="fa fa-solid fa-users"></span>
+                                    Team Members
+                                </a>
+
+
+                                <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link   mx-sm-auto">
+                                    <span class="fa fa-solid fa-file-plus"></span>
+                                   Team Leave Requests
+                                </a>
+                            </div>
+                        </div>
+                       
+
+                        <div class="emp-dropdown">
+                            <a class="emp-dropbtn nav-item nav-link text-light mx-lg-4 mx-sm-auto"><span class="glyphicon glyphicon-file mx-2"></span>Leave Management</a>
+                            <div class="emp-dropdown-content">
+                                <a href="@Url.Action("LeaveRequest" , "Employee")" class="nav-item nav-link   mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-open-file"></span>
+                                    Leave Request
+                                </a>
+                                <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link   mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-time"></span>
+                                    Leave History
+                                </a>
+
+                            </div>
+                        </div>
+
+
+
+
                     }
 
 

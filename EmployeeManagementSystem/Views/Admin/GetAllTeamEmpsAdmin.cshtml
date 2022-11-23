@@ -15,15 +15,25 @@
 
     <h2 class="TeamEmpData">GetAllTeamEmps</h2>
     <hr id="teamdepemphr" />
+    <div class="dept-btn">
+
+        <div class="dept-btn-sec">
+            <a href="@Url.Action("AddProjectMembers" , "Admin")">
+                <span class="fa fa-solid fa-user-plus"></span>
+                Add Project Members
+            </a>
+        </div>
+
+    </div>
     <div id="main">
-        <table  id="GetAllEmpDetails">
+        <table id="GetAllEmpDetails">
             <thead>
-                <tr>
+                <tr >
                     <th>
                         EmployeeId
                     </th>
 
-                    <th>
+                    <th >
                         Name
                     </th>
 
@@ -51,23 +61,23 @@
                     foreach (var item in data)
                     {
 
-                                <tr>
-                                    <td> @item.EmployeeId </td>
-                                    <td> @item.FirstName @item.LastName</td>
-                                    <td> @item.Email</td>
-                                    <td> @item.DesignationName</td>
-                                    <td> @item.ProjectName</td>
-                                    <td class="col-md-3">
-                                        <span>
-                                            <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
+                        <tr>
+                            <td> @item.EmployeeId </td>
+                            <td> @item.FirstName @item.LastName</td>
+                            <td> @item.Email</td>
+                            <td> @item.DesignationName</td>
+                            <td> @item.ProjectName</td>
+                            <td class="col-md-2">
+                                <span>
+                                    <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
 
-                                            <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
+                                    <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
 
-                                        </span>
-                                    </td>
+                                </span>
+                            </td>
 
-                                </tr>
+                        </tr>
 
                     }
                 }

@@ -11,7 +11,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal" id="leaveRequestDiv">
+        <div class="form-horizontal" id="Add-Desi">
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group my-5">
@@ -29,7 +29,7 @@
                      <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
 
                  </div>
-                 <div class="col-md-2 " id="Emp-form-back-list">
+                 <div class="col-md-1 " style="width: 11.55%" id="add-Desi-back-list">
                      @Html.ActionLink("Back", "GetAllDesignation")
                 </div>
             </div>

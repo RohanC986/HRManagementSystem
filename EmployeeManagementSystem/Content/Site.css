@@ -136,7 +136,7 @@ body {
 #GetAllEmpDetails thead th {
         background-color: lightblue;
         font-size: medium;
-        text-align: center;
+        text-align: start;
 }
 
 #GetAllEmpDetails th, #GetAllEmpDetails td {
@@ -144,7 +144,7 @@ body {
 }
 
 #GetAllEmpDetails td {
-        text-align: center;
+        text-align: start;
         font-size: 1.5rem;
         padding-bottom: 15px;
 }
@@ -291,6 +291,13 @@ table.leaveTab td {
     width: 50%;
     margin: 50px auto auto auto;
     border: 2px solid black;
+}
+
+
+#Add-Desi {
+    width: 50%;
+    margin: 50px auto auto auto;
+    border: 1px solid gray;
 }
 /*Leave pages*/
 
@@ -563,3 +570,22 @@ projectsearch {
 }
 
 /*Get allEmployeeDetails Scroll Bar */
+
+
+
+/*Add Designation Btn*/
+#add-Desi-back-list {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    padding: 7px;
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius:3px ;
+
+}
+
+#add-Desi-back-list a {
+    color: white;
+}
+
+/*Add Designation Btn*/

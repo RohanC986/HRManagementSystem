@@ -16,14 +16,14 @@
 
    
 
-<h2 class="TeamEmpData">Team Employees</h2><hr id="teamdepemphr" /><div id="main">
+<h2 class="TeamEmpData">Team Members</h2><hr id="teamdepemphr" /><div id="main">
     @using (Html.BeginForm())
     {
     <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
     }
 
-    <table class="EmpTableDet">
-        <thead>
+    <table id="GetAllEmpDetails"  >
+        <thead >
             <tr>
                 @*<th>
                         EmployeeId
@@ -52,16 +52,16 @@
 
             </tr>
         </thead>
-        <tbody>
+        <tbody >
             @{
                 if (data1 != null)
                 {
                     foreach (var item in data1)
                     {
 
-                        <tr>
+                        <tr  class="table-bordered ">
                             @*<td> @item.EmployeeId </td>*@
-                            <td onclick="location.href='@Url.Action("GetTeamSpecificUserDetails", "TeamLead",item)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+                            <td onclick="location.href='@Url.Action("GetTeamSpecificUserDetails", "TeamLead",item)'" class="col-md-3 Dep-team-lead-btn" >@item.FirstName  @item.LastName</td>
 
                             @*<td> @item.FirstName @item.LastName</td>*@
                             <td> @item.Email</td>

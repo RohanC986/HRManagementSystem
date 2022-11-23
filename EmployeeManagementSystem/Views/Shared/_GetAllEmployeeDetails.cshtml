@@ -1,6 +1,6 @@
 ﻿@model EmployeeManagementSystemCore.ViewModels.AdminViewModel
 
-@if (Convert.ToInt32(ViewData["RoleId"]) == 1 && ViewBag.GetAllEmployeeDetails == null)
+@if (Convert.ToInt32(Session["role"]) == 1 && ViewBag.GetAllEmployeeDetails == null)
 {
 
 
@@ -14,12 +14,7 @@
                 Add Employee
             </a>
         </div>
-        <div class="GetAllEmpDet-btn-sec mx-5">
-            <a href="@Url.Action("GetAllDesignation" , "Admin")">
-                <span class="fa fa-solid fa-database"></span>
-                All Designation
-            </a>
-        </div>
+       
 
 
 
@@ -51,7 +46,7 @@
                         Designation
                     </th>
 
-                    <th class="col-md-3">
+                    <th class="col-md-2">
                         Actions
                     </th>
 
@@ -74,7 +69,7 @@
                             <td class="col-md-2"> @item.Email</td>
                             @*<td class="col-md-1">@item.Role</td>*@
                             <td class="col-md-2"> @item.DesignationName</td>
-                            <td class="col-md-3">
+                            <td class="col-md-2">
                                 <span>
                                     <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
 
@@ -95,7 +90,7 @@
                             @*                                <td class="col-md-1 disabled bg-secondary text-white">@item.Role</td>
                             *@
                             <td class="col-md-2 disabled bg-secondary text-white"> @item.DesignationName</td>
-                            <td class="col-md-3 disabled bg-secondary text-white">
+                            <td class="col-md-2 disabled bg-secondary text-white">
                                 <span>
                                     <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-danger btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Details Disbaled" disabled><i class="fa fa-solid fa-pen mx-1"></i></button>
 
