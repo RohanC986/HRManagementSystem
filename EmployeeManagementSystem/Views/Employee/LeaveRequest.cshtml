@@ -7,17 +7,17 @@
 @using (Html.BeginForm("SaveLeaveRequest", "Employee", Model))
 {
     @Html.AntiForgeryToken()
-
+    <h4 class="LeaveRequestHeading">Leave Request</h4>
+    <hr id="leaverequesthr" />
     <div class="form-horizontal" id="leaveRequestDiv">
-        <h4 class="LeaveRequestHeading">Leave Request</h4>
-        <hr id="leaverequesthr" />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12 ">
             <label class="control-label col-md-4">Half Day?</label>
             <div class="col-md-6">
                 <div>
-                    @Html.CheckBoxFor(model => model.IsHalfday, new { @class= "ishalfday", type="checkbox", onchange = "lencheck()" })
+                    @Html.CheckBoxFor(model => model.IsHalfday, new { @class = "ishalfday", type = "checkbox", onchange = "lencheck()" })
                     @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger " })
                 </div>
             </div>
@@ -52,7 +52,14 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">End Date</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control enddate", type = "date", required = "required"@*, onchange = "lencheck()"*@ } })
+                @Html.EditorFor(model => model.EndDate, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control enddate",
+                        type = "date",
+                        required = "required"@*, onchange = "lencheck()"*@ }
+                })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,7 +78,7 @@
             <div class="col-md-offset-2 col-md-2" id="LeaveBtn">
                 <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
             </div>
-            <div class="col-md-2 " id="Emp-form-back-list">
+            <div class="col-md-2 " id="Leave-form-back-list" style="width:11.33%;">
                 @Html.ActionLink("Back", "getUserOwnDetails", "Employee")
             </div>
         </div>
@@ -102,10 +109,10 @@
 
         }
         @*const startdate = new Date(document.querySelector(".startdate").value);
-        
+
         console.log(document.querySelector(".startdate").value);
         const enddate = new Date(document.querySelector(".enddate").value);
-        
+
 
         function check(d1, d2) {
             var t2 = d2.getTime();
@@ -120,7 +127,7 @@
             document.querySelector(".enddate").value = "";
             alert("Length of leave does not match your dates");
         }*@
-        
+
 
     }
 </script>

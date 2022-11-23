@@ -290,7 +290,7 @@ table.leaveTab td {
 #leaveRequestDiv {
     width: 50%;
     margin: 50px auto auto auto;
-    border: 2px solid black;
+    border: 2px solid gray;
 }
 
 
@@ -589,3 +589,19 @@ projectsearch {
 }
 
 /*Add Designation Btn*/
+
+
+/*Leave Request btn */
+#Leave-form-back-list {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    padding: 6px;
+    text-align: center;
+    font-size: 1.55rem;
+    border-radius:4px  ;
+}
+
+
+#Leave-form-back-list a {
+    color: white;
+}
