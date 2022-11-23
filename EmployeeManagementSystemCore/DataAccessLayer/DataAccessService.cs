@@ -11,7 +11,7 @@ using System.Web;
 
 namespace EmployeeManagementSystemCore.DataAccessLayer
 {
-    public class DataAccessService:IDataAccessService
+    public class DataAccessService : IDataAccessService
     {
         private readonly string constr;
 
@@ -24,47 +24,47 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
         {
             SqlDataReader myReader;
             DataTable table = new DataTable();
-                using (SqlConnection connection = new SqlConnection(constr))
+            using (SqlConnection connection = new SqlConnection(constr))
+            {
+                SqlCommand myCommand = new SqlCommand(storedProcedure);
+                myCommand.Connection = connection;
+                myCommand.CommandTimeout = 30;
+                /*Instead of the below command we have passed the stored procedure while creating SqlCommand object
+                 * myCommand.CommandText = query;*/
+                myCommand.CommandType = CommandType.StoredProcedure;
+
+
+
+                foreach (var param in parameters)
                 {
-                    SqlCommand myCommand = new SqlCommand(storedProcedure);
-                    myCommand.Connection = connection;
-                    myCommand.CommandTimeout = 30;
-                    /*Instead of the below command we have passed the stored procedure while creating SqlCommand object
-                     * myCommand.CommandText = query;*/
-                    myCommand.CommandType = CommandType.StoredProcedure;
-
-
-
-                    foreach (var param in parameters)
+                    var parameter = new SqlParameter
                     {
-                        var parameter = new SqlParameter
-                        {
-                            ParameterName = param.Key,
-                            Value = param.Value,
-                            Direction = ParameterDirection.Input
-                        };
-                        myCommand.Parameters.Add(parameter);
-                    }
-
-
-
-
-
-                    connection.Open();
-
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-                    
-
-
-
+                        ParameterName = param.Key,
+                        Value = param.Value,
+                        Direction = ParameterDirection.Input
+                    };
+                    myCommand.Parameters.Add(parameter);
                 }
-            
-               
 
-            
 
-            
+
+
+
+                connection.Open();
+
+                myReader = myCommand.ExecuteReader();
+                table.Load(myReader);
+
+
+
+
+            }
+
+
+
+
+
+
 
             return table;
 
@@ -105,7 +105,7 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
 
 
                     connection.Open();
-                        count = myCommand.ExecuteNonQuery();
+                    count = myCommand.ExecuteNonQuery();
 
 
                 }

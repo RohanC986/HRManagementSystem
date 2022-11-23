@@ -19,6 +19,7 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                          {
 
                              EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
+                             EmployeeCode = Convert.ToInt32(dr["EmployeeCode"]),
                              FirstName = dr["FirstName"].ToString(),
                              MiddleName = dr["MiddleName"].ToString(),
                              LastName = dr["LastName"].ToString(),

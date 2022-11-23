@@ -97,6 +97,13 @@
                             <span class="fa fa-solid fa-tv"></span>
                             Projects
                         </a>
+                        <a href="@Url.Action("GetTeamLeadLeaveRequest" , "Admin")" class="nav-item nav-link text-light mx-lg-4 mx-sm-auto">
+                            <span class="fa fa-solid fa-file-plus"></span>
+                            Requests
+                        </a>
+                        
+
+
 
 
 
@@ -121,11 +128,12 @@
 
                                 <a href="@Url.Action("GetTeamLeaveRequest" , "TeamLead")" class="nav-item nav-link   mx-sm-auto">
                                     <span class="fa fa-solid fa-file-plus"></span>
-                                   Team Leave Requests
+                                    Team Leave Requests
                                 </a>
+                                
                             </div>
                         </div>
-                       
+
 
                         <div class="emp-dropdown">
                             <a class="emp-dropbtn nav-item nav-link text-light mx-lg-4 mx-sm-auto"><span class="glyphicon glyphicon-file mx-2"></span>Leave Management</a>
@@ -137,6 +145,10 @@
                                 <a href="@Url.Action("GetLeaveRequest" , "Employee")" class="nav-item nav-link   mx-sm-auto">
                                     <span class="glyphicon  glyphicon-time"></span>
                                     Leave History
+                                </a>
+                                <a href="@Url.Action("LeaveSummary" , "Employee")" id="LeaveSummary" class="nav-item nav-link  @*mx-lg-4*@ mx-sm-auto">
+                                    <span class="glyphicon  glyphicon-list-alt"></span>
+                                    Leave Summary
                                 </a>
 
                             </div>

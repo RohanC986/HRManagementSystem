@@ -30,6 +30,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
         EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
         DTableToAdminViewModel ToAdminViewModel = new DTableToAdminViewModel();
         DTableToTeamLeaveRequestModel dTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
+        AdminViewModelList adminViewModelList = new AdminViewModelList();   
 
         //public List<T> AddEmp(LoginViewModel model)
         //{
@@ -78,7 +79,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return check;
         }
 
-        public AdminViewModel GetAllEmployeesDetails(LoginViewModel model, string emp)
+        public AdminViewModelList GetAllEmployeesDetails(LoginViewModel model, string emp)
         {
             if (emp != null)
             {
@@ -87,13 +88,13 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
                             { "@FirstName",emp},
                         };
                 DataTable EmpTable1 = dal.ExecuteDataSet<DataTable>("uspSearchEmps", dict1);
-                AdminViewModel adminViewModel1 = new AdminViewModel();
+                AdminViewModelList adminViewModel1 = new AdminViewModelList();
                 adminViewModel1.allEmployees = ToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable1);
                 return adminViewModel1;
             };
             Dictionary<string, object> dict = new Dictionary<string, object>();
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspgetAllEmployees", dict);
-            AdminViewModel adminViewModel = new AdminViewModel();
+            AdminViewModelList adminViewModel = new AdminViewModelList();
             adminViewModel.allEmployees = ToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
             return adminViewModel;
 
@@ -319,9 +320,10 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
                 { "@EmployeeId", emp}
             };
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-            AdminViewModel employee = new AdminViewModel();
+            AdminViewModelList employee = new AdminViewModelList();
             employee.allEmployees = ToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
-            return employee;   
+            AdminViewModel employeeowndetail = employee.allEmployees[0];
+            return employeeowndetail;   
         }
 
         public GetTeamLeaveRequestViewModel TeamLeadRequest(int EmpId)

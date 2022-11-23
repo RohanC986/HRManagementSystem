@@ -104,16 +104,16 @@ namespace EmployeeManagementSystemInfrastructure.EmployeeBL
         }
 
 
-        public AdminViewModel GetUserOwnDetails(int EmpId)   
+        public AdminViewModelList GetUserOwnDetails(int EmpId)   
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
                 { "@EmployeeId",EmpId}
             };
             DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-            AdminViewModel employee = new AdminViewModel();
+            AdminViewModelList employee = new AdminViewModelList();
             employee.allEmployees = dtadminvm.DataTabletoAdminEmployeeModel(EmpTable);
-            
+
             return employee;
         }
         public LeaveRequestViewModel GetLeaveRequest(int EmpId)

@@ -79,9 +79,9 @@
                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", required = "required", @autocomplete = "off", @type = "password"@*,*@ @*pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"*@ } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
-            <div class="usernameerror">
+            @*<div class="usernameerror col-md-4 " >
                 @ViewBag.PasswordError
-            </div>
+            </div>*@
             <button class="btn  login-btn">Login</button>
            
 

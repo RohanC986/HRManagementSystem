@@ -138,7 +138,9 @@ namespace EmployeeManagementSystem.Controllers
 
                     AdminViewModel op  = teamLead.GetUserSpecificDetails(emp.EmployeeId);  
 
-                    return View(op.allEmployees[0]);
+
+                    return RedirectToAction("GetSpecificUserDetails", "Admin", op);
+                    //return View(op);
                 }
                 else
                 {

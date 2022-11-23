@@ -83,6 +83,7 @@ namespace EmployeeManagementSystem.Controllers
                     dal.ExecuteNonQuery("uspResetAttempts",dict3);
                     Session["role"] = model.RoleId;
                     Session["EmpId"] = model.EmployeeId;
+                    FormsAuthentication.SetAuthCookie(Convert.ToString(model.EmployeeId), false);
                     this.AddNotification("Logged In Successfully", NotificationType.SUCCESS);
                     TempData["Login"] = model;
                     if (model.RoleId.ToString() == null)

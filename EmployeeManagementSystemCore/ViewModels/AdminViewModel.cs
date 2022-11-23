@@ -1,160 +1,146 @@
-﻿using System;
-using EmployeeManagementSystemCore.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
-
-namespace EmployeeManagementSystemCore.ViewModels
+﻿namespace EmployeeManagementSystemCore.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Defines the <see cref="AdminViewModel" />.
+    /// </summary>
     public class AdminViewModel
     {
+        /// <summary>
+        /// Gets or sets the EmployeeId.
+        /// </summary>
         public int EmployeeId { get; set; }
 
-        [Required(ErrorMessage = "Employee Code required")]
+        /// <summary>
+        /// Gets or sets the EmployeeCode.
+        /// </summary>
         public int EmployeeCode { get; set; }
 
-
-
-        [Required(ErrorMessage = "First Name is required")]
-        [StringLength(20, MinimumLength = 2)]
+        /// <summary>
+        /// Gets or sets the FirstName.
+        /// </summary>
         public string FirstName { get; set; }
 
-
+        /// <summary>
+        /// Gets or sets the MiddleName.
+        /// </summary>
         public string MiddleName { get; set; }
 
-        [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(20, MinimumLength = 2)]
+        /// <summary>
+        /// Gets or sets the LastName.
+        /// </summary>
         public string LastName { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Email is required")]
-        [RegularExpression("^\\S+@\\S+\\.\\S+$", ErrorMessage = "E-mail id is not valid")]
+        /// <summary>
+        /// Gets or sets the Email.
+        /// </summary>
         public string Email { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Date of Birth is required")]
+        /// <summary>
+        /// Gets or sets the DOB.
+        /// </summary>
         public string DOB { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Date of Joining is required")]
+        /// <summary>
+        /// Gets or sets the DOJ.
+        /// </summary>
         public string DOJ { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Blood Group is required")]
+        /// <summary>
+        /// Gets or sets the BloodGroup.
+        /// </summary>
         public string BloodGroup { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Gender is required")]
+        /// <summary>
+        /// Gets or sets the Gender.
+        /// </summary>
         public string Gender { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Personal Contact is required")]
-        [RegularExpression("[0-9]{10}", ErrorMessage = "Invalid phone number")]
+        /// <summary>
+        /// Gets or sets the PersonalContact.
+        /// </summary>
         public long PersonalContact { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Emergency Contact is required")]
-        [RegularExpression("[0-9]{10}", ErrorMessage = "Invalid phone number")]
+        /// <summary>
+        /// Gets or sets the EmergencyContact.
+        /// </summary>
         public long EmergencyContact { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Aadhar Card Number is required")]
-        [RegularExpression("[0-9]{12}", ErrorMessage = "Invalid Aadhar number")]
+        /// <summary>
+        /// Gets or sets the AadharCardNo.
+        /// </summary>
         public long AadharCardNo { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Pancard Number is required")]
-        [StringLength(10, MinimumLength = 10)]
-        [RegularExpression("[A-Z]{5}[0-9]{4}[A-Z]{1}", ErrorMessage = "Pancard Number is not valid")]
+        /// <summary>
+        /// Gets or sets the PancardNo.
+        /// </summary>
         public string PancardNo { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Passport Number is required")]
-        [StringLength(12, MinimumLength = 12)]
-        [RegularExpression("^[A-Z]{4}-([0-9]{8})", ErrorMessage = "Passport Number is not valid")]
+        /// <summary>
+        /// Gets or sets the PassportNo.
+        /// </summary>
         public string PassportNo { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Address is required")]
+        /// <summary>
+        /// Gets or sets the Address.
+        /// </summary>
         public string Address { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "City is required")]
-        [StringLength(20, MinimumLength = 3)]
+        /// <summary>
+        /// Gets or sets the City.
+        /// </summary>
         public string City { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "State is required")]
+        /// <summary>
+        /// Gets or sets the State.
+        /// </summary>
         public string State { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Pincode is required")]
-        [StringLength(6, MinimumLength = 6)]
+        /// <summary>
+        /// Gets or sets the Pincode.
+        /// </summary>
         public string Pincode { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Role is required")]
+        /// <summary>
+        /// Gets or sets the RoleName.
+        /// </summary>
         public string RoleName { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Designation is required")]
+        /// <summary>
+        /// Gets or sets the DesignationName.
+        /// </summary>
         public string DesignationName { get; set; }
 
-
-
-
-        [Required(ErrorMessage = "Experienced Status is required")]
+        /// <summary>
+        /// Gets or sets a value indicating whether Experienced.
+        /// </summary>
         public bool Experienced { get; set; }
 
-
+        /// <summary>
+        /// Gets or sets the PreviousCompanyName.
+        /// </summary>
         public string PreviousCompanyName { get; set; }
 
-
-
-
-        [Range(0, 38, ErrorMessage = "Experience should be between 0 and 38")]
-
+        /// <summary>
+        /// Gets or sets the YearsOfExprience.
+        /// </summary>
         public int YearsOfExprience { get; set; }
 
-
-
-
+        /// <summary>
+        /// Gets or sets the IsActive.
+        /// </summary>
         public bool? IsActive { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Created.
+        /// </summary>
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the LastModified.
+        /// </summary>
         public DateTime LastModified { get; set; }
-        public List<AdminViewModel> allEmployees { get; set; }
     }
 }

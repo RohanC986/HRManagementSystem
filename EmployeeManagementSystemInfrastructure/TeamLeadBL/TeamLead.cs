@@ -174,12 +174,10 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
                 { "@EmployeeId",EmpId}
             };
                 DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
-
-                AdminViewModel employee = new AdminViewModel();
+                AdminViewModelList employee = new AdminViewModelList();
                 employee.allEmployees = DTableToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
                 AdminViewModel employeeowndetail = employee.allEmployees[0];
-                return employeeowndetail;
-
+            return employeeowndetail;
         }
 
 

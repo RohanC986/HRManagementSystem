@@ -63,9 +63,9 @@ namespace EmployeeManagementSystem.Controllers
                 int EmpId = Convert.ToInt32(Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    AdminViewModel op = employees.GetAllEmployeesDetails(model, emp);
+                    AdminViewModelList op = employees.GetAllEmployeesDetails(model, emp);
                     ViewData["allEmployees"] = op.allEmployees;
-                    EmpAllOver = op;
+                    AdminViewModelList EmpAllOver = op;
                     ViewData["RoleId"] = model.RoleId;
                     return View(op);
                     //ViewData["RoleId"] = model.RoleId;
@@ -643,36 +643,36 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult Report(Employee model)
-        {
-            try
-            {
-                if (Session["EmpId"] != null)
-                {
-                    Dictionary<string, object> dict = new Dictionary<string, object>() {
+        //public ActionResult Report(Employee model)
+        //{
+        //    try
+        //    {
+        //        if (Session["EmpId"] != null)
+        //        {
+        //            Dictionary<string, object> dict = new Dictionary<string, object>() {
 
-                { "@EmployeeId",model.EmployeeId},
-            };
-                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
-                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-                    ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-                    ExportToPdf(datatable, model.EmployeeId);
-                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
-                    return View();
-                }
+        //        { "@EmployeeId",model.EmployeeId},
+        //    };
+        //            DataSet datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
+        //            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+        //            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+        //            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+        //            ExportToPdf(datatable, model.EmployeeId);
+        //            this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+        //            return View();
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Report = "Report Not Found";
-                return View();
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.Report = "Report Not Found";
+        //        return View();
+        //    }
 
-            return RedirectToAction("Login", "Accounts");
+        //    return RedirectToAction("Login", "Accounts");
 
 
-        }
+        //}
 
         public ActionResult RoleView()
         {
@@ -927,7 +927,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     int EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
                     Employees employees = new Employees();
-                    AdminViewModel employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
+                    var employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
 
                     return View(employeeowndetail);
                 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EmployeeManagementSystemCore.ViewModels;
+using EmployeeManagementSystemInfrastructure.AdminBL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +27,38 @@ namespace EmployeeManagementSystem.Controllers
             ViewBag.Message = "Your contact page.";
            
             return View();
+        }
+        public ActionResult GetAllEmployeesDetails(LoginViewModel model, string emp)
+        {
+
+            try
+
+            {
+                Employees employees = new Employees();
+                int EmpId = Convert.ToInt32(Session["EmpId"]);
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    AdminViewModelList op = employees.GetAllEmployeesDetails(model, emp);
+                    ViewData["allEmployees"] = op.allEmployees;
+                    AdminViewModelList EmpAllOver = op;
+                    ViewData["RoleId"] = model.RoleId;
+                    return View(op);
+                    //ViewData["RoleId"] = model.RoleId;
+                    //return View(ViewData["allEmployees"]);
+                }
+
+                return RedirectToAction("Login", "Accounts");
+            }
+            catch (Exception e)
+            {
+                ViewBag.GetAllEmployeesDetailsError = "List of Users not found !";
+
+            }
+
+
+            return RedirectToAction("GetAllEmployeesDetails", "Admin");
+
+
         }
     }
 }

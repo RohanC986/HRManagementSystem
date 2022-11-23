@@ -16,6 +16,7 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                          select new TeamEmpDetailsViewModel
                          {
                              EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
+                             EmployeeCode= Convert.ToInt32(dr["EmployeeCode"]),
                              FirstName = dr["FirstName"].ToString(),
                              LastName = dr["LastName"].ToString(),
                              Email = dr["Email"].ToString(),

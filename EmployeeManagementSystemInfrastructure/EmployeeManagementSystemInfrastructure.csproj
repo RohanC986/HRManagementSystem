@@ -63,6 +63,7 @@
     <Compile Include="AdminBL\LoginService.cs" />
     <Compile Include="AdminBL\ProjectService.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ConversionService\Conversion.cs" />
     <Compile Include="ConversionService\DTableToAccountDetailsModel.cs" />
     <Compile Include="ConversionService\DTableToAdminViewModel.cs" />
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
