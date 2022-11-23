@@ -191,18 +191,6 @@
             </div>
         </div>
 
-
-
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.Experienced, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Experienced, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Designation", disabled = "disabled", @readonly = "readonly" } })
-
-
-                @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.YearsOfExprience, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">

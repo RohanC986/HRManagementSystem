@@ -20,8 +20,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                           LeaveType = dr["LeaveType"].ToString(),
                           Reason = dr["Reason"].ToString(),
                           LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
-                          StartDate = dr["StartDate"].ToString(),
-                          EndDate = dr["EndDate"].ToString(),
+                          StartDate = DateTime.Parse(dr["StartDate"].ToString()),
+                          EndDate = DateTime.Parse(dr["EndDate"].ToString()),
                           Status = dr["Status"].ToString(),
                           Created = dr["Created"].ToString(),
                           LastModified = dr["LastModified"].ToString()

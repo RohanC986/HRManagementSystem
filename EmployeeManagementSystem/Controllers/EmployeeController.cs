@@ -13,6 +13,7 @@ using static EmployeeManagementSystem.Controllers.AccountsController;
 using EmployeeManagementSystem.DBContext;
 using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystemInfrastructure.EmployeeBL;
+using Org.BouncyCastle.Crypto.Tls;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -41,9 +42,13 @@ namespace EmployeeManagementSystem.Controllers
        
         public ActionResult LeaveRequest()
         {
-            return View();
+            
+                return View();
+            
                
         }
+
+        
 
 
         public ActionResult SaveLeaveRequest(LeaveRequest model)
@@ -54,12 +59,24 @@ namespace EmployeeManagementSystem.Controllers
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    int op = employeeService.SaveLeaveRequest(model,Empid);
-                    if (op == 1)
+                    object op = employeeService.SaveLeaveRequest(model,Empid);
+                    if (Convert.ToInt32(op) == 1)
                     {
                         this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);
                         return RedirectToAction("GetLeaveRequest", "Employee");
 
+                    }
+                    else if(Convert.ToInt32(op) == 0)
+                    {
+                        ViewBag.Error = "Length does not match dates";
+                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);
+                        return RedirectToAction("LeaveRequest");
+                    }
+                    else if(op==null)
+                    {
+                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);
+
+                        return RedirectToAction("GetUserDetails");
                     }
 
                     
@@ -68,6 +85,8 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.LeaveRequest = "Leave Request Not Successful";
+                this.AddNotification("Leave Requested not filed", NotificationType.ERROR);
+               
                 return RedirectToAction("GetUserDetails");
             };
             return RedirectToAction("GetUserDetails", "Accounts");

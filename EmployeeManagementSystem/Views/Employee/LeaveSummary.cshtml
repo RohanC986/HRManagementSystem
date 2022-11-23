@@ -23,20 +23,20 @@
                     
                     <tr class="leaveTableRow">
                         <th class="leaveTableHeading"> Balance Leaves</th>
-                        <td> @item.BalanceLeaves</td>
+                        <td> @(item.BalanceLeaves-(item.HalfDay*0.5))</td>
                     </tr>
                     
 
                     <tr class="leaveTableRow">
                         <th>Leaves Taken</th>
-                        <td> @item.LeavesTaken</td>
+                        <td> @(item.LeavesTaken+ (item.HalfDay * 0.5))</td>
 
                     </tr>
                    
 
                     <tr class="leaveTableRow">
                         <th>Leave Without Pay</th>
-                        <td> @item.UnPaidLeaves</td>
+                        <td> @((item.LeavesTaken+item.BalanceLeaves) - 15)</td>
                     </tr>
 
 

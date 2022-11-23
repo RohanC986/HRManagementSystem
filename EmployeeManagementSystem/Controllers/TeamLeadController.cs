@@ -91,8 +91,9 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.LeaveAccept = "Leave Accept Error ";
+                return RedirectToAction("GetTeamLeaveRequest");
             }
-            return RedirectToAction("LeaveAccept");
+            return RedirectToAction("GetTeamLeaveRequest");
 
 
         }
@@ -134,9 +135,10 @@ namespace EmployeeManagementSystem.Controllers
                 var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
                 if (EmpId >= 0)
                 {
-                    var op = teamLead.GetUserSpecificDetails(emp.EmployeeId);
 
-                    return View(op);
+                    AdminViewModel op  = teamLead.GetUserSpecificDetails(emp.EmployeeId);  
+
+                    return View(op.allEmployees[0]);
                 }
                 else
                 {
@@ -161,7 +163,7 @@ namespace EmployeeManagementSystem.Controllers
                 var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
                 if (EmpId >= 0)
                 {
-                    var op = teamLead.GetUserSpecificDetails(EmpId);
+                    AdminViewModel op = teamLead.GetUserSpecificDetails(EmpId);
 
                     return View(op);
                 }

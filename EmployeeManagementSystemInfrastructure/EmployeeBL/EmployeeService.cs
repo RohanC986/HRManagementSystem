@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 
 namespace EmployeeManagementSystemInfrastructure.EmployeeBL
 {
@@ -20,28 +21,60 @@ namespace EmployeeManagementSystemInfrastructure.EmployeeBL
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
         DTableToAdminViewModel dtadminvm= new DTableToAdminViewModel();
-        public int SaveLeaveRequest(LeaveRequest model, int Empid)
+        public object SaveLeaveRequest(LeaveRequest model, int Empid)
         {
+            try
+            {
+                if (model.IsHalfday == true)
+                {
 
-            Dictionary<string, object> leavedict = new Dictionary<string, object>() {
+
+                    Dictionary<string, object> leavedict = new Dictionary<string, object>() {
                 { "@EmployeeId",Empid},
                 { "@IsHalfday",model.IsHalfday},
                 { "@LeaveType",model.LeaveType},
                 { "@Reason",model.Reason},
-                { "@LengthOfLeave",model.LengthOfLeave},
+                { "@LengthOfLeave",0},
+                { "@StartDate",model.StartDate},
+                { "@EndDate",model.StartDate},
+                { "@Status","Pending"}
+
+
+                };
+                    object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
+
+                    return output;
+                }
+                else
+                {
+                    int days = (model.EndDate - model.StartDate).Days;
+
+
+                    Dictionary<string, object> leavedict = new Dictionary<string, object>() {
+                { "@EmployeeId",Empid},
+                { "@IsHalfday",model.IsHalfday},
+                { "@LeaveType",model.LeaveType},
+                { "@Reason",model.Reason},
+                { "@LengthOfLeave",days+1},
                 { "@StartDate",model.StartDate},
                 { "@EndDate",model.EndDate},
                 { "@Status","Pending"}
 
 
-            };
-            object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
-            if (model.LeaveType != null && model.StartDate != null && model.EndDate != null && model.LeaveType != null && model.Reason != null)
-            {
-                int op = 1;
-                return op;
+                };
+                    object output = dal.ExecuteNonQuery("uspLeaveRequest", leavedict);
+
+                    return output;
+                }
             }
-            return 0;
+            catch(Exception e)
+            {
+                return null;
+            }
+                
+            
+           
+           
         }
 
         public LeaveViewModel LeaveSummary(Leave obj, int Empid)

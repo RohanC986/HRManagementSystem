@@ -17,6 +17,7 @@ namespace EmployeeManagementSystemCore.Models
         public int UnPaidLeaves { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }
+        public int HalfDay { get; set; }
 
     }
 }

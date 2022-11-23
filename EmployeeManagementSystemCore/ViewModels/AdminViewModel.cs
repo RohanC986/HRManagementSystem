@@ -38,13 +38,13 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
         [Required(ErrorMessage = "Date of Birth is required")]
-        public DateTime DOB { get; set; }
+        public string DOB { get; set; }
 
 
 
 
         [Required(ErrorMessage = "Date of Joining is required")]
-        public DateTime DOJ { get; set; }
+        public string DOJ { get; set; }
 
 
 
@@ -84,7 +84,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         [Required(ErrorMessage = "Pancard Number is required")]
         [StringLength(10, MinimumLength = 10)]
-        [RegularExpression("^[A-Z]{5}[0-9]{4}[A-Z]{1}$", ErrorMessage = "Pancard Number is not valid")]
+        [RegularExpression("[A-Z]{5}[0-9]{4}[A-Z]{1}", ErrorMessage = "Pancard Number is not valid")]
         public string PancardNo { get; set; }
 
 
@@ -140,14 +140,13 @@ namespace EmployeeManagementSystemCore.ViewModels
         public bool Experienced { get; set; }
 
 
-
-
         public string PreviousCompanyName { get; set; }
 
 
 
 
-        
+        [Range(0, 38, ErrorMessage = "Experience should be between 0 and 38")]
+
         public int YearsOfExprience { get; set; }
 
 

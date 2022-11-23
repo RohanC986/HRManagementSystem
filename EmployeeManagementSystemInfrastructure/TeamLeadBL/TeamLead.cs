@@ -22,7 +22,9 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
         DTableToTeamLeaveRequestModel DTableToTeamLeaveRequestModel = new DTableToTeamLeaveRequestModel();
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveModel dtLeave = new DTableToLeaveModel();
+
         DTableToAdminViewModel DTableToAdminViewModel = new DTableToAdminViewModel();
+
 
         public List<TeamEmpDetailsViewModel> GetTeamEmps(string emp, int empid)
 
@@ -83,6 +85,8 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
 
         public void LeaveAcceptResponse(GetTeamLeaveRequestViewModel leaveRequest)
         {
+
+
             Dictionary<string, object> dict2 = new Dictionary<string, object>()
             {
                     {"@EmployeeId",leaveRequest.EmployeeId },
@@ -99,41 +103,57 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
             int balanceLeaves = leavesummary.getleaves[0].BalanceLeaves;
             int leavesTaken = leavesummary.getleaves[0].LeavesTaken;
             int unpaidleaves = leavesummary.getleaves[0].UnPaidLeaves;
-
-            if (leavesTaken < 15)
+            int halfdaycount = leavesummary.getleaves[0].HalfDay;
+            if(leaveRequest.isHalfDay==false)
             {
-                if ((leavesTaken + (leaveRequest.LengthOfLeave)) <= 15)
+                if (leavesTaken < 15)
                 {
-                    Dictionary<string, object> dict4 = new Dictionary<string, object>()
+                    if ((leavesTaken + (leaveRequest.LengthOfLeave) + (halfdaycount * 0.5)) <= 15)
+                    {
+                        Dictionary<string, object> dict4 = new Dictionary<string, object>()
                     {
                             {"@EmployeeId",leaveRequest.EmployeeId },
                             {"@BalanceLeaves",(15-(leavesTaken+(leaveRequest.LengthOfLeave))) },
                             {"@LeavesTaken",(leavesTaken+(leaveRequest.LengthOfLeave)) }
                         };
-                    dal.ExecuteNonQuery("uspUpdateLeavesBefore15", dict4);
-                }
-                else if ((leavesTaken + (leaveRequest.LengthOfLeave)) > 15)
-                {
-                    Dictionary<string, object> dict5 = new Dictionary<string, object>()
+                        dal.ExecuteNonQuery("uspUpdateLeavesBefore15", dict4);
+                    }
+                    else if ((leavesTaken + (leaveRequest.LengthOfLeave) + (halfdaycount * 0.5)) > 15)
+                    {
+                        Dictionary<string, object> dict5 = new Dictionary<string, object>()
                     {
                             {"@EmployeeId",leaveRequest.EmployeeId },
-                        {"@BalanceLeaves",0 },
+                            {"@BalanceLeaves",0 },
                             {"@LeavesTaken",leavesTaken+leaveRequest.LengthOfLeave },
                             { "@UnPaidLeaves",(leavesTaken+leaveRequest.LengthOfLeave)-15}
                         };
-                    dal.ExecuteNonQuery("uspUpdateLeavesAfter15", dict5);
+                        dal.ExecuteNonQuery("uspUpdateLeavesAfter15", dict5);
+                    }
                 }
-            }
-            else
-            {
-                Dictionary<string, object> dict6 = new Dictionary<string, object>()
+                else
+                {
+                    Dictionary<string, object> dict6 = new Dictionary<string, object>()
                 {
                             {"@EmployeeId",leaveRequest.EmployeeId },
                             {"@LeavesTaken",leavesTaken+leaveRequest.LengthOfLeave },
                             { "@UnPaidLeaves",unpaidleaves+leaveRequest.LengthOfLeave}
                         };
-                dal.ExecuteNonQuery("uspUpdateUnPaidLeaves", dict6);
+                    dal.ExecuteNonQuery("uspUpdateUnPaidLeaves", dict6);
+                }
+
             }
+            else
+            {
+
+                Dictionary<string, object> dictionary = new Dictionary<string, object>()
+                {
+                    {"@EmployeeId",leaveRequest.EmployeeId },
+                    {"@HalfDay",1 }
+                };
+                dal.ExecuteNonQuery("uspUpdateHalfDay", dictionary);
+            }
+
+            
         }
         public object LeaveReject(GetTeamLeaveRequestViewModel leaveRequest)
         {
@@ -154,10 +174,12 @@ namespace EmployeeManagementSystemInfrastructure.TeamLeadBL
                 { "@EmployeeId",EmpId}
             };
                 DataTable EmpTable = dal.ExecuteDataSet<DataTable>("uspGetAllEmpDetails", dict);
+
                 AdminViewModel employee = new AdminViewModel();
                 employee.allEmployees = DTableToAdminViewModel.DataTabletoAdminEmployeeModel(EmpTable);
                 AdminViewModel employeeowndetail = employee.allEmployees[0];
                 return employeeowndetail;
+
         }
 
 

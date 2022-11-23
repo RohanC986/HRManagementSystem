@@ -4,94 +4,123 @@
     ViewBag.Title = "LeaveRequest";
 }
 
-    @using (Html.BeginForm("SaveLeaveRequest","Employee",Model))
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm("SaveLeaveRequest", "Employee", Model))
+{
+    @Html.AntiForgeryToken()
 
-     <div class="form-horizontal" id="leaveRequestDiv">
-            <h4 class="LeaveRequestHeading">Leave Request</h4>
-            <hr id="leaverequesthr" />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-         
-            <div class="form-group col-md-12">
-                <label class="control-label col-md-4">Half Day?</label>
-                <div class="col-md-6">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.IsHalfday )
-                        @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger" })
-                    </div>
+    <div class="form-horizontal" id="leaveRequestDiv">
+        <h4 class="LeaveRequestHeading">Leave Request</h4>
+        <hr id="leaverequesthr" />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group col-md-12">
+            <label class="control-label col-md-4">Half Day?</label>
+            <div class="col-md-6">
+                <div>
+                    @Html.CheckBoxFor(model => model.IsHalfday, new { @class= "ishalfday", type="checkbox", onchange = "lencheck()" })
+                    @Html.ValidationMessageFor(model => model.IsHalfday, "", new { @class = "text-danger " })
                 </div>
             </div>
+        </div>
 
-            <div class="form-group col-md-12">
-                <label class="control-label col-md-4">Leave Type</label>
-                <div class="col-md-6">
-                    @Html.DropDownList("LeaveType", new List<SelectListItem>
-                    {
-                        new SelectListItem { Text = "Select Option", Selected=true},
-                        new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
-                        new SelectListItem { Text = "Casual Leave", Value ="Casual Leave" },
+        <div class="form-group col-md-12">
+            <label class="control-label col-md-4">Leave Type</label>
+            <div class="col-md-6">
+                @Html.DropDownList("LeaveType", new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Select Option", Selected=true},
+                    new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
+                    new SelectListItem { Text = "Casual Leave", Value ="Casual Leave" },
 
-                    }, htmlAttributes: new { @class = "text-left Role-Down ", required = "required" })
-                    @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
-                </div>
+                }, htmlAttributes: new { @class = "text-left Role-Down ", required = "required" })
+                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-md-12">
+            @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
+            <label class="control-label col-md-4">Start Date</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required", minimum = $"{DateTime.Now}" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
 
+        </div>
 
-                <div class="form-group col-md-12">
-                    @*@Html.LabelFor(model => model.LengthOfLeave, htmlAttributes: new { @class = "control-label col-md-3" })*@
-                    <label class="control-label col-md-4">Length Of Leave</label>
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.LengthOfLeave, new { htmlAttributes = new { @class = "form-control", required = "required", min = 1 ,max=15}, required = "required", min = 1 })
-                        @Html.ValidationMessageFor(model => model.LengthOfLeave, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group col-md-12">
-                    @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
-                    <label class="control-label col-md-4">Start Date</label>
-                    <div class="col-md-6">
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" }, required = "required" })
-                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                    </div>
-
-                </div>
-
-            <div class="form-group col-md-12">
-                <label class="control-label col-md-4">End Date</label>
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" }, required = "required" })
-                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group col-md-12">
+            <label class="control-label col-md-4">End Date</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control enddate", type = "date", required = "required"@*, onchange = "lencheck()"*@ } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
+        </div>
 
-            <div class="form-group col-md-12">
-                <label class="control-label col-md-4">Reason</label>
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" })
-                    @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group col-md-12">
+            <label class="control-label col-md-4">Reason</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" })
+                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
             </div>
+        </div>
 
-                <div class="form-group">
+        <div class="form-group">
 
-                    <div class="col-md-offset-2 col-md-2" id="LeaveBtn">
-                        <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
-                    </div>
-                    <div class="col-md-2 " id="Emp-form-back-list">
-                        @Html.ActionLink("Back", "getUserOwnDetails", "Employee")
-                    </div>
-                </div>
-     </div>
-    }
+            <div class="col-md-offset-2 col-md-2" id="LeaveBtn">
+                <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
+            </div>
+            <div class="col-md-2 " id="Emp-form-back-list">
+                @Html.ActionLink("Back", "getUserOwnDetails", "Employee")
+            </div>
+        </div>
+    </div>
+}
 
 
 <script type="text/javascript">
     $(function () {
         $("#createsubmit").click(function () {
-        toastr.success("success", "Toastr");
-    });
-    }
+            toastr.success("success", "Toastr");
+        });
 
+    });
+
+    function lencheck() {
+
+        var lenofleave = document.querySelector(".ishalfday");
+        console.log(lenofleave.checked);
+        if (lenofleave.checked) {
+            console.log(lenofleave.translate);
+            document.querySelector(".enddate").disabled = true;
+
+        }
+        else{
+            document.querySelector(".enddate").disabled = false;
+            console.log(lenofleave.translate);
+
+        }
+        @*const startdate = new Date(document.querySelector(".startdate").value);
+        
+        console.log(document.querySelector(".startdate").value);
+        const enddate = new Date(document.querySelector(".enddate").value);
+        
+
+        function check(d1, d2) {
+            var t2 = d2.getTime();
+            var t1 = d1.getTime();
+
+            return Math.floor((t2 - t1) / (24 * 3600 * 1000));
+        }
+        console.log(document.querySelector(".enddate").value);
+        console.log(check(startdate, enddate));
+
+        if (lenofleave != check(startdate, enddate)) {
+            document.querySelector(".enddate").value = "";
+            alert("Length of leave does not match your dates");
+        }*@
+        
+
+    }
 </script>
 

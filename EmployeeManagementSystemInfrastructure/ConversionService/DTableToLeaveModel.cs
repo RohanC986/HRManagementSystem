@@ -23,7 +23,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                              BalanceLeaves = Convert.ToInt32(dr["BalanceLeaves"]),
                              UnPaidLeaves = Convert.ToInt32(dr["UnPaidLeaves"]),
                              Created = dr["Created"].ToString(),
-                          LastModified = dr["LastModified"].ToString()
+                             LastModified = dr["LastModified"].ToString(),
+                             HalfDay = Convert.ToInt32(dr["HalfDay"])
+
 
                          }
 

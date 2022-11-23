@@ -25,10 +25,10 @@ namespace EmployeeManagementSystemCore.Models
         public int LengthOfLeave { get; set; }
 
         [Required(ErrorMessage = "Start Date is required")]
-        public string StartDate { get; set; }
+/*        [Range(typeof(DateTime), DateTime.Now.AddDays(15),DateTime.Now)]
+*/        public DateTime StartDate { get; set; }
 
-        [Required(ErrorMessage = "End Date is required")]
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string Status { get; set; }
         public string Created { get; set; }
         public string LastModified { get; set; }

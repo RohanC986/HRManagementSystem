@@ -8,7 +8,7 @@
 
 }
 
-@if (((Session["role"]).ToString()) == "2" && ViewBag.GetAllTeamEmps == null)
+@if (Convert.ToInt32((Session["role"]).ToString()) == 2 && ViewBag.GetAllTeamEmps == null)
 {
 
 
