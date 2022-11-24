@@ -28,12 +28,12 @@
             <div class="col-md-6">
                 @Html.DropDownList("LeaveType", new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "Select Option", Selected=true},
-                    new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
+/*                    new SelectListItem { Text = "Select Option", Selected=true },
+*/                    new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
                     new SelectListItem { Text = "Casual Leave", Value ="Casual Leave" },
 
-                }, htmlAttributes: new { @class = "text-left Role-Down ", required = "required" })
-                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+                }, htmlAttributes: new { @class = "text-left Role-Down select-add-placeholder ", required = "required", @placeholder = "Select" ,})
+                @Html.ValidationMessageFor(model => model.LeaveType,"", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -67,7 +67,7 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">Reason</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" })
+                @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" ,@style= "width:100%;max-height: 100px;" })
                 @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -93,6 +93,7 @@
         });
 
     });
+    $(".select-add-placeholder").prepend("<option value='' disabled selected>Select Leave Type...</option>");
 
     function lencheck() {
 
@@ -108,6 +109,7 @@
             console.log(lenofleave.translate);
 
         }
+
         @*const startdate = new Date(document.querySelector(".startdate").value);
 
         console.log(document.querySelector(".startdate").value);

@@ -80,7 +80,7 @@ namespace EmployeeManagementSystemCore.ViewModels
         [RegularExpression("[0-9]{10}", ErrorMessage = "Enter valid Aadhar Number")]
         [Required(ErrorMessage = "Aadhar Card Number is required")]
 
-        public long AadharCardNo { get; set; }
+        public string AadharCardNo { get; set; }
 
 
 

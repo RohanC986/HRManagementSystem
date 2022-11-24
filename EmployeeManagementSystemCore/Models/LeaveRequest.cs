@@ -15,7 +15,6 @@ namespace EmployeeManagementSystemCore.Models
 
         public bool IsHalfday { get; set; }
 
-        [Required(ErrorMessage = "Leave Type is required")]
         public string LeaveType { get; set; }
 
         [Required(ErrorMessage = "Reason is required")]

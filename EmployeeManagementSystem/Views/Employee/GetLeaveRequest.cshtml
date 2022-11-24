@@ -8,27 +8,22 @@
 
     <h2 class="addEmp">Past Leaves</h2>
     <hr id="addemphr" />
-    <div id="TeamDiv">
+    <div id="GetAllEmpDetails">
         <table class="EmpTableDet">
             <thead>
                 <tr>
                     <th>
-                        Id
-                    </th>
-
-
-                    <th>
-                        Half Day
+                        Leave Type
                     </th>
 
                     <th>
-                        Type
+                        Start Date
+                    </th>
+                    <th>
+                        End Date
                     </th>
 
 
-                <th>
-                    Reason
-                </th>
 
 
                     <th>
@@ -36,19 +31,18 @@
                     </th>
 
 
-                <th>
-                    Start Date
-                </th>
-                <th>
-                    End Date
-                </th>
-                <th>
-                    Status
-                </th>
+
+                    <th>
+                        Reason
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
 
 
 
-            </tr>
+                </tr>
         </thead>
         <tbody>
             @{
@@ -56,15 +50,13 @@
                 {
 
                         <tr>
-                            <td> @item.LeaveRequestId</td>
-                            <td> @item.IsHalfday</td>
                             <td> @item.LeaveType</td>
-                            <td> @item.Reason</td>
-                            <td> @item.LengthOfLeave</td>
                             <td> @item.StartDate.ToString("dd/MM/yyyy")</td>
                             <td> @item.EndDate.ToString("dd/MM/yyyy")</td>
+                            <td> @item.LengthOfLeave</td>
+                            <td> @item.Reason</td>
                             <td> @item.Status</td>
-                            
+
 
 
 

@@ -23,10 +23,10 @@
             <thead>
 
                 <tr>
-                    <th>
+@*                    <th>
                         Designation Id
                     </th>
-
+*@
                     <th>
                         Designation Name
                     </th>
@@ -44,8 +44,8 @@
 
 
 
-                            <td> @item.DesignationId  </td>
-                            <td> @item.DesignationName</td>
+@*                            <td> @item.DesignationId  </td>
+*@                            <td> @item.DesignationName</td>
                             <td>
                                 <span>
 
@@ -68,12 +68,12 @@
         </table>
 
     </div>
-    <div class="form-group col-md-6 my-2" style="margin-left:45%;">
+@*    <div class="form-group col-md-6 my-2" style="margin-left:45%;">
         <div class="col-md-2 " id="Emp-form-back-list">
             @Html.ActionLink("Back", "GetAllEmployeesDetails")
         </div>
     </div>
-
+*@
 
 }
 else if (ViewBag.GetAllDesignation != null)

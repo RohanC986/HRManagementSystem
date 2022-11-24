@@ -18,24 +18,19 @@
                         <th class="leaveTableHeading">Leave Accured</th>
                         <td> @item.LeavesAccrued </td>
                     </tr>
-
-                    
                     
                     <tr class="leaveTableRow">
                         <th class="leaveTableHeading"> Balance Leaves</th>
                         <td> @(item.BalanceLeaves-(item.HalfDay*0.5))</td>
                     </tr>
                     
+                   <tr class="leaveTableRow">
+                       <th class="leaveTableHeading">Leave Taken</th>
+                       <td>@(item.LeavesTaken +(item.HalfDay * 0.5))</td>
+                   </tr>
 
                     <tr class="leaveTableRow">
-                        <th>Leaves Taken</th>
-                        <td> @(item.LeavesTaken+ (item.HalfDay * 0.5))</td>
-
-                    </tr>
-                   
-
-                    <tr class="leaveTableRow">
-                        <th>Leave Without Pay</th>
+                        <th class="leaveTableHeading">Leave Without Pay</th>
                         <td> @((item.LeavesTaken+item.BalanceLeaves) - 15)</td>
                     </tr>
 

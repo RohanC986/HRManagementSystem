@@ -9,12 +9,12 @@
 {
     <h2 class="addEmp">Leave Request</h2>
     <hr id="addemphr" />
-    <div id="TeamDiv">
+    <div id="GetAllEmpDetails">
         <table class="EmpTableDet">
             <thead>
                 <tr>
                     <th>
-                        Id
+                        Leave Type
                     </th>
                     <th>
                         Name
@@ -24,13 +24,6 @@
                         Half Day
                     </th>
 
-                    <th>
-                        Type
-                    </th>
-
-                    <th>
-                        Reason
-                    </th>
 
                     <th>
                         Length
@@ -43,9 +36,14 @@
                         End Date
                     </th>
                     <th>
+                        Reason
+                    </th>
+                    <th>
                         Status
                     </th>
-
+                    <th>
+                        Actions
+                    </th>
 
 
                 </tr>
@@ -57,14 +55,30 @@
                         if (item.Status == "Pending")
                         {
                             <tr>
-                                <td> @item.LeaveRequestId</td>
-                                <td> @item.FirstName @item.LastName</td>
-                                <td> @item.isHalfDay</td>
                                 <td> @item.LeaveType</td>
-                                <td> @item.Reason</td>
+                                <td> @item.FirstName @item.LastName</td>
+                               
+                                  
+
+                                @if (@item.isHalfDay == true) {
+                                <td>
+                                    Yes
+                                </td>
+                                }
+                                else
+                                {
+                                <td>
+                                    No
+                                </td>
+
+                                }
+
+
+                                
                                 <td> @item.LengthOfLeave</td>
-                                <td> @item.StartDate</td>
-                                <td> @item.EndDate</td>
+                                <td> @item.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td> @item.EndDate.ToString("dd/MM/yyyy") </td>
+                                <td> @item.Reason</td>
                                 <td> @item.Status</td>
                                 @if (item.Status == "Pending")
                                 {
@@ -76,7 +90,6 @@
                                     </td>
 
                                 }
-
 
 
 

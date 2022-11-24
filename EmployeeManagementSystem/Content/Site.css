@@ -70,33 +70,28 @@ body {
     box-shadow: 13px 13px 20px #cbced1;
 }
 
-    .wrapper .form-field {
+.wrapper .form-field {
         padding-left: 0;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         border-radius: 20px;
-    }
+}
 
-        .wrapper .form-field .fas {
+.wrapper .form-field .fas {
             color: #555;
-        }
+}
 
 .login-header {
     border: 2px solid green;
 }
 
-.login-btn {
-    margin-left: 5.5rem;
-}
-
 .wrapper .btn {
     box-shadow: none;
-    height: 40px;
-    width: 65%;
     background-color: #345bbd;
     color: #fff;
-    border-radius: 25px;
-    /*    box-shadow: 3px 3px 3px #b1b1b1,-3px -3px 3px #fff;
-*/ letter-spacing: 1.3px;
+    box-shadow: 3px 3px 3px #b1b1b1,-3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+    margin:auto;
+
 }
 
 .wrapper .btn:hover {
@@ -107,6 +102,10 @@ body {
     text-decoration: none;
     font-size: 1.2rem;
     color: #000000;
+}
+
+.err-pass {
+    margin: auto 0px auto 8%;
 }
 
 .form-icon {
@@ -251,12 +250,24 @@ table.EmpTableDet td {
 /*Team lead data*/
 
 /*Leave pages*/
+
 #leavetable {
-    width: 35%;
     padding: 10px;
     margin: auto;
-    border: 2px solid black;
 }
+@media screen and (min-width:900px) {
+    #leavetable {
+        width: 35%;
+    }
+}
+
+
+@media screen and (max-width: 300px) {
+    #leavetable {
+        width: 100%;
+    }
+}
+
 
 .leaveTab {
     /* width: 70%;
@@ -266,11 +277,15 @@ table.EmpTableDet td {
     width: 100%;
     border-collapse: collapse;
     border: 1px solid #fff;
+    box-shadow: 3px 3px 3px #b1b1b1;
 }
 
 .leaveTableRow {
     padding-bottom: 15px;
     border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .leaveTableHeading {
@@ -279,12 +294,13 @@ table.EmpTableDet td {
 
 table.leaveTab th {
     padding: 12px;
-    font-size: large;
+    font-size: medium;
+    border-right: 1px solid gray;
 }
 
 table.leaveTab td {
     padding: 12px;
-    font-size: large;
+    font-size: medium;
 }
 
 #leaveRequestDiv {

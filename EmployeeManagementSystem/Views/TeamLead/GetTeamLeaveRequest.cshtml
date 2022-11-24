@@ -5,16 +5,18 @@
 
 }
 
+
+
 @if (((Session["role"]).ToString()) == "2" && ViewBag.GetTeamLeaveRequest == null)
 {
-    <h2 class="addEmp">Team Leave Request</h2>
+    <h2 class="addEmp">Leave Request</h2>
     <hr id="addemphr" />
-    <div id="TeamDiv">
-        <table id="GetAllEmpDetails">
+    <div id="GetAllEmpDetails">
+        <table class="EmpTableDet">
             <thead>
                 <tr>
                     <th>
-                        Id
+                        Leave Type
                     </th>
                     <th>
                         Name
@@ -24,16 +26,9 @@
                         Half Day
                     </th>
 
-                    <th>
-                        Type
-                    </th>
 
                     <th>
-                        Reason
-                    </th>
-
-                    <th>
-                        Length 
+                        Length
                     </th>
 
                     <th>
@@ -43,9 +38,11 @@
                         End Date
                     </th>
                     <th>
+                        Reason
+                    </th>
+                    <th>
                         Status
                     </th>
-
                     <th>
                         Actions
                     </th>
@@ -60,14 +57,31 @@
                         if (item.Status == "Pending")
                         {
                             <tr>
-                                <td> @item.LeaveRequestId</td>
-                                <td> @item.FirstName @item.LastName</td>
-                                <td> @item.isHalfDay</td>
                                 <td> @item.LeaveType</td>
-                                <td> @item.Reason</td>
+                                <td> @item.FirstName @item.LastName</td>
+
+
+
+                                @if (@item.isHalfDay == true)
+                                {
+                                    <td>
+                                        Yes
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        No
+                                    </td>
+
+                                }
+
+
+
                                 <td> @item.LengthOfLeave</td>
-                                <td> @item.StartDate</td>
-                                <td> @item.EndDate</td>
+                                <td> @item.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td> @item.EndDate.ToString("dd/MM/yyyy") </td>
+                                <td> @item.Reason</td>
                                 <td> @item.Status</td>
                                 @if (item.Status == "Pending")
                                 {
@@ -79,7 +93,6 @@
                                     </td>
 
                                 }
-
 
 
 
@@ -96,17 +109,8 @@
     </div>
 
 }
-else if (ViewBag.GetTeamLeaveRequest != null)
-{
-    <div>
-        <p>
-            @ViewBag.GetTeamLeaveRequest
-        </p>
-    </div>
-}
+
 else
 {
     <td> You are not Authorized </td>
 }
-
-

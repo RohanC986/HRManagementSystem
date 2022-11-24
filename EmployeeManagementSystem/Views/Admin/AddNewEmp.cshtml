@@ -6,13 +6,13 @@
     var Designation = (EmployeeManagementSystemCore.Models.Designation)ViewData["designationOptions"];
 
 
-    var roleOptions = new List<SelectListItem>() { new SelectListItem{ Text = "Select Role", Value = "3" } };
+    var roleOptions = new List<SelectListItem>() /*{ new SelectListItem { *//*Text = "Select Role", Value = "3",*//*Disabled = true } }*/;
     foreach (var item in role.RolesList)
     {
         roleOptions.Add(new SelectListItem() { Text = item.RoleName, Value = item.RoleId.ToString() });
     }
 
-    var DesignationOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Designation", Value = "2" } };
+    var DesignationOptions = new List<SelectListItem>() /*{ new SelectListItem { *//*Text = "Select Designation", Value = "2",*//* Disabled = true } }*/;
     foreach (var item in Designation.DesignationsList)
     {
         DesignationOptions.Add(new SelectListItem() { Text = item.DesignationName, Value = item.DesignationId.ToString() });
@@ -103,11 +103,11 @@
                     *@
                     @Html.DropDownList("Gender", new List<SelectListItem>
                               {
-                                  new SelectListItem { Text = "Select Gender", Value = "Gender", Selected=true},
-                                  new SelectListItem { Text = "Male", Value = "Male"},
+/*                                  new SelectListItem { Text = "Select Gender", Value = "Gender", Selected=true},
+*/                                  new SelectListItem { Text = "Male", Value = "Male"},
 
                                   new SelectListItem { Text = "Female", Value = "Female"},
-                               }, htmlAttributes: new { @class = "tex-left Role-Down " })
+                               }, htmlAttributes: new { @class = "tex-left Role-Down select-add-Gender" , required = "required", })
 
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                 </div>
@@ -120,8 +120,8 @@
                     @*@Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Bloodgroup " } })*@
                     @Html.DropDownList("BloodGroup", new List<SelectListItem>
                               {
-                                  new SelectListItem { Text = "Select Blood Group", Value = "Not Selected", Selected=true},
-                                  new SelectListItem { Text = "A+", Value = "A+"},
+/*                                  new SelectListItem { Text = "Select Blood Group", Value = "Not Selected", Selected=true},
+*/                                new SelectListItem { Text = "A+", Value = "A+"},
                                   new SelectListItem { Text = "A-", Value = "A-"},
                                   new SelectListItem { Text = "B+", Value = "B+"},
                                   new SelectListItem { Text = "B-", Value = "B-"},
@@ -129,7 +129,7 @@
                                   new SelectListItem { Text = "AB-",Value = "AB-"},
                                   new SelectListItem { Text = "O+", Value = "O+"},
                                   new SelectListItem { Text = "O-", Value = "O-"}
-                               }, htmlAttributes: new { @class = "text-left Role-Down " })
+                               }, htmlAttributes: new { @class = "text-left Role-Down select-add-Blood-Group", required = "required" })
                     @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -205,8 +205,10 @@
                 @* @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Address</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Address ", required = "required" } })
-                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required", @style = "width:100%;min-height:110px;max-height: 125px;" })
+
+@*                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Address ", required = "required" } })
+*@                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -227,8 +229,8 @@
                 <div class="col-md-8 ">
                     @Html.DropDownList("State", new List<SelectListItem>
                     {
-                    new SelectListItem { Text = "Select State", Value = "Not Slected", Selected=true},
-                    new SelectListItem { Text = "Andhra Pradesh", Value = "Andhra Pradesh"},
+/*                    new SelectListItem { Text = "Select State", Value = "Not Slected", Selected=true},
+*/                  new SelectListItem { Text = "Andhra Pradesh", Value = "Andhra Pradesh"},
                     new SelectListItem { Text = "Arunachal Pradesh", Value = "Arunachal Pradesh"},
                     new SelectListItem { Text = "Assam", Value = "Assam"},
                     new SelectListItem { Text = "Bihar", Value = "Bihar"},
@@ -257,9 +259,9 @@
                     new SelectListItem { Text = "Uttarakhand", Value = "Uttarakhand"},
                     new SelectListItem { Text = "West Bengal", Value = "West Bengal"},
 
-                    }, htmlAttributes: new { @class = "Role-Down text-left" })
+                    }, htmlAttributes: new { @class = "Role-Down text-left select-add-state", required = "required",oninvalid= "onSelectoption(this)" })
 
-                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger " })
+                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger " ,required = "required" })
                 </div>
             </div>
 
@@ -281,7 +283,7 @@
                 @* @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Role</label>
                 <div class="col-md-8  ">
-                    @Html.DropDownListFor(model => model.RoleId, roleOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.RoleId, roleOptions, htmlAttributes: new { @class = "text-left Role-Down select-add-Role", required = "required"})
                     @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -292,7 +294,7 @@
                 <label class="control-label col-md-4">Designation</label>
                 <div class="col-md-8">
 
-                    @Html.DropDownListFor(model => model.DesignationId, DesignationOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.DesignationId, DesignationOptions, htmlAttributes: new { @class = "text-left Role-Down select-add-Designation",  required = "required" })
                     @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -308,11 +310,11 @@
                     *@
                     @Html.DropDownList("Experienced", new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Select Option", Selected=true},
-                        new SelectListItem { Text = "No", Value = "false"},
-                        new SelectListItem { Text = "Yes", Value ="true" },
+/*                        new SelectListItem { Text = "Select Option", Selected=true},
+*/                        new SelectListItem { Text = "No", Value = "false"},
+                            new SelectListItem { Text = "Yes", Value ="true" },
 
-             }, htmlAttributes: new { @id = "seeAnotherField", @class = "text-left Role-Down " })
+                    }, htmlAttributes: new { @id = "seeAnotherField", @class = "text-left Role-Down select-add-Experience", required = "required"})
                     @Html.ValidationMessageFor(model => model.Experienced, "", new { @class = "text-danger" })
                 </div>
 
@@ -387,7 +389,18 @@ else
             $(otherField).attr("disabled", true);       
         }
     });
-   // $("#seeAnotherField").trigger("change");
+    
+    $(".select-add-Gender").prepend("<option value='' disabled selected>Select Gender...</option>");
+    $(".select-add-Blood-Group").prepend("<option value='' disabled selected>Select Blood Group...</option>");
+    $(".select-add-state").prepend("<option value='' disabled selected>Select State...</option>");
+    $(".select-add-Role").prepend("<option value='' disabled selected>Select Role...</option>");
+    $(".select-add-Designation").prepend("<option value='' disabled selected>Select Designation...</option>");
+    $(".select-add-Experience").prepend("<option value='' disabled selected>Select Experience...</option>");
+
+
+
+    
+
 
 </script>
 
