@@ -7,7 +7,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (((Session["role"]).ToString()) == "Admin" && ViewBag.Report == null)
+@if (((Session["role"]).ToString()) == "1" && ViewBag.Report == null)
 {
     <h2>GetTeamLeaveRequest</h2>
     <div id="main">

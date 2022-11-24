@@ -658,19 +658,9 @@ namespace EmployeeManagementSystem.Controllers
                     LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
                     leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
                     ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-                    if (datatable.Rows.Count > 0)
-                    {
-                        ExportToPdf(datatable, model.EmployeeId);
-
-                        this.AddNotification("Report Downloaded Successfully", NotificationType.SUCCESS);
-                        return RedirectToAction("GetAllEmployeesDetails");
-                        
-                    }
-                    else
-                    {
-                        this.AddNotification("Report Unavaibale!", NotificationType.ERROR);
-                        return RedirectToAction("GetAllEmployeesDetails");
-                    }
+                    ExportToPdf(datatable, model.EmployeeId);
+                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+                    return View();
                 }
 
             }
