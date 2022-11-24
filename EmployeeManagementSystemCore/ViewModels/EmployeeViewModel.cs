@@ -22,7 +22,8 @@ namespace EmployeeManagementSystemCore.ViewModels
         [RegularExpression("[A-Za-z]{2,20}", ErrorMessage = "First name should be only alphabets[2-20]")]
         public string FirstName { get; set; }
 
-
+        [StringLength(20, MinimumLength = 2)]
+        [RegularExpression("[A-Za-z]{2,20}", ErrorMessage = "First name should be only alphabets[2-20]")]
         public string MiddleName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
@@ -143,14 +144,12 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
 
-
-        [Required(ErrorMessage = "Previous Company is required")]
+        [StringLength(50,MinimumLength =2)]
         public string PreviousCompanyName { get; set; }
 
 
 
 
-        [Required(ErrorMessage = "Years of Experience is required")]
         [Range(0, 38, ErrorMessage = "Experience should be between 0 and 38")]
         public int YearsOfExprience { get; set; }
 

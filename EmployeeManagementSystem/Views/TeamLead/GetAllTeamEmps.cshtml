@@ -8,7 +8,7 @@
 
 }
 
-@if (Convert.ToInt32((Session["role"]).ToString()) == 2 && ViewBag.GetAllTeamEmps == null)
+@if(Convert.ToInt32((Session["role"]).ToString()) == 2 && ViewBag.GetAllTeamEmps == null)
 {
 
 
@@ -16,86 +16,86 @@
 
    
 
-<h2 class="TeamEmpData">Team Members</h2><hr id="teamdepemphr" /><div id="main">
-    @using (Html.BeginForm())
-    {
-    <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
-    }
-
-    <table id="GetAllEmpDetails"  >
-        <thead >
-            <tr>
-                @*<th>
-                        EmployeeId
-                    </th>*@
-
-                <th>
-                    Name
-                </th>
-
-                <th>
-                    Email
-                </th>
-
-                <th>
-                    Designation 
-                </th>
-
-                <th>
-                    Project
-                </th>
-
-              @*  <th>
-                    Status
-                </th>
-*@
-
-            </tr>
-        </thead>
-        <tbody >
-            @{
-                if (data1 != null)
-                {
-                    foreach (var item in data1)
+            <h2 class="TeamEmpData">Team Members</h2><hr id="teamdepemphr" />
+                <div id="main">
+                    @using (Html.BeginForm())
                     {
-
-                        <tr  class="table-bordered ">
-                            @*<td> @item.EmployeeId </td>*@
-                            <td onclick="location.href='@Url.Action("GetTeamSpecificUserDetails", "TeamLead",item)'" class="col-md-3 Dep-team-lead-btn" >@item.FirstName  @item.LastName</td>
-
-                            @*<td> @item.FirstName @item.LastName</td>*@
-                            <td> @item.Email</td>
-                            <td> @item.DesignationName</td>
-                            <td> @item.ProjectName</td>
-                        </tr>
-
+                    <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
                     }
 
-                }
-                else
-                {
-                    foreach (var item in data)
-                    {
+                                <table id="GetAllEmpDetails"  >
+                                    <thead >
+                                        <tr>
+                                            @*<th>
+                                                    EmployeeId
+                                                </th>*@
 
-                        <tr>
-                            @*<td> @item.EmployeeId </td>*@
-                            <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item.EmployeeId)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+                                            <th>
+                                                Name
+                                            </th>
 
-                            @*<td> @item.FirstName @item.LastName</td>*@
-                            <td> @item.Email</td>
-                            <td> @item.DesignationName</td>
-                            <td> @item.ProjectName</td>
-                        </tr>
+                                            <th>
+                                                Email
+                                            </th>
 
-                    }
-                }
+                                            <th>
+                                                Designation 
+                                            </th>
 
-            }
-        </tbody>
-    </table>
-</div>
+                                            <th>
+                                                Project
+                                            </th>
+
+                                          @*  <th>
+                                                Status
+                                            </th>
+                            *@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        @{
+                                            if (data1 != null)
+                                            {
+                                                foreach (var item in data1)
+                                                {
+
+                                                    <tr  class="table-bordered ">
+                                                        @*<td> @item.EmployeeId </td>*@
+                                                        <td onclick="location.href='@Url.Action("GetTeamSpecificUserDetails", "TeamLead",item)'" class="col-md-3 Dep-team-lead-btn" >@item.FirstName  @item.LastName</td>
+
+                                                        @*<td> @item.FirstName @item.LastName</td>*@
+                                                        <td> @item.Email</td>
+                                                        <td> @item.DesignationName</td>
+                                                        <td> @item.ProjectName</td>
+                                                    </tr>
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                foreach (var item in data)
+                                                {
+
+                                                    <tr>
+                                                        @*<td> @item.EmployeeId </td>*@
+                                                        <td onclick="location.href='@Url.Action("GetSpecificUserDetails", "Admin",item.EmployeeId)'" class="col-md-3">@item.FirstName  @item.LastName</td>
+
+                                                        @*<td> @item.FirstName @item.LastName</td>*@
+                                                        <td> @item.Email</td>
+                                                        <td> @item.DesignationName</td>
+                                                        <td> @item.ProjectName</td>
+                                                    </tr>
+
+                                                }
+                                            }
+
+                                        }
+                                    </tbody>
+                                </table>
+                </div>
 }
-
 else if (ViewBag.RoleView != null)
 {
     <div>

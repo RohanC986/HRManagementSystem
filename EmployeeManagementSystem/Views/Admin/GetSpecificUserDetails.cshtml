@@ -69,8 +69,8 @@
             <label class="control-label col-md-4">Date Of Birth</label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOB ", disabled = "disabled", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
-            </div>
+@*                @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+*@            </div>
         </div>
 
 
@@ -100,8 +100,8 @@
             <label class="control-label col-md-4">Date Of Joining</label>
             <div class="col-md-8">
                 @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOJ ", disabled = "disabled", @readonly = "readonly" } })
-                @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
-            </div>
+@*                @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
+*@            </div>
         </div>
 
 

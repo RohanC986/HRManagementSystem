@@ -23,16 +23,21 @@
                 Add Project
             </a>
         </div>
+
+        <div>
+            @using (Html.BeginForm())
+            {
+                <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+            }
+        </div>
        
+
 
     </div>
 
 
     <div id="DepatDiv">
-        @using (Html.BeginForm())
-        {
-            <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
-        }
+        
 
         <table class="DepartTab">
 

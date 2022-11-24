@@ -26,7 +26,7 @@ namespace EmployeeManagementSystemCore.Models
 
 
 
-        [RegularExpression("^[A-Z]{4}0[0-9]{7}$", ErrorMessage = "UAN id is not valid")]
+        [RegularExpression("^[A-Z]{4}[0-9]{7}$", ErrorMessage = "IFSC id is not valid")]
         [Required(ErrorMessage = "IFSC Code is required")]
         public string IFSCCode { get; set; }
 

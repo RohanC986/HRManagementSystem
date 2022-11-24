@@ -100,6 +100,7 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["roleOptions"] = roles;
                     var designation = employees.GetDesignation();
                     ViewData["designationOptions"] = designation;
+                    ViewData["EmployeeCode"] = employees.GetLastEmployeeCode();
 
                     return View();
                 }
@@ -303,7 +304,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult AddProjectMembers()
+        public ActionResult AddProjectMembers(Project Projects)
         {
             try
             {
@@ -311,7 +312,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     ProjectService projectService = new ProjectService();
                     EmployeeIdNameViewModel empIdnameViewModel = projectService.GetEmpId();
-                    Project projectsList = projectService.AddProjectMembers();
+                    Project projectsList = projectService.AddProjectMembers(Projects.ProjectId);
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
                     //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
@@ -643,36 +644,46 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        //public ActionResult Report(Employee model)
-        //{
-        //    try
-        //    {
-        //        if (Session["EmpId"] != null)
-        //        {
-        //            Dictionary<string, object> dict = new Dictionary<string, object>() {
+        public ActionResult Report(Employee model)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>() {
 
-        //        { "@EmployeeId",model.EmployeeId},
-        //    };
-        //            DataSet datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
-        //            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-        //            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-        //            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-        //            ExportToPdf(datatable, model.EmployeeId);
-        //            this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
-        //            return View();
-        //        }
+                { "@EmployeeId",model.EmployeeId},
+            };
+                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
+                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+                    ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                    if (datatable.Rows.Count > 0)
+                    {
+                        ExportToPdf(datatable, model.EmployeeId);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Report = "Report Not Found";
-        //        return View();
-        //    }
+                        this.AddNotification("Report Downloaded Successfully", NotificationType.SUCCESS);
+                        return RedirectToAction("GetAllEmployeesDetails");
+                        
+                    }
+                    else
+                    {
+                        this.AddNotification("Report Unavaibale!", NotificationType.ERROR);
+                        return RedirectToAction("GetAllEmployeesDetails");
+                    }
+                }
 
-        //    return RedirectToAction("Login", "Accounts");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Report = "Report Not Found";
+                return View();
+            }
+
+            return RedirectToAction("Login", "Accounts");
 
 
-        //}
+        }
 
         public ActionResult RoleView()
         {
@@ -843,7 +854,7 @@ namespace EmployeeManagementSystem.Controllers
                     Employees employees = new Employees();
                     TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(emp);
                     ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
-
+                    ViewData["projectId"] = emp;
                     return View(ViewData);
 
 
@@ -927,7 +938,7 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     int EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
                     Employees employees = new Employees();
-                    var employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
+                    AdminViewModel employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
 
                     return View(employeeowndetail);
                 }

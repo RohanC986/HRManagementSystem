@@ -4,6 +4,7 @@
 
     var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
 
+    var projectid = (EmployeeManagementSystemCore.Models.Project)ViewData["projectId"];
 }
 
 @if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.GetAllTeamEmpsAdmin == null)
@@ -18,7 +19,7 @@
     <div class="dept-btn">
 
         <div class="dept-btn-sec">
-            <a href="@Url.Action("AddProjectMembers" , "Admin")">
+            <a href="@Url.Action("AddProjectMembers" , "Admin", projectid)">
                 <span class="fa fa-solid fa-user-plus"></span>
                 Add Project Members
             </a>
