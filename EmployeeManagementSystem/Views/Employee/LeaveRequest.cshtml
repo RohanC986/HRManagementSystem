@@ -43,9 +43,7 @@
             @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
             <label class="control-label col-md-4">Start Date</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required",
-               oninvalid = "InvalidMsgStartDate(this);", min = DateTime.Now.ToString("yyyy-MM-dd"), max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd") ,
-           } })
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required", minimum = $"{DateTime.Now}" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
 
@@ -54,7 +52,14 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">End Date</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control enddate", type = "date", required = "required"@*, onchange = "lencheck()"*@ } })
+                @Html.EditorFor(model => model.EndDate, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control enddate",
+                        type = "date",
+                        required = "required"@*, onchange = "lencheck()"*@ }
+                })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,19 +67,7 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">Reason</label>
             <div class="col-md-6">
-                @Html.TextAreaFor(model => model.Reason, new
-           {
-               htmlAttributes = new
-               {
-                   @class = "form-control",
-                   id = "reason",
-                   required = "required",
-                   oninvalid = "InvalidMsg(this);"
-
-               },
-               required = "required",
-               @style = "width:100%;max-height: 100px;"
-           });
+                @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" ,@style= "width:100%;max-height: 100px;" })
                 @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,7 +76,7 @@
 
 
             <div class="col-md-offset-2 col-md-2" id="LeaveBtn">
-                <input type="submit" id="createsubmit" value="Create"  class="btn btn-default btn-primary" />
+                <input type="submit" id="createsubmit" value="Create" class="btn btn-default btn-primary" />
             </div>
             <div class="col-md-2 " id="Leave-form-back-list" style="width:11.33%;">
                 @Html.ActionLink("Back", "getUserOwnDetails", "Employee")
@@ -94,73 +87,14 @@
 
 
 <script type="text/javascript">
-    (function () {
-        var inputs = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < inputs.length; i++) {
-            inputs[i].oninvalid = function (e) {
-                e.target.setCustomValidity("");
-                if (!e.target.validity.valid) {
-                    e.target.setCustomValidity(e.target.getAttribute("data-error"));
-                }
-            };
-        }
+    $(function () {
+        $("#createsubmit").click(function () {
+            toastr.success("success", "Toastr");
+        });
+
     });
+    $(".select-add-placeholder").prepend("<option value='' disabled selected>Select Leave Type...</option>");
 
-    //$(function () {
-    //    $("#createsubmit").click(function () {
-    //        toastr.success("success", "Toastr");
-    //    });
-
-    //});
-    //function buttonState() {
-    //    $("input").each(function () {
-    //        $('#createsubmit').attr('disabled', 'disabled');
-    //        if ($(this).val() == "") return false;
-    //        $('#createsubmit').attr('disabled', '');
-    //    })
-    //}
-
-    //$(function () {
-    //    $('#createsubmit').attr('disabled', 'disabled');
-    //    $('input').change(buttonState);
-    //})
-    function InvalidMsg(textbox) {
-
-        if (textbox.value === '') {
-            textbox.setCustomValidity
-                ('Please Enter the Reason!');
-        }
-        else {
-            textbox.setCustomValidity('');
-        }
-
-        return true;
-    }
-    function InvalidMsgStartDate(textbox) {
-
-        if (textbox.value === '') {
-            textbox.setCustomValidity
-                ('Please Enter the Start Date!');
-        }
-       
-        else {
-            textbox.setCustomValidity('');
-        }
-
-        return true;
-    }
-    function InvalidMsgEndDate(textbox) {
-
-        if (textbox.value === '') {
-            textbox.setCustomValidity
-                ('Please Enter the End Date!');
-        } 
-        else {
-            textbox.setCustomValidity('');
-        }
-
-        return true;
-    }
     function lencheck() {
 
         var lenofleave = document.querySelector(".ishalfday");
