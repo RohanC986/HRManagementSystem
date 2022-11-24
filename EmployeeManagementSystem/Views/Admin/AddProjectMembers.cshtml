@@ -10,12 +10,12 @@
     var EmployeeOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
     foreach (var item in emp.EmployeeIdNameList)
     {
-        EmployeeOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() });
+        EmployeeOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() ,Selected=true});
 
     }
 
 
-    var ProjectOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Project", Value = "" } };
+    var ProjectOptions = new List<SelectListItem>() @*{ new SelectListItem { Text = "Select Project", Value = "" } }*@;
     foreach (var item in proj.ProjectList)
     {
         ProjectOptions.Add(new SelectListItem() { Text = item.ProjectName, Value = item.ProjectId.ToString() });
@@ -47,9 +47,9 @@
             </div>
             <div class="form-group col-md-6">
                 @*@Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })*@
-                <label class="control-label col-md-4">Select Project</label>
+                <label class="control-label col-md-4">Selected Project</label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "Role-Down text-left", disabled="disabled" })
 
                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 

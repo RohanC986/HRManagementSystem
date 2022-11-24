@@ -78,9 +78,11 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
 
             return empIdnameViewModel;
         }
-        public Project AddProjectMembers()
+        public Project AddProjectMembers(int Projects)
         {
-            Dictionary<string, object> dict = new Dictionary<string, object>();
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@ProjectId",Projects }            };
             DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjects", dict);
             Project projectsList = new Project();
             projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);

@@ -14,15 +14,19 @@
                 Add Employee
             </a>
         </div>
+        <div>
+            @using (Html.BeginForm())
+            {
+            <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+            }
+        </div>
+
        
 
 
 
     </div>
-    using (Html.BeginForm())
-    {
-        <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
-    }
+    
 
     <div class="table-wrapper-scroll-y scroll-demo"  >
         <table id="GetAllEmpDetails" >
