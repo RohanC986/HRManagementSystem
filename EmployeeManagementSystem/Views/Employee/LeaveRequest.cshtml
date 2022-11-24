@@ -32,8 +32,8 @@
 */                    new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
                     new SelectListItem { Text = "Casual Leave", Value ="Casual Leave" },
 
-                }, htmlAttributes: new { @class = "text-left Role-Down select-add-placeholder ", required = "required", @placeholder = "Select" ,})
-                @Html.ValidationMessageFor(model => model.LeaveType,"", new { @class = "text-danger" })
+                }, htmlAttributes: new { @class = "text-left Role-Down select-add-placeholder ", required = "required", @placeholder = "Select", })
+                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -43,7 +43,18 @@
             @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })*@
             <label class="control-label col-md-4">Start Date</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required", minimum = $"{DateTime.Now}" } })
+                @Html.EditorFor(model => model.StartDate, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control",
+                        type = "date",
+                        required = "required",
+               oninvalid = "InvalidMsgStartDate(this);",
+                        min = DateTime.Now.ToString("yyyy-MM-dd"),
+                        max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd"),
+           }
+                })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
 
@@ -58,8 +69,12 @@
                     {
                         @class = "form-control enddate",
                         type = "date",
-                        required = "required"@*, onchange = "lencheck()"*@ }
-                })
+                        required = "required"
+               ,
+               oninvalid = "InvalidMsgEndDate(this);",
+                        min = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"),
+               max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd")@*, onchange = "lencheck()"*@ }
+    })
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,7 +82,7 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">Reason</label>
             <div class="col-md-6">
-                @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required" ,@style= "width:100%;max-height: 100px;" })
+                @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required", @style = "width:100%;max-height: 100px;" })
                 @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
             </div>
         </div>
