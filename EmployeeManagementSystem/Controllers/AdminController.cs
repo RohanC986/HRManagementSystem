@@ -643,36 +643,36 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        //public ActionResult Report(Employee model)
-        //{
-        //    try
-        //    {
-        //        if (Session["EmpId"] != null)
-        //        {
-        //            Dictionary<string, object> dict = new Dictionary<string, object>() {
+        public ActionResult Report(Employee model)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>() {
 
-        //        { "@EmployeeId",model.EmployeeId},
-        //    };
-        //            DataSet datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
-        //            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-        //            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-        //            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-        //            ExportToPdf(datatable, model.EmployeeId);
-        //            this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
-        //            return View();
-        //        }
+                { "@EmployeeId",model.EmployeeId},
+            };
+                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
+                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+                    ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                    ExportToPdf(datatable, model.EmployeeId);
+                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+                    return View();
+                }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Report = "Report Not Found";
-        //        return View();
-        //    }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Report = "Report Not Found";
+                return View();
+            }
 
-        //    return RedirectToAction("Login", "Accounts");
+            return RedirectToAction("Login", "Accounts");
 
 
-        //}
+        }
 
         public ActionResult RoleView()
         {

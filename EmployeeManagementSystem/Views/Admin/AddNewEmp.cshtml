@@ -50,7 +50,7 @@
                 @*@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">First Name</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your First Name ", @minlength = "2", @maxlength = "15", @required = "required",pattern= "[A-Za-z]{2,20}" } })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your First Name ", @minlength = "2", @maxlength = "50", @required = "required", oninput = "InvalidMsgFirstName(this);", oninvalid = "setCustomValidity('Please Enter Valid First Name')",pattern = "[A-Za-z]{2,50}" } })
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 @* @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Middle Name</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Middle Name " } })
+                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Middle Name ", @maxlength = "50",pattern = "[A-Za-z]{2,50}" } })
                     @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 @* @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Last Name</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Last Name ", @minlength = "2", @maxlength = "15", @required = "required",pattern="[A-Za-z]{2,20}" } })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Last Name ", @minlength = "2", @maxlength = "50", @required = "required" ,oninput = "InvalidMsgLastName(this);" @*oninput = "InvalidMsgLastName(this);"*@, oninvalid = "setCustomValidity('Please Enter Valid Last Name')", pattern ="[A-Za-z]{2,50}" } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -78,7 +78,7 @@
                 @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Email</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email ", required = "required", type = "email",pattern="^\\S+@\\S+\\.\\S+$" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Email ", required = "required", oninput = "InvalidMsgEmail(this);", oninvalid = "InvalidMsgEmail(this);",type = "email",pattern="^\\S+@\\S+\\.\\S+$" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -88,7 +88,7 @@
                 <label class="control-label col-md-4">Date Of Birth</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOB ", required = "required", type = "date", max = "2003-01-01" } })
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOB ", required = "required", oninvalid = "InvalidMsgDOB(this);", type = "date", max = "2003-01-01" } })
 
                     @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                 </div>
@@ -138,7 +138,7 @@
                 <label class="control-label col-md-4">Date Of Joining</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOJ ", required = "required", type = "date", min = $"{DateTime.Now}" } })
+                    @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your DOJ ", required = "required",  oninvalid = "InvalidMsgDOJ(this);",type = "date", min = $"{DateTime.Now}" } })
 
                     @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
                 </div>
@@ -152,7 +152,7 @@
                 <label class="control-label col-md-4">Personal Contact</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
+                    @Html.EditorFor(model => model.PersonalContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Personal Contact ", required = "required",  oninput = "InvalidMsgPersonalContact(this);", oninvalid = "setCustomValidity('Please Enter Valid Personal Contact Number')", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
 
                     @Html.ValidationMessageFor(model => model.PersonalContact, "", new { @class = "text-danger" })
                 </div>
@@ -163,7 +163,7 @@
                 <label class="control-label col-md-4">Emergency Contact</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", required = "required", pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
+                    @Html.EditorFor(model => model.EmergencyContact, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Emergency Contact ", required = "required", oninput = "InvalidMsgEmergency(this);", oninvalid = "setCustomValidity('Please Enter Valid First Name')",pattern = "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}", @minlength = "10", @maxlength = "10", type = "contact" } })
 
 
                     @Html.ValidationMessageFor(model => model.EmergencyContact, "", new { @class = "text-danger" })
@@ -174,7 +174,12 @@
                 @* @Html.LabelFor(model => model.AadharCardNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Aadhar Card</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Aadhar No. ", required = "required", pattern= "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}-[0-9]{2}", minlength = "12", maxlength = "12" } })
+                    @Html.EditorFor(model => model.AadharCardNo, new { htmlAttributes = new { @class = "form-control",
+                   oninvalid = "setCustomValidity('Please Enter Valid Aadhaar Card Number')", placeholder = "Enter Your Aadhar No. ", required = "required",
+                   @minlength = "12",
+                   @maxlength = "12",min="0",
+                   oninput = "InvalidMsgAdhaarcard(this);",
+                   pattern = "[0-9]{12,12}"@*pattern= "[0 - 9]{ 3}-[0 - 9]{ 3}-[0 - 9]{ 4}-[0-9]{2}"*@ } })
 
                     @Html.ValidationMessageFor(model => model.AadharCardNo, "", new { @class = "text-danger" })
                 </div>
@@ -185,7 +190,7 @@
                 <label class="control-label col-md-4">Pancard Number</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pan No. ", required = "required", pattern = "[A-Z]{5}[0-9]{4}[A-Z]{1}" ,@minlength = "10", @maxlength = "10" } })
+                    @Html.EditorFor(model => model.PancardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pan No. ", required = "required", oninput = "InvalidMsgPancard(this);" , oninvalid = "setCustomValidity('Please Enter Valid Pancard Number')",pattern = "[A-Z]{5}[0-9]{4}[A-Z]{1}" ,@minlength = "10", @maxlength = "10" } })
 
 
                     @Html.ValidationMessageFor(model => model.PancardNo, "", new { @class = "text-danger" })
@@ -196,7 +201,7 @@
                 @* @Html.LabelFor(model => model.PassportNo, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Passport Number</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required",  @minlength = "12", @maxlength = "12",pattern= "^[A-Z]{4}([0-9]{8})" } })
+                    @Html.EditorFor(model => model.PassportNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Passport No. ", required = "required", oninput = "InvalidMsgPassport(this);", oninvalid = "setCustomValidity('Please Enter Valid Passport Number')", @minlength = "12", @maxlength = "12",pattern= "^[A-Z]{4}([0-9]{8})" } })
                     @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -218,7 +223,7 @@
                 @*@Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">City</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your City", required = "required" } })
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your City", required = "required", oninput = "InvalidMsgCity(this);", oninvalid = "setCustomValidity('Please Enter Valid City')", pattern = "[A-Za-z]{2,50}" } })
                     @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -270,7 +275,7 @@
                 @*@Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Pincode</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pincode ", required = "required", @minlength = "6", @maxlength = "6" } })
+                    @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Your Pincode ", oninput = "InvalidMsgPincode(this);",onvalidity = "setCustomValidity('Please Enter Valid pincode Number')" , required = "required", @minlength = "6", @maxlength = "6", pattern = "[0-9]{6,6}" } })
                     @Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -327,7 +332,7 @@
                 @* @Html.LabelFor(model => model.YearsOfExprience, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4" for="otherField">Years Of Experience</label>
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { id = "otherField", @class = " hideClass form-control otherField", placeholder = "Enter Years Of Experience ", min = "0", } })
+                    @Html.EditorFor(model => model.YearsOfExprience, new { htmlAttributes = new { id = "otherField", @class = " hideClass form-control otherField", placeholder = "Enter Years Of Experience ",  oninput = "InvalidMsgYearsofexperience(this);", oninvalid = "setCustomValidity('Please Enter Valid Pancard Number')",min = "0", max="50"} })
                     @Html.ValidationMessageFor(model => model.YearsOfExprience, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -339,7 +344,7 @@
                 @* @Html.LabelFor(model => model.PreviousCompanyName, htmlAttributes: new { @class = "control-label col-md-4 " })*@
                 <label class="control-label col-md-4" for="otherField">Previous Company Name</label>
                 <div class="col-md-7">
-                    @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { id = "otherField", @class = "hideClass form-control otherField", placeholder = "Enter Previous Company Name " } })
+                    @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { id = "otherField", @class = "hideClass form-control otherField", placeholder = "Enter Previous Company Name ", oninput = "InvalidMsgPreviouscompany(this);", oninvalid = "setCustomValidity('Please Enter Valid Pancard Number')" } })
                     @Html.ValidationMessageFor(model => model.PreviousCompanyName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -377,7 +382,268 @@ else
 }
 
 <script type="text/javascript">
-   
+
+    function InvalidMsgFirstName(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the First Name!');
+        }
+        //else if (textbox.includes('#$%^&*()_+-!')) {
+        //    textbox.setCustomValidity('Please Enter valid Email');
+        //}
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgLastName(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Last Name!');
+        }
+        else if (textbox.validity.typeMismatch) {
+            textbox.setCustomValidity('Please Enter valid Last Name');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgEmail(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Email!');
+        }
+        else if (textbox.validity.typeMismatch) {
+            textbox.setCustomValidity('Please Enter valid Email');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgDOB(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Date of Birth!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgGender(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Gender!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgBloodGroup(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Blood Group!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgDOJ(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Date of Joining!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgPersonalContact(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Personal Contact!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgEmergency(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Emergency Contact!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgAdhaarcard(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Adhaar card!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgPancard(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Pan Card!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgPassport(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Valid Passport!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgAddress(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Address!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgCity(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the City !');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgState(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the State!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgPincode(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Pincode!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgRole(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Select the Role!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgDesignation(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Select the Designation!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgExperienced(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Specify the Experience!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgYearsofexperience(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Years of Experience!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgPreviousCompany(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Previous Company!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
     $("#seeAnotherField").change(function () {
         var otherField = $("#AddNewMainDiv").find(".hideClass");
         console.log(otherField);
@@ -386,7 +652,7 @@ else
             $(otherField).attr('required', '');
             $(otherField).attr('data-error', 'This field is required.');
         } else {
-            $(otherField).attr("disabled", true);       
+            $(otherField).attr("disabled", true);
         }
     });
     
