@@ -319,6 +319,12 @@ table.leaveTab td {
 
 
 /*Department*/
+#Depat-table-Div {
+    width: 75%;
+    padding: 10px;
+    margin: auto;
+    border: 1px solid #fff;
+}
 #DepatDiv {
     width: 60%;
     padding: 10px;
@@ -430,7 +436,7 @@ table.DepartTab td {
 
 .GetAllDes-btn-sec {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 1.95rem;
     margin-bottom: 2%;
 }

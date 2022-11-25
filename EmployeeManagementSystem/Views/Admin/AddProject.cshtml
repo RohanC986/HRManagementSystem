@@ -7,7 +7,7 @@
     var emp = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModel)ViewData["AllEmpIdName"];
 
 
-    var empOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
+    var empOptions = new List<SelectListItem>() /*{ new SelectListItem { Text = "Select Employee", Value = "" } }*/;
 
     foreach (var item in emp.EmployeeIdNameList)
     {
@@ -42,7 +42,7 @@
                 *@
                 <label class="control-label col-md-4">Project Head</label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-left Role-Down  select-add-Project", required = "required" })
                     @Html.ValidationMessageFor(model => model.ProjectHeadEmployeeId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -80,3 +80,8 @@ else
 {
         < td > You are not Authorized </ td >
     }
+
+<script>
+    $(".select-add-Project").prepend("<option value='' disabled selected>Select Project...</option>");
+
+</script>

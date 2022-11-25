@@ -1,4 +1,6 @@
-﻿@model EmployeeManagementSystemCore.Models.LeaveRequest
+﻿
+
+@model EmployeeManagementSystemCore.Models.LeaveRequest
 
 @{
     ViewBag.Title = "LeaveRequest";
@@ -9,11 +11,12 @@
     @Html.AntiForgeryToken()
     <h4 class="LeaveRequestHeading">Leave Request</h4>
     <hr id="leaverequesthr" />
-    <div class="form-horizontal" id="leaveRequestDiv">
 
+    <div class="form-horizontal" id="leaveRequestDiv">
+       
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group col-md-12 ">
+        <div class="form-group col-md-12">
             <label class="control-label col-md-4">Half Day?</label>
             <div class="col-md-6">
                 <div>
@@ -55,6 +58,7 @@
                         max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd"),
            }
                 })
+
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
 
@@ -75,6 +79,7 @@
                         min = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"),
                max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd")@*, onchange = "lencheck()"*@ }
     })
+
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -82,7 +87,20 @@
         <div class="form-group col-md-12">
             <label class="control-label col-md-4">Reason</label>
             <div class="col-md-6">
-                @Html.TextAreaFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", required = "required" }, required = "required", @style = "width:100%;max-height: 100px;" })
+
+                @Html.TextAreaFor(model => model.Reason, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control",
+                   id = "reason",
+                   required = "required",
+                   oninvalid = "InvalidMsg(this);"
+
+               },
+               required = "required",
+               @style = "width:100%;min-height:50px;max-height: 100px;"
+           })
                 @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -102,13 +120,76 @@
 
 
 <script type="text/javascript">
-    $(function () {
-        $("#createsubmit").click(function () {
-            toastr.success("success", "Toastr");
-        });
-
+    (function () {
+        var inputs = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].oninvalid = function (e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    e.target.setCustomValidity(e.target.getAttribute("data-error"));
+                }
+            };
+        }
     });
+
+    //$(function () {
+    //    $("#createsubmit").click(function () {
+    //        toastr.success("success", "Toastr");
+    //    });
+
+    //});
+    //function buttonState() {
+    //    $("input").each(function () {
+    //        $('#createsubmit').attr('disabled', 'disabled');
+    //        if ($(this).val() == "") return false;
+    //        $('#createsubmit').attr('disabled', '');
+    //    })
+    //}
+
+    //$(function () {
+    //    $('#createsubmit').attr('disabled', 'disabled');
+    //    $('input').change(buttonState);
+    //})
+
     $(".select-add-placeholder").prepend("<option value='' disabled selected>Select Leave Type...</option>");
+
+    function InvalidMsg(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Reason!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgStartDate(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the Start Date!');
+        }
+
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
+    function InvalidMsgEndDate(textbox) {
+
+        if (textbox.value === '') {
+            textbox.setCustomValidity
+                ('Please Enter the End Date!');
+        }
+        else {
+            textbox.setCustomValidity('');
+        }
+
+        return true;
+    }
 
     function lencheck() {
 
@@ -119,33 +200,19 @@
             document.querySelector(".enddate").disabled = true;
 
         }
-        else{
+        else {
             document.querySelector(".enddate").disabled = false;
             console.log(lenofleave.translate);
 
         }
-
-        @*const startdate = new Date(document.querySelector(".startdate").value);
-
-        console.log(document.querySelector(".startdate").value);
-        const enddate = new Date(document.querySelector(".enddate").value);
-
-
-        function check(d1, d2) {
-            var t2 = d2.getTime();
-            var t1 = d1.getTime();
-
-            return Math.floor((t2 - t1) / (24 * 3600 * 1000));
-        }
-        console.log(document.querySelector(".enddate").value);
-        console.log(check(startdate, enddate));
-
-        if (lenofleave != check(startdate, enddate)) {
-            document.querySelector(".enddate").value = "";
-            alert("Length of leave does not match your dates");
-        }*@
-
+    }
+    function enddatemin() {
+        var startdate = document.querySelector(".startdate").value;
+        console.log(startdate);
+        var dt = new Date(startdate);
+        document.querySelector(".enddate").min = startdate.setDate(startdate + 1);
+        var enddate = (document.querySelector(".enddate").min = dt.setDate(dt + 1));
+        console.log(document.querySelector(".enddate").min = dt.toLocaleDateString("yyyy-MM-d"));
 
     }
 </script>
-

@@ -24,10 +24,10 @@
 
         
 
-        <div class="form-group">
-            <label class="control-label col-md-4">UAN Number</label>
+        <div class="form-group my-4">
+            <label class="control-label col-md-4 ">UAN Number</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.UANNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9{12-20}]" } })
+                @Html.EditorFor(model => model.UANNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}" } })
                 @Html.ValidationMessageFor(model => model.UANNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             <label class="control-label col-md-4">Account Number</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.BankAcNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9{12-20}]" } })
+                @Html.EditorFor(model => model.BankAcNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}" } })
                 @Html.ValidationMessageFor(model => model.BankAcNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,7 @@
 
             </div>
             <div class="col-md-2 " id="Addproject-form-back-list">
-                @Html.ActionLink("Back", "AddNewEmp", "Admin", new { @class = "btn-success -default" })
+                @Html.ActionLink("Back", "AddNewEmp", "Admin", new { @class = "btn-success -default" ,style = "width: 11.55%" })
                 
             </div>
         </div>

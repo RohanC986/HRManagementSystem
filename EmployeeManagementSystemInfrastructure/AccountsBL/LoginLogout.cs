@@ -91,10 +91,6 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
                 //    LoginViewModel.EmployeeDict = dict3;
                   
                 //    return model;
-
-
-
-
                 //}
                 else 
                 {

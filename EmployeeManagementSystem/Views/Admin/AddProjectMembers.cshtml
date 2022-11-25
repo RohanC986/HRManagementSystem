@@ -7,22 +7,22 @@
 
 
 
-    var EmployeeOptions = new List<SelectListItem>() { new SelectListItem { Text = "Select Employee", Value = "" } };
+    var EmployeeOptions = new List<SelectListItem>() /*{ new SelectListItem { Text = "Select Employee", Value = "" } }*/;
     foreach (var item in emp.EmployeeIdNameList)
     {
-        EmployeeOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() ,Selected=true});
+        EmployeeOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString(), Selected = true });
 
     }
 
 
     var ProjectOptions = new List<SelectListItem>() @*{ new SelectListItem { Text = "Select Project", Value = "" } }*@;
-    foreach (var item in proj.ProjectList)
-    {
-        ProjectOptions.Add(new SelectListItem() { Text = item.ProjectName, Value = item.ProjectId.ToString() });
-    }
+foreach (var item in proj.ProjectList)
+{
+ProjectOptions.Add(new SelectListItem() { Text = item.ProjectName, Value = item.ProjectId.ToString() });
+}
 }
 
-@if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.AddProjectMembers ==null)
+@if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.AddProjectMembers == null)
 {
 
 
@@ -37,10 +37,10 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group col-md-6">
-@*                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
-                <label class="control-label col-md-4">Select Employee </label> 
+                @*                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })*@
+                <label class="control-label col-md-4">Select Employee </label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.EmployeeId,EmployeeOptions, htmlAttributes: new { @class = "text-left Role-Down " })
+                    @Html.DropDownListFor(model => model.EmployeeId, EmployeeOptions, htmlAttributes: new { @class = "text-left Role-Down select-add-Employee ", required = "required" })
 
                     @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                 </div>
@@ -49,7 +49,7 @@
                 @*@Html.LabelFor(model => model.ProjectId, htmlAttributes: new { @class = "control-label col-md-4" })*@
                 <label class="control-label col-md-4">Selected Project</label>
                 <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "Role-Down text-left", disabled="disabled" })
+                    @Html.DropDownListFor(model => model.ProjectId, ProjectOptions, htmlAttributes: new { @class = "Role-Down text-left ", disabled = "disabled" })
 
                     @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
 
@@ -88,5 +88,10 @@ else
     <td> You are not Authorized </td>
 }
 
+
+<script>
+    $(".select-add-Employee").prepend("<option value='' disabled selected>Select Employee...</option>");
+
+</script>
 
 
