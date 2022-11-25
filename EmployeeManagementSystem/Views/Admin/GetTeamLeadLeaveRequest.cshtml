@@ -38,9 +38,9 @@
                     <th>
                         Reason
                     </th>
-                    <th>
+                    @*<th>
                         Status
-                    </th>
+                    </th>*@
                     <th>
                         Actions
                     </th>
@@ -74,12 +74,16 @@
                                 }
 
 
+                                @if (item.LengthOfLeave == 0)
+                                {
+                                    <td> 0.5 </td>
+                                }
+                                else { <td> @item.LengthOfLeave</td> }
                                 
-                                <td> @item.LengthOfLeave</td>
                                 <td> @item.StartDate.ToString("dd/MM/yyyy")</td>
                                 <td> @item.EndDate.ToString("dd/MM/yyyy") </td>
                                 <td> @item.Reason</td>
-                                <td> @item.Status</td>
+                                @*<td> @item.Status</td>*@
                                 @if (item.Status == "Pending")
                                 {
                                     <td>

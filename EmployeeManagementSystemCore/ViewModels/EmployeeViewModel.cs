@@ -67,14 +67,14 @@ namespace EmployeeManagementSystemCore.ViewModels
         [RegularExpression("[0-9]{10}", ErrorMessage = "Enter valid number")]
         [Required(ErrorMessage = "Personal Contact is required")]
 
-        public long PersonalContact { get; set; }
+        public string PersonalContact { get; set; }
 
 
 
         [RegularExpression("[0-9]{10}", ErrorMessage = "Enter valid number")]
         [Required(ErrorMessage = "Emergency Contact is required")]
 
-        public long EmergencyContact { get; set; }
+        public string EmergencyContact { get; set; }
 
 
 

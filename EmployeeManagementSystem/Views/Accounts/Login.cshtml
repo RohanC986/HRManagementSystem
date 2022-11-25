@@ -40,12 +40,12 @@
         <script type="text/javascript">
 
             document.querySelector(".usernameerror").style.display = "block";,
-   
+
             window.onload = function () {
                 alert("@ViewBag.UsernameError");
             };
 
-            
+
         </script>
 
     }
@@ -53,9 +53,9 @@
 
     @Html.AntiForgeryToken()
 
-   
 
-    
+
+
     <div class="wrapper mx-auto ">
         <h3 class="Form-Header ">Login</h3>
         <hr class="login-header" />
@@ -72,29 +72,39 @@
 
 
 
-            <div class="usernameerror d-flex justify-content-center  align-items-center err-pass" >
+            <div class="usernameerror d-flex justify-content-center  align-items-center err-pass">
                 @ViewBag.UsernameError
             </div>
             <div class="form-field d-flex align-items-center me-2">
                 <span><i class="fa fa-lg fa-solid fa-lock "></i></span>
                 @Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-4 h4", })
 
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control rounded-0", id = "pwd", placeholder = "Enter password here", required = "required", @autocomplete = "off", @type = "password"@*,*@ @*pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"*@ } })
-            
+                @Html.EditorFor(model => model.Password, new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "form-control rounded-0",
+                        id = "pwd",
+                        placeholder = "Enter password here",
+                        required = "required",
+                        @autocomplete = "off",
+                        @type = "password"@*,*@ @*pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"*@ }
+                })
+
             </div>
 
             <div class="form-field d-flex justify-content-center  align-items-end  me-2 err-pass  ">
-                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger err-pass" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger err-pass" })
             </div>
-           @* <div class="usernameerror col-md-4 " >
-                @ViewBag.PasswordError
-            </div>
-*@
+            @* <div class="usernameerror col-md-4 " >
+                    @ViewBag.PasswordError
+                </div>
+            *@
             <div class="form-field d-flex justify-content-center  align-items-end mx-md-5 me-2   ">
                 <button class="btn login-btn ">Login</button>
             </div>
 
-           
+
 
 
             <div>
@@ -103,12 +113,12 @@
 
 
         </form>
-        
-       
+
+
 
     </div>
 
 
 
- 
+
 }

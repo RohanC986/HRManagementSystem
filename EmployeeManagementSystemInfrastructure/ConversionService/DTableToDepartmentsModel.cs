@@ -16,8 +16,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
             departmentsViews = (from DataRow dr in dt.Rows
                          select new DepartmentsViewModel
                          {
-/*                             ProjectId=Convert.ToInt32(dr["ProjectId"]),
-*/                           ProjectHeadEmployeeId = Convert.ToInt32(dr["ProjectHeadEmployeeId"]),
+                             ProjectId = Convert.ToInt32(dr["ProjectId"]),
+                             ProjectHeadEmployeeId = Convert.ToInt32(dr["ProjectHeadEmployeeId"]),
                              ProjectName = dr["ProjectName"].ToString(),
                              FirstName = dr["FirstName"].ToString(),
                              LastName = dr["LastName"].ToString(),
