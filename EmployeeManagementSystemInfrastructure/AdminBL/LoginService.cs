@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystemCore.DataAccessLayer;
 using EmployeeManagementSystemCore.Models;
+using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.ConversionService;
 using System;
 using System.Collections.Generic;
@@ -28,25 +29,43 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
 
         }
 
-        public int SaveLogin(Login model)
+        public int SaveLogin(AddNewEmployeeViewModel model)
         {
             Dictionary<string, object> diction = new Dictionary<string, object>() {
 
-                        { "@EmployeeId",model.EmployeeId},
-
-
-                     };
-            object roleid = dal.ExecuteScalar("uspGetEmpRole", diction);
-
-            Dictionary<string, object> dict = new Dictionary<string, object>() {
-
-                            { "@EmployeeId",model.EmployeeId},
-                            { "@Username",model.Username},
-                            { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(  (model.Password))},
-                            { "@LastLogin",(model.LastLogin)},
-                            {"@RoleId",roleid }
-                    };
-            int check = dal.ExecuteNonQuery("uspAddNewLogin", dict);
+                { "@EmployeeCode",model.EmployeeCode},
+                { "@FirstName",model.FirstName},
+                { "@MiddleName",model.MiddleName},
+                { "@LastName",model.LastName},
+                { "@Email",model.Email},
+                { "@DOB",model.DOB},
+                { "@DOJ",model.DOJ},
+                { "@BloodGroup",model.BloodGroup},
+                { "@Gender",model.Gender},
+                { "@PersonalContact",model.PersonalContact},
+                { "@EmergencyContact",model.EmergencyContact},
+                { "@AadharCardNo",model.AadharCardNo},
+                { "@PancardNo",model.PancardNo},
+                {"@PassportNo",model.PassportNo},
+                { "@Address",model.Address},
+                { "@City",model.City},
+                { "@State",model.State},
+                { "@Pincode",model.Pincode},
+                { "@Role",model.RoleId},
+                { "@Designation",model.DesignationId},
+                { "@Experienced",model.Experienced},
+                {"@PreviousCompanyName",model.PreviousCompanyName },
+                { "@YearsOfExprience",model.YearsOfExprience},
+                { "@UANNo",model.UANNo},
+                { "@BankAcNo",model.BankAcNo},
+                { "@IFSCCode",model.IFSCCode},
+                { "@Username",model.Username},
+                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(  (model.Password))},
+                { "@LastLogin",model.LastLogin},
+                
+            };
+            
+            int check = dal.ExecuteNonQuery("uspAddNewEmp", diction);
             return check;
         }
 

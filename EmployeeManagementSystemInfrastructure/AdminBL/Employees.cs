@@ -127,11 +127,11 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return RecentEmployeeCode;
         }
 
-        public object SaveNewEmp(Employee model)
+        public object SaveNewEmp(Employee model,int empcode)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>() {
                 //{ "@EmployeeId",model.EmployeeId},
-                { "@EmployeeCode",model.EmployeeCode},
+                { "@EmployeeCode",empcode},
                 { "@FirstName",model.FirstName},
                 { "@MiddleName",model.MiddleName},
                 { "@LastName",model.LastName},
@@ -295,7 +295,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return tempEmpDetialsView;
         }
 
-        public EmployeeIdNameViewModel AccountDetails(Project emp)
+        public EmployeeIdNameViewModel AccountDetails()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 

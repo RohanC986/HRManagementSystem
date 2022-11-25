@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagementSystemCore.ViewModels
 {
-    internal class AddNewEmployeeViewModel
+    public class AddNewEmployeeViewModel
     {
         public int EmployeeId { get; set; }
-
+/*
         [Required(ErrorMessage = "Employee Code required")]
-        [RegularExpression("[0-9]{1,3}", ErrorMessage = "Employee Code should be 1-3 digit")]
+        [RegularExpression("[0-9]{1,3}", ErrorMessage = "Employee Code should be 1-3 digit")]*/
         public int EmployeeCode { get; set; }
 
 
@@ -78,10 +78,11 @@ namespace EmployeeManagementSystemCore.ViewModels
 
 
 
-        [RegularExpression("[0-9]{10}", ErrorMessage = "Enter valid Aadhar Number")]
+        [RegularExpression("[0-9]{12}", ErrorMessage = "Enter valid Aadhar Number")]
         [Required(ErrorMessage = "Aadhar Card Number is required")]
+        [StringLength(12,MinimumLength =12)]
 
-        public long AadharCardNo { get; set; }
+        public string AadharCardNo { get; set; }
 
 
 
@@ -154,12 +155,12 @@ namespace EmployeeManagementSystemCore.ViewModels
         public int YearsOfExprience { get; set; }
 
         [Required(ErrorMessage = "UAN is required")]
-        [RegularExpression("[0-9{12-20}]")]
+        [RegularExpression("[0-9]{12,20}")]
         public string UANNo { get; set; }
 
 
         [Required(ErrorMessage = "Bank Account Number is required")]
-        [RegularExpression("[0-9{12-20}]")]
+        [RegularExpression("[0-9]{12,20}")]
         public string BankAcNo { get; set; }
 
 
@@ -176,5 +177,6 @@ namespace EmployeeManagementSystemCore.ViewModels
         [Required(ErrorMessage = "Password is required")]
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Password should be Atleast 1 caps,1 special char,1 number and min 8 in length")]
         public string Password { get; set; }
+        public string LastLogin { get; set; }
     }
 }

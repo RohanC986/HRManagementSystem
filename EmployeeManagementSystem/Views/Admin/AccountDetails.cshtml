@@ -1,4 +1,4 @@
-﻿@model EmployeeManagementSystemCore.ViewModels.AddAccountViewModel
+﻿@model EmployeeManagementSystemCore.ViewModels.AddNewEmployeeViewModel
 
 @{
     ViewBag.Title = "AccountDetails";
@@ -14,7 +14,7 @@
 
 <h4 class="LeaveSummaryHeading">Account Details</h4>
 <hr id="leaverequesthr"/>
-@using (Html.BeginForm("SaveAccountDetails", "Admin"))
+@using (Html.BeginForm("AddLogin", "Admin",Model))
 {
     @Html.AntiForgeryToken()
 
@@ -27,7 +27,12 @@
         <div class="form-group my-4">
             <label class="control-label col-md-4 ">UAN Number</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.UANNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}" } })
+
+                @Html.EditorFor(model => model.UANNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}" ,
+               @minlength = 12,
+               @maxlength = 20
+           } })
+
                 @Html.ValidationMessageFor(model => model.UANNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +40,12 @@
         <div class="form-group">
             <label class="control-label col-md-4">Account Number</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.BankAcNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}" } })
+
+                @Html.EditorFor(model => model.BankAcNo, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[0-9]{12-20}",
+               @minlength = 7,
+               @maxlength = 20
+           } })
+
                 @Html.ValidationMessageFor(model => model.BankAcNo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +53,9 @@
         <div class="form-group">
             <label class="control-label col-md-4">IFSC Code</label>
             <div class="col-md-6">
-                @Html.EditorFor(model => model.IFSCCode, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[A-Z]{4}[0-9]{7}" } })
+                @Html.EditorFor(model => model.IFSCCode, new { htmlAttributes = new { @class = "form-control",required="required",pattern= "[A-Z]{4}[0-9]{7}", @minlength =11,
+               @maxlength = 11
+           } })
                 @Html.ValidationMessageFor(model => model.IFSCCode, "", new { @class = "text-danger" })
             </div>
         </div>

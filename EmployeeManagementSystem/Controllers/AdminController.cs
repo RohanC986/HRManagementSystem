@@ -116,15 +116,17 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult SaveNewEmp(Employee model)
+        /*public ActionResult SaveNewEmp(Employee model)
         {
             try
             {
                 if (Session["EmpId"] != null)
                 {
-
+                   
+                    
                     Employees employees = new Employees();
-                    var check = employees.SaveNewEmp(model);
+                    object empcode = employees.GetLastEmployeeCode();
+                    var check = employees.SaveNewEmp(model,Convert.ToInt32(empcode));
                     if (check == null)
                     {
                         ViewBag.Message = "Invalid credentials";
@@ -143,7 +145,7 @@ namespace EmployeeManagementSystem.Controllers
 
             return RedirectToAction("AccountDetails", "Admin");
 
-        }
+        }*/
 
         //public ActionResult UpdateEmpDetails(int EmployeeId)
         //{
@@ -332,7 +334,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult AddLogin()
+        public ActionResult AddLogin(AddNewEmployeeViewModel emp)
         {
             try
             {
@@ -349,7 +351,7 @@ namespace EmployeeManagementSystem.Controllers
                     Employee EmpDR = loginService.AddLogin();
                     ViewData["EmpCodeOption"] = EmpDR;
 
-                    return View();
+                    return View(emp);
 
                 }
             }
@@ -364,7 +366,7 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-        public ActionResult SaveLogin(Login model)
+        public ActionResult SaveLogin(AddNewEmployeeViewModel model)
         {
             try
             {
@@ -868,7 +870,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult AccountDetails(Project emp)
+        public ActionResult AccountDetails(AddNewEmployeeViewModel emp)
         {
             try
             {
@@ -880,12 +882,14 @@ namespace EmployeeManagementSystem.Controllers
                     //EmployeeIdNameViewModel empname = new EmployeeIdNameViewModel();
                     //empname.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpDt);
                     Employees employee = new Employees();
-                    EmployeeIdNameViewModel empname = employee.AccountDetails(emp); 
+                    EmployeeIdNameViewModel empname = employee.AccountDetails(); 
                     ViewData["EmpName"] = empname;
+                    ViewData["EmployeeCode"] = employee.GetLastEmployeeCode();
+                    emp.EmployeeCode = Convert.ToInt32(ViewData["EmployeeCode"]) + 1;
 
 
 
-                    return View();
+                    return View(emp);
                 }
             }
             catch (Exception e)
@@ -896,7 +900,7 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("SaveAccountDetails", "Admin");
 
         }
-        public ActionResult SaveAccountDetails(AccountDetails ac)
+       /* public ActionResult SaveAccountDetails(AccountDetails ac)
         {
             try
             {
@@ -915,7 +919,7 @@ namespace EmployeeManagementSystem.Controllers
                 return RedirectToAction("AccountDetails");
             }
 
-        }
+        }*/
 
 
 
