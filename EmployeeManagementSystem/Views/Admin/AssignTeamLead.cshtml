@@ -1,0 +1,109 @@
+﻿@model EmployeeManagementSystemCore.Models.Project
+
+@{
+    ViewBag.Title = "AssignTeamLead";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var emp = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModel)ViewData["TeamLead"];
+
+
+    var empOptions = new List<SelectListItem>() /*{ new SelectListItem { Text = "Select Employee", Value = "" } }*/;
+
+    foreach (var item in emp.EmployeeIdNameList)
+    {
+        empOptions.Add(new SelectListItem() { Text = item.FirstName, Value = item.EmployeeId.ToString() });
+    }
+    var project = (EmployeeManagementSystemCore.Models.Project)ViewData["Projects"];
+
+
+    var projectOptions = new List<SelectListItem>() /*{ new SelectListItem { Text = "Select Employee", Value = "" } }*/;
+
+    foreach (var item in project.ProjectList )
+    {
+        projectOptions.Add(new SelectListItem() { Text = item.ProjectName, Value = item.ProjectId.ToString() });
+    }
+}
+
+@if (Convert.ToInt16((Session["Role"]).ToString()) == 1 && ViewBag.AddProject == null)
+{
+    using (Html.BeginForm("AddTeamLead", "Admin", Model))
+
+    {
+        @Html.AntiForgeryToken()
+
+
+<div class="form-horizontal mx-auto align-center  ">
+    <h4 class="addEmp">Assign Team Lead</h4>
+    <hr id="addemphr" />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="dept-btn">
+        <div class="dept-btn-sec ">
+            <a href="@Url.Action("ChangeTeamLead" , "Admin")">
+                <span class="fa fa-solid fa-file-chart-pie"></span>
+                Change Team Lead
+            </a>
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @*@Html.LabelFor(model => model.ProjectHeadEmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+        *@
+        <label class="control-label col-md-4">Project Head</label>
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ProjectId, projectOptions, htmlAttributes: new { @class = "text-left Role-Down  select-add-Project", required = "required" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-6">
+        @*@Html.LabelFor(model => model.ProjectHeadEmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+        *@
+        <label class="control-label col-md-4">Project Head</label>
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ProjectHeadEmployeeId, empOptions, htmlAttributes: new { @class = "text-left Role-Down  select-add-Project", required = "required" })
+            @Html.ValidationMessageFor(model => model.ProjectHeadEmployeeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+
+    <div class="form-group col-md-12  row justify-content-md-center add-project-btn-div">
+        <div class="col-md-1 col-sm-12 col ">
+            <input id="emp-create-btn" type="submit" value="Assign" class="btn-primary btn-default " />
+        </div>
+
+        <div class="col-md-1 col-sm-12 col" id="Addproject-form-back-list">
+
+            @Html.ActionLink("Back", "Department", "Admin", new { @class = "btn-success -default" })
+
+        </div>
+
+
+    </div>
+
+</div>
+
+    }
+}
+else if (ViewBag.AddProject != null)
+{
+    < div >
+    < p >
+    @ViewBag.AddProject
+    </ p >
+    </ div >
+}
+else
+{
+    < td > You are not Authorized </ td >
+}
+
+<script>
+    $(".select-add-Project").prepend("<option value='' disabled selected>Select Project...</option>");
+
+</script>
+
+}
+
+
+

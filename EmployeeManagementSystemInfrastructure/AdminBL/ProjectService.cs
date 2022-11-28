@@ -2,14 +2,8 @@
 using EmployeeManagementSystemCore.Models;
 using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.ConversionService;
-using iTextSharp.text.pdf.qrcode;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeManagementSystemInfrastructure.AdminBL
 {
@@ -102,7 +96,65 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return op;
         }
 
-       
+        public Project GetProjectsWithoutTeamLead()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetProjectWithoutTeamLead", dict);
+            Project projectsList = new Project();
+            projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
+            return projectsList;
+
+        }
+        public int AssignTeamLead(Project project)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                  {"@ProjectId",project.ProjectId },
+                {"@ProjectHeadEmployeeId",project.ProjectHeadEmployeeId }
+            };
+            int op = dal.ExecuteNonQuery("uspAssignTeamLead", dict);
+            return op;
+
+
+        }
+
+        public int ChangeTeamLead(Project project)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@ProjectId",project.ProjectId },
+                {"@ProjectHeadEmployeeId",project.ProjectHeadEmployeeId }
+            };
+            int op = dal.ExecuteNonQuery("uspUpdateTeamLead", dict);
+            return op;
+
+
+        }
+
+        public Project GetProjectsTeamLead()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            DataTable ProjectsList = dal.ExecuteDataSet<DataTable>("uspGetAllProjects", dict);
+            Project projectsList = new Project();
+            projectsList.ProjectList = dtP.DataTableToProjectModel(ProjectsList);
+            return projectsList;
+
+        }
+        public EmployeeIdNameViewModel GetTeamLead()
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            DataTable EmpIdname = dal.ExecuteDataSet<DataTable>("uspGetAllTeamLeads", dict);
+            EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
+            empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
+            return empIdName;
+        }
+
+
+
+
+
 
 
     }

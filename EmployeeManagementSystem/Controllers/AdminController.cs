@@ -71,6 +71,11 @@ namespace EmployeeManagementSystem.Controllers
                     //ViewData["RoleId"] = model.RoleId;
                     //return View(ViewData["allEmployees"]);
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
 
                 return RedirectToAction("Login", "Accounts");
             }
@@ -103,6 +108,11 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["EmployeeCode"] = employees.GetLastEmployeeCode();
 
                     return View();
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
                 }
             }
             catch (Exception e)
@@ -194,6 +204,10 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["designationOptions"] = designation;
                     return View(model);
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+                }   
             }
             catch (Exception e)
             {
@@ -242,6 +256,11 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["TeamEmps"] = department1.DepartmentsViews;
                     return View(department1.DepartmentsViews);
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
             }
             catch (Exception e)
             {
@@ -270,6 +289,10 @@ namespace EmployeeManagementSystem.Controllers
 
                     return View();
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+                }   
             }
             catch (Exception e)
             {
@@ -320,6 +343,11 @@ namespace EmployeeManagementSystem.Controllers
                     //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
                     return View();
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
             }
             catch (Exception e)
             {
@@ -354,6 +382,11 @@ namespace EmployeeManagementSystem.Controllers
                     return View(emp);
 
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
             }
             catch (Exception e)
             {
@@ -383,6 +416,11 @@ namespace EmployeeManagementSystem.Controllers
 
 
                     return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
                 }
             }
             catch (Exception ex)
@@ -442,6 +480,11 @@ namespace EmployeeManagementSystem.Controllers
 
                     return RedirectToAction("GetAllEmployeesDetails", "Admin");
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
 
 
             }
@@ -477,6 +520,11 @@ namespace EmployeeManagementSystem.Controllers
                     this.AddNotification("Employee Enables Successfully", NotificationType.SUCCESS);
 
                     return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
                 }
 
 
@@ -526,6 +574,11 @@ namespace EmployeeManagementSystem.Controllers
                     return RedirectToAction("GetAllDesignation");
 
                 }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
             }
             catch (Exception ex)
             {
@@ -553,6 +606,11 @@ namespace EmployeeManagementSystem.Controllers
                     Designation designation = employees.GetAllDesignation();
                     ViewData["designation"] = designation.DesignationsList;
                     return View(ViewData);
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
                 }
 
             }
@@ -600,6 +658,11 @@ namespace EmployeeManagementSystem.Controllers
                     this.AddNotification("Designation Updated Successfully", NotificationType.SUCCESS);
 
                     return RedirectToAction("GetAllDesignation");
+
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
 
                 }
             }
@@ -882,7 +945,7 @@ namespace EmployeeManagementSystem.Controllers
                     //EmployeeIdNameViewModel empname = new EmployeeIdNameViewModel();
                     //empname.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpDt);
                     Employees employee = new Employees();
-                    EmployeeIdNameViewModel empname = employee.AccountDetails(); 
+                    EmployeeIdNameViewModel empname = employee.AccountDetails();
                     ViewData["EmpName"] = empname;
                     ViewData["EmployeeCode"] = employee.GetLastEmployeeCode();
                     emp.EmployeeCode = Convert.ToInt32(ViewData["EmployeeCode"]) + 1;
@@ -890,6 +953,10 @@ namespace EmployeeManagementSystem.Controllers
 
 
                     return View(emp);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
                 }
             }
             catch (Exception e)
@@ -900,26 +967,26 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("SaveAccountDetails", "Admin");
 
         }
-       /* public ActionResult SaveAccountDetails(AccountDetails ac)
-        {
-            try
-            {
-                Employees employee = new Employees();
-                int check = employee.SaveAccountDetails(ac);
-                if(check > 0)
-                {
-                    this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
+        /* public ActionResult SaveAccountDetails(AccountDetails ac)
+         {
+             try
+             {
+                 Employees employee = new Employees();
+                 int check = employee.SaveAccountDetails(ac);
+                 if(check > 0)
+                 {
+                     this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
 
-                }
-                return RedirectToAction("AddLogin", "Admin");
-            }
-            catch (Exception e)
-            {
-                ViewBag.SaveAccountDetails = "Dat not Saved !";
-                return RedirectToAction("AccountDetails");
-            }
+                 }
+                 return RedirectToAction("AddLogin", "Admin");
+             }
+             catch (Exception e)
+             {
+                 ViewBag.SaveAccountDetails = "Dat not Saved !";
+                 return RedirectToAction("AccountDetails");
+             }
 
-        }*/
+         }*/
 
 
 
@@ -927,7 +994,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                
+
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     int EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
@@ -947,7 +1014,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.GetUserOwnDetails = "Could not get User Own Details";
-                return View();
+                return RedirectToAction("Login", "Accounts");
             }
             return View();
 
@@ -985,13 +1052,129 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.GetTeamLeaveRequest = "Leave request Error";
+
             }
             //TeamEmps = tempEmpDetialsView;
             return RedirectToAction("GetTeamLeaveRequest");
 
         }
 
-        
+        public ActionResult AssignTeamLead(Project project)
+        {
+            try
+            {
+                if (Session["EmpId"]!=null)
+                {
+                    ProjectService projectService = new ProjectService();
+                    Project projects = projectService.GetProjectsWithoutTeamLead();
+                    EmployeeIdNameViewModel empIdName = projectService.AddProject();
+                    ViewData["TeamLead"] = empIdName;
+                    ViewData["Projects"] = projects;
+                }
+             
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
 
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("GetAllEmployeeDetails");
+            }
+        }
+
+        public ActionResult AddTeamLead(Project project)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    ProjectService projectService = new ProjectService();
+                    int op = projectService.AssignTeamLead(project);
+                    if (op != 0)
+                    {
+                        this.AddNotification("Team Lead Assigned Successfully", NotificationType.SUCCESS);
+
+                    }
+                    return RedirectToAction("AssignTeamLead");
+
+
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+
+                }
+                return RedirectToAction("AssignTeamLead");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification("Team Lead Assigned Failed", NotificationType.ERROR);
+                return RedirectToAction("AssignTeamLead");
+            }
+        }
+        public ActionResult ChangeTeamLead(Project project)
+        {
+            if (Session["EmpId"] != null)
+            {
+                ProjectService projectService = new ProjectService();
+                Project projects = projectService.GetProjectsTeamLead();
+                EmployeeIdNameViewModel empIdName = projectService.GetTeamLead();
+                ViewData["TeamLeadWithProject"] = empIdName;
+                ViewData["AllProjects"] = projects;
+                return View();
+
+
+            }
+            else
+            {
+                return RedirectToAction("GetAllEmployeeDetails");
+
+            }
+            return RedirectToAction("Login", "Accounts");
+        }
+
+        public ActionResult UpdateTeamLead(Project project)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    ProjectService projectService = new ProjectService();
+                    int op = projectService.ChangeTeamLead(project);
+                    if (op != 0)
+                    {
+                        this.AddNotification("Team Lead Updated Successfully", NotificationType.SUCCESS);
+
+                    }
+                    return RedirectToAction("Department");
+
+
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
+                return RedirectToAction("AssignTeamLead");
+            }
+            catch (Exception ex)
+            {
+                this.AddNotification("Team Lead Assigned Failed", NotificationType.ERROR);
+                return RedirectToAction("AssignTeamLead");
+            }
+
+
+
+
+
+
+
+
+
+        }
     }
 }

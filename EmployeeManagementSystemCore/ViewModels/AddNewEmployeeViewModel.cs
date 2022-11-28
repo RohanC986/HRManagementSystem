@@ -10,9 +10,9 @@ namespace EmployeeManagementSystemCore.ViewModels
     public class AddNewEmployeeViewModel
     {
         public int EmployeeId { get; set; }
-/*
-        [Required(ErrorMessage = "Employee Code required")]
-        [RegularExpression("[0-9]{1,3}", ErrorMessage = "Employee Code should be 1-3 digit")]*/
+        /*
+                [Required(ErrorMessage = "Employee Code required")]
+                [RegularExpression("[0-9]{1,3}", ErrorMessage = "Employee Code should be 1-3 digit")]*/
         public int EmployeeCode { get; set; }
 
 
@@ -80,7 +80,7 @@ namespace EmployeeManagementSystemCore.ViewModels
 
         [RegularExpression("[0-9]{12}", ErrorMessage = "Enter valid Aadhar Number")]
         [Required(ErrorMessage = "Aadhar Card Number is required")]
-        [StringLength(12,MinimumLength =12)]
+        [StringLength(12, MinimumLength = 12)]
 
         public string AadharCardNo { get; set; }
 

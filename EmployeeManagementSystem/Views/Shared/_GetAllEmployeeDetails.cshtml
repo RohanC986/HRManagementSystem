@@ -1,8 +1,10 @@
 ﻿@model EmployeeManagementSystemCore.ViewModels.AdminViewModelList
-
+@{ 
+    string searchstr = "";
+}
 @if (Convert.ToInt32(Session["role"]) == 1 && ViewBag.GetAllEmployeeDetails == null)
 {
-
+    
 
     <h2 class="addEmp">Employees Details</h2>
     <hr id="addemphr" />
@@ -17,8 +19,9 @@
         <div>
             @using (Html.BeginForm())
             {
-            <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+            <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" id="search" onchange="SearchFunction()" /></p>
             }
+         
         </div>
 
        
@@ -32,7 +35,7 @@
         <table id="GetAllEmpDetails" >
 
             <thead class=" ">
-                <tr>
+                <tr class="search">
                     <th class="col-md-3 ">
                         Name
                     </th>
@@ -136,4 +139,36 @@ else
     <td> You are not Authorized </td>
 }
 
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+<script type="text/javascript">
+    var glo = "ab";
+    $(document).ready(function () {
+        function Contains(text_one, text_two) {
+            if (text_one.indexOf(text_two) != -1)
+                return true;
+        }
+        $("#Search").keyup(function () {
+            var searchText = $("#Search").val().toLowerCase();
+            $(".Search").each(function () {
+                if (!Contains($(this).text().toLowerCase(), searchText)) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            })
+        })
+    })
+
+
+    @*function SearchFunction() {
+        var s = document.querySelector("#search").value;
+        if (s.length >= 3) {
+                    @Html.ActionLink("GetAllEmployeeDetails", "Admin", new { searchtext=s });
+
+        }
+    }*@
+</script>
 

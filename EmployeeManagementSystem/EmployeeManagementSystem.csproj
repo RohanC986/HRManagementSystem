@@ -365,6 +365,8 @@
     <Content Include="Views\Shared\_GetAllEmployeeDetails.cshtml" />
     <Content Include="Views\TeamLead\GetUserOwnDetails.cshtml" />
     <Content Include="Views\Admin\GetTeamLeadLeaveRequest.cshtml" />
+    <Content Include="Views\Admin\AssignTeamLead.cshtml" />
+    <Content Include="Views\Admin\ChangeTeamLead.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
