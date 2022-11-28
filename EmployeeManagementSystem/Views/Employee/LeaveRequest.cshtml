@@ -1,6 +1,4 @@
-﻿
-
-@model EmployeeManagementSystemCore.Models.LeaveRequest
+﻿@model EmployeeManagementSystemCore.Models.LeaveRequest
 
 @{
     ViewBag.Title = "LeaveRequest";
@@ -13,7 +11,7 @@
     <hr id="leaverequesthr" />
 
     <div class="form-horizontal" id="leaveRequestDiv">
-       
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group col-md-12">
@@ -54,7 +52,8 @@
                    required = "required",
                    oninvalid = "InvalidMsgStartDate(this);",
                    min = DateTime.Now.ToString("yyyy-MM-dd"),
-                   max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd"),onchange= "enddatemin()"
+                   max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd"),
+                        onchange = "enddatemin()"
                }
            })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
@@ -77,7 +76,8 @@
 
                         min = DateTime.Now.ToString("yyyy-MM-dd"),
                max = DateTime.Now.AddDays(90).ToString("yyyy-MM-dd"),
-                        onchange = "lencheck()" }
+                        onchange = "lencheck()"
+                    }
                 })
 
                 @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
@@ -121,17 +121,7 @@
 
 
 <script type="text/javascript">
-    $(function () {
-        $("#createsubmit").click(function () {
-            toastr.success("success", "Toastr");
-        });
 
-    //$(function () {
-    //    $("#createsubmit").click(function () {
-    //        toastr.success("success", "Toastr");
-    //    });
-
-    //});
     //function buttonState() {
     //    $("input").each(function () {
     //        $('#createsubmit').attr('disabled', 'disabled');

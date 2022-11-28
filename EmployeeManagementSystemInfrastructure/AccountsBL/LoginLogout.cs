@@ -127,9 +127,10 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
 
                                 dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
-                                model.PasswordMessage = $"Invalid Password({5 - attempts2} remaining out of 5)";
-                                //ViewBag.LoginError = $"Invalid Password({5 - attempts2} remaining out of 5)";
-                                //this.AddNotification($"Invalid Password({5 - attempts2} remaining out of 5)", NotificationType.ERROR);
+                                model.PasswordMessage = "Invalid Password";
+                                /*                                model.PasswordMessage = $"Invalid Password({5 - attempts2} remaining out of 5)";
+                                */                                //ViewBag.LoginError = $"Invalid Password({5 - attempts2} remaining out of 5)";
+                                                                  //this.AddNotification($"Invalid Password({5 - attempts2} remaining out of 5)", NotificationType.ERROR);
                                 return model;
 
 
@@ -142,9 +143,10 @@ namespace EmployeeManagementSystemInfrastructure.AccountsBL
 
 
                                 dal.ExecuteNonQuery("uspIncreaseAttempts", dict6);
-                                model.PasswordMessage = "Last Attempt Remaining";
-                                //ViewBag.LoginError = "Last Attempt Remaining";
-                                //this.AddNotification("Last Attempt Remaining", NotificationType.ERROR);
+                                model.PasswordMessage = "Invalid Password";
+                                /*                                model.PasswordMessage = "Last Attempt Remaining";
+                                */                                //ViewBag.LoginError = "Last Attempt Remaining";
+                                                                  //this.AddNotification("Last Attempt Remaining", NotificationType.ERROR);
                                 return model;
                             }
                             else if (attempts2 == 5)

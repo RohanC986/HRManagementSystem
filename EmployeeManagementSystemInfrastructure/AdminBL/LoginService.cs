@@ -31,6 +31,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
 
         public int SaveLogin(AddNewEmployeeViewModel model)
         {
+            var l = encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password);
             Dictionary<string, object> diction = new Dictionary<string, object>() {
 
                 { "@EmployeeCode",model.EmployeeCode},
@@ -60,7 +61,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
                 { "@BankAcNo",model.BankAcNo},
                 { "@IFSCCode",model.IFSCCode},
                 { "@Username",model.Username},
-                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(  (model.Password))},
+                { "@Password",encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password)},
                 { "@LastLogin",model.LastLogin},
                 
             };

@@ -96,7 +96,7 @@ namespace EmployeeManagementSystem.Controllers
                     else if (Convert.ToInt32(model.IsActive) == 0)
                     {
                         this.AddNotification("User Blocked", NotificationType.ERROR);
-                        ViewBag.LoginError = "User Blocked";
+                        ViewBag.UsernameError = "User Blocked";
 
                         return View();
 

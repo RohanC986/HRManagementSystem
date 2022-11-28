@@ -1,11 +1,11 @@
-﻿
+﻿@model EmployeeManagementSystemCore.ViewModels.GetTeamLeaveRequestViewModel
 @{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-@if (((Session["role"]).ToString()) == "2" && ViewBag.GetTeamLeaveRequest == null)
+@if(Convert.ToInt32((Session["role"]).ToString()) == 2 && ViewBag.GetTeamLeaveRequest == null)
 {
     <h2 class="addEmp">Leave Request</h2>
     <hr id="addemphr" />

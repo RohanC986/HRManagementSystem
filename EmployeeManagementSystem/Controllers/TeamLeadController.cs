@@ -127,7 +127,7 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-        public ActionResult GetTeamSpecificUserDetails(TeamEmpDetailsViewModel emp)
+        public ActionResult GetTeamSpecificUserDetails(int employeeId)
         {
             try
             {
@@ -135,11 +135,14 @@ namespace EmployeeManagementSystem.Controllers
                 var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
                 if (EmpId >= 0)
                 {
+                    /*emp.DOB = new DateTime(2002, 1, 1);*/
+                    AdminViewModel op = teamLead.GetUserSpecificDetails(employeeId);
 
-                    AdminViewModel op  = teamLead.GetUserSpecificDetails(emp.EmployeeId);  
+                    op.DOB = "lkasndlkasndklasnd";
 
 
-                    return RedirectToAction("GetSpecificUserDetails", "Admin", op);
+                    
+                    return View("GetUserOwnDetails",op);
                     //return View(op);
                 }
                 else
@@ -158,6 +161,10 @@ namespace EmployeeManagementSystem.Controllers
 
         }
         public ActionResult GetUserOwnDetails(TeamEmpDetailsViewModel emp)
+        
+        
+        
+        
         {
             try
             {
@@ -181,7 +188,7 @@ namespace EmployeeManagementSystem.Controllers
                 ViewBag.GetUserOwnDetails = "Could not get User Own Details";
                 return View();
             }
-            return View();
+            return RedirectToAction("GetAllTeamEmps");
 
         }
 

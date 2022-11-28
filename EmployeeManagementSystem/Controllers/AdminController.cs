@@ -388,7 +388,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 ViewBag.SaveLogin = "Could Not Save Login";
-                return View();
+                return RedirectToAction("AddNewEmp", "Admin", model);
 
             }
 
