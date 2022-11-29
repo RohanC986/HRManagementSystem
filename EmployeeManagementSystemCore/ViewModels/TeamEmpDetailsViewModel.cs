@@ -12,7 +12,7 @@ namespace EmployeeManagementSystemCore.ViewModels
         public int EmployeeId { get; set; }
 
        
-        public int EmployeeCode { get; set; }
+        public string EmployeeCode { get; set; }
 
 
 

@@ -17,15 +17,15 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                                              {
                                                  LeaveRequestId = Convert.ToInt32(dr["LeaveRequestId"]),
                                                  EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
-                                                 FirstName = dr["FirstName"].ToString(),
-                                                 LastName = dr["LastName"].ToString(),
+                                                 FirstName = Convert.ToString(dr["FirstName"]),
+                                                 LastName = Convert.ToString(dr["LastName"]),
                                                  isHalfDay = Convert.ToBoolean(dr["isHalfDay"]),
-                                                 LeaveType = dr["LeaveType"].ToString(),
-                                                 Reason = dr["Reason"].ToString(),
+                                                 LeaveType = Convert.ToString(dr["LeaveType"]),
+                                                 Reason = Convert.ToString(dr["Reason"]),
                                                  LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
                                                  StartDate = DateTime.Parse(dr["StartDate"].ToString()),
                                                  EndDate = DateTime.Parse(dr["EndDate"].ToString()),
-                                                 Status = dr["Status"].ToString(),
+                                                 Status = Convert.ToString(dr["Status"]),
 
                                              }
 

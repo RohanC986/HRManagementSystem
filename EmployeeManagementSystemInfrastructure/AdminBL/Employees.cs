@@ -119,11 +119,11 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return designation;
         }
 
-        public int GetLastEmployeeCode()
+        public string GetLastEmployeeCode()
         {
             Dictionary<string, object> dict1 = new Dictionary<string, object>();
             object empcode = dal.ExecuteScalar("uspGetLastEmployeeCode", dict1);
-            int RecentEmployeeCode = Convert.ToInt32(empcode);
+            string RecentEmployeeCode = empcode.ToString();
             return RecentEmployeeCode;
         }
 

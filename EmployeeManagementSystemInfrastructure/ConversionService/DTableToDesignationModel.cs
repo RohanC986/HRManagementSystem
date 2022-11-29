@@ -18,9 +18,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                                 select new Designation
                                 {
                                     DesignationId = Convert.ToInt32(dr["DesignationId"]),
-                                    DesignationName = dr["DesignationName"].ToString(),
-                                    Created = dr["Created"].ToString(),
-                                    LastModified = dr["LastModified"].ToString()
+                                    DesignationName = Convert.ToString(dr["DesignationName"]),
+                                    Created = Convert.ToString(dr["Created"]),
+                                    LastModified = Convert.ToString(dr["LastModified"])
                                 }
 
                 ).ToList();

@@ -13,7 +13,7 @@ namespace EmployeeManagementSystemCore.ViewModels
         /*
                 [Required(ErrorMessage = "Employee Code required")]
                 [RegularExpression("[0-9]{1,3}", ErrorMessage = "Employee Code should be 1-3 digit")]*/
-        public int EmployeeCode { get; set; }
+        public string EmployeeCode { get; set; }
 
 
 

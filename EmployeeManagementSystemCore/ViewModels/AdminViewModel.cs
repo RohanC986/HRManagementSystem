@@ -16,7 +16,7 @@
         /// <summary>
         /// Gets or sets the EmployeeCode.
         /// </summary>
-        public int EmployeeCode { get; set; }
+        public string EmployeeCode { get; set; }
 
         /// <summary>
         /// Gets or sets the FirstName.
@@ -106,11 +106,15 @@
         /// <summary>
         /// Gets or sets the RoleName.
         /// </summary>
+        /// 
+        public int RoleId { get; set; }
         public string RoleName { get; set; }
 
         /// <summary>
         /// Gets or sets the DesignationName.
         /// </summary>
+        /// 
+        public int DesignationId { get; set; }
         public string DesignationName { get; set; }
 
         /// <summary>

@@ -17,9 +17,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                          select new Role
                          {
                              RoleId = Convert.ToInt32(dr["RoleId"]),
-                             RoleName = dr["RoleName"].ToString(),
-                             Created = dr["Created"].ToString(),
-                             LastModified = dr["LastModified"].ToString()
+                             RoleName = Convert.ToString(dr["RoleName"]),
+                             Created = Convert.ToString(dr["Created"]),
+                             LastModified = Convert.ToString(dr["LastModified"])
 
                              //EmployeesOnLeave = Convert.ToInt32(dr["EmployeesOnLeave"]),
                          }

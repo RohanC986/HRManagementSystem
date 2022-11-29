@@ -69,6 +69,7 @@
     <Compile Include="ConversionService\DTableToDepartmentsModel.cs" />
     <Compile Include="ConversionService\DTableToDesignationModel.cs" />
     <Compile Include="ConversionService\DTableToEmployeeIdNameViewModel.cs" />
+    <Compile Include="ConversionService\AdminViewModelToEmployeeModel .cs" />
     <Compile Include="ConversionService\DTableToEmployeeModel.cs" />
     <Compile Include="ConversionService\DTableToLeaveModel.cs" />
     <Compile Include="ConversionService\DTableToLeaveRequestModel.cs" />

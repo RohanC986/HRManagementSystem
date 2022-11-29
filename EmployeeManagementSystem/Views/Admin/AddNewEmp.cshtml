@@ -18,7 +18,9 @@
     {
         DesignationOptions.Add(new SelectListItem() { Text = item.DesignationName, Value = item.DesignationId.ToString() });
     }
-    int empcode = Convert.ToInt32(ViewData["EmployeeCode"])+1;
+    int prevempcode = Convert.ToInt32(ViewData["EmployeeCode"].ToString().Substring((ViewData["EmployeeCode"].ToString()).Length - 3, 3));
+    string empcode = "WB-"+ ((prevempcode+1).ToString()).PadLeft(3,'0');
+    
     DateTime dt = DateTime.Now.AddYears(-18);
     string dt1 = dt.ToString("yyyy-MM-dd");
     string doj = DateTime.Now.ToString("yyyy-MM-dd");
@@ -47,7 +49,7 @@
                 <label class="control-label col-md-4">Employee Code</label>
                 <div class="col-md-8">
 
-                    @Html.EditorFor(model => model.EmployeeCode, new { htmlAttributes = new { @class = "form-control", placeholder = $"WB-{empcode}", required = "required", pattern = "[0-9]{1,3}",Value=$"WB-{empcode}",disabled="true" } })
+                    @Html.EditorFor(model => model.EmployeeCode, new { htmlAttributes = new { @class = "form-control employee-Code",@* placeholder = $"WB-{empcode}",*@ required = "required", pattern = "[0-9]{1,3}",Value=$"{empcode}",disabled="true" } })
 
                     @Html.ValidationMessageFor(model => model.EmployeeCode, "", new { @class = "text-danger" })
                 </div>
@@ -152,7 +154,7 @@
                                   new SelectListItem { Text = "O+", Value = "O+"},
                                   new SelectListItem { Text = "O-", Value = "O-"}
 
-                               }, htmlAttributes: new { @class = "text-left Role-Down select-add-Blood-Group", required = "required", oninvalid = "setCustomValidity('Please Select Blood Group!')" })
+                               }, htmlAttributes: new { @class = "text-left Role-Down select-add-Blood-Group", required = "required", oninput = "InvalidMsgGender(this);", oninvalid = "setCustomValidity('Please Select Blood Group!')" })
                     @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -725,13 +727,14 @@ else
         }
     });
 
+
     $(".select-add-Gender").prepend("<option value='' disabled selected>Select Gender...</option>");
     $(".select-add-Blood-Group").prepend("<option value='' disabled selected>Select Blood Group...</option>");
     $(".select-add-state").prepend("<option value='' disabled selected>Select State...</option>");
     $(".select-add-Role").prepend("<option value='' disabled selected>Select Role...</option>");
     $(".select-add-Designation").prepend("<option value='' disabled selected>Select Designation...</option>");
     $(".select-add-Experience").prepend("<option value='' disabled selected>Select Experience...</option>");
-
+    $(".employee-Code").val =@empcode;
 
 </script>
 

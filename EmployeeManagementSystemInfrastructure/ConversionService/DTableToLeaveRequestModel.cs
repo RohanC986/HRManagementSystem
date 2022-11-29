@@ -17,14 +17,14 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                       {
                           LeaveRequestId = Convert.ToInt32(dr["LeaveRequestId"]),
                           IsHalfday = Convert.ToBoolean(dr["IsHalfday"]),
-                          LeaveType = dr["LeaveType"].ToString(),
-                          Reason = dr["Reason"].ToString(),
+                          LeaveType = Convert.ToString(dr["LeaveType"]),
+                          Reason = Convert.ToString(dr["Reason"]),
                           LengthOfLeave = Convert.ToInt32(dr["LengthOfLeave"]),
                           StartDate = DateTime.Parse(dr["StartDate"].ToString()),
                           EndDate = DateTime.Parse(dr["EndDate"].ToString()),
-                          Status = dr["Status"].ToString(),
-                          Created = dr["Created"].ToString(),
-                          LastModified = dr["LastModified"].ToString()
+                          Status = Convert.ToString(dr["Status"]),
+                          Created = Convert.ToString(dr["Created"]),
+                          LastModified = Convert.ToString(dr["LastModified"])
 
                       }
 

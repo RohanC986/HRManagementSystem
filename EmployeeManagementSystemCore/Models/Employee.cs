@@ -13,7 +13,7 @@ namespace EmployeeManagementSystemCore.Models
 
         [Required(ErrorMessage = "Employee Code required")]
         [RegularExpression("[0-9]{1,3}",ErrorMessage ="Invalid Employee Code")]
-        public int EmployeeCode { get; set; }
+        public string EmployeeCode { get; set; }
 
 
 
@@ -151,14 +151,14 @@ namespace EmployeeManagementSystemCore.Models
 
 
         [Range(0, 38, ErrorMessage = "Experience should be between 0 and 38")]
-        public int YearsOfExprience { get; set; }
+        public int? YearsOfExprience { get; set; }
 
 
 
 
         public bool? IsActive { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime LastModified { get; set; }
+        public DateTime? Created { get; set; }
+        public DateTime? LastModified { get; set; }
         public List<Employee> EmployeeList { get; set; }
 
     }

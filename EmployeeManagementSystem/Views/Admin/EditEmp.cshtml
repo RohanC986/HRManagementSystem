@@ -19,7 +19,7 @@
         DesignationOptions.Add(new SelectListItem() { Text = item.DesignationName, Value = item.DesignationId.ToString() });
     }
 
-    int empcode = Model.EmployeeCode;
+    string empcode = Model.EmployeeCode;
     DateTime dt = DateTime.Now.AddYears(-18);
     string dt1 = dt.ToString("yyyy-MM-dd");
     string doj = DateTime.Now.ToString("yyyy-MM-dd");
@@ -51,7 +51,7 @@
                             <label class="control-label col-md-4">Employee Code</label>
                             <div class="col-md-8">
 
-                                @Html.EditorFor(model => model.EmployeeCode, new { htmlAttributes = new { @class = "form-control", placeholder=$"{empcode}", required = "required", pattern = "[0-9]{1,3}", Value = $"WB-{empcode}", disabled = "true" } })
+                                @Html.EditorFor(model => model.EmployeeCode, new { htmlAttributes = new { @class = "form-control", placeholder=$"{empcode}", required = "required", pattern = "[0-9]{1,3}", disabled = "true" } })
 
                                 @Html.ValidationMessageFor(model => model.EmployeeCode, "", new { @class = "text-danger" })
                             </div>
@@ -297,7 +297,7 @@
                                ,
                                         @minlength = 12,
                                         @maxlength = 12,
-                                        pattern = "^[A-Z]{4}([0-9]{8})"
+                                        pattern = "[A-Z]{4}([0-9]{8})"
                                     }
                                 })
                                 @Html.ValidationMessageFor(model => model.PassportNo, "", new { @class = "text-danger" })
@@ -809,22 +809,20 @@ else
 
 
     function experiened() {
-        if (@Model.Experienced== true) {
-            document.querySelector().value = "Yes";
+    
+            
+            document.querySelector(".select-add-Experience").value = '@Model.Experienced'.toLowerCase();
 
-        }
-        else {
-
-        }
+       
     }
 
    @* $(".select-add-Gender").prepend("<option value='' disabled selected>Select Gender...</option>");
     $(".select-add-Blood-Group").prepend("<option value='' disabled selected>Select Blood Group...</option>");
     $(".select-add-state").prepend("<option value='' disabled selected>Select State...</option>");
-    
+
     $(".select-add-Experience").prepend("<option value='' disabled selected>Select Experience...</option>");*@
 
-    
+
     $(".dateofbirth").val('@DateOfBirth');
     $(".dateofjoining").val('@DateOfJoining');
     $(".select-add-Gender").val('@Model.Gender');
@@ -833,9 +831,10 @@ else
     $(".select-add-Role").val('@Model.RoleId');
     $(".select-add-Designation").val('@Model.DesignationId');
     $(".select-add-Experience").val('@Model.Experienced');
+    experiened();
 
 
-    
+
 
 
 </script>

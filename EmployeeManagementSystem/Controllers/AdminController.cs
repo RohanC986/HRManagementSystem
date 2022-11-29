@@ -40,6 +40,7 @@ namespace EmployeeManagementSystem.Controllers
         DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
         DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
         EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
+        AdminViewModelToEmployeeModel adminToEmployee = new AdminViewModelToEmployeeModel();
         public List<Role> RolesList { get; private set; }
 
         public AdminController()
@@ -54,7 +55,7 @@ namespace EmployeeManagementSystem.Controllers
 
         [Route("[controller]/getallemployees")]
         public ActionResult GetAllEmployeesDetails(LoginViewModel model, string emp)
-        {
+            {
 
             try
 
@@ -73,7 +74,7 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
 
@@ -82,6 +83,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.GetAllEmployeesDetailsError = "List of Users not found !";
+                return RedirectToAction("Logout", "Accounts");
 
             }
 
@@ -118,6 +120,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception e)
             {
                 ViewBag.AddNewEmpError = "List Not Found";
+                return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
 
 
@@ -191,18 +194,21 @@ namespace EmployeeManagementSystem.Controllers
         //}
 
 
-        public ActionResult EditEmp(Employee model)
+        public ActionResult EditEmp(AdminViewModel model)
         {
             try
             {
                 if (Session["EmpId"] != null)
                 {
+                   
+                    Employee outmodel = new Employee();
+                    outmodel = adminToEmployee.AdminToEmployee(model);
                     Employees employees = new Employees();
                     var roles = employees.GetRoles();
                     var designation = employees.GetDesignation();
                     ViewData["roleOptions"] = roles;
                     ViewData["designationOptions"] = designation;
-                    return View(model);
+                    return View(outmodel);
                 }
                 else
                 {
@@ -709,36 +715,36 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        //public ActionResult Report(Employee model)
-        //{
-        //    try
-        //    {
-        //        if (Session["EmpId"] != null)
-        //        {
-        //            Dictionary<string, object> dict = new Dictionary<string, object>() {
+        public ActionResult Report(Employee model)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    Dictionary<string, object> dict = new Dictionary<string, object>() {
 
-        //        { "@EmployeeId",model.EmployeeId},
-        //    };
-        //            DataSet datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
-        //            LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-        //            leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-        //            ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-        //            ExportToPdf(datatable, model.EmployeeId);
-        //            this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
-        //            return View();
-        //        }
+                { "@EmployeeId",model.EmployeeId},
+            };
+                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
+                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+                    ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                    ExportToPdf(datatable, model.EmployeeId);
+                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+                    return View();
+                }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Report = "Report Not Found";
-        //        return View();
-        //    }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Report = "Report Not Found";
+                return View();
+            }
 
-        //    return RedirectToAction("Login", "Accounts");
+            return RedirectToAction("Login", "Accounts");
 
 
-        //}
+        }
 
         public ActionResult RoleView()
         {
@@ -948,7 +954,10 @@ namespace EmployeeManagementSystem.Controllers
                     EmployeeIdNameViewModel empname = employee.AccountDetails();
                     ViewData["EmpName"] = empname;
                     ViewData["EmployeeCode"] = employee.GetLastEmployeeCode();
-                    emp.EmployeeCode = Convert.ToInt32(ViewData["EmployeeCode"]) + 1;
+                    int prevempcode = Convert.ToInt32(ViewData["EmployeeCode"].ToString().Substring((ViewData["EmployeeCode"].ToString()).Length - 3, 3));
+                    string empcode = "WB-" + ((prevempcode + 1).ToString()).PadLeft(3, '0');
+                    emp.EmployeeCode = empcode;
+                    /* emp.EmployeeCode = Convert.ToInt32(ViewData["EmployeeCode"]) + 1;*/
 
 
 

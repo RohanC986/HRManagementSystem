@@ -16,8 +16,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                          select new EmployeeIdNameViewModel
                          {
                              EmployeeId = Convert.ToInt32(dr["EmployeeId"]),
-                             FirstName = dr["FirstName"].ToString(),
-                             LastName = dr["LastName"].ToString(),
+                             FirstName = Convert.ToString(dr["FirstName"]),
+                             LastName = Convert.ToString(dr["LastName"]),
                              
                          }
 
