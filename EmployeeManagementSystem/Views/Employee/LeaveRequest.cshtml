@@ -1,4 +1,6 @@
-﻿@model EmployeeManagementSystemCore.Models.LeaveRequest
+﻿
+
+@model EmployeeManagementSystemCore.Models.LeaveRequest
 
 @{
     ViewBag.Title = "LeaveRequest";
@@ -29,11 +31,11 @@
             <div class="col-md-6">
                 @Html.DropDownList("LeaveType", new List<SelectListItem>
                 {
-                    new SelectListItem { Text = "Select Option", Selected=true},
+                    //new SelectListItem { Text = "Select Option", Selected=true},
                     new SelectListItem { Text = "Sick Leave ", Value = "Sick Leave "},
                     new SelectListItem { Text = "Casual Leave", Value ="Casual Leave" },
 
-                }, htmlAttributes: new { @class = "text-left Role-Down ", required = "required" })
+                }, htmlAttributes: new { @class = "text-left Role-Down select-Leave", required = "required" })
                 @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -121,27 +123,7 @@
 
 
 <script type="text/javascript">
-   
-        $("#createsubmit").click(function () {
-            toastr.success("success", "Toastr");
-        });
 
-    //$(function () {
-    //    $("#createsubmit").click(function () {
-    //        toastr.success("success", "Toastr");
-    //    });
-
-    //});
-        $("#createsubmit").click(function () {
-            toastr.success("success", "Toastr");
-        });
-
-    //$(function () {
-    //    $("#createsubmit").click(function () {
-    //        toastr.success("success", "Toastr");
-    //    });
-
-    //});
     //function buttonState() {
     //    $("input").each(function () {
     //        $('#createsubmit').attr('disabled', 'disabled');
@@ -217,6 +199,8 @@
         document.querySelector(".enddate").min = startdate.setDate(startdate + 1);
         var enddate = (document.querySelector(".enddate").min = dt.setDate(dt + 1));
         console.log(document.querySelector(".enddate").min = dt.toLocaleDateString("yyyy-MM-d"));
+        
 
     }
+    $(".select-Leave").prepend("<option value='' disabled selected>Select Leave Type...</option>");
 </script>

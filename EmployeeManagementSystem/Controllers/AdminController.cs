@@ -26,6 +26,7 @@ namespace EmployeeManagementSystem.Controllers
     public class AdminController : Controller
     {
 
+        
         private AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
         DTableToEmployeeIdNameViewModel dtEIN = new DTableToEmployeeIdNameViewModel();
@@ -213,7 +214,7 @@ namespace EmployeeManagementSystem.Controllers
                 else
                 {
                     return RedirectToAction("GetAllEmployeeDetails");
-                }   
+                }
             }
             catch (Exception e)
             {
@@ -298,7 +299,7 @@ namespace EmployeeManagementSystem.Controllers
                 else
                 {
                     return RedirectToAction("GetAllEmployeeDetails");
-                }   
+                }
             }
             catch (Exception e)
             {
@@ -335,7 +336,7 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        public ActionResult AddProjectMembers(Project Projects)
+        public ActionResult AddProjectMembers(int projectId)
         {
             try
             {
@@ -343,15 +344,16 @@ namespace EmployeeManagementSystem.Controllers
                 {
                     ProjectService projectService = new ProjectService();
                     EmployeeIdNameViewModel empIdnameViewModel = projectService.GetEmpId();
-                    Project projectsList = projectService.AddProjectMembers(Projects.ProjectId);
+                    Project projectsList = projectService.AddProjectMembers(projectId);
                     ViewData["EmpIdNameList"] = empIdnameViewModel;
                     ViewData["ProjectsList"] = projectsList;
+                    ViewData["ProjectName"] = projectsList.ProjectList[0].ProjectName;
                     //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
-                    return View();
+                    return View(new ProjectMembersViewModel{ ProjectId=projectId});
                 }
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("GetAllTeamEmpsAdmin", ViewData["ProjectName"]);
 
                 }
             }
@@ -453,7 +455,8 @@ namespace EmployeeManagementSystem.Controllers
                     {
                         this.AddNotification("Member added Successfully", NotificationType.SUCCESS);
                     }
-                    return RedirectToAction("Department", "Admin");
+                    string projectName = Convert.ToString(ViewData["ProjectName"]);
+                    return RedirectToAction("GetAllTeamEmpsAdmin", new { projectId = model.ProjectId });
                 }
             }
             catch (Exception ex)
@@ -725,12 +728,22 @@ namespace EmployeeManagementSystem.Controllers
 
                 { "@EmployeeId",model.EmployeeId},
             };
-                    DataTable datatable = dal.ExecuteDataSet<DataTable>("uspGetReport", dict);
-                    LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-                    leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-                    ViewData["leaveRequest"] = leaveRequest.leaveRequests;
-                    ExportToPdf(datatable, model.EmployeeId);
+                    DataTable datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
+                    if(datatable.Rows.Count > 0)
+                    {
+                        LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
+                        leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
+                        ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                        ExportToPdf(datatable, model.EmployeeId);
+                        this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+                    }
+                    else
+                    {
+                        this.AddNotification("Report Empty", NotificationType.WARNING);
+                        return RedirectToAction("GetAllEmployeesDetails");
+                    }
                     this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+
                     return View();
                 }
 
@@ -906,23 +919,25 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
-        public ActionResult GetAllTeamEmpsAdmin(Project emp)
+        public ActionResult GetAllTeamEmpsAdmin(int ProjectId)
         {
             try
             {
                 if (Session["EmpId"] != null)
                 {
                     Employees employees = new Employees();
-                    TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(emp);
+                    TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(ProjectId);
                     ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
-                    ViewData["projectId"] = emp;
+                    //ViewData["projectId"] = tempEmpDetialsView.teamEmps[0].ProjectId;
+                    ViewData["projectId"] = ProjectId;
+
                     return View(ViewData);
 
 
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Admin");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
 
@@ -1072,7 +1087,7 @@ namespace EmployeeManagementSystem.Controllers
         {
             try
             {
-                if (Session["EmpId"]!=null)
+                if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
                     Project projects = projectService.GetProjectsWithoutTeamLead();
@@ -1080,7 +1095,7 @@ namespace EmployeeManagementSystem.Controllers
                     ViewData["TeamLead"] = empIdName;
                     ViewData["Projects"] = projects;
                 }
-             
+
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -1127,22 +1142,30 @@ namespace EmployeeManagementSystem.Controllers
         }
         public ActionResult ChangeTeamLead(Project project)
         {
-            if (Session["EmpId"] != null)
+            try
             {
-                ProjectService projectService = new ProjectService();
-                Project projects = projectService.GetProjectsTeamLead();
-                EmployeeIdNameViewModel empIdName = projectService.GetTeamLead();
-                ViewData["TeamLeadWithProject"] = empIdName;
-                ViewData["AllProjects"] = projects;
-                return View();
+                if (Session["EmpId"] != null)
+                {
+                    ProjectService projectService = new ProjectService();
+                    Project projects = projectService.GetProjects();
+                    EmployeeIdNameViewModel empIdName = projectService.GetTeamLead();
+                    ViewData["TeamLeadWithProject"] = empIdName;
+                    ViewData["AllProjects"] = projects;
+                    return View();
 
 
+                }
+                else
+                {
+                    return RedirectToAction("GetAllEmployeeDetails");
+
+                }
             }
-            else
+            catch(Exception e)
             {
-                return RedirectToAction("GetAllEmployeeDetails");
-
+                return RedirectToAction("Department");
             }
+            
             return RedirectToAction("Login", "Accounts");
         }
 
@@ -1175,15 +1198,33 @@ namespace EmployeeManagementSystem.Controllers
                 this.AddNotification("Team Lead Assigned Failed", NotificationType.ERROR);
                 return RedirectToAction("AssignTeamLead");
             }
+        }
 
+        public ActionResult RemoveEmployee(TeamEmpDetailsViewModel model)
+        {
+            try
+            {
+                if (Session["EmpId"] != null)
+                {
+                    ProjectService projectService = new ProjectService();
+                    int op = projectService.RemoveEmp(model.EmployeeId);
+                    if (op > 0)
+                    {
+                        this.AddNotification("Employee Removed", NotificationType.WARNING);
+                    }
 
-
-
-
-
-
-
-
+                    return RedirectToAction("GetAllTeamEmpsAdmin", "Admin",new { projectId=model.ProjectId });
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("GetAllTeamEmps");
+            }
+           
         }
     }
 }

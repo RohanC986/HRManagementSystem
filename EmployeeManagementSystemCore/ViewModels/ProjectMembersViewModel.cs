@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EmployeeManagementSystemCore.Models
+namespace EmployeeManagementSystemCore.ViewModels
 {
-    public class ProjectMembers
+    public class ProjectMembersViewModel
     {
         public int ProjectMembersId { get; set; }
         [Required]
 
+        public string ProjectName { get; set; }
         public int EmployeeId { get; set; }
         [Required]
         public int ProjectId { get; set; }

@@ -1,25 +1,20 @@
 ﻿
 @{
-    ViewBag.Title = "GetAllTeamEmpsAdmin";
+    ViewBag.Title = "Team Members";
 
     var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
 
-    var projectid = (EmployeeManagementSystemCore.Models.Project)ViewData["projectId"];
+    var projectid = Convert.ToInt32(ViewData["projectId"]);
 }
 
 @if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.GetAllTeamEmpsAdmin == null)
 {
-
-
-
-
-
-    <h2 class="TeamEmpData">GetAllTeamEmps</h2>
+    <h2 class="TeamEmpData">Team Members</h2>
     <hr id="teamdepemphr" />
     <div class="dept-btn">
 
         <div class="dept-btn-sec">
-            <a href="@Url.Action("AddProjectMembers" , "Admin", projectid)">
+            <a href="@Url.Action("AddProjectMembers" , "Admin", new {ProjectId=projectid })">
                 <span class="fa fa-solid fa-user-plus"></span>
                 Add Project Members
             </a>
@@ -64,13 +59,14 @@
                             
                             <td> @item.FirstName @item.LastName</td>
                             <td> @item.Email</td>
-                            <td> @item.DesignationName</td>
+                             <td> @item.DesignationName</td>
                             <td> @item.ProjectName</td>
                             <td class="col-md-2">
                                 <span>
                                     <button onclick="location.href='@Url.Action("EditEmp", "Admin", item)'" id="emp-create-btn" class="btn-primary btn-sm mx-2 my-1" type="button" model-toggle="tooltip" model-placement="top" title="Edit Details"><i class="fa fa-solid fa-pen mx-1"></i></button>
+                                    @*<button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>*@
+                                    <button onclick="(confirm('do you want to Remove Employee?')) ? location.href='@Url.Action("RemoveEmployee", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Remove Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
-                                    <button onclick="(confirm('do you want to Disable?')) ? location.href='@Url.Action("DisableEmp", "Admin", item)' : null;" id="emp-create-btn" class="bg-warning text-dark btn-sm mx-2" type="button" model-toggle="tooltip" model-placement="top" title="Disable Employee"><i class="fa fa-regular fa-user-slash mx-1"></i></button>
 
 
                                 </span>

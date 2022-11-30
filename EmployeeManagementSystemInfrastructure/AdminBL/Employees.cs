@@ -281,11 +281,11 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             return check;
         }
 
-        public TeamEmpDetailsViewModel GetAllTeamEmpsAdmin(Project emp)
+        public TeamEmpDetailsViewModel GetAllTeamEmpsAdmin(int emp)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>()
             {
-                { "@ProjectName",emp.ProjectName},
+                { "@ProjectId",emp},
             };
 
 

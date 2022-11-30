@@ -139,8 +139,9 @@ namespace EmployeeManagementSystemCore.ViewModels
         public bool? IsActive { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastModified { get; set; }
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
-
+        
         public List<TeamEmpDetailsViewModel> teamEmps { get; set; }
 
 

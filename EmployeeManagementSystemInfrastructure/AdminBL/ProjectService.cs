@@ -132,7 +132,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
 
         }
 
-        public Project GetProjectsTeamLead()
+        public Project GetProjects()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
@@ -149,6 +149,16 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
             EmployeeIdNameViewModel empIdName = new EmployeeIdNameViewModel();
             empIdName.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpIdname);
             return empIdName;
+        }
+
+        public int RemoveEmp(int EmpId)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>()
+            {
+                {"@EmployeeId",EmpId}
+            };
+            int op = dal.ExecuteNonQuery("uspRemoveEmployee", dict);
+            return op;
         }
 
 

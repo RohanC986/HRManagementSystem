@@ -39,6 +39,7 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
                              Experienced = Convert.ToBoolean(dr["Experienced"]),
                              PreviousCompanyName = Convert.ToString(dr["PreviousCompanyName"]),
                              YearsOfExprience = Convert.ToInt32(dr["YearsOfExprience"]),
+                             ProjectId= Convert.ToInt32(dr["ProjectId"]),
                              ProjectName = Convert.ToString(dr["ProjectName"])
                          }
 

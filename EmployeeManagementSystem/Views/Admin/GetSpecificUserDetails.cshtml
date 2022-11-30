@@ -12,6 +12,7 @@
     {
         @Html.AntiForgeryToken()
 
+
         <div class="form-horizontal mx-auto align-center  ">
             <h4 class="addEmp">Profile</h4>
             <hr id="addemphr" />
@@ -221,11 +222,6 @@
                 @Html.EditorFor(model => model.PreviousCompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Previous Company Name ", disabled = "disabled", @readonly = "readonly" } })
             </div>
         </div>
-
-
-
-
-
         </div>
 
 

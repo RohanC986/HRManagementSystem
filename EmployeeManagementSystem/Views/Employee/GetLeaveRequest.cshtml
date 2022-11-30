@@ -53,7 +53,15 @@
                             <td> @item.LeaveType</td>
                             <td> @item.StartDate.ToString("dd/MM/yyyy")</td>
                             <td> @item.EndDate.ToString("dd/MM/yyyy")</td>
-                            <td> @item.LengthOfLeave</td>
+                            @if(item.LengthOfLeave == 0)
+                            {
+                               <td> 0.5</td>
+                            }
+                            else
+                            {
+<td> @item.LengthOfLeave</td>
+                }
+                            
                             <td> @item.Reason</td>
                             <td> @item.Status</td>
 
