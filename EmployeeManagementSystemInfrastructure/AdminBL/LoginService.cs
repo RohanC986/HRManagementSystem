@@ -2,12 +2,8 @@
 using EmployeeManagementSystemCore.Models;
 using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.ConversionService;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmployeeManagementSystemInfrastructure.AdminBL
 {
@@ -16,24 +12,27 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
         DataAccessService dal = new DataAccessService();
         DTableToEmployeeModel cs = new DTableToEmployeeModel();
         EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
-        public Employee AddLogin()
+
+
+        //Gets all the Employees without Login Credentials
+        public Employee GetEmployeesWithOutLogin()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
+            DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);          //Gets all the Employees without Login Credentials
 
             Employee EmpDR = new Employee();
 
-            EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);
+            EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);                                //Pass the Data from Datatable to List of type Employee
             return EmpDR;
 
         }
 
-        public int SaveLogin(AddNewEmployeeViewModel model)
-        {
-            var l = encryptDecryptConversion.EncryptPlainTextToCipherText(model.Password);
-            Dictionary<string, object> diction = new Dictionary<string, object>() {
 
+        //Adds the data of a New Employee
+        public int SaveEmployee(AddNewEmployeeViewModel model)
+        {
+            Dictionary<string, object> diction = new Dictionary<string, object>() {
                 { "@EmployeeCode",model.EmployeeCode},
                 { "@FirstName",model.FirstName},
                 { "@MiddleName",model.MiddleName},
@@ -65,8 +64,7 @@ namespace EmployeeManagementSystemInfrastructure.AdminBL
                 { "@LastLogin",model.LastLogin},
                 
             };
-            
-            int check = dal.ExecuteNonQuery("uspAddNewEmp", diction);
+            int check = dal.ExecuteNonQuery("uspAddNewEmp", diction);                        //Adds the data of a New Employee and returns 1 if succeeded
             return check;
         }
 

@@ -10,7 +10,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class AdminViewModelToEmployeeModel
     {
-        
+        //Returns  object of Class Employee after Converting data AdminToEmployee
+
         public Employee AdminToEmployee(AdminViewModel dr)
         {
             Employee employees = new Employee();

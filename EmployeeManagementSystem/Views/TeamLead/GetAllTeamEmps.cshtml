@@ -1,9 +1,9 @@
-﻿
+﻿@model EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel
 @{
     ViewBag.Title = "GetAllTeamEmps";
 
     //var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
-    var data1 = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps1"];
+    //var data1 = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps1"];
 
 
 }
@@ -20,7 +20,7 @@
                 <div id="main">
                     @using (Html.BeginForm())
                     {
-                    <p> Find by Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+                    <p> Find by Name: @Html.TextBox("searchEmp") <input type="submit" value="Search" /></p>
                     }
 
                                 <table id="GetAllEmpDetails"  >
@@ -57,7 +57,7 @@
                                         @{
                                            
                                             
-                                                foreach (var item in data1)
+                                                foreach (var item in Model.teamEmps)
                                                 {
 
                                                     <tr  class="table-bordered ">

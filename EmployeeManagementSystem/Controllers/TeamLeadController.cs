@@ -5,7 +5,6 @@ using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.ConversionService;
 using EmployeeManagementSystemInfrastructure.TeamLeadBL;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using static EmployeeManagementSystem.Controllers.AccountsController;
 
@@ -15,7 +14,6 @@ namespace EmployeeManagementSystem.Controllers
     [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
     public class TeamLeadController : Controller
     {
-
         DataAccessService dal = new DataAccessService();
         private LeaveViewModel LeaveView;
         DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
@@ -23,38 +21,58 @@ namespace EmployeeManagementSystem.Controllers
         DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
         DTableToLeaveModel dtLeave = new DTableToLeaveModel();
         // GET: TeamLead
-        public ViewResult GetAllTeamEmps(string emp)
+        
+        //Gets all the Employees under the Team Lead
+        public ActionResult GetAllTeamEmps(string searchEmp)
         {
             try
             {
-                int empid = Convert.ToInt32(Session["EmpId"]);
-                List<TeamEmpDetailsViewModel> employees = new List<TeamEmpDetailsViewModel>();
-                TeamLead leavesService = new TeamLead();
-                employees = leavesService.GetTeamEmps(emp, empid);
-                ViewData["teamEmps1"] = employees;
-                return View(ViewData);
+                //Procced if Session is Active
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    int empid = Convert.ToInt32(Session["EmpId"]);
+                    TeamEmpDetailsViewModel employees = new TeamEmpDetailsViewModel();
+                    TeamLead leavesService = new TeamLead();
+                    employees = leavesService.GetTeamEmps(searchEmp, empid);            //Gets all the Employees under the Team Lead
+                    //ViewData["teamEmps1"] = employees;
+                    return View(employees);
+                }
+                //Procced if Session is not Active
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
+
             }
             catch (Exception ex)
             {
                 ViewBag.GetAllTeamEmps = "GetAllTeamEmps Error";
+                return View();
             }
-            return View(ViewData);
+            //return View(ViewData);
 
 
         }
 
-
+        //Gets the Leaves requests of Team Members
         public ActionResult GetTeamLeaveRequest()
-
         {
-
             try
             {
-                int EmpId = Convert.ToInt32(Session["EmpId"]);
-                TeamLead leavesService = new TeamLead();
-                GetTeamLeaveRequestViewModel op = leavesService.TeamLeaveRequest(EmpId);
-                ViewData["TeamLeaveRequest"] = op;
-                return View(op);
+                //Procced if Session is Active
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    int EmpId = Convert.ToInt32(Session["EmpId"]);
+                    TeamLead leavesService = new TeamLead();
+                    GetTeamLeaveRequestViewModel LeaveRequests = leavesService.TeamLeaveRequest(EmpId);        //Gets the Leaves requests of Team Members
+                   // ViewData["TeamLeaveRequest"] = op;
+                    return View(LeaveRequests);
+                }
+                //Procced if Session is not Active
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
             }
             catch (Exception ex)
             {
@@ -64,29 +82,40 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("GetTeamLeaveRequest");
 
         }
-
+        //Accepts Leave Request of a Team Member or Team Lead 
         public ActionResult LeaveAccept(GetTeamLeaveRequestViewModel leaveRequest)
         {
             try
             {
-
-                TeamLead teamLead = new TeamLead();
-                var op = teamLead.LeaveAccept(leaveRequest);
-                if (op != null)
+                //Procced if Session is Active
+                if (HttpContext.Session["EmpId"] != null)
                 {
-                    this.AddNotification("Leave Accepted", NotificationType.SUCCESS);
+                    TeamLead teamLead = new TeamLead();
+                    var check = teamLead.LeaveAccept(leaveRequest);             //Accepts Leave Request of a Team Member or Team Lead  & returns 1 
+                    if (check != null)
+                    {
+                        this.AddNotification("Leave Accepted", NotificationType.SUCCESS);       //Pass success notification
 
-                }
-                teamLead.LeaveAcceptResponse(leaveRequest);
-                if (Convert.ToInt32(Session["role"]) == 2)
-                {
-                    return RedirectToAction("GetTeamLeaveRequest");
+                    }
+                    teamLead.LeaveAcceptResponse(leaveRequest);
+                    //Procced if user is an Team Lead
+                    if (Convert.ToInt32(Session["role"]) == 2)
+                    {
+                        return RedirectToAction("GetTeamLeaveRequest");
 
+                    }
+                    //Procced if user is an Admin
+                    else if (Convert.ToInt32(Session["role"]) == 1)
+                    {
+                        return RedirectToAction("GetTeamLeadLeaveRequest", "Admin");
+                    }
                 }
-                else if (Convert.ToInt32(Session["role"]) == 1)
+                //Procced if Session is not Active
+                else
                 {
-                    return RedirectToAction("GetTeamLeadLeaveRequest", "Admin");
+                    return RedirectToAction("Login", "Accounts");
                 }
+
             }
             catch (Exception ex)
             {
@@ -98,26 +127,41 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
+
+        //Accepts Leave Request of a Team Member or Team Lead 
         public ActionResult LeaveReject(GetTeamLeaveRequestViewModel leaveRequest)
         {
             try
             {
-                TeamLead teamLead = new TeamLead();
-                var opp = teamLead.LeaveReject(leaveRequest);
-                if (opp != null)
-                {
-                    this.AddNotification("Leave Rejected", NotificationType.WARNING);
+                //Procced if Session is Active
 
-                }
-                if (Convert.ToInt32(Session["role"]) == 2)
+                if (HttpContext.Session["EmpId"] != null)
                 {
-                    return RedirectToAction("GetTeamLeaveRequest");
+                    TeamLead teamLead = new TeamLead();
+                    var check = teamLead.LeaveReject(leaveRequest);                              //Accepts Leave Request of a Team Member or Team Lead and returns 1
+                    if (check != null)
+                    {
+                        this.AddNotification("Leave Rejected", NotificationType.WARNING);       //Pass the success notification
 
+                    }
+                    //Procced if user is an Team Lead
+                    if (Convert.ToInt32(Session["role"]) == 2)
+                    {
+                        return RedirectToAction("GetTeamLeaveRequest");
+
+                    }
+                    //Procced if user is an Admin
+                    else if (Convert.ToInt32(Session["role"]) == 1)
+                    {
+                        return RedirectToAction("GetTeamLeadLeaveRequest", "Admin");
+                    }
                 }
-                else if (Convert.ToInt32(Session["role"]) == 1)
+                //Procced if Session is not Active
+                else
                 {
-                    return RedirectToAction("GetTeamLeadLeaveRequest", "Admin");
+                    return RedirectToAction("Login", "Accounts");
                 }
+
             }
             catch (Exception ex)
             {
@@ -127,23 +171,23 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
+
+
+        //Get User Details of a Specific Employee
         public ActionResult GetTeamSpecificUserDetails(int employeeId)
         {
             try
             {
-                TeamLead teamLead = new TeamLead();
-                var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
-                if (EmpId >= 0)
+                if (HttpContext.Session["EmpId"] != null)
                 {
-                    /*emp.DOB = new DateTime(2002, 1, 1);*/
-                    AdminViewModel op = teamLead.GetUserSpecificDetails(employeeId);
-
-                    op.DOB = "lkasndlkasndklasnd";
-
-
+                    TeamLead teamLead = new TeamLead();
+                    var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
+                   
                     
-                    return View("GetUserOwnDetails",op);
-                    //return View(op);
+                    /*emp.DOB = new DateTime(2002, 1, 1);*/
+                    AdminViewModel Employee = teamLead.GetUserSpecificDetails(employeeId);                  //Get User Details of a Specific Employee
+                    Employee.DOB = "lkasndlkasndklasnd";
+                    return View("GetUserOwnDetails", Employee);
                 }
                 else
                 {
@@ -160,26 +204,23 @@ namespace EmployeeManagementSystem.Controllers
             return View();
 
         }
+
+
+        //Get Details of User
         public ActionResult GetUserOwnDetails(TeamEmpDetailsViewModel emp)
-        
-        
-        
-        
         {
             try
             {
-                TeamLead teamLead = new TeamLead();
-                var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
-                if (EmpId >= 0)
+                if (HttpContext.Session["EmpId"] != null)
                 {
-                    AdminViewModel op = teamLead.GetUserSpecificDetails(EmpId);
-
-                    return View(op);
+                    TeamLead teamLead = new TeamLead();
+                    var EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
+                    AdminViewModel UserDetails = teamLead.GetUserSpecificDetails(EmpId);      //Get Details of User
+                    return View(UserDetails);
                 }
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
-
                 }
 
             }
@@ -188,11 +229,6 @@ namespace EmployeeManagementSystem.Controllers
                 ViewBag.GetUserOwnDetails = "Could not get User Own Details";
                 return View();
             }
-            return RedirectToAction("GetAllTeamEmps");
-
         }
-
-
-
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using EmployeeManagementSystemCore.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace EmployeeManagementSystemCore.ViewModels
 {
@@ -12,6 +8,6 @@ namespace EmployeeManagementSystemCore.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         
-        public List<EmployeeIdNameViewModel> EmployeeIdNameList { get; set; }
+        //public List<EmployeeIdNameViewModel> EmployeeIdNameList { get; set; }
     }
 }

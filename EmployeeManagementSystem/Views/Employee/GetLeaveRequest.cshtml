@@ -1,6 +1,8 @@
-﻿    @{
+﻿@model EmployeeManagementSystemCore.ViewModels.LeaveRequestViewModel
+
+@{
     ViewBag.Title = "GetLeaveRequest";
-    var data = (IEnumerable<EmployeeManagementSystemCore.Models.LeaveRequest>)ViewData["getleaverequest"];
+   // var data = (IEnumerable<EmployeeManagementSystemCore.Models.LeaveRequest>)ViewData["getleaverequest"];
 
 }
 
@@ -46,7 +48,7 @@
         </thead>
         <tbody>
             @{
-                foreach (var item in data)
+                foreach (var item in Model.leaveRequests)
                 {
 
                         <tr>

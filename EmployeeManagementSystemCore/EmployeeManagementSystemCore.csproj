@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\DepartmentListViewModel.cs" />
     <Compile Include="ViewModels\DepartmentsViewModel.cs" />
     <Compile Include="ViewModels\EmployeeIdNameViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeIdNameViewModelList.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\GetTeamLeaveRequestViewModel.cs" />
     <Compile Include="ViewModels\LeaveRequestViewModel.cs" />

@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountsBL\LoginLogout.cs" />
-    <Compile Include="AdminBL\Employees.cs" />
+    <Compile Include="AccountsBL\LoginLogoutService.cs" />
+    <Compile Include="AdminBL\EmployeesService.cs" />
     <Compile Include="AdminBL\LoginService.cs" />
     <Compile Include="AdminBL\ProjectService.cs" />
     <Compile Include="Class1.cs" />

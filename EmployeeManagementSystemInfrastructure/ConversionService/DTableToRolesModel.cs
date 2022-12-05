@@ -1,15 +1,15 @@
 ﻿using EmployeeManagementSystemCore.Models;
-using EmployeeManagementSystemCore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToRolesModel
     {
+        //Returns List of Class Role after Converting data from DataTable to List
+
         public List<Role> DataTableToRolesModel(DataTable dt)
         {
             List<Role> departmentsViews = new List<Role>();

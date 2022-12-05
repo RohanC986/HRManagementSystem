@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "AssignTeamLead";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var emp = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModel)ViewData["TeamLead"];
+    var emp = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModelList)ViewData["TeamLead"];
 
 
     var empOptions = new List<SelectListItem>() /*{ new SelectListItem { Text = "Select Employee", Value = "" } }*/;
@@ -47,7 +47,7 @@
     <div class="form-group col-md-6">
         @*@Html.LabelFor(model => model.ProjectHeadEmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
         *@
-        <label class="control-label col-md-4">Project</label>
+        <label class="control-label col-md-4">Project </label>
         <div class="col-md-8">
             @Html.DropDownListFor(model => model.ProjectId, projectOptions, htmlAttributes: new { @class = "text-left Role-Down  select-add-Project", required = "required" })
         </div>

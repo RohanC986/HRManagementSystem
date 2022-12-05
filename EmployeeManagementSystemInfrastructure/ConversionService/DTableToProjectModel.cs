@@ -11,6 +11,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToProjectModel
     {
+
+        //Returns List of Class Project after Converting data from DataTable to List
+
         public List<Project> DataTableToProjectModel(DataTable dt)
         {
             List<Project> ProjectList = new List<Project>();

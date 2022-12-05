@@ -10,10 +10,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Mvc;
 using static EmployeeManagementSystem.Controllers.AccountsController;
-using EmployeeManagementSystem.DBContext;
 using EmployeeManagementSystem.Extensions;
 using EmployeeManagementSystemInfrastructure.EmployeeBL;
-using Org.BouncyCastle.Crypto.Tls;
 
 namespace EmployeeManagementSystem.Controllers
 {
@@ -30,56 +28,51 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        //private EMSContext db = new EMSContext();
-        //DataAccessService dal = new DataAccessService();
-        //private LeaveViewModel LeaveView;
-        //DTableToLeaveModel lm = new DTableToLeaveModel();
-        //DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
-        //DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
-
-
-
-       
+       //Leave Request Page
         public ActionResult LeaveRequest()
         {
-            
                 return View();
-            
-               
         }
 
-        
 
-
+        //Saves the Leave Request of the User
         public ActionResult SaveLeaveRequest(LeaveRequest model)
         {
             try
             {
                 int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
+                //Procced if Session is not Empty
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    object op = employeeService.SaveLeaveRequest(model,Empid);
+                    object op = employeeService.SaveLeaveRequest(model,Empid);            //Saves the Leave Request of the User and returns 1
                     if (Convert.ToInt32(op) == 1)
                     {
-                        this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Leave Requested Successfully", NotificationType.SUCCESS);  //Pass the Success notification
                         return RedirectToAction("GetLeaveRequest", "Employee");
 
                     }
                     else if(Convert.ToInt32(op) == 0)
                     {
                         ViewBag.Error = "Length does not match dates";
-                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);
+                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);          //Pass the ERROR notification
                         return RedirectToAction("LeaveRequest");
                     }
                     else if(op==null)
                     {
-                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);
+                        this.AddNotification("Leave Requested not filed", NotificationType.ERROR);       //Pass the ERROR notification
 
                         return RedirectToAction("GetUserDetails");
                     }
 
                     
+                }
+                //Procced if Session is Empty
+
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
                 }
             }
             catch (Exception ex)
@@ -93,76 +86,84 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-
+        //Gets the Leave Summary of a Employee
         public ActionResult LeaveSummary(Leave obj)
         {
             try
             {
                 int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
+                //Procced if Session is not Empty
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    var Leave = employeeService.LeaveSummary(obj, Empid);
-                    ViewData["getleaves"] = Leave.getleaves;
+                    var Leave = employeeService.LeaveSummary(obj, Empid);           //Gets the Leave Summary of a Employee
+                    //ViewData["getleaves"] = Leave.getleaves;
                     
-                    return View(ViewData);
-
+                    return View(Leave);
                 }
+                //Procced if Session is  Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
+
             }
             catch(Exception ex)
             {
                 ViewBag.LeaveSummary = "Could not get Leave Summary";
                 return View();
             };
-            
-            return RedirectToAction("GetUserDetails", "Employee");
-
-
         }
 
-        public ActionResult GetUserDetails(Leave obj)
-        {
-            try
-            {
-                int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
-                if (HttpContext.Session["EmpId"] != null)
-                {
-                    EmployeeService employeeService = new EmployeeService();
-                    var details = employeeService.GetUserDetails(obj, Empid);
-                    ViewData["userdetails"] = details.employees;
-                    return View();
+        //public ActionResult GetUserDetails(Leave obj)
+        //{
+        //    try
+        //    {
+        //        int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
+        //        if (HttpContext.Session["EmpId"] != null)
+        //        {
+        //            EmployeeService employeeService = new EmployeeService();
+        //            var details = employeeService.GetUserDetails(obj, Empid);
+        //            ViewData["userdetails"] = details.employees;
+        //            return View();
                     
 
-                }
-                else
-                {
-                    return RedirectToAction("Login", "Accounts");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Login", "Accounts");
 
-                }
-            }
-            catch(Exception ex)
-            {
-                ViewBag.GetUserDetails = "Could not get User Details";
-                return View();
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        ViewBag.GetUserDetails = "Could not get User Details";
+        //        return View();
 
-            };
-            return View();
+        //    };
+        //    return View();
 
 
-        }
+        //}
 
+
+        //Gets Details of a User
         public ActionResult GetUserOwnDetails()
         {
             try
             {
                 int Empid = Convert.ToInt16(HttpContext.Session["EmpId"]);
+                //Procced if Session is not Empty
+
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    AdminViewModelList details = employeeService.GetUserOwnDetails(Empid);
+                    AdminViewModelList details = employeeService.GetUserOwnDetails(Empid);       //Gets Details of a User
 
                     return View(details.allEmployees[0]);
                 }
+                //Procced if Session is Empty
+
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -183,7 +184,7 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
-
+        //Gets Leave Request of the User
         public ActionResult GetLeaveRequest(LeaveRequest obj)
         {
             try
@@ -192,9 +193,9 @@ namespace EmployeeManagementSystem.Controllers
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     EmployeeService employeeService = new EmployeeService();
-                    var details = employeeService.GetLeaveRequest(Empid);
-                    ViewData["getleaverequest"] = details.leaveRequests;
-                    return View();
+                    var details = employeeService.GetLeaveRequest(Empid);               // Gets Leave Request of the User
+                    //ViewData["getleaverequest"] = details.leaveRequests;       
+                    return View(details);
                 }
                 else
                 {
@@ -209,17 +210,7 @@ namespace EmployeeManagementSystem.Controllers
                 return RedirectToAction("GetUserOwnDetails");
             }
             return View();
-
-
-
-
-
         }
-
-
-
-
-
         /* [ValidateAntiForgeryToken]*/
         //[Authorize(Roles = "Admin")]
 

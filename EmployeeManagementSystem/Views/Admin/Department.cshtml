@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Department";
     var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps"];
     //var data1 = (IEnumerable<EmployeeManagementSystem.ViewModels.DepartmentsViewModel>)ViewData["TeamEmps1"];
@@ -27,14 +26,14 @@
         <div class="dept-btn-sec ">
             <a href="@Url.Action("AssignTeamLead" , "Admin")">
                 <span class="fa fa-solid fa-file-chart-pie"></span>
-               Assign Team Lead
+                Assign Team Lead
             </a>
         </div>
 
         <div>
             @using (Html.BeginForm())
             {
-                <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("emp") <input type="submit" value="Search" /></p>
+                <p class="projectsearch mx-3"> Find by Project Name: @Html.TextBox("searchProjectName") <input type="submit" value="Search" /></p>
             }
         </div>
 
@@ -44,9 +43,9 @@
 
 
     <div id="Depat-table-Div">
-        
 
-        <table @*class="DepartTab"*@  id="GetAllEmpDetails">
+
+        <table @*class="DepartTab"*@ id="GetAllEmpDetails">
 
             <thead>
                 <tr>
@@ -76,7 +75,7 @@
 
                         <tr>
                             <td onclick="location.href='@Url.Action("GetAllTeamEmpsAdmin", "Admin",new { projectId = item.ProjectId })'" class="Dep-team-lead-btn">  @item.ProjectName</td>
-                            <td > @item.FirstName @item.LastName</td>
+                            <td> @item.FirstName @item.LastName</td>
                             <td> @item.TotalMembers</td>
                         </tr>
 
@@ -85,12 +84,12 @@
             </tbody>
         </table>
     </div>
-@*    <div class="form-group col-md-6 my-2 " style="margin-left:45%; ">
-        <div class="col-md-2 " id="add-Desi-back-list">
-            @Html.ActionLink("Back", "GetAllEmployeesDetails")
+    @*    <div class="form-group col-md-6 my-2 " style="margin-left:45%; ">
+            <div class="col-md-2 " id="add-Desi-back-list">
+                @Html.ActionLink("Back", "GetAllEmployeesDetails")
+            </div>
         </div>
-    </div>
-*@
+    *@
 }
 else if (ViewBag.DepartmentMessage != null)
 {

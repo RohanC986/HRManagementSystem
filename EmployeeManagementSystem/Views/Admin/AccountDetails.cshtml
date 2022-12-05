@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "AccountDetails";
-    var EmpCode = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModel)ViewData["EmpName"];
+    var EmpCode = (EmployeeManagementSystemCore.ViewModels.EmployeeIdNameViewModelList)ViewData["EmpName"];
 
     var EmpCodeOption = new List<SelectListItem>();
     foreach (var item in EmpCode.EmployeeIdNameList)

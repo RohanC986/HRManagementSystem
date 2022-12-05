@@ -1,16 +1,15 @@
 ﻿using EmployeeManagementSystemCore.Models;
-using EmployeeManagementSystemCore.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Dynamic;
 using System.Linq;
-using System.Web;
-
 namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToDesignationModel
     {
+
+
+        //Returns List of Class Designation after Converting data from DataTable to List
         public List<Designation> DataTabletoDesignationsModel(DataTable dt)
         {
             List<Designation> designationViews = new List<Designation>();

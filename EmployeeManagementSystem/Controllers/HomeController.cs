@@ -34,7 +34,7 @@ namespace EmployeeManagementSystem.Controllers
             try
 
             {
-                Employees employees = new Employees();
+                EmployeesService employees = new EmployeesService();
                 int EmpId = Convert.ToInt32(Session["EmpId"]);
                 if (HttpContext.Session["EmpId"] != null)
                 {

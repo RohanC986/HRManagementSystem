@@ -9,6 +9,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToTeamEmpModel
     {
+        //Returns List of Class TeamEmpDetailsViewModel after Converting data from DataTable to List
+
         public List<TeamEmpDetailsViewModel> DataTabletoTeamEmployeesModel(DataTable dt)
         {
             List<TeamEmpDetailsViewModel> team = new List<TeamEmpDetailsViewModel>();

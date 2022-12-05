@@ -4,7 +4,6 @@ using EmployeeManagementSystemCore.Models;
 using EmployeeManagementSystemCore.ViewModels;
 using EmployeeManagementSystemInfrastructure.AdminBL;
 using EmployeeManagementSystemInfrastructure.ConversionService;
-using EmployeeManagementSystemInfrastructure.TeamLeadBL;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -25,197 +24,109 @@ namespace EmployeeManagementSystem.Controllers
 
     public class AdminController : Controller
     {
-
-        
-        private AdminViewModel EmpAllOver;
         DataAccessService dal = new DataAccessService();
-        DTableToEmployeeIdNameViewModel dtEIN = new DTableToEmployeeIdNameViewModel();
-        DTableToProjectModel dtP = new DTableToProjectModel();
-        DTableToEmployeeModel cs = new DTableToEmployeeModel();
-        DTableToDepartmentsModel dataTabletoDepartmentsModel = new DTableToDepartmentsModel();
-        DTableToDesignationModel DTableToDesignationModel = new DTableToDesignationModel();
         DTableToLeaveRequestModel DTableToLeaveRequestModel = new DTableToLeaveRequestModel();
-        DTableToRolesModel dtRole = new DTableToRolesModel();
-        DTableToTeamEmpModel tableToTeamEmpModel = new DTableToTeamEmpModel();
-        DTableToEmployeeModel dTableToEmployeeModel = new DTableToEmployeeModel();
-        DTableToEmployeeIdNameViewModel dtEmpIdName = new DTableToEmployeeIdNameViewModel();
-        DTableToAccountDetailsModel dtAccountDetailsModel = new DTableToAccountDetailsModel();
         EncryptDecryptConversion encryptDecryptConversion = new EncryptDecryptConversion();
         AdminViewModelToEmployeeModel adminToEmployee = new AdminViewModelToEmployeeModel();
         public List<Role> RolesList { get; private set; }
-
         public AdminController()
         {
-
         }
         // GET: Admin
-        /*public ActionResult Index()
-        {
-            return View();
-        }*/
 
         [Route("[controller]/getallemployees")]
-        public ActionResult GetAllEmployeesDetails(LoginViewModel model, string emp)
-            {
 
+        //Admin Dashboard Page
+        public ActionResult GetAllEmployeesDetails(LoginViewModel model, string searchEmp)
+        {
             try
-
             {
-                Employees employees = new Employees();
-                int EmpId = Convert.ToInt32(Session["EmpId"]);
+                EmployeesService employees = new EmployeesService();                                       //Create a object of Employees Service
+                int EmpId = Convert.ToInt32(Session["EmpId"]);                                             //Convert EmployeeId from Session to Int
+                //Procced if EmployeeId is Present in Session
                 if (HttpContext.Session["EmpId"] != null)
                 {
-                    AdminViewModelList op = employees.GetAllEmployeesDetails(model, emp);
-                    ViewData["allEmployees"] = op.allEmployees;
-                    AdminViewModelList EmpAllOver = op;
-                    ViewData["RoleId"] = model.RoleId;
-                    return View(op);
-                    //ViewData["RoleId"] = model.RoleId;
-                    //return View(ViewData["allEmployees"]);
+                    AdminViewModelList EmployeeDetails = employees.GetAllEmployeesDetails(model, searchEmp); //Gets all the Employee Details and pass it into object of AdminViewModelList
+                    ViewData["RoleId"] = model.RoleId;                                                       //Pass the RoleId to ViewData
+                    return View(EmployeeDetails);
+                }
+                //Redirect to Login Page
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
+            }
+
+            //Catch any Exception if occurred
+            catch (Exception e)
+            {
+                ViewBag.GetAllEmployeesDetailsError = "List of Users not found !";
+                return RedirectToAction("GetAllEmployeesDetails", "Admin");
+
+            }
+        }
+
+
+
+        //Add New Employee View
+        public ActionResult AddNewEmp()
+        {
+            try
+            {
+                EmployeesService employees = new EmployeesService();
+                int EmpId = Convert.ToInt32(Session["EmpId"]);    
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    var roles = employees.GetRoles();                                                  //Get all the roles and pass it to varialble
+                    ViewData["roleOptions"] = roles;                                                   //Pass the roles into ViewData
+                    var designation = employees.GetDesignation();                                       //Get all the Designation and pass it to varialble
+                    ViewData["designationOptions"] = designation;                                       // Pass the Designation into ViewData
+                    ViewData["EmployeeCode"] = employees.GetLastEmployeeCode();                         //Pass the Last Employee Code into ViewData
+
+                    return View();
                 }
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
 
                 }
-
-                return RedirectToAction("Login", "Accounts");
             }
-            catch (Exception e)
-            {
-                ViewBag.GetAllEmployeesDetailsError = "List of Users not found !";
-                return RedirectToAction("Logout", "Accounts");
-
-            }
-
-
-            return RedirectToAction("GetAllEmployeesDetails", "Admin");
-
-
-        }
-
-
-
-        public ActionResult AddNewEmp()
-        {
-            try
-            {
-                Employees employees = new Employees();
-                int EmpId = Convert.ToInt32(Session["EmpId"]);
-                if (HttpContext.Session["EmpId"] != null)
-                {
-                    var roles = employees.GetRoles();
-                    ViewData["roleOptions"] = roles;
-                    var designation = employees.GetDesignation();
-                    ViewData["designationOptions"] = designation;
-                    ViewData["EmployeeCode"] = employees.GetLastEmployeeCode();
-
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("GetAllEmployeeDetails");
-
-                }
-            }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.AddNewEmpError = "List Not Found";
                 return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
-
-
-            return RedirectToAction("GetAllEmployeesDetails", "Admin");
-
-
         }
 
-        /*public ActionResult SaveNewEmp(Employee model)
-        {
-            try
-            {
-                if (Session["EmpId"] != null)
-                {
-                   
-                    
-                    Employees employees = new Employees();
-                    object empcode = employees.GetLastEmployeeCode();
-                    var check = employees.SaveNewEmp(model,Convert.ToInt32(empcode));
-                    if (check == null)
-                    {
-                        ViewBag.Message = "Invalid credentials";
-                    }
-
-                    this.AddNotification("Employee Added Successfully", NotificationType.SUCCESS);
-                    return RedirectToAction("AccountDetails", "Admin");
-
-                }
-            }
-            catch (Exception e)
-            {
-                ViewBag.SaveNewEmpError = "Data not saved";
-                return RedirectToAction("AddNewEmp", "Admin");
-            }
-
-            return RedirectToAction("AccountDetails", "Admin");
-
-        }*/
-
-        //public ActionResult UpdateEmpDetails(int EmployeeId)
-        //{
-        //    Employee model = new Employee(); 
-        //    if (EmployeeId > null)
-        //    {
-        //        Dictionary<string, object> dict = new Dictionary<string, object>() {
-        //        //{ "@EmployeeId",model.EmployeeId},
-        //        { "@EmployeeCode",model.EmployeeCode},
-        //        { "@FirstName",model.FirstName},
-        //        { "@MiddleName",model.MiddleName},
-        //        { "@LastName",model.LastName},
-        //        { "@Email",model.Email},
-        //        { "@DOB",model.DOB},
-        //        { "@DOJ",model.DOJ},
-        //        { "@BloodGroup",model.BloodGroup},
-        //        { "@Gender",model.Gender},
-        //        { "@PersonalContact",model.PersonalContact},
-        //        { "@EmergencyContact",model.EmergencyContact},
-        //        { "@AadharCardNo",model.AadharCardNo},
-        //        { "@PancardNo",model.PancardNo},
-        //        { "@Address",model.Address},
-        //        { "@City",model.City},
-        //        { "@State",model.State},
-        //        { "@Pincode",model.Pincode},
-        //        { "@Role",model.Role},
-        //        { "@Designation",model.Designation},
-        //        { "@Experienced",model.Experienced},
-        //        { "@YearsOfExprience",model.YearsOfExprience},
-        //    };
-        //        object check = dal.ExecuteNonQuery("uspUpdateEmpDetails", dict);
-        //    }
-        //}
 
 
+        //Edit Employee View
         public ActionResult EditEmp(AdminViewModel model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                   
-                    Employee outmodel = new Employee();
-                    outmodel = adminToEmployee.AdminToEmployee(model);
-                    Employees employees = new Employees();
-                    var roles = employees.GetRoles();
-                    var designation = employees.GetDesignation();
+
+                    Employee EmployeeModel = new Employee();
+                    EmployeeModel = adminToEmployee.AdminToEmployee(model);     //Gets all the info of a particular employee                        
+                    EmployeesService employees = new EmployeesService();
+                    var roles = employees.GetRoles();                         //Gets all the roles
+                    var designation = employees.GetDesignation();             //Gets all the Designation
                     ViewData["roleOptions"] = roles;
                     ViewData["designationOptions"] = designation;
-                    return View(outmodel);
+                    return View(EmployeeModel);
                 }
+                //Procced if Session is Empty
+
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.EditEmpError = "Page not reloaded";
@@ -226,105 +137,102 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
+
+        //Updates the Employee Details of particular Employee
         public ActionResult UpdateEmpDetails(Employee model)
         {
             try
             {
-                Employees employees = new Employees();
-                var check = employees.UpdateEmpDetails(model);
-                this.AddNotification("Updated Successfully", NotificationType.SUCCESS);
+                EmployeesService employees = new EmployeesService();
+                var check = employees.UpdateEmpDetails(model);  
+                if(check != null)
+                {
+                    this.AddNotification("Updated Successfully", NotificationType.SUCCESS);
+                }
                 return RedirectToAction("GetAllEmployeesDetails");
             }
+
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.UpdateEmpDetailsError = "Data not Updated";
                 return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
-            return RedirectToAction("EditEmp");
-
-
         }
 
-        public ActionResult Department(string emp)
+
+        //All the teams and along with its Team Leader Page
+        public ActionResult Department(string searchProjectName)
         {
             try
             {
                 ProjectService projectService = new ProjectService();
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    if (emp != null)
-                    {
-
-                        DepartmentListViewModel department = projectService.Departments(emp);
-                        ViewData["TeamEmps"] = department.DepartmentsViews;
-                        return View(department.DepartmentsViews);
-                    }
-                    DepartmentListViewModel department1 = projectService.Departments(emp);
-                    ViewData["TeamEmps"] = department1.DepartmentsViews;
+                    DepartmentListViewModel department1 = projectService.Departments(searchProjectName);    //Gets all the Project Details
+                    ViewData["TeamEmps"] = department1.DepartmentsViews;                                    //Pass the data into ViewData
                     return View(department1.DepartmentsViews);
                 }
+                //Procced if Session is Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
-
+                    return RedirectToAction("Login","Accounts");
                 }
+               
+                
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.DepartmentMessage = "List Not Loaded";
-                return View();
+                return RedirectToAction("GetAllEmployeeDetails");
             }
-
-
-            return RedirectToAction("GetAllEmployeesDetails", "Admin");
-
-
         }
 
-
+        //Add Project Page 
         public ActionResult AddProject()
         {
             try
             {
-
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    EmployeeIdNameViewModel empIdName = projectService.AddProject();
-                    ViewData["AllEmpIdName"] = empIdName;
-
-
+                    EmployeeIdNameViewModelList empIdName = projectService.GetAllEmployees();         //Gets all the Employees 
+                    ViewData["AllEmpIdName"] = empIdName;                                             //Pass the Data in ViewData
                     return View();
                 }
+                //Procced if Session is Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.AddProjectError = "Page loading error";
             }
-
-
             return RedirectToAction("GetAllEmployeesDetails", "Admin");
-
 
         }
 
+        //Saves the New Project into DataBase
         public ActionResult SaveProject(Project model)
         {
             try
             {
                 ProjectService projectService = new ProjectService();
-                int op = projectService.SaveProject(model);
-                if (op > 0)
+                int check = projectService.SaveProject(model);                                      
+                if (check > 0)
                 {
-                    this.AddNotification("Project Saved Successfully", NotificationType.SUCCESS);
+                    this.AddNotification("Project Saved Successfully", NotificationType.SUCCESS);               //pass success notification if succeeded
 
                 }
                 return RedirectToAction("Department", "Admin");
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.SaveProjectError = "Data not saved";
@@ -335,209 +243,193 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-
+        //Add Project Members Page
         public ActionResult AddProjectMembers(int projectId)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    EmployeeIdNameViewModel empIdnameViewModel = projectService.GetEmpId();
-                    Project projectsList = projectService.AddProjectMembers(projectId);
-                    ViewData["EmpIdNameList"] = empIdnameViewModel;
-                    ViewData["ProjectsList"] = projectsList;
-                    ViewData["ProjectName"] = projectsList.ProjectList[0].ProjectName;
+                    EmployeeIdNameViewModelList empIdnameViewModel = projectService.GetEmpId();                         //Gets the EmployeeId of all Employees
+                    Project projectsList = projectService.GetProject(projectId);                                        //Gets the ProjectId of all Projects
+                    ViewData["EmpIdNameList"] = empIdnameViewModel;                                                     //Pass all the EmployeeId  into ViewData
+                    ViewData["ProjectsList"] = projectsList;                                                            //Pass all the ProjectId into ViewData
+                    ViewData["ProjectName"] = projectsList.ProjectList[0].ProjectName;                                  //Pass all the Project Name into ViewData
                     //this.AddNotification("Project Added Successfully", NotificationType.SUCCESS);
-                    return View(new ProjectMembersViewModel{ ProjectId=projectId});
+                    return View(new ProjectMembersViewModel { ProjectId = projectId });
                 }
+                //Procced if Session is Empty
                 else
                 {
                     return RedirectToAction("GetAllTeamEmpsAdmin", ViewData["ProjectName"]);
 
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.AddProjectMembersError = "Page Loading Error";
                 return RedirectToAction("GetAllEmployeesDetails", "Admin");
             }
 
-
-
-            return RedirectToAction("Login", "Accounts");
-
-
         }
-
-        public ActionResult AddLogin(AddNewEmployeeViewModel emp)
+        //Add Login Page
+        public ActionResult AddLogin(AddNewEmployeeViewModel Employee)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    //Dictionary<string, object> dict = new Dictionary<string, object>();
-
-                    //DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspgetLoginEmployees", dict);
-
-                    //Employee EmpDR = new Employee();
-
-                    //EmpDR.EmployeeList = cs.DataTabletoEmployeeModel(EmpDt);
                     LoginService loginService = new LoginService();
-                    Employee EmpDR = loginService.AddLogin();
-                    ViewData["EmpCodeOption"] = EmpDR;
-
-                    return View(emp);
-
+                    Employee EmployeesWithOutLogin = loginService.GetEmployeesWithOutLogin();           //Gets all the employees without Login credentials
+                    ViewData["EmpCodeOption"] = EmployeesWithOutLogin;                                  //Pass the data to ViewData
+                    return View(Employee);
                 }
+                //Procced if Session is  Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
-
+                    return RedirectToAction("Login", "Accounts");
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception e)
             {
                 ViewBag.AddLoginError = "Page loading error";
+                return RedirectToAction("AddLogin");
 
             }
-            return View();
-
-
-
 
         }
-        public ActionResult SaveLogin(AddNewEmployeeViewModel model)
+
+
+        //Saves the details of new Employee
+        public ActionResult SaveEmployee(AddNewEmployeeViewModel Employee)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
                     LoginService loginService = new LoginService();
-                    int check = loginService.SaveLogin(model);
-                    Console.WriteLine(check);
+                    int check = loginService.SaveEmployee(Employee);                //Saves the details of new Employee
                     if (check == 0)
                     {
                         ViewBag.Message = "Invalid credentials";
                     }
-                    this.AddNotification("Credentials Added Successfully", NotificationType.SUCCESS);
-
-
-                    return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                    this.AddNotification("Credentials Added Successfully", NotificationType.SUCCESS);       //Pass success notification
+                    return RedirectToAction("GetAllEmployeesDetails", "Admin");                             //Redirect to dashboard
                 }
+                //Procced if Session is Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.SaveLogin = "Could Not Save Login";
-                return RedirectToAction("AddNewEmp", "Admin", model);
+                return RedirectToAction("AddNewEmp", "Admin", Employee);
 
             }
-
-
-            return RedirectToAction("Login", "Accounts");
-
         }
 
+        //Adds Project Members to Project
         public ActionResult SaveProjectMember(ProjectMembers model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    int op = projectService.SaveProjectMember(model);
-                    if (op > 0)
+                    int check = projectService.SaveProjectMember(model);                                 //Adds Project Members to Project
+                    if (check > 0)
                     {
-                        this.AddNotification("Member added Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Member added Successfully", NotificationType.SUCCESS);     //Pass success notification
                     }
                     string projectName = Convert.ToString(ViewData["ProjectName"]);
                     return RedirectToAction("GetAllTeamEmpsAdmin", new { projectId = model.ProjectId });
                 }
+                //Procced if Session is  Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.GetAllDesignation = "Could Not Save Project Member";
                 return View();
 
             }
-
-
-            return RedirectToAction("Login", "Accounts");
-
-
         }
 
+        //Disables the Login of a particular Employee
         public ActionResult DisableEmp(Employee model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.DisableEmp(model);
-                    Console.WriteLine(check);
+                    EmployeesService employee = new EmployeesService();
+                    int check = employee.DisableEmp(model);                    //Disables the Login of a particular Employee
                     if (check > 0)
                     {
-                        ViewBag.Message = "Invalid credentials";
+                        this.AddNotification("Employee Disabled Successfully", NotificationType.SUCCESS);        //Pass success notification
                     }
-                    this.AddNotification("Employee Disabled Successfully", NotificationType.SUCCESS);
-
-                    return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                    return RedirectToAction("GetAllEmployeesDetails", "Admin");                                 //Redirect to DashBoard
                 }
+                //Procced if Session is Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
 
 
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.GetAllDesignation = "Could Not Disable Employee ";
                 return View();
 
             }
-
-
-
-
-            return RedirectToAction("Login", "Accounts");
-
         }
 
 
-
+        //Enables the Login of a particular Employee
         public ActionResult EnableEmp(Employee model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.EnableEmp(model);
-                    Console.WriteLine(check);
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.EnableEmp(model);                         //Enables the Login of a particular Employee
                     if (check > 0)
                     {
-                        ViewBag.Message = "Invalid credentials";
+                        this.AddNotification("Employee Enables Successfully", NotificationType.SUCCESS);        //Pass success notification
                     }
-                    this.AddNotification("Employee Enables Successfully", NotificationType.SUCCESS);
-
-                    return RedirectToAction("GetAllEmployeesDetails", "Admin");
+                    return RedirectToAction("GetAllEmployeesDetails", "Admin");                      //Redirect to DashBoard
                 }
+                //Procced if Session is  Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
-
+                    return RedirectToAction("Login", "Accounts");
                 }
 
 
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.GetAllDesignation = "Could Not Disable Employee ";
@@ -545,136 +437,154 @@ namespace EmployeeManagementSystem.Controllers
 
             }
 
-
-
-
-            return RedirectToAction("Login", "Accounts");
-
         }
 
-
+        //Add Designation Page
         public ActionResult AddDesignation()
         {
             try
             {
-                return View();
-
+                //Procced if Session is not Empty
+                if (Session["EmpId"] != null)
+                {
+                    return View();
+                }
+                //Procced if Session is  Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
-                ViewBag.AddDesignation = "Could Not Add Designation";
                 return View();
 
             }
-            return View();
         }
+
+
+        //Saves the Designation
         public ActionResult SaveDesignation(Designation designation)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.SaveDesignation(designation);
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.SaveDesignation(designation);             //Saves the Designation 
                     if (check > 0)
                     {
-                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);       //Pass the Success Notification
                     }
-                    return RedirectToAction("GetAllDesignation");
+                    return RedirectToAction("GetAllDesignation");                                               //Redirects to Add Desigantion Page
 
                 }
+                //Procced if Session is not Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.SaveDesignation = "Could Not Save Designation";
                 return View();
 
             }
-
-
-
-            return RedirectToAction("Login", "Accounts");
-
-
         }
 
 
-
+        //Gets all Designations Page
         public ActionResult GetAllDesignation()
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    Designation designation = employees.GetAllDesignation();
-                    ViewData["designation"] = designation.DesignationsList;
-                    return View(ViewData);
+                    EmployeesService employees = new EmployeesService();
+                    Designation designation = employees.GetAllDesignation();     //Gets all the Designations
+                    ViewData["designation"] = designation.DesignationsList;      //Pass the Data in ViewData
+                    return View(designation);
                 }
+                //Procced if Session is Empty
+
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
 
             }
-
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.GetAllDesignation = "Could Not Get AllDesignation";
                 return View();
 
             }
-            return RedirectToAction("Login", "Accounts");
-
-
-
         }
 
+        //Edit Designation Page
         public ActionResult EditDesignation(Designation model)
         {
             try
             {
-                return View(model);
+                //Procced if Session is not Empty
+
+                if (Session["EmpId"] != null)
+                {
+                    return View(model);
+
+                }
+                //Procced if Session is  Empty
+
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
 
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.EditDesignation = "Could Not Edit Designation";
                 return View();
             }
-            return View(model);
         }
 
+
+        //Edit the Name of a particular Designatiom
         public ActionResult UpdateDesignation(Designation model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.UpdateDesignation(model);
-                    if (check > 0)
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.UpdateDesignation(model);                         //Edit the Name of a particular Designatiom
+
+                    if (check > 0)  
                     {
+                        this.AddNotification("Designation Updated Successfully", NotificationType.SUCCESS);     //Pass the success notification
                         ViewData["success"] = "success";
-
                     }
-                    this.AddNotification("Designation Updated Successfully", NotificationType.SUCCESS);
-
                     return RedirectToAction("GetAllDesignation");
-
                 }
+                //Procced if Session is  Empty
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
             }
+            //Catch any Exception if occurred
+
             catch (Exception ex)
             {
                 ViewBag.UpdateDesignation = "Could Not Update Designation";
@@ -682,72 +592,77 @@ namespace EmployeeManagementSystem.Controllers
 
             }
 
-
-            return RedirectToAction("Login", "Accounts");
-
         }
 
+
+        //Delete a Particular Designation
         public ActionResult DeleteDesignation(Designation model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.DeleteDesignation(model);
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.DeleteDesignation(model);                         //Delete a Particular Designation
+
                     if (check > 0)
                     {
-                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Designation Added Successfully", NotificationType.SUCCESS);           //Pass the success notification
                     }
-
-
                     return RedirectToAction("GetAllDesignation");
-
+                }
+                //Procced if Session is  Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
                 }
             }
+            //Catch any Exception if occurred
+
             catch (Exception ex)
             {
                 ViewBag.DeleteDesignation = "Could Not Delete Designation";
                 return View();
 
             }
-
-
-
-            return RedirectToAction("Login", "Accounts");
-
         }
-
+        
+        //Generates Pdf report of leave history of a particular employee
         public ActionResult Report(Employee model)
         {
             try
             {
+                //Procced if Session is not Empty
+
                 if (Session["EmpId"] != null)
                 {
                     Dictionary<string, object> dict = new Dictionary<string, object>() {
 
                 { "@EmployeeId",model.EmployeeId},
             };
-                    DataTable datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);
-                    if(datatable.Rows.Count > 0)
+                    DataTable datatable = dal.ExecuteDataSet<DataSet>("uspGetReport", dict);                      //Gets the data of leave history of a particular employee
+                    //Procced if there is any data in the Datatable
+                    if (datatable.Rows.Count > 0)
                     {
                         LeaveRequestViewModel leaveRequest = new LeaveRequestViewModel();
-                        leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);
-                        ViewData["leaveRequest"] = leaveRequest.leaveRequests;
+                        leaveRequest.leaveRequests = DTableToLeaveRequestModel.DataTabletoLeaveModel(datatable);  //Pass the data from the datatable into list of type LeaveRequestViewModel 
+                        ViewData["leaveRequest"] = leaveRequest.leaveRequests;                                    //Pass the data to ViewData
                         ExportToPdf(datatable, model.EmployeeId);
-                        this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);         //return success notification
                     }
+                    //Procced if the data is empty in the datatable
                     else
                     {
-                        this.AddNotification("Report Empty", NotificationType.WARNING);
+                        this.AddNotification("Report Empty", NotificationType.WARNING);                         //Pass the warning notification
                         return RedirectToAction("GetAllEmployeesDetails");
                     }
-                    this.AddNotification("Report Dowmloaded Successfully", NotificationType.SUCCESS);
-
                     return View();
                 }
 
             }
+            //Catch any Exception if occurred
+
             catch (Exception ex)
             {
                 ViewBag.Report = "Report Not Found";
@@ -758,16 +673,24 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-
+        //Page of Role for CRUD operation 
         public ActionResult RoleView()
         {
             try
             {
+                //Procced if Session is not Empty
+
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    Role role = employees.GetRoles();
+                    EmployeesService employees = new EmployeesService();
+                    Role role = employees.GetRoles();                                       //Gets the data of all roles
                     return View(role);
+                }
+                //Procced if Session is Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+
                 }
 
             }
@@ -782,26 +705,32 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
+
+        //Add Role View
         public ViewResult AddRole()
         {
 
             return View();
         }
+
+        //Saves new role into database
         public ActionResult SaveRole(Role model)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.SaveRole(model);
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.SaveRole(model);                                     //Saves new role into database and returns 1
                     if (check > 0)
                     {
-                        this.AddNotification("Role Added Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Role Added Successfully", NotificationType.SUCCESS);  //Pass the success notification
                     }
 
                     return RedirectToAction("RoleView", "Admin");
                 }
+                //Procced if Session is Empty
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -809,29 +738,32 @@ namespace EmployeeManagementSystem.Controllers
                 }
 
             }
+            //Catch any Exception if occurred
             catch (Exception ex)
             {
                 ViewBag.Role = "Role Not Found";
                 return View();
             }
-
-
-            return RedirectToAction("Login", "Accounts");
-
-
         }
+
+
+        //Deletes any particular Role
         public ActionResult DeleteRole(Role model)
         {
             try
             {
+                //Procced if Session is not Empty
+
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    int check = employees.DeleteRole(model);
-                    this.AddNotification("Role Deleted Successfully", NotificationType.SUCCESS);
+                    EmployeesService employees = new EmployeesService();
+                    int check = employees.DeleteRole(model);                     //Deletes any particular Role and return 1 if succeded
+                    this.AddNotification("Role Deleted Successfully", NotificationType.SUCCESS);    //Pass the success notification
                     return RedirectToAction("RoleView", "Admin");
 
                 }
+                //Procced if Session is Empty
+
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -848,6 +780,9 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
+
+
+        //Converts DataTable to PDF
         public void ExportToPdf(DataTable myDataTable, int model)
         {
             DataTable dt = myDataTable;
@@ -909,6 +844,8 @@ namespace EmployeeManagementSystem.Controllers
             }
         }
 
+
+        //Generates boarder lines for the table
         private static void DrawLine(PdfWriter writer, float x1, float y1, float x2, float y2, BaseColor color)
         {
             PdfContentByte contentByte = writer.DirectContent;
@@ -919,22 +856,28 @@ namespace EmployeeManagementSystem.Controllers
         }
 
 
+
+        //Gets all the Employees of a particular team
         public ActionResult GetAllTeamEmpsAdmin(int ProjectId)
         {
             try
             {
+                //Procced if Session is not Empty
+
                 if (Session["EmpId"] != null)
                 {
-                    Employees employees = new Employees();
-                    TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(ProjectId);
-                    ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;
+                    EmployeesService employees = new EmployeesService();
+                    TeamEmpDetailsViewModel tempEmpDetialsView = employees.GetAllTeamEmpsAdmin(ProjectId);       //Gets all the Employees of a particular team
+                    ViewData["teamEmps"] = tempEmpDetialsView.teamEmps;                                          //Pass the Data to ViewData
                     //ViewData["projectId"] = tempEmpDetialsView.teamEmps[0].ProjectId;
-                    ViewData["projectId"] = ProjectId;
+                    ViewData["projectId"] = ProjectId;                                                           //Pass the ProjectId data to ViewData
 
-                    return View(ViewData);
+                    return View(tempEmpDetialsView);
 
 
                 }
+                //Procced if Session is  Empty
+
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -953,31 +896,24 @@ namespace EmployeeManagementSystem.Controllers
 
 
         }
-
+       //Bank Account Details Page
         public ActionResult AccountDetails(AddNewEmployeeViewModel emp)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
-                    //Dictionary<string, object> dict = new Dictionary<string, object>();
-
-                    //DataTable EmpDt = dal.ExecuteDataSet<DataTable>("uspEmpsWithoutAC", dict);
-                    //EmployeeIdNameViewModel empname = new EmployeeIdNameViewModel();
-                    //empname.EmployeeIdNameList = dtEIN.DataTableToEmployeeIdNameViewModel(EmpDt);
-                    Employees employee = new Employees();
-                    EmployeeIdNameViewModel empname = employee.AccountDetails();
-                    ViewData["EmpName"] = empname;
-                    ViewData["EmployeeCode"] = employee.GetLastEmployeeCode();
-                    int prevempcode = Convert.ToInt32(ViewData["EmployeeCode"].ToString().Substring((ViewData["EmployeeCode"].ToString()).Length - 3, 3));
+                    EmployeesService employee = new EmployeesService();
+                    EmployeeIdNameViewModelList empname = employee.AccountDetails();                    //Gets all the employees without account details saved in database
+                    ViewData["EmpName"] = empname;                                                      //Pass all the employee Names to ViewData
+                    ViewData["EmployeeCode"] = employee.GetLastEmployeeCode();                          //Gets last employee code 
+                    int prevempcode = Convert.ToInt32(ViewData["EmployeeCode"].ToString().Substring((ViewData["EmployeeCode"].ToString()).Length - 3, 3)); //Generates the EmployeeCode
                     string empcode = "WB-" + ((prevempcode + 1).ToString()).PadLeft(3, '0');
                     emp.EmployeeCode = empcode;
-                    /* emp.EmployeeCode = Convert.ToInt32(ViewData["EmployeeCode"]) + 1;*/
-
-
-
                     return View(emp);
                 }
+                //Procced if Session is not Empty
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -991,42 +927,23 @@ namespace EmployeeManagementSystem.Controllers
             return RedirectToAction("SaveAccountDetails", "Admin");
 
         }
-        /* public ActionResult SaveAccountDetails(AccountDetails ac)
-         {
-             try
-             {
-                 Employees employee = new Employees();
-                 int check = employee.SaveAccountDetails(ac);
-                 if(check > 0)
-                 {
-                     this.AddNotification("Details Added Successfully", NotificationType.SUCCESS);
-
-                 }
-                 return RedirectToAction("AddLogin", "Admin");
-             }
-             catch (Exception e)
-             {
-                 ViewBag.SaveAccountDetails = "Dat not Saved !";
-                 return RedirectToAction("AccountDetails");
-             }
-
-         }*/
 
 
-
+        //Gets the data of a specific Employee
         public ActionResult GetSpecificUserDetails(Employee emp)
         {
             try
             {
-
+                //Procced if Session is not Empty
                 if (HttpContext.Session["EmpId"] != null)
                 {
                     int EmpId = Convert.ToInt32(HttpContext.Session["EmpId"]);
-                    Employees employees = new Employees();
-                    AdminViewModel employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);
+                    EmployeesService employees = new EmployeesService();
+                    AdminViewModel employeeowndetail = employees.GetSpecificUserDetails(emp.EmployeeId);        //Gets the data of a specific Employee
 
                     return View(employeeowndetail);
                 }
+                //Procced if Session is Empty
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -1044,34 +961,28 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
-        //public ActionResult GetTeamLeadLeaveRequest()
-        //{
-        //    try
-        //    {
-        //        int EmpId = Convert.ToInt32(Session["EmpId"]);
-        //        TeamLead leavesService = new TeamLead();
-        //        GetTeamLeaveRequestViewModel op = leavesService.TeamLeaveRequest(EmpId);
-        //        ViewData["TeamLeadRequest"] = op;
-        //        return View(op);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.GetTeamLeaveRequest = "Leave request Error";
-        //    }
-        //    //TeamEmps = tempEmpDetialsView;
-        //    return RedirectToAction("");
-        //}
+        //Gets the Leave Request of Team Leads
         public ActionResult GetTeamLeadLeaveRequest()
 
         {
 
             try
             {
-                int EmpId = Convert.ToInt32(Session["EmpId"]);
-                Employees leavesService = new Employees();
-                GetTeamLeaveRequestViewModel op = leavesService.TeamLeadRequest(EmpId);
-                ViewData["TeamLeadRequest"] = op;
-                return View(op);
+                //Procced if Session is not Empty
+                if (HttpContext.Session["EmpId"] != null)
+                {
+                    int EmpId = Convert.ToInt32(Session["EmpId"]);
+                    EmployeesService leavesService = new EmployeesService();
+                    GetTeamLeaveRequestViewModel leaveRequests = leavesService.TeamLeadRequest(EmpId);         //Gets the Leave Request of Team Leads
+                    ViewData["TeamLeadRequest"] = leaveRequests;
+                    return View(leaveRequests);
+                }
+                //Procced if Session is Empty
+                else
+                {
+                    return RedirectToAction("Login", "Accounts");
+                }
+                    
             }
             catch (Exception ex)
             {
@@ -1083,19 +994,22 @@ namespace EmployeeManagementSystem.Controllers
 
         }
 
+
+        //Assign Team Lead Page
         public ActionResult AssignTeamLead(Project project)
         {
             try
             {
+                //Procced if Session is not Empty
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    Project projects = projectService.GetProjectsWithoutTeamLead();
-                    EmployeeIdNameViewModel empIdName = projectService.AddProject();
+                    Project projects = projectService.GetProjectsWithoutTeamLead();             //Gets Team Lead who aro not assigned to any Team
+                    EmployeeIdNameViewModelList empIdName = projectService.GetAllEmployees();   //Gets all the Employees
                     ViewData["TeamLead"] = empIdName;
                     ViewData["Projects"] = projects;
                 }
-
+                //Procced if Session is Empty
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
@@ -1109,6 +1023,7 @@ namespace EmployeeManagementSystem.Controllers
             }
         }
 
+        //Adds Team Lead to the Project
         public ActionResult AddTeamLead(Project project)
         {
             try
@@ -1116,10 +1031,10 @@ namespace EmployeeManagementSystem.Controllers
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    int op = projectService.AssignTeamLead(project);
-                    if (op != 0)
+                    int check = projectService.AssignTeamLead(project);             //Adds Team Lead to the Project and returns 1 if succeed   
+                    if (check != 0)
                     {
-                        this.AddNotification("Team Lead Assigned Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Team Lead Assigned Successfully", NotificationType.SUCCESS);      //Pass the Success notification
 
                     }
                     return RedirectToAction("Departments");
@@ -1128,11 +1043,10 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
 
                 }
-                return RedirectToAction("AssignTeamLead");
             }
             catch (Exception ex)
             {
@@ -1140,6 +1054,10 @@ namespace EmployeeManagementSystem.Controllers
                 return RedirectToAction("AssignTeamLead");
             }
         }
+
+
+
+        //Change Team Lead Page
         public ActionResult ChangeTeamLead(Project project)
         {
             try
@@ -1147,8 +1065,8 @@ namespace EmployeeManagementSystem.Controllers
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    Project projects = projectService.GetProjects();
-                    EmployeeIdNameViewModel empIdName = projectService.GetTeamLead();
+                    Project projects = projectService.GetProjects();                    //Gets all the Projects
+                    EmployeeIdNameViewModelList empIdName = projectService.GetTeamLead();       //Gets all the Team Leads
                     ViewData["TeamLeadWithProject"] = empIdName;
                     ViewData["AllProjects"] = projects;
                     return View();
@@ -1157,18 +1075,18 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return RedirectToAction("Department");
             }
-            
-            return RedirectToAction("Login", "Accounts");
         }
 
+
+        //Updates the Team Lead
         public ActionResult UpdateTeamLead(Project project)
         {
             try
@@ -1176,10 +1094,10 @@ namespace EmployeeManagementSystem.Controllers
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    int op = projectService.ChangeTeamLead(project);
-                    if (op != 0)
+                    int check = projectService.ChangeTeamLead(project);                //Updates the Team Lead and returns 1 if succeed
+                    if (check != 0)
                     {
-                        this.AddNotification("Team Lead Updated Successfully", NotificationType.SUCCESS);
+                        this.AddNotification("Team Lead Updated Successfully", NotificationType.SUCCESS);  //Pass the success notification
 
                     }
                     return RedirectToAction("Department");
@@ -1188,10 +1106,9 @@ namespace EmployeeManagementSystem.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("GetAllEmployeeDetails");
+                    return RedirectToAction("Login", "Accounts");
 
                 }
-                return RedirectToAction("AssignTeamLead");
             }
             catch (Exception ex)
             {
@@ -1200,6 +1117,8 @@ namespace EmployeeManagementSystem.Controllers
             }
         }
 
+
+        //Removes the Employee from the Team
         public ActionResult RemoveEmployee(TeamEmpDetailsViewModel model)
         {
             try
@@ -1207,24 +1126,24 @@ namespace EmployeeManagementSystem.Controllers
                 if (Session["EmpId"] != null)
                 {
                     ProjectService projectService = new ProjectService();
-                    int op = projectService.RemoveEmp(model.EmployeeId);
-                    if (op > 0)
+                    int check = projectService.RemoveEmp(model.EmployeeId);              //Removes the Employee from the Team and returns 1 if succeed
+                    if (check > 0)
                     {
-                        this.AddNotification("Employee Removed", NotificationType.WARNING);
+                        this.AddNotification("Employee Removed", NotificationType.WARNING);         //Pass the success notification
                     }
 
-                    return RedirectToAction("GetAllTeamEmpsAdmin", "Admin",new { projectId=model.ProjectId });
+                    return RedirectToAction("GetAllTeamEmpsAdmin", "Admin", new { projectId = model.ProjectId });
                 }
                 else
                 {
                     return RedirectToAction("Login", "Accounts");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return RedirectToAction("GetAllTeamEmps");
             }
-           
+
         }
     }
 }

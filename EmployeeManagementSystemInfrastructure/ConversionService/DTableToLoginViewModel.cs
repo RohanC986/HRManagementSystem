@@ -3,12 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-
 namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToLoginViewModel
     {
+        //Returns List of Class LoginViewModel after Converting data from DataTable to List
         public List<LoginViewModel> DTableToLoginViewModels(DataTable dt)
         {
             List<LoginViewModel> Login = new List<LoginViewModel>();

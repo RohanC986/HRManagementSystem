@@ -1,8 +1,10 @@
-﻿
+﻿@model EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel
+
+
 @{
     ViewBag.Title = "Team Members";
 
-    var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
+    //var data = (IEnumerable<EmployeeManagementSystemCore.ViewModels.TeamEmpDetailsViewModel>)ViewData["teamEmps"];
 
     var projectid = Convert.ToInt32(ViewData["projectId"]);
 }
@@ -24,10 +26,10 @@
     <div id="main">
         <table id="GetAllEmpDetails">
             <thead>
-                <tr >
-                   
+                <tr>
 
-                    <th >
+
+                    <th>
                         Name
                     </th>
 
@@ -52,14 +54,14 @@
             </thead>
             <tbody>
                 @{
-                    foreach (var item in data)
+                    foreach (var item in Model.teamEmps)
                     {
 
                         <tr>
-                            
+
                             <td> @item.FirstName @item.LastName</td>
                             <td> @item.Email</td>
-                             <td> @item.DesignationName</td>
+                            <td> @item.DesignationName</td>
                             <td> @item.ProjectName</td>
                             <td class="col-md-2">
                                 <span>

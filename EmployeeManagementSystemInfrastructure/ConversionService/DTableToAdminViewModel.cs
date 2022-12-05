@@ -11,6 +11,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToAdminViewModel
     {
+        //Returns List of Class AdminViewModel after Converting data from DataTable to List
+
         public List<AdminViewModel> DataTabletoAdminEmployeeModel(DataTable dt)
         {
             List<AdminViewModel> employees = new List<AdminViewModel>();

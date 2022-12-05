@@ -9,6 +9,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToLeaveRequestModel
     {
+        //Returns List of Class LeaveRequest after Converting data from DataTable to List
+
         public List<LeaveRequest> DataTabletoLeaveModel(DataTable dt)
         {
             List<LeaveRequest> leaves = new List<LeaveRequest>();

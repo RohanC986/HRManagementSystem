@@ -17,7 +17,7 @@
 @if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.AddLogin == null)
 {
 
-    using (Html.BeginForm("SaveLogin", "Admin", Model))
+    using (Html.BeginForm("SaveEmployee", "Admin", Model))
     {
         @Html.AntiForgeryToken()
 

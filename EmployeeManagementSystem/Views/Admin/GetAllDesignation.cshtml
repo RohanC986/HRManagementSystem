@@ -1,7 +1,7 @@
-﻿
+﻿@model EmployeeManagementSystemCore.Models.Designation
 @{
     ViewBag.Title = "GetAllDesignation";
-    var data = (IEnumerable<EmployeeManagementSystemCore.Models.Designation>)ViewData["designation"];
+   // var data = (IEnumerable<EmployeeManagementSystemCore.Models.Designation>)ViewData["designation"];
 }
 
 @if (Convert.ToInt16((Session["role"]).ToString()) == 1 && ViewBag.GetAllDesignation == null)
@@ -23,10 +23,10 @@
             <thead>
 
                 <tr>
-@*                    <th>
-                        Designation Id
-                    </th>
-*@
+                    @*                    <th>
+                            Designation Id
+                        </th>
+                    *@
                     <th>
                         Designation Name
                     </th>
@@ -37,15 +37,16 @@
             <thead>
             <tbody>
                 @{
-                    foreach (var item in data)
+                    foreach (var item in Model.DesignationsList)
                     {
 
                         <tr>
 
 
 
-@*                            <td> @item.DesignationId  </td>
-*@                            <td> @item.DesignationName</td>
+                            @*                            <td> @item.DesignationId  </td>
+                            *@
+                            <td> @item.DesignationName</td>
                             <td>
                                 <span>
 
@@ -68,12 +69,12 @@
         </table>
 
     </div>
-@*    <div class="form-group col-md-6 my-2" style="margin-left:45%;">
-        <div class="col-md-2 " id="Emp-form-back-list">
-            @Html.ActionLink("Back", "GetAllEmployeesDetails")
+    @*    <div class="form-group col-md-6 my-2" style="margin-left:45%;">
+            <div class="col-md-2 " id="Emp-form-back-list">
+                @Html.ActionLink("Back", "GetAllEmployeesDetails")
+            </div>
         </div>
-    </div>
-*@
+    *@
 
 }
 else if (ViewBag.GetAllDesignation != null)

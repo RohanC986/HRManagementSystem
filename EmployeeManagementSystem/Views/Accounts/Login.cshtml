@@ -96,9 +96,9 @@
             <div class="form-field d-flex justify-content-center  align-items-end  me-2 err-pass  ">
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger err-pass" })
             </div>
-             <div class="usernameerror " >
+             @*<div class="usernameerror " >
                     @ViewBag.PasswordError
-                </div>
+                </div>*@
             
             <div class="form-field d-flex justify-content-center  align-items-end mx-md-5 me-2   ">
                 <button class="btn login-btn ">Login</button>

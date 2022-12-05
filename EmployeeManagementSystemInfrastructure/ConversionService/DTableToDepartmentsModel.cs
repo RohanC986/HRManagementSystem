@@ -10,6 +10,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToDepartmentsModel
     {
+        //Returns List of Class DepartmentsViewModel after Converting data from DataTable to List
+
         public List<DepartmentsViewModel> DataTabletoDepartmentsModel(DataTable dt)
         {
             List<DepartmentsViewModel> departmentsViews = new List<DepartmentsViewModel>();

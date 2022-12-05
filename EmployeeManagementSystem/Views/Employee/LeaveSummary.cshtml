@@ -1,4 +1,4 @@
-﻿
+﻿@model EmployeeManagementSystemCore.ViewModels.LeaveViewModel
 @{
     ViewBag.Title = "LeaveSummary";
 
@@ -12,7 +12,7 @@
     <div id="leavetable">
         <table class="leaveTab">
             @{
-                foreach (var item in data)
+                foreach (var item in Model.getleaves)
                 {
                     <tr class="leaveTableRow">
                         <th class="leaveTableHeading">Leave Accured</th>

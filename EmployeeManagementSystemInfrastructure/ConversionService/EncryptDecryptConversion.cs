@@ -12,6 +12,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
         private const string SecurityKey = "2345phn09uy7412@$%$61523@#@%$#!@";
 
         //This method is used to convert the plain text to Encrypted/Un-Readable Text format.
+
+        //Returns Encrypted String
         public  string EncryptPlainTextToCipherText(string PlainText)
         {
             // Getting the bytes of Input String.

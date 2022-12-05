@@ -3,11 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-//using System.Data.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace EmployeeManagementSystemCore.DataAccessLayer
 {
@@ -45,32 +41,11 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                     };
                     myCommand.Parameters.Add(parameter);
                 }
-
-
-
-
-
                 connection.Open();
-
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
-
-
-
-
             }
-
-
-
-
-
-
-
             return table;
-
-
-
-
         }
 
         public int ExecuteNonQuery(string storedProcedure, Dictionary<string, object> parameters)
@@ -80,12 +55,8 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                 int count = 0;
                 /*SqlDataReader myReader;*/
                 DataTable table = new DataTable();
-
-
-
                 using (SqlConnection connection = new SqlConnection(constr))
                 {
-
                     SqlCommand myCommand = new SqlCommand(storedProcedure);
                     myCommand.Connection = connection;
                     myCommand.CommandTimeout = 30;
@@ -102,14 +73,9 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                         };
                         myCommand.Parameters.Add(parameter);
                     }
-
-
                     connection.Open();
                     count = myCommand.ExecuteNonQuery();
-
-
                 }
-
                 return count;
             }
             catch (ArgumentException ae)
@@ -117,27 +83,17 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                 return 0;
             }
         }
-
         public object ExecuteScalar(string storedProcedure, Dictionary<string, object> parameters)
         {
-
-
             object result;
-
-
-
             using (SqlConnection connection = new SqlConnection(constr))
             {
-
                 SqlCommand myCommand = new SqlCommand(storedProcedure);
                 myCommand.Connection = connection;
                 myCommand.CommandTimeout = 30;
                 /*Instead of the below command we have passed the stored procedure while creating SqlCommand object
                  * myCommand.CommandText = query;*/
                 myCommand.CommandType = CommandType.StoredProcedure;
-
-
-
                 foreach (var param in parameters)
                 {
                     var parameter = new SqlParameter
@@ -149,18 +105,9 @@ namespace EmployeeManagementSystemCore.DataAccessLayer
                     };
                     myCommand.Parameters.Add(parameter);
                 }
-
-
-
                 connection.Open();
                 result = myCommand.ExecuteScalar();
-
-
             }
-
-
-
-
             return result;
 
 

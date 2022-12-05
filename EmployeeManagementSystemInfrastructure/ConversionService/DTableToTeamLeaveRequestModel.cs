@@ -9,6 +9,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToTeamLeaveRequestModel
     {
+
+        //Returns List of Class TeamEmpDetailsViewModel after Converting data from DataTable to List
+
         public List<GetTeamLeaveRequestViewModel> DataTabletoLeaveRequestViewModel(DataTable dt)
         {
             List<GetTeamLeaveRequestViewModel> getTeamLeaveRequestViewModels = new List<GetTeamLeaveRequestViewModel>();

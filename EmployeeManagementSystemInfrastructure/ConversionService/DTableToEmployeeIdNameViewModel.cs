@@ -9,6 +9,9 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToEmployeeIdNameViewModel
     {
+
+        //Returns List of Class EmployeeIdNameViewModel after Converting data from DataTable to List
+
         public List<EmployeeIdNameViewModel> DataTableToEmployeeIdNameViewModel(DataTable dt)
         {
             List<EmployeeIdNameViewModel> EmployeeIdNameList = new List<EmployeeIdNameViewModel>();

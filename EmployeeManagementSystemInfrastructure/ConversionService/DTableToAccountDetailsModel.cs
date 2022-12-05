@@ -10,6 +10,8 @@ namespace EmployeeManagementSystemInfrastructure.ConversionService
 {
     public class DTableToAccountDetailsModel
     {
+        //Returns List of Class AddAccountViewModel after Converting data from DataTable to List
+
         public List<AddAccountViewModel> DataTabletoAccountDetailsModel(DataTable dt)
         {
             List<AddAccountViewModel> details = new List<AddAccountViewModel>();
