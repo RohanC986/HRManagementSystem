@@ -1122,7 +1122,7 @@ namespace EmployeeManagementSystem.Controllers
                         this.AddNotification("Team Lead Assigned Successfully", NotificationType.SUCCESS);
 
                     }
-                    return RedirectToAction("AssignTeamLead");
+                    return RedirectToAction("Departments");
 
 
                 }
